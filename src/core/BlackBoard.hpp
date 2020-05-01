@@ -17,10 +17,8 @@ struct s_pose
 
 
 class BlackBoard {
-private:
-  s_pose position;
-
 public:
+  s_pose position;
   BlackBoard();
   ~BlackBoard();
 };
