@@ -2,25 +2,61 @@
 #define blackBoard_hpp
 
 #include <iostream>
-#include <string>
+#include <string>    
 #include <thread>
+#include <chrono>
+#include <unordered_map>
 
 
 
 struct s_pose
 {
-  float x;
-  float y;
-  float theta;
+  float x = 0;
+  float y = 0;
+  float theta = 0;
+};
+
+struct s_robotsPose
+{
+    std::string robotName;
+    s_pose* position;
 };
 
 
-
 class BlackBoard {
+private:
+    //Chrono debug
+    std::chrono::time_point<std::chrono::high_resolution_clock> start;
+    std::chrono::time_point<std::chrono::high_resolution_clock> end;
+    long duration;
+    
+    // Robot's Position Variables
+    s_pose position;
+    std::mutex mutex_position;
+    
+    std::mutex mutex_mapRobotsPosition;
+    std::unordered_map<std::string, s_pose> mapRobotsPosition;
+    
+    
+    // Map Related Variables
+    
+    // Obstacles
+    
+    
 public:
-  s_pose position;
-  BlackBoard();
-  ~BlackBoard();
+    BlackBoard();
+    ~BlackBoard();
+    
+    //Robot's Position Functions
+    void getPositionAssignment(s_pose& p);
+    void getPosition(s_pose& p);
+    void setPosition(s_pose& p);
+    
+    //Functions for global positions
+    void setAllRobotsPosition(s_robotsPose& p);
+    void getAllRobotsPosition(std::unordered_map<std::string, s_pose>& p);
+    void removeAllRobotsPosition(s_robotsPose& p);
+    
 };
 
 #endif
