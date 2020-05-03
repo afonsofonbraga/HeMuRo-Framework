@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */; };
+		2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAD245DD23900465752 /* UDPReceiver.cpp */; };
 		23D20B51245C71560013F98A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B50245C71560013F98A /* main.cpp */; };
 		23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B45245C705C0013F98A /* BlackBoard.cpp */; };
+		23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51B245CA8B9003D13A3 /* Module.cpp */; };
+		23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,6 +28,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPBroadcast.cpp; sourceTree = "<group>"; };
+		2381ABAB245DC25B00465752 /* UDPBroadcast.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPBroadcast.hpp; sourceTree = "<group>"; };
+		2381ABAD245DD23900465752 /* UDPReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPReceiver.cpp; sourceTree = "<group>"; };
+		2381ABAE245DD23900465752 /* UDPReceiver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPReceiver.hpp; sourceTree = "<group>"; };
 		23D20B3D245C705C0013F98A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		23D20B3F245C705C0013F98A /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		23D20B40245C705C0013F98A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -34,6 +42,10 @@
 		23D20B48245C705C0013F98A /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		23D20B4D245C71560013F98A /* MRSMac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MRSMac; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D20B50245C71560013F98A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		23EDB51B245CA8B9003D13A3 /* Module.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Module.cpp; sourceTree = "<group>"; };
+		23EDB51C245CA8B9003D13A3 /* Module.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Module.hpp; sourceTree = "<group>"; };
+		23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ModulePeriodic.cpp; sourceTree = "<group>"; };
+		23EDB51F245CBBA9003D13A3 /* ModulePeriodic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModulePeriodic.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +78,7 @@
 		23D20B42245C705C0013F98A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				23EDB521245CC72F003D13A3 /* Communication */,
 				23D20B43245C705C0013F98A /* CMakeLists.txt */,
 				23D20B44245C705C0013F98A /* core */,
 			);
@@ -78,6 +91,10 @@
 				23D20B45245C705C0013F98A /* BlackBoard.cpp */,
 				23D20B46245C705C0013F98A /* CMakeLists.txt */,
 				23D20B47245C705C0013F98A /* BlackBoard.hpp */,
+				23EDB51B245CA8B9003D13A3 /* Module.cpp */,
+				23EDB51C245CA8B9003D13A3 /* Module.hpp */,
+				23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */,
+				23EDB51F245CBBA9003D13A3 /* ModulePeriodic.hpp */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -96,6 +113,17 @@
 				23D20B50245C71560013F98A /* main.cpp */,
 			);
 			path = MRSMac;
+			sourceTree = "<group>";
+		};
+		23EDB521245CC72F003D13A3 /* Communication */ = {
+			isa = PBXGroup;
+			children = (
+				2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */,
+				2381ABAB245DC25B00465752 /* UDPBroadcast.hpp */,
+				2381ABAD245DD23900465752 /* UDPReceiver.cpp */,
+				2381ABAE245DD23900465752 /* UDPReceiver.hpp */,
+			);
+			path = Communication;
 			sourceTree = "<group>";
 		};
 		23F9DFE3245C6FDB008506C4 = {
@@ -189,8 +217,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */,
 				23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */,
+				23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */,
+				2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */,
 				23D20B51245C71560013F98A /* main.cpp in Sources */,
+				2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

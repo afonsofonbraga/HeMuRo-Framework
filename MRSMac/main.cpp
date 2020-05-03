@@ -10,67 +10,63 @@
 #include <vector>
 #include <iostream>
 #include "BlackBoard.hpp"
+#include "Module.hpp"
+#include "ModulePeriodic.hpp"
 #include <unordered_map>
-
+#include "UDPBroadcast.hpp"
+#include "UDPReceiver.hpp"
 
 int main(){
-    BlackBoard teste;
-    s_pose* la = new s_pose;
-    s_pose* la2 = new s_pose;
-    s_robotsPose* robo = new s_robotsPose;
-    std::unordered_map<std::string, s_pose>* mapRobotsPosition;
-    mapRobotsPosition = new std::unordered_map<std::string, s_pose>;
+    std::string lala = "Thor";
+    BlackBoard teste = lala;
+    UDPReceiver* server = new UDPReceiver(&teste);
+    UDPBroadcast* envia = new UDPBroadcast(&teste);
     
-    la->x = 1.0;
-    la->y = 2.9;
-    la->theta = 2.0;
-    teste.setPosition(*la);
+    lala = "Zeus";
+    BlackBoard teste1 = lala;
+    UDPReceiver* server1 = new UDPReceiver(&teste1);
+    UDPBroadcast* envia1 = new UDPBroadcast(&teste1);
     
-    robo->robotName = "Vulkan";
-    robo->position = la;
-    teste.setAllRobotsPosition(*robo);
+    lala = "Chronos";
+    BlackBoard teste2 = lala;
+    UDPReceiver* server2 = new UDPReceiver(&teste2);
+    UDPBroadcast* envia2 = new UDPBroadcast(&teste2);
     
-    robo->robotName = "Thor";
-    robo->position = la;
-    teste.setAllRobotsPosition(*robo);
+    lala = "Athena";
+    BlackBoard teste3 = lala;
+    UDPReceiver* server3 = new UDPReceiver(&teste3);
+    UDPBroadcast* envia3 = new UDPBroadcast(&teste3);
+
+    lala = "Gaia";
+    BlackBoard teste4 = lala;
+    UDPReceiver* server4 = new UDPReceiver(&teste4);
+    UDPBroadcast* envia4 = new UDPBroadcast(&teste4);
     
-    robo->robotName = "Chronos";
-    robo->position = la;
-    teste.setAllRobotsPosition(*robo);
+    lala = "Artimedes";
+    BlackBoard teste5 = lala;
+    UDPReceiver* server5 = new UDPReceiver(&teste5);
+    UDPBroadcast* envia5 = new UDPBroadcast(&teste5);
     
-    robo->robotName = "Afrodite";
-    robo->position = la;
-    teste.setAllRobotsPosition(*robo);
+    lala = "Dionisio";
+    BlackBoard teste6 = lala;
+    UDPReceiver* server6 = new UDPReceiver(&teste6);
+    UDPBroadcast* envia6 = new UDPBroadcast(&teste6);
     
-    la->x = 99.0;
-    la->y = 1.9;
-    la->theta = 3.14;
-    teste.setPosition(*la);
+    lala = "Pegasus";
+    BlackBoard teste7 = lala;
+    UDPReceiver* server7 = new UDPReceiver(&teste7);
+    UDPBroadcast* envia7 = new UDPBroadcast(&teste7);
     
-    robo->robotName = "Vulkan";
-    robo->position = la;
-    teste.setAllRobotsPosition(*robo);
+    lala = "Percius";
+    BlackBoard teste8 = lala;
+    UDPReceiver* server8 = new UDPReceiver(&teste8);
+    UDPBroadcast* envia8 = new UDPBroadcast(&teste8);
     
-    //delete la;
-    teste.getPosition(*la2);
-    std::cout << "Memcpy X : " << la2->x << " Y: " << la2->y << " Theta: " << la2->theta << std::endl;
-    //delete la2;
+    lala = "Poseidon";
+    BlackBoard teste9 = lala;
+    UDPReceiver* server9 = new UDPReceiver(&teste9);
+    UDPBroadcast* envia9 = new UDPBroadcast(&teste9);
     
-    teste.getAllRobotsPosition(*mapRobotsPosition);
-    
-    for (const auto& n: *mapRobotsPosition){
-        std::cout << "Name: [ " << n.first << " ] Position: [ " << n.second.x << "," << n.second.y << "," << n.second.theta << " ]" << std::endl;
-    }
-    
-    teste.removeAllRobotsPosition(*robo);
-    
-    std::cout << "\n\n limpando" << std::endl;
-    teste.getAllRobotsPosition(*mapRobotsPosition);
-    
-    for (const auto& n: *mapRobotsPosition){
-        std::cout << "Name: [ " << n.first << " ] Position: [ " << n.second.x << "," << n.second.y << "," << n.second.theta << " ]" << std::endl;
-    }
-    
-    //delete mapRobotsPosition;
+    std::this_thread::sleep_for(std::chrono::seconds(100));
     return 0;
 }
