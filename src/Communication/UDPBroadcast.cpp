@@ -1,0 +1,65 @@
+//
+//  UDPBroadcast.cpp
+//  MRSMac
+//
+//  Created by Afonso Braga on 02/05/20.
+//  Copyright © 2020 Afonso Braga. All rights reserved.
+//
+#include "UDPBroadcast.hpp"
+
+UDPBroadcast::UDPBroadcast(BlackBoard* monitor): ModulePeriodic(monitor)
+{
+    this->vSocket = socket(AF_INET,SOCK_DGRAM,0);
+    if(this->vSocket<0)
+        error("%s: cannot open socket\n");
+    
+    int broadcast = 1;
+    if(setsockopt(this->vSocket,SOL_SOCKET,SO_BROADCAST,&broadcast,sizeof(broadcast)) < 0)
+    {
+        close(this->vSocket);
+        error("Error in setting Broadcast option \n");
+    }
+
+    this->cliAddr.sin_family = AF_INET;
+    this->cliAddr.sin_addr.s_addr = inet_addr("10.0.0.255");
+    this->cliAddr.sin_port = htons(this->port);
+}
+
+UDPBroadcast::~UDPBroadcast()
+{
+    this->stop();
+    close(this->vSocket);
+    if (this->t_main.joinable())
+        this->t_main.join();
+}
+
+void UDPBroadcast::run(){
+    this->buffer[0]='9';
+    char name[]="shutdown";
+    int names = (int) strlen(name);
+    *((int*)(buffer + 1)) = names;
+    for (int i = 0; i < names; i++)
+        buffer[5 + i] = name[i];
+    
+    s_robotsPose robo;
+    monitor->getPosition(robo.position);
+    monitor->getRobotsName(robo.robotName);
+    
+    *((int*)(buffer + 5 + names)) = sizeof(robo);
+    
+    memmove(buffer+9+names,(const unsigned char*)&robo,sizeof(robo));
+    
+    rc = (int) sendto(this->vSocket,buffer, 9+names+sizeof(robo), 0, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
+    
+    
+    if(rc<0) {
+        close(this->vSocket);
+        error("Cannot send data\n");
+    }
+}
+
+void UDPBroadcast::error(const char *msg){
+    perror(msg);
+    exit(1);
+}
+
