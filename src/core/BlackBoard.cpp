@@ -1,10 +1,12 @@
 #include "BlackBoard.hpp"
 
-BlackBoard::BlackBoard()
+BlackBoard::BlackBoard(std::string& name)
 {
     this->position.x = 0;
     this->position.y = 0;
     this->position.theta = 0;
+    //std::string nome = {"Thor"};
+    setRobotsName(&name);
 }
 
 BlackBoard::~BlackBoard(){
@@ -47,7 +49,7 @@ void BlackBoard::setAllRobotsPosition(s_robotsPose &p)
 {
     this->mutex_mapRobotsPosition.lock();
             //start = std::chrono::high_resolution_clock::now();
-        this->mapRobotsPosition.insert_or_assign(p.robotName, *p.position);
+        this->mapRobotsPosition.insert_or_assign(p.robotName, p.position);
             //end = std::chrono::high_resolution_clock::now();
             //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
             //std::cout << "set " << p.robotName << " time: " << duration << std::endl;
@@ -74,4 +76,15 @@ void BlackBoard::getAllRobotsPosition(std::unordered_map<std::string, s_pose> &p
             //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
             //std::cout << "getAllRobotsPosition time: " << duration << std::endl;
     this->mutex_mapRobotsPosition.unlock();
+}
+
+
+void BlackBoard::setRobotsName(std::string* name)
+{
+    this->robotName = *name;
+}
+
+void BlackBoard::getRobotsName(std::string& name)
+{
+    name = this->robotName;
 }
