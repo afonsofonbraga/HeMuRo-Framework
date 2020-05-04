@@ -37,8 +37,10 @@ protected:
     
     //Robots Description
     std::string robotName;
-    float batteryLevel;
     void setRobotsName(std::string* name);
+    
+    float batteryLevel;
+    std::mutex mutex_battery;
     
     //Chrono debug
     std::chrono::time_point<std::chrono::high_resolution_clock> start;
@@ -66,6 +68,10 @@ public:
     
     //Robot's description
     void getRobotsName(std::string& name);
+    
+    void chargeBattery(float energy);
+    void consumeBattery(float energy);
+    float getBaterryLevel();
     
     //Robot's Position Functions
     void getPositionAssignment(s_pose& p);

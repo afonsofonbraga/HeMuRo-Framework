@@ -27,7 +27,7 @@ int main(){
     for (auto n: nomes)
     {
         std::string nome = "Robo" + std::to_string(i);
-        BlackBoard* fulano = new BlackBoard(nome);
+        BlackBoard* fulano = new BlackBoard(n);
         vetorrr.push_back(fulano);
         UDPBroadcast* brodzin = new UDPBroadcast(vetorrr.at(i));
         UDPReceiver* recebedorzin = new UDPReceiver(vetorrr.at(i));

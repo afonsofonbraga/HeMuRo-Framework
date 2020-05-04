@@ -5,7 +5,7 @@ BlackBoard::BlackBoard(std::string& name)
     this->position.x = 0;
     this->position.y = 0;
     this->position.theta = 0;
-    this->batteryLevel = 99;
+    this->batteryLevel = 100;
     setRobotsName(&name);
 }
 
@@ -37,6 +37,52 @@ BlackBoard& BlackBoard::operator=(const BlackBoard& other)
     }
     return *this;
 }
+
+//****************************************************
+//*               Robot's Description                *
+//****************************************************
+
+
+void BlackBoard::setRobotsName(std::string* name)
+{
+    this->robotName = *name;
+}
+
+void BlackBoard::getRobotsName(std::string& name)
+{
+    name = this->robotName;
+}
+
+void BlackBoard::chargeBattery(float energy)
+{
+    this->mutex_battery.lock();
+        this->batteryLevel + energy < 100.0 ? this->batteryLevel += energy : this->batteryLevel = 100;
+    this->mutex_battery.unlock();
+}
+
+void BlackBoard::consumeBattery(float energy)
+{
+    this->mutex_battery.lock();
+        this->batteryLevel - energy > 100.0 ? this->batteryLevel -= energy : this->batteryLevel = 0;
+    this->mutex_battery.unlock();
+}
+
+float BlackBoard::getBaterryLevel()
+{
+    float vBattery;
+    
+    this->mutex_battery.lock();
+        vBattery = this->batteryLevel;
+    this->mutex_battery.unlock();
+    
+    return vBattery;
+}
+
+
+//****************************************************
+//*           Robot's Position Variables             *
+//****************************************************
+
 
 void BlackBoard::getPositionAssignment(s_pose& p)
 {
@@ -101,15 +147,4 @@ void BlackBoard::getAllRobotsPosition(std::unordered_map<std::string, s_pose> &p
             //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
             //std::cout << "getAllRobotsPosition time: " << duration << std::endl;
     this->mutex_mapRobotsPosition.unlock();
-}
-
-
-void BlackBoard::setRobotsName(std::string* name)
-{
-    this->robotName = *name;
-}
-
-void BlackBoard::getRobotsName(std::string& name)
-{
-    name = this->robotName;
 }
