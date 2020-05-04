@@ -79,22 +79,18 @@ UDPBroadcast& UDPBroadcast::operator =(const UDPBroadcast& other)
 
 
 void UDPBroadcast::run(){
-    this->buffer[0]='9';
-    char name[]="shutdown";
-    int names = (int) strlen(name);
-    *((int*)(buffer + 1)) = names;
-    for (int i = 0; i < names; i++)
-        buffer[5 + i] = name[i];
+    Operation operation = Operation::setRobotsPosition;
+    *((Operation*)buffer) = operation;
     
     s_robotsPose robo;
     monitor->getPosition(robo.position);
     monitor->getRobotsName(robo.robotName);
     
-    *((int*)(buffer + 5 + names)) = sizeof(robo);
+    *((int*)(buffer + 4)) = sizeof(robo);
     
-    memmove(buffer+9+names,(const unsigned char*)&robo,sizeof(robo));
+    memmove(buffer+8,(const unsigned char*)&robo,sizeof(robo));
     
-    rc = (int) sendto(this->vSocket,buffer, 9+names+sizeof(robo), 0, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
+    rc = (int) sendto(this->vSocket,buffer, 8+sizeof(robo), 0, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
 }
 
 void UDPBroadcast::error(const char *msg){

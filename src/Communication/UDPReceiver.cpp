@@ -46,7 +46,7 @@ UDPReceiver::~UDPReceiver()
 
 void UDPReceiver::run()
 {
-    n = recvfrom( vSocket, msg, MAX_MSG, 0, (struct sockaddr *) &cliAddr, (socklen_t*) &cliLen);
+    n = (int) recvfrom( vSocket, msg, MAX_MSG, 0, (struct sockaddr *) &cliAddr, (socklen_t*) &cliLen);
     if(n<0)
         std::cout << "Cannot receive data \n";
     else
@@ -62,27 +62,18 @@ void UDPReceiver::error(const char *msg){
 
 void UDPReceiver::dataTreatment(char *mensagem)
 {
-    int operation = mensagem[0];
-    if (operation == '9')
-    {
-        int nameSize;
-        char name[100];
-        int dataSize;
-        char *temp = mensagem + 1;
-        
-        nameSize = ((int*) temp)[0];
-        for(int i = 0; i < nameSize; i++ )
-        {
-            name[i] = (char) mensagem[i+5];
-        }
-        
-        temp = mensagem + 5 + nameSize;
-        dataSize = ((int*) temp)[0];
-        
-        s_robotsPose* robotPosition = new s_robotsPose;
-        memcpy(robotPosition, mensagem + 9 + nameSize, dataSize);
-        
-        this->monitor->setAllRobotsPosition(*robotPosition);
-        delete robotPosition;
+    //int operation = mensagem[0];
+    Operation operation = ((Operation*) mensagem)[0];
+    int dataSize;
+    char *temp = mensagem + sizeof(operation);
+    dataSize = ((int*) temp)[0];
+    
+    switch(operation){
+        case Operation::setRobotsPosition:
+            s_robotsPose* robotPosition = new s_robotsPose;
+            memcpy(robotPosition, mensagem + sizeof(operation) + 4, dataSize);
+            this->monitor->setAllRobotsPosition(*robotPosition);
+            delete robotPosition;
+            break;
     }
 }

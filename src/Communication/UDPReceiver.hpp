@@ -38,7 +38,7 @@ protected:
     struct sockaddr_in servAddr;
     struct sockaddr_in cliAddr;
     void dataTreatment(char *mensagem);
-
+    enum class Operation{setRobotsPosition};
     
     virtual void run();
 public:
