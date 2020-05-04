@@ -33,6 +33,51 @@ UDPBroadcast::~UDPBroadcast()
         this->t_main.join();
 }
 
+UDPBroadcast::UDPBroadcast(const UDPBroadcast& other): ModulePeriodic(other.monitor)
+{
+    this->vSocket = socket(AF_INET,SOCK_DGRAM,0);
+    if(this->vSocket<0)
+        error("%s: cannot open socket\n");
+    
+    int broadcast = 1;
+    if(setsockopt(this->vSocket,SOL_SOCKET,SO_BROADCAST,&broadcast,sizeof(broadcast)) < 0)
+    {
+        close(this->vSocket);
+        error("Error in setting Broadcast option \n");
+    }
+
+    this->cliAddr.sin_family = AF_INET;
+    this->cliAddr.sin_addr.s_addr = inet_addr("10.0.0.255");
+    this->cliAddr.sin_port = htons(this->port);
+}
+
+UDPBroadcast& UDPBroadcast::operator =(const UDPBroadcast& other)
+{
+    if(this!= &other)
+    {
+        this->monitor = other.monitor;
+        
+        this->vSocket = socket(AF_INET,SOCK_DGRAM,0);
+        if(this->vSocket<0)
+            error("%s: cannot open socket\n");
+        
+        int broadcast = 1;
+        if(setsockopt(this->vSocket,SOL_SOCKET,SO_BROADCAST,&broadcast,sizeof(broadcast)) < 0)
+        {
+            close(this->vSocket);
+            error("Error in setting Broadcast option \n");
+        }
+
+        this->cliAddr.sin_family = AF_INET;
+        this->cliAddr.sin_addr.s_addr = inet_addr("10.0.0.255");
+        this->cliAddr.sin_port = htons(this->port);
+    }
+    return *this;
+}
+
+
+
+
 void UDPBroadcast::run(){
     this->buffer[0]='9';
     char name[]="shutdown";
@@ -50,12 +95,6 @@ void UDPBroadcast::run(){
     memmove(buffer+9+names,(const unsigned char*)&robo,sizeof(robo));
     
     rc = (int) sendto(this->vSocket,buffer, 9+names+sizeof(robo), 0, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
-    
-    
-    if(rc<0) {
-        close(this->vSocket);
-        error("Cannot send data\n");
-    }
 }
 
 void UDPBroadcast::error(const char *msg){

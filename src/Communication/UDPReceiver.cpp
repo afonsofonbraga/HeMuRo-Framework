@@ -51,10 +51,7 @@ void UDPReceiver::run()
         std::cout << "Cannot receive data \n";
     else
     {
-        //std::cout << inet_ntoa(cliAddr.sin_addr) << std::endl;
-        
         this->dataTreatment(msg);
-        //std::cout << msg << std::endl;
     }
 }
 

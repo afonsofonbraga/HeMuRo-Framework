@@ -40,6 +40,8 @@ protected:
 public:
     UDPBroadcast(BlackBoard* monitor);
     ~UDPBroadcast();
+    UDPBroadcast(const UDPBroadcast& other); //Copy Constructor
+    UDPBroadcast& operator=(const UDPBroadcast& other); //Copy Assignment
     
 
     void error(const char *msg);

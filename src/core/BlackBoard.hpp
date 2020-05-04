@@ -59,8 +59,10 @@ protected:
     
     
 public:
-    BlackBoard(std::string& name);
-    ~BlackBoard();
+    BlackBoard(std::string& name); //Constructor
+    ~BlackBoard(); // Destructor
+    BlackBoard(const BlackBoard& other); // Copy Constructor
+    BlackBoard& operator=(const BlackBoard& other); //Copy Assignment
     
     //Robot's description
     void getRobotsName(std::string& name);

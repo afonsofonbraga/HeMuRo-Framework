@@ -5,12 +5,37 @@ BlackBoard::BlackBoard(std::string& name)
     this->position.x = 0;
     this->position.y = 0;
     this->position.theta = 0;
-    //std::string nome = {"Thor"};
+    this->batteryLevel = 99;
     setRobotsName(&name);
 }
 
 BlackBoard::~BlackBoard(){
 
+}
+
+BlackBoard::BlackBoard(const BlackBoard& other)
+{
+    this->batteryLevel = other.batteryLevel;
+    this->position.x = other.position.x;
+    this->position.y = other.position.y;
+    this->position.theta = other.position.theta;
+    std::string* vName = new std::string{other.robotName};
+    //other.getRobotsName(*vName);
+    this->setRobotsName(vName);
+    delete vName;
+}
+
+BlackBoard& BlackBoard::operator=(const BlackBoard& other)
+{
+    if(this != &other) {
+        this->batteryLevel = other.batteryLevel;
+        this->position.x = other.position.x;
+        this->position.y = other.position.y;
+        this->position.theta = other.position.theta;
+        std::string* vName = new std::string{other.robotName};
+        this->setRobotsName(vName);
+    }
+    return *this;
 }
 
 void BlackBoard::getPositionAssignment(s_pose& p)
