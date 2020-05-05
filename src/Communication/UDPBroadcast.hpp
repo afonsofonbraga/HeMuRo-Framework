@@ -23,6 +23,7 @@
 
 #include "BlackBoard.hpp"
 #include "ModulePeriodic.hpp"
+#include "dataTypes.hpp"
 
 class UDPBroadcast: public ModulePeriodic
 {
@@ -36,7 +37,6 @@ protected:
     struct sockaddr_in cliAddr;
     struct hostent *h;
     virtual void run();
-    enum class Operation{setRobotsPosition};
     
 public:
     UDPBroadcast(BlackBoard* monitor);

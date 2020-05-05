@@ -24,6 +24,7 @@
 
 #include "BlackBoard.hpp"
 #include "Module.hpp"
+#include "dataTypes.hpp"
 #define MAX_MSG 500
 class UDPReceiver: public Module
 {
@@ -37,15 +38,14 @@ protected:
     //std::string broadcastIP{"10.0.0.255"};
     struct sockaddr_in servAddr;
     struct sockaddr_in cliAddr;
-    void dataTreatment(char *mensagem);
-    enum class Operation{setRobotsPosition};
+    void dataTreatment(char* mensagem);
     
     virtual void run();
 public:
-    UDPReceiver(BlackBoard *monitor);
+    UDPReceiver(BlackBoard* monitor);
     ~UDPReceiver();
     
-    void error(const char *msg);
+    void error(const char* msg);
 };
 
 #endif /* UDPReceive_hpp */
