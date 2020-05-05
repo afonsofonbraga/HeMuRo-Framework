@@ -1,1 +1,3 @@
-subdirs(core)
+subdirs(Core)
+subdirs(Communication)
+subdirs(Task)

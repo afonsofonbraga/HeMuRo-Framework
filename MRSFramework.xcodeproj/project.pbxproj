@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23805D392460BCC30061F4A0 /* Task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23805D372460BCC30061F4A0 /* Task.cpp */; };
 		2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */; };
 		2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAD245DD23900465752 /* UDPReceiver.cpp */; };
+		238FAE3A2460FB8A00755B29 /* TaskManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 238FAE382460FB8A00755B29 /* TaskManager.cpp */; };
 		23D20B51245C71560013F98A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B50245C71560013F98A /* main.cpp */; };
 		23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B45245C705C0013F98A /* BlackBoard.cpp */; };
 		23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51B245CA8B9003D13A3 /* Module.cpp */; };
@@ -28,10 +30,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		23805D372460BCC30061F4A0 /* Task.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Task.cpp; sourceTree = "<group>"; };
+		23805D382460BCC30061F4A0 /* Task.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Task.hpp; sourceTree = "<group>"; };
+		23805D3A2460BF1E0061F4A0 /* dataTypes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dataTypes.hpp; sourceTree = "<group>"; };
 		2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPBroadcast.cpp; sourceTree = "<group>"; };
 		2381ABAB245DC25B00465752 /* UDPBroadcast.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPBroadcast.hpp; sourceTree = "<group>"; };
 		2381ABAD245DD23900465752 /* UDPReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPReceiver.cpp; sourceTree = "<group>"; };
 		2381ABAE245DD23900465752 /* UDPReceiver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPReceiver.hpp; sourceTree = "<group>"; };
+		238FAE382460FB8A00755B29 /* TaskManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TaskManager.cpp; sourceTree = "<group>"; };
+		238FAE392460FB8A00755B29 /* TaskManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TaskManager.hpp; sourceTree = "<group>"; };
 		23D20B3D245C705C0013F98A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		23D20B3F245C705C0013F98A /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		23D20B40245C705C0013F98A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -59,6 +66,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23805D362460BC730061F4A0 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				23805D372460BCC30061F4A0 /* Task.cpp */,
+				23805D382460BCC30061F4A0 /* Task.hpp */,
+				238FAE382460FB8A00755B29 /* TaskManager.cpp */,
+				238FAE392460FB8A00755B29 /* TaskManager.hpp */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
 		23D20B3E245C705C0013F98A /* main */ = {
 			isa = PBXGroup;
 			children = (
@@ -78,14 +96,15 @@
 		23D20B42245C705C0013F98A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				23805D362460BC730061F4A0 /* Task */,
 				23EDB521245CC72F003D13A3 /* Communication */,
 				23D20B43245C705C0013F98A /* CMakeLists.txt */,
-				23D20B44245C705C0013F98A /* core */,
+				23D20B44245C705C0013F98A /* Core */,
 			);
 			path = src;
 			sourceTree = "<group>";
 		};
-		23D20B44245C705C0013F98A /* core */ = {
+		23D20B44245C705C0013F98A /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				23D20B45245C705C0013F98A /* BlackBoard.cpp */,
@@ -95,8 +114,9 @@
 				23EDB51C245CA8B9003D13A3 /* Module.hpp */,
 				23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */,
 				23EDB51F245CBBA9003D13A3 /* ModulePeriodic.hpp */,
+				23805D3A2460BF1E0061F4A0 /* dataTypes.hpp */,
 			);
-			path = core;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		23D20B4E245C71560013F98A /* Products */ = {
@@ -217,11 +237,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23805D392460BCC30061F4A0 /* Task.cpp in Sources */,
 				23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */,
 				23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */,
 				23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */,
 				2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */,
 				23D20B51245C71560013F98A /* main.cpp in Sources */,
+				238FAE3A2460FB8A00755B29 /* TaskManager.cpp in Sources */,
 				2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
