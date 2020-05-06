@@ -1,4 +1,4 @@
-include_directories(${Framework_SOURCE_DIR}/src/core)
+include_directories(${Framework_SOURCE_DIR}/src/Core)
 include_directories(${Framework_SOURCE_DIR}/src/Communication)
 include_directories(${Framework_SOURCE_DIR}/src/Task)
 
