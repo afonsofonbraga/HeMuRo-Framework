@@ -8,10 +8,10 @@
 
 #include "Task.hpp"
 
-Task::Task(taskDescription vTask, unsigned char* vatributes)
+Task::Task(TaskDescription vTask, unsigned char* vatributes, int size)
 {
     this->taskName = vTask;
-    memcpy(this->atributes,vatributes,sizeof(s_pose));
+    memcpy(this->atributes,vatributes,size);
 }
 
 Task::Task()

@@ -69,6 +69,9 @@ void UDPReceiver::dataTreatment(char *mensagem)
     dataSize = ((int*) temp)[0];
     
     switch(operation){
+        case Operation::null:
+            break;
+            
         case Operation::setRobotsPosition:
             s_robotsPose* robotPosition = new s_robotsPose;
             memcpy(robotPosition, mensagem + sizeof(operation) + 4, dataSize);

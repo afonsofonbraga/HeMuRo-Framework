@@ -30,6 +30,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		233F8D3924621A5900C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		233F8D3A24621B0D00C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		23805D372460BCC30061F4A0 /* Task.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Task.cpp; sourceTree = "<group>"; };
 		23805D382460BCC30061F4A0 /* Task.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Task.hpp; sourceTree = "<group>"; };
 		23805D3A2460BF1E0061F4A0 /* dataTypes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dataTypes.hpp; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		23805D362460BC730061F4A0 /* Task */ = {
 			isa = PBXGroup;
 			children = (
+				233F8D3924621A5900C5B39B /* CMakeLists.txt */,
 				23805D372460BCC30061F4A0 /* Task.cpp */,
 				23805D382460BCC30061F4A0 /* Task.hpp */,
 				238FAE382460FB8A00755B29 /* TaskManager.cpp */,
@@ -138,6 +141,7 @@
 		23EDB521245CC72F003D13A3 /* Communication */ = {
 			isa = PBXGroup;
 			children = (
+				233F8D3A24621B0D00C5B39B /* CMakeLists.txt */,
 				2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */,
 				2381ABAB245DC25B00465752 /* UDPBroadcast.hpp */,
 				2381ABAD245DD23900465752 /* UDPReceiver.cpp */,

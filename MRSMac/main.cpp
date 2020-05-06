@@ -32,9 +32,9 @@ int main(){
     memcpy(value, &goal, sizeof(s_pose));
     
     
-    Task discharge(taskDescription::turnOn, tes);
-    Task charge(taskDescription::chargeBattery, tes);
-    Task walk(taskDescription::goTo, value);
+    Task discharge(TaskDescription::turnOn, tes, sizeof(tes));
+    Task charge(TaskDescription::chargeBattery, tes,sizeof(tes));
+    Task walk(TaskDescription::goTo, value, sizeof(s_pose));
     
     std::vector<std::string> nomes{"Thor","Zeus","Chronos","Athena","Gaia","Artimedes","Dionisio","Pegasus","Percius","Poseidon"};
     int i = 0;

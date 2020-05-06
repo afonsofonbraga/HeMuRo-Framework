@@ -14,10 +14,10 @@
 
 class Task{
 public:
-    taskDescription taskName;
+    TaskDescription taskName;
     unsigned char atributes[100];
     
-    Task(taskDescription vTask, unsigned char* vatributes);
+    Task(TaskDescription vTask, unsigned char* vatributes, int size);
     Task();
     ~Task();
     

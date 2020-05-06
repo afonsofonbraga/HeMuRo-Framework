@@ -9,8 +9,9 @@
 #ifndef dataTypes_h
 #define dataTypes_h
 
-enum class taskDescription{chargeBattery, turnOn, goTo};
-enum class Operation{setRobotsPosition};
+enum class TaskDescription{null, chargeBattery, turnOn, goTo};
+enum class Operation{null, setRobotsPosition};
+enum class RobotType{null, uav, ugv, usv};
 
 template<typename T>
 std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type& stream, const T& e)

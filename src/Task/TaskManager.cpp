@@ -42,15 +42,18 @@ void TaskManager::taskSwitch(Task& menu)
 {
     switch(menu.taskName)
     {
-        case taskDescription::chargeBattery :
+        case TaskDescription::null:
+            break;
+            
+        case TaskDescription::chargeBattery :
             charging();
         break;
             
-        case taskDescription::turnOn :
+        case TaskDescription::turnOn :
             turnOn();
         break;
             
-        case taskDescription::goTo :
+        case TaskDescription::goTo :
             goToPosition();
             break;
     }
