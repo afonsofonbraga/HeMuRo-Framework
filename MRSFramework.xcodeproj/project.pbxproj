@@ -47,7 +47,6 @@
 		23D20B43245C705C0013F98A /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		23D20B45245C705C0013F98A /* BlackBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BlackBoard.cpp; sourceTree = "<group>"; };
 		23D20B46245C705C0013F98A /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		23D20B47245C705C0013F98A /* BlackBoard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BlackBoard.hpp; sourceTree = "<group>"; };
 		23D20B48245C705C0013F98A /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		23D20B4D245C71560013F98A /* MRSMac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MRSMac; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D20B50245C71560013F98A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -112,7 +111,6 @@
 			children = (
 				23D20B45245C705C0013F98A /* BlackBoard.cpp */,
 				23D20B46245C705C0013F98A /* CMakeLists.txt */,
-				23D20B47245C705C0013F98A /* BlackBoard.hpp */,
 				23EDB51B245CA8B9003D13A3 /* Module.cpp */,
 				23EDB51C245CA8B9003D13A3 /* Module.hpp */,
 				23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */,
