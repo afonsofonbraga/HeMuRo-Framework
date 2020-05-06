@@ -54,6 +54,7 @@
 		23EDB51C245CA8B9003D13A3 /* Module.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Module.hpp; sourceTree = "<group>"; };
 		23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ModulePeriodic.cpp; sourceTree = "<group>"; };
 		23EDB51F245CBBA9003D13A3 /* ModulePeriodic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModulePeriodic.hpp; sourceTree = "<group>"; };
+		23F00C82246331AA00EC7860 /* BlackBoard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlackBoard.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +117,7 @@
 				23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */,
 				23EDB51F245CBBA9003D13A3 /* ModulePeriodic.hpp */,
 				23805D3A2460BF1E0061F4A0 /* dataTypes.hpp */,
+				23F00C82246331AA00EC7860 /* BlackBoard.hpp */,
 			);
 			path = Core;
 			sourceTree = "<group>";
