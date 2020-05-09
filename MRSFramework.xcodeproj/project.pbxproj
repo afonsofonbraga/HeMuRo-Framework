@@ -55,6 +55,12 @@
 		23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ModulePeriodic.cpp; sourceTree = "<group>"; };
 		23EDB51F245CBBA9003D13A3 /* ModulePeriodic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModulePeriodic.hpp; sourceTree = "<group>"; };
 		23F00C82246331AA00EC7860 /* BlackBoard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlackBoard.hpp; sourceTree = "<group>"; };
+		23F00C8324634A2F00EC7860 /* AtomicTask.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AtomicTask.cpp; sourceTree = "<group>"; };
+		23F00C8424634A2F00EC7860 /* AtomicTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AtomicTask.hpp; sourceTree = "<group>"; };
+		23F00C8624634DDF00EC7860 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
+		23F00C8724634DDF00EC7860 /* GoTo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
+		23F00C89246351C700EC7860 /* DecomposableTask.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecomposableTask.cpp; sourceTree = "<group>"; };
+		23F00C8A246351C700EC7860 /* DecomposableTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DecomposableTask.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +82,12 @@
 				23805D382460BCC30061F4A0 /* Task.hpp */,
 				238FAE382460FB8A00755B29 /* TaskManager.cpp */,
 				238FAE392460FB8A00755B29 /* TaskManager.hpp */,
+				23F00C8324634A2F00EC7860 /* AtomicTask.cpp */,
+				23F00C8424634A2F00EC7860 /* AtomicTask.hpp */,
+				23F00C8624634DDF00EC7860 /* GoTo.cpp */,
+				23F00C8724634DDF00EC7860 /* GoTo.hpp */,
+				23F00C89246351C700EC7860 /* DecomposableTask.cpp */,
+				23F00C8A246351C700EC7860 /* DecomposableTask.hpp */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -111,13 +123,13 @@
 			isa = PBXGroup;
 			children = (
 				23D20B45245C705C0013F98A /* BlackBoard.cpp */,
+				23F00C82246331AA00EC7860 /* BlackBoard.hpp */,
 				23D20B46245C705C0013F98A /* CMakeLists.txt */,
 				23EDB51B245CA8B9003D13A3 /* Module.cpp */,
 				23EDB51C245CA8B9003D13A3 /* Module.hpp */,
 				23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */,
 				23EDB51F245CBBA9003D13A3 /* ModulePeriodic.hpp */,
 				23805D3A2460BF1E0061F4A0 /* dataTypes.hpp */,
-				23F00C82246331AA00EC7860 /* BlackBoard.hpp */,
 			);
 			path = Core;
 			sourceTree = "<group>";

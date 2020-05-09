@@ -4,7 +4,9 @@ include_directories(${Framework_SOURCE_DIR}/src/Task)
 
 find_package (Threads)
 
-link_directories(${Framework_SOURCE_DIR}/src/core)
+link_directories(${Framework_SOURCE_DIR}/src/Core)
+link_directories(${Framework_SOURCE_DIR}/src/Communication)
+link_directories(${Framework_SOURCE_DIR}/src/Task)
 
 add_executable(Framework main.cpp)
 target_link_libraries(Framework core)

@@ -38,7 +38,8 @@ int main(){
     
     std::vector<std::string> nomes{"Thor","Zeus","Chronos","Athena","Gaia","Artimedes","Dionisio","Pegasus","Percius","Poseidon"};
     int i = 0;
-    for (auto n: nomes)
+    //for (auto n: nomes)
+    auto n = nomes.at(1);
     {
         //std::string nome = "Robo" + std::to_string(i);
         BlackBoard* memory = new BlackBoard(n);
@@ -51,13 +52,13 @@ int main(){
         v_TaskManager.push_back(taskManager);
         i++;
     }
-    
+    /*
     for(int j=0; j< nomes.size(); j++)
     {
         v_BlackBoard.at(j)->addTask(discharge);
         v_BlackBoard.at(j)->addTask(walk);
         v_BlackBoard.at(j)->addTask(charge);
-    }
+    }*/
     std::this_thread::sleep_for(std::chrono::seconds(100));
     
     return 0;

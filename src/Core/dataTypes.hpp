@@ -12,6 +12,18 @@
 enum class TaskDescription{null, chargeBattery, turnOn, goTo};
 enum class Operation{null, setRobotsPosition};
 enum class RobotType{null, uav, ugv, usv};
+enum class TaskStatus{null, waiting, running, completed};
+
+enum class enum_AtomicTask{null};
+enum class enum_DecomposableTask{null};
+
+
+
+
+
+
+
+
 
 template<typename T>
 std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type& stream, const T& e)

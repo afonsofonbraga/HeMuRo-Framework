@@ -70,6 +70,7 @@ void UDPReceiver::dataTreatment(char *mensagem)
     
     switch(operation){
         case Operation::null:
+            std::cout << "deuruim" <<std::endl;
             break;
             
         case Operation::setRobotsPosition:
