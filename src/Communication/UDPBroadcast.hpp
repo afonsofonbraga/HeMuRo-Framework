@@ -36,13 +36,13 @@ protected:
     char buffer[500];
     struct sockaddr_in cliAddr;
     struct hostent *h;
-    virtual void run();
+    virtual void run();                                     // Implementation
     
 public:
     UDPBroadcast(BlackBoard* monitor);
     ~UDPBroadcast();
-    UDPBroadcast(const UDPBroadcast& other); //Copy Constructor
-    UDPBroadcast& operator=(const UDPBroadcast& other); //Copy Assignment
+    UDPBroadcast(const UDPBroadcast& other);                //Copy Constructor
+    UDPBroadcast& operator=(const UDPBroadcast& other);     //Copy Assignment
     
 
     void error(const char *msg);

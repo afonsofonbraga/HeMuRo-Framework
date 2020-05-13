@@ -19,12 +19,12 @@
 class ModulePeriodic: public Module {
 protected:
     //BlackBoard* monitor;
-    virtual void mainThread();
-    virtual void run();
-    std::chrono::milliseconds tick = std::chrono::milliseconds(1000);
+    virtual void mainThread();                                          // Thread object
+    virtual void run();                                                 // Thread Implementation
+    std::chrono::milliseconds tick = std::chrono::milliseconds(1000);   // Threads period
 public:
-    ModulePeriodic(BlackBoard* monitor);
-    ModulePeriodic(BlackBoard* monitor, int vTick);
+    ModulePeriodic(BlackBoard* monitor);                                // Constructor with a Default Period
+    ModulePeriodic(BlackBoard* monitor, int vTick);                     // Ordnary Constructor
     ~ModulePeriodic();
 };
 

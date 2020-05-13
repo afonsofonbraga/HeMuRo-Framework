@@ -38,14 +38,14 @@ protected:
     //std::string broadcastIP{"10.0.0.255"};
     struct sockaddr_in servAddr;
     struct sockaddr_in cliAddr;
-    void dataTreatment(char* mensagem);
+    void dataTreatment(char* mensagem);             // Treat data according to its type
     
-    virtual void run();
+    virtual void run();                             // Functions Implementation
 public:
     UDPReceiver(BlackBoard* monitor);
     ~UDPReceiver();
     
-    void error(const char* msg);
+    void error(const char* msg);                    // Print an error
 };
 
 #endif /* UDPReceive_hpp */

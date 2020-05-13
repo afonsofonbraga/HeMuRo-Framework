@@ -62,10 +62,10 @@ void TaskManager::taskSwitch(Task& menu)
 
 void TaskManager::charging()
 {
-    if (monitor->getBaterryLevel() < 100)
+    if (monitor->getBatteryLevel() < 100)
     {
             monitor->chargeBattery(1.0);
-            std::cout << "Carregando... " << this->monitor->getBaterryLevel() << "% " << std::endl;
+            std::cout << "Carregando... " << this->monitor->getBatteryLevel() << "% " << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
     else
@@ -77,10 +77,10 @@ void TaskManager::charging()
 
 void TaskManager::turnOn()
 {
-    if (monitor->getBaterryLevel() > 50)
+    if (monitor->getBatteryLevel() > 50)
     {
         monitor->consumeBattery(1.0);
-        std::cout << "Ligado... " << this->monitor->getBaterryLevel() << "%"<< std::endl;
+        std::cout << "Ligado... " << this->monitor->getBatteryLevel() << "%"<< std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
     else
@@ -107,7 +107,7 @@ void TaskManager::goToPosition()
         actualPosition->theta += (goal->theta - actualPosition->theta)* 0.1;
         monitor->setPosition(*actualPosition);
         monitor->consumeBattery(1.0);
-        std::cout << "Stil moving! At (" << actualPosition->x << " , " << actualPosition->y << " , " << actualPosition->theta << "). Battery Level: " << this->monitor->getBaterryLevel() << "%"<< std::endl;
+        std::cout << "Stil moving! At (" << actualPosition->x << " , " << actualPosition->y << " , " << actualPosition->theta << "). Battery Level: " << this->monitor->getBatteryLevel() << "%"<< std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
     else

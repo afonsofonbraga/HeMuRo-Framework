@@ -71,7 +71,7 @@ void BlackBoard::consumeBattery(float energy)
     lk.unlock();
 }
 
-float BlackBoard::getBaterryLevel()
+float BlackBoard::getBatteryLevel()
 {
     float vBattery;
     std::unique_lock<std::mutex> lk(mutex_battery);

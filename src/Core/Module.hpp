@@ -25,19 +25,19 @@
 
 class Module{
 protected:
-    std::thread t_main;
+    std::thread t_main;         // Thread object
     bool isRunning;
     BlackBoard *monitor;
-    virtual void mainThread();
-    virtual void run();
+    virtual void mainThread();  // Configure the Tick
+    virtual void run();         // Implementation
     
 public:
     Module(BlackBoard *monitor);
     ~Module();
     
-    bool getRunningStatus();
-    void start();
-    virtual void stop();
+    bool getRunningStatus();    // Return isRunning variable
+    void start();               // Start Thread
+    virtual void stop();        // Pause Running Thread
     
 };
 #endif /* Module_hpp */

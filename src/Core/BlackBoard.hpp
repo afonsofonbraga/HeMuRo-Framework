@@ -60,36 +60,36 @@ public:
     std::condition_variable conditional_task;
     
     
-    BlackBoard(std::string& name); //Constructor
-    ~BlackBoard(); // Destructor
-    BlackBoard(const BlackBoard& other); // Copy Constructor
-    BlackBoard& operator=(const BlackBoard& other); //Copy Assignment
+    BlackBoard(std::string& name);                          // Constructor
+    ~BlackBoard();                                          // Destructor
+    BlackBoard(const BlackBoard& other);                    // Copy Constructor
+    BlackBoard& operator=(const BlackBoard& other);         // Copy Assignment
     
     //Robot's description
-    void getRobotsName(std::string& name);
+    void getRobotsName(std::string& name);                  // Get the name of the Robot
     
-    void chargeBattery(float energy);
-    void consumeBattery(float energy);
-    float getBaterryLevel();
+    void chargeBattery(float energy);                       // Add the value to the total amount of available energy
+    void consumeBattery(float energy);                      // Remove the value from the total amount of available energy
+    float getBatteryLevel();                                // Return the battery
     
     //Robot's Position Functions
-    void getPositionAssignment(s_pose& p);
-    void getPosition(s_pose& p);
-    void setPosition(s_pose& p);
+    void getPositionAssignment(s_pose& p);                  // This will be soon excluded
+    void getPosition(s_pose& p);                            // Get the current robot's position
+    void setPosition(s_pose& p);                            // Set the robot's current position
     
     //Functions for global positions
-    void setAllRobotsPosition(s_robotsPose& p);
-    void getAllRobotsPosition(std::unordered_map<std::string, s_pose>& p);
-    void removeAllRobotsPosition(s_robotsPose& p);
+    void setAllRobotsPosition(s_robotsPose& p);             // Add a robot's position to the list
+    void getAllRobotsPosition(std::unordered_map<std::string, s_pose>& p); // Get all positions from the robot's position list
+    void removeAllRobotsPosition(s_robotsPose& p);          // Clean the list
     
     // Map Related Functions
-    void setMapCoodinates(std::array<float,2>& coord);
-    void getMapCoodinates(std::array<float,2>& coord);
+    void setMapCoodinates(std::array<float,2>& coord);      // Set Map MAX Dimensions
+    void getMapCoodinates(std::array<float,2>& coord);      // Get Map MAX Dimensions
     
     // Tasks functions
-    bool isTaskListEmpty();
-    void addTask(Task& vTask);
-    void getTask(Task& vTask);
+    bool isTaskListEmpty();                                 // Return if the list of ToDo tasks is empty
+    void addTask(Task& vTask);                              // Add task to the ToDo list
+    void getTask(Task& vTask);                              // Get the first task from the ToDo list
 };
 
 #endif
