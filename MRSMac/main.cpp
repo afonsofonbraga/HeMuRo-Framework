@@ -15,16 +15,23 @@
 #include <unordered_map>
 #include "UDPBroadcast.hpp"
 #include "UDPReceiver.hpp"
+#include "UDPSender.hpp"
 #include "TaskManager.hpp"
 #include "dataTypes.hpp"
 #include "Task.hpp"
+#include "DecomposableTask.hpp"
 
 int main(){
     
     std::vector<BlackBoard *> v_BlackBoard; // = new std::vector<BlackBoard>;
     std::vector<UDPBroadcast*> v_Broadcast;// = new std::vector<UDPBroadcast>;
     std::vector<UDPReceiver*> v_Receiver;
+    std::vector<UDPSender*> v_Sender;
     std::vector<TaskManager*> v_TaskManager;
+    
+    
+    
+    std::vector<AtomicTask>* vector = new std::vector<AtomicTask>;
     
     unsigned char tes[]= "chato";
     unsigned char* value = new unsigned char;
@@ -46,19 +53,27 @@ int main(){
         v_BlackBoard.push_back(memory);
         UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
         UDPReceiver* receiver = new UDPReceiver(v_BlackBoard.at(i));
+        UDPSender* sender = new UDPSender(v_BlackBoard.at(i));
         TaskManager* taskManager = new TaskManager(v_BlackBoard.at(i));
         v_Broadcast.push_back(broadcast);
         v_Receiver.push_back(receiver);
         v_TaskManager.push_back(taskManager);
-        i++;
+        //i++;
+        DecomposableTask teste(memory,enum_DecomposableTask::checkPosition, *vector);
+        
     }
-    /*
-    for(int j=0; j< nomes.size(); j++)
+    s_UDPMessage message;
+    strcpy(message.address , "asdasd");
+    strcpy(message.buffer , "1111111111");
+    message.messageSize = sizeof(message.buffer);
+    v_BlackBoard.at(0)->addUDPMessage(message);
+    
+    for(int j=0; j< 1; j++)
     {
         v_BlackBoard.at(j)->addTask(discharge);
         v_BlackBoard.at(j)->addTask(walk);
         v_BlackBoard.at(j)->addTask(charge);
-    }*/
+    }
     std::this_thread::sleep_for(std::chrono::seconds(100));
     
     return 0;

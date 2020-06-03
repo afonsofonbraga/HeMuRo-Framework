@@ -14,8 +14,8 @@ enum class Operation{null, setRobotsPosition};
 enum class RobotType{null, uav, ugv, usv};
 enum class TaskStatus{null, waiting, running, completed};
 
-enum class enum_AtomicTask{null};
-enum class enum_DecomposableTask{null};
+enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo};
+enum class enum_DecomposableTask{null, checkPosition};
 
 
 template<typename T>
@@ -36,6 +36,13 @@ struct s_robotsPose
 {
     std::string robotName;
     s_pose position;
+};
+
+struct s_UDPMessage
+{
+    char address[15];
+    char buffer[500];
+    int messageSize;
 };
 
 #endif /* datatypes_h */

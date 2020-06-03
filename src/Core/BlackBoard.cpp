@@ -201,6 +201,7 @@ void BlackBoard::addTask(Task& vTask)
     lk.unlock();
     this->conditional_task.notify_one();
 }
+
 void BlackBoard::getTask(Task& vTask)
 {
     std::unique_lock<std::mutex> lk(mutex_task);
@@ -232,4 +233,45 @@ bool BlackBoard::isTaskListEmpty()
     //this->mutex_task.unlock();
     lk.unlock();
     return status;
+}
+
+//****************************************************
+//*         UDPMessages Related Functions            *
+//****************************************************
+
+bool BlackBoard::isUDPMessageListEmpty()
+{
+    bool status;
+    std::unique_lock<std::mutex> lk(mutex_UDPMessageList);
+    status = this->UDPMessageList.empty();
+    lk.unlock();
+    return status;
+}
+
+void BlackBoard::addUDPMessage(s_UDPMessage& vUDPMessage)
+{
+    std::unique_lock<std::mutex> lk(mutex_UDPMessageList);
+        this->UDPMessageList.push_back(vUDPMessage);
+    lk.unlock();
+    this->conditional_UDPMessageList.notify_one();
+}
+
+void BlackBoard::getUDPMessage(s_UDPMessage& vUDPMessage)
+{
+    std::unique_lock<std::mutex> lk(mutex_UDPMessageList);
+    
+    if (this->UDPMessageList.empty() == false){
+            vUDPMessage = this->UDPMessageList.front();
+        this->UDPMessageList.erase(UDPMessageList.begin());
+        lk.unlock();
+    }else
+    {
+        this->conditional_UDPMessageList.wait(lk);
+        
+        if (this->UDPMessageList.empty() == false){
+            vUDPMessage = this->UDPMessageList.front();
+            this->UDPMessageList.erase(UDPMessageList.begin());
+            lk.unlock();
+        }
+    }
 }

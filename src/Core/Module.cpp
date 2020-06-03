@@ -18,7 +18,7 @@ Module::Module(BlackBoard *monitor)
 Module::~Module()
 {
     this->stop();
-    this->monitor->conditional_task.notify_one();
+    //this->monitor->conditional_task.notify_one();
     if (this->t_main.joinable())
         this->t_main.join();
 }

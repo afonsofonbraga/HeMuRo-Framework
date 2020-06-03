@@ -10,11 +10,17 @@
 		23805D392460BCC30061F4A0 /* Task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23805D372460BCC30061F4A0 /* Task.cpp */; };
 		2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */; };
 		2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAD245DD23900465752 /* UDPReceiver.cpp */; };
+		23872A1B248049B200EC738C /* UDPSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23872A19248049B200EC738C /* UDPSender.cpp */; };
 		238FAE3A2460FB8A00755B29 /* TaskManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 238FAE382460FB8A00755B29 /* TaskManager.cpp */; };
+		23C6E54A246EE01A00D99185 /* GoTo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8624634DDF00EC7860 /* GoTo.cpp */; };
+		23C6E54B246EE01D00D99185 /* AtomicTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8324634A2F00EC7860 /* AtomicTask.cpp */; };
+		23C6E54E246EF4C500D99185 /* ChargeBattery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */; };
+		23C6E551246EF4F100D99185 /* TurnOn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54F246EF4F100D99185 /* TurnOn.cpp */; };
 		23D20B51245C71560013F98A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B50245C71560013F98A /* main.cpp */; };
 		23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B45245C705C0013F98A /* BlackBoard.cpp */; };
 		23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51B245CA8B9003D13A3 /* Module.cpp */; };
 		23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */; };
+		23F4FFA1246F2C5F003711EA /* DecomposableTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C89246351C700EC7860 /* DecomposableTask.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,8 +45,14 @@
 		2381ABAB245DC25B00465752 /* UDPBroadcast.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPBroadcast.hpp; sourceTree = "<group>"; };
 		2381ABAD245DD23900465752 /* UDPReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPReceiver.cpp; sourceTree = "<group>"; };
 		2381ABAE245DD23900465752 /* UDPReceiver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPReceiver.hpp; sourceTree = "<group>"; };
+		23872A19248049B200EC738C /* UDPSender.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPSender.cpp; sourceTree = "<group>"; };
+		23872A1A248049B200EC738C /* UDPSender.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPSender.hpp; sourceTree = "<group>"; };
 		238FAE382460FB8A00755B29 /* TaskManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TaskManager.cpp; sourceTree = "<group>"; };
 		238FAE392460FB8A00755B29 /* TaskManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TaskManager.hpp; sourceTree = "<group>"; };
+		23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargeBattery.cpp; sourceTree = "<group>"; };
+		23C6E54D246EF4C500D99185 /* ChargeBattery.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargeBattery.hpp; sourceTree = "<group>"; };
+		23C6E54F246EF4F100D99185 /* TurnOn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TurnOn.cpp; sourceTree = "<group>"; };
+		23C6E550246EF4F100D99185 /* TurnOn.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TurnOn.hpp; sourceTree = "<group>"; };
 		23D20B3D245C705C0013F98A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		23D20B3F245C705C0013F98A /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		23D20B40245C705C0013F98A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -88,6 +100,10 @@
 				23F00C8724634DDF00EC7860 /* GoTo.hpp */,
 				23F00C89246351C700EC7860 /* DecomposableTask.cpp */,
 				23F00C8A246351C700EC7860 /* DecomposableTask.hpp */,
+				23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */,
+				23C6E54D246EF4C500D99185 /* ChargeBattery.hpp */,
+				23C6E54F246EF4F100D99185 /* TurnOn.cpp */,
+				23C6E550246EF4F100D99185 /* TurnOn.hpp */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -158,6 +174,8 @@
 				2381ABAB245DC25B00465752 /* UDPBroadcast.hpp */,
 				2381ABAD245DD23900465752 /* UDPReceiver.cpp */,
 				2381ABAE245DD23900465752 /* UDPReceiver.hpp */,
+				23872A19248049B200EC738C /* UDPSender.cpp */,
+				23872A1A248049B200EC738C /* UDPSender.hpp */,
 			);
 			path = Communication;
 			sourceTree = "<group>";
@@ -253,14 +271,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23872A1B248049B200EC738C /* UDPSender.cpp in Sources */,
 				23805D392460BCC30061F4A0 /* Task.cpp in Sources */,
 				23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */,
 				23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */,
 				23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */,
+				23C6E54A246EE01A00D99185 /* GoTo.cpp in Sources */,
+				23C6E551246EF4F100D99185 /* TurnOn.cpp in Sources */,
 				2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */,
 				23D20B51245C71560013F98A /* main.cpp in Sources */,
+				23C6E54B246EE01D00D99185 /* AtomicTask.cpp in Sources */,
+				23F4FFA1246F2C5F003711EA /* DecomposableTask.cpp in Sources */,
 				238FAE3A2460FB8A00755B29 /* TaskManager.cpp in Sources */,
 				2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */,
+				23C6E54E246EF4C500D99185 /* ChargeBattery.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

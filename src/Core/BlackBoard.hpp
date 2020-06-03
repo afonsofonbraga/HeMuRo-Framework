@@ -54,11 +54,15 @@ protected:
     std::vector<Task> taskList;
     std::mutex mutex_task;
 
-    
+
+    // UDP Messages
+    std::vector<s_UDPMessage> UDPMessageList;
+    std::mutex mutex_UDPMessageList;
+
     
 public:
-    std::condition_variable conditional_task;
-    
+        std::condition_variable conditional_UDPMessageList;
+        std::condition_variable conditional_task;
     
     BlackBoard(std::string& name);                          // Constructor
     ~BlackBoard();                                          // Destructor
@@ -90,6 +94,12 @@ public:
     bool isTaskListEmpty();                                 // Return if the list of ToDo tasks is empty
     void addTask(Task& vTask);                              // Add task to the ToDo list
     void getTask(Task& vTask);                              // Get the first task from the ToDo list
+    
+    // Messages to be sent
+    bool isUDPMessageListEmpty();
+    void addUDPMessage(s_UDPMessage& vUDPMessage);
+    void getUDPMessage(s_UDPMessage& vUDPMessage);
+    
 };
 
 #endif
