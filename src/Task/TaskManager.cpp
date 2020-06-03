@@ -15,7 +15,7 @@ TaskManager::TaskManager(BlackBoard* monitor): Module(monitor)
 
 TaskManager::~TaskManager()
 {
-    
+    this->monitor->conditional_task.notify_one();
 }
 
 void TaskManager::run()

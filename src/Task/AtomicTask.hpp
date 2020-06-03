@@ -24,6 +24,7 @@ protected:
 public:
     AtomicTask(s_pose& start, s_pose& end);
     AtomicTask(s_pose& end);
+    AtomicTask();
     ~AtomicTask();
     
     virtual void run();

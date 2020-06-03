@@ -16,12 +16,22 @@ AtomicTask::AtomicTask(s_pose& start, s_pose& end)
     this->calculateCost();
 }
 
+AtomicTask::AtomicTask()
+{
+    
+}
+
 AtomicTask::AtomicTask(s_pose& end)
 {
     this->status = TaskStatus::waiting;
     this->startPosition = end;
     this->endPosition = end;
     this->calculateCost();
+}
+
+AtomicTask::~AtomicTask()
+{
+    
 }
 
 void AtomicTask::run() { }

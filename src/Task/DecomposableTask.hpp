@@ -13,20 +13,32 @@
 #include <vector>
 #include <unordered_map>
 
-#include "AtomicTask.cpp"
+#include "AtomicTask.hpp"
 #include "dataTypes.hpp"
+#include "BlackBoard.hpp"
+
+#include "GoTo.hpp"
+#include "ChargeBattery.hpp"
+#include "TurnOn.hpp"
 
 
 class DecomposableTask
 {
 protected:
     
+    BlackBoard* monitor;
+    
+    
     std::vector<AtomicTask>* vTasks;
+    enum_DecomposableTask taskToBeDecomposed;
     std::unordered_map<enum_DecomposableTask, std::vector<enum_AtomicTask>* > avaliableTasks;
     
+    bool decomposable;
     float cost;
+    
 public:
-    DecomposableTask(enum_DecomposableTask taskToBeDecomposed);
+    DecomposableTask(BlackBoard* vMonitor,  enum_DecomposableTask vtaskToBeDecomposed);
+    DecomposableTask(BlackBoard* vMonitor,  enum_DecomposableTask vtaskToBeDecomposed, std::vector<AtomicTask>& taskVector);
     ~DecomposableTask();
     
     void setAllCost();

@@ -10,7 +10,7 @@
 #define dataTypes_h
 
 enum class TaskDescription{null, chargeBattery, turnOn, goTo};
-enum class Operation{null, setRobotsPosition};
+enum class Operation{null, setRobotsPosition, missionAssignment};
 enum class RobotType{null, uav, ugv, usv};
 enum class TaskStatus{null, waiting, running, completed};
 
