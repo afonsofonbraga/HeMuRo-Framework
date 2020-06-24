@@ -34,7 +34,7 @@ AtomicTask::~AtomicTask()
     
 }
 
-void AtomicTask::run() { }
+void AtomicTask::run() {}
 
 void AtomicTask::calculateCost() { this->cost = 0; }
 

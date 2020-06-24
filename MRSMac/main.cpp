@@ -5,76 +5,81 @@
 //  Created by Afonso Braga on 01/05/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
+
 #include <chrono>
 #include <thread>
 #include <vector>
 #include <iostream>
+#include <unordered_map>
+
+#include "dataTypes.hpp"
 #include "BlackBoard.hpp"
 #include "Module.hpp"
 #include "ModulePeriodic.hpp"
-#include <unordered_map>
+
 #include "UDPBroadcast.hpp"
 #include "UDPReceiver.hpp"
 #include "UDPSender.hpp"
+
+#include "AtomicTask.hpp"
 #include "TaskManager.hpp"
-#include "dataTypes.hpp"
-#include "Task.hpp"
-#include "DecomposableTask.hpp"
+
+#include "MissionManager.hpp"
 
 int main(){
     
     std::vector<BlackBoard *> v_BlackBoard; // = new std::vector<BlackBoard>;
+    
     std::vector<UDPBroadcast*> v_Broadcast;// = new std::vector<UDPBroadcast>;
     std::vector<UDPReceiver*> v_Receiver;
     std::vector<UDPSender*> v_Sender;
+    
     std::vector<TaskManager*> v_TaskManager;
     
+    std::vector<MissionManager*> v_MissionManager;
     
-    
-    std::vector<AtomicTask>* vector = new std::vector<AtomicTask>;
-    
-    unsigned char tes[]= "chato";
-    unsigned char* value = new unsigned char;
-    s_pose goal{10,10,0};
-    memcpy(value, &goal, sizeof(s_pose));
-    
-    
-    Task discharge(TaskDescription::turnOn, tes, sizeof(tes));
-    Task charge(TaskDescription::chargeBattery, tes,sizeof(tes));
-    Task walk(TaskDescription::goTo, value, sizeof(s_pose));
-    
-    std::vector<std::string> nomes{"Thor","Zeus","Chronos","Athena","Gaia","Artimedes","Dionisio","Pegasus","Percius","Poseidon"};
     int i = 0;
-    //for (auto n: nomes)
-    auto n = nomes.at(1);
-    {
-        //std::string nome = "Robo" + std::to_string(i);
-        BlackBoard* memory = new BlackBoard(n);
-        v_BlackBoard.push_back(memory);
-        UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
-        UDPReceiver* receiver = new UDPReceiver(v_BlackBoard.at(i));
-        UDPSender* sender = new UDPSender(v_BlackBoard.at(i));
-        TaskManager* taskManager = new TaskManager(v_BlackBoard.at(i));
-        v_Broadcast.push_back(broadcast);
-        v_Receiver.push_back(receiver);
-        v_TaskManager.push_back(taskManager);
-        //i++;
-        DecomposableTask teste(memory,enum_DecomposableTask::checkPosition, *vector);
-        
-    }
-    s_UDPMessage message;
-    strcpy(message.address , "asdasd");
-    strcpy(message.buffer , "1111111111");
-    message.messageSize = sizeof(message.buffer);
-    v_BlackBoard.at(0)->addUDPMessage(message);
     
-    for(int j=0; j< 1; j++)
-    {
-        v_BlackBoard.at(j)->addTask(discharge);
-        v_BlackBoard.at(j)->addTask(walk);
-        v_BlackBoard.at(j)->addTask(charge);
-    }
-    std::this_thread::sleep_for(std::chrono::seconds(100));
+    std::string nome = "Robo" + std::to_string(i);
+    BlackBoard* memory = new BlackBoard(nome);
+    v_BlackBoard.push_back(memory);
+    
+    UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
+    UDPReceiver* receiver = new UDPReceiver(v_BlackBoard.at(i));
+    UDPSender* sender = new UDPSender(v_BlackBoard.at(i));
+    
+    TaskManager* taskManager = new TaskManager(v_BlackBoard.at(i));
+    
+    MissionManager* missionManager = new MissionManager(v_BlackBoard.at(i));
+    
+    v_Broadcast.push_back(broadcast);
+    v_Receiver.push_back(receiver);
+    v_TaskManager.push_back(taskManager);
+    v_MissionManager.push_back(missionManager);
+    
+    char vIP[16];
+    
+    s_MissionMessage mission;
+    v_BlackBoard.at(0)->getRobotsIP(*vIP);
+    strcpy(mission.missionCode, "tag1");
+    strcpy(mission.senderAddress , vIP);
+    mission.operation = enum_MissionOperation::createMission;
+    mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
+    
+    std::cout << "Time to send a Mission!!!!!"<< std::endl;
+    
+    s_UDPMessage message;
+    strcpy(message.address , vIP);
+    
+    Operation operation = Operation::missionMessage;
+    *((Operation*)message.buffer) = operation;
+    *((int*)(message.buffer + 4)) = sizeof(mission);
+    memmove(message.buffer+8,(const unsigned char*)&mission,sizeof(mission));
+    message.messageSize = sizeof(message.buffer);
+
+    v_BlackBoard.at(0)->addUDPMessage(message);
+
+    std::this_thread::sleep_for(std::chrono::seconds(150));
     
     return 0;
 }

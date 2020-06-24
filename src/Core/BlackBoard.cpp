@@ -7,10 +7,12 @@ BlackBoard::BlackBoard(std::string& name)
     this->position.theta = 0;
     this->batteryLevel = 56;
     setRobotsName(&name);
+    char vname[16] = "10.0.0.103";
+    setRobotIP(vname);
 }
 
 BlackBoard::~BlackBoard(){
-    this->conditional_task.notify_all();
+    this->conditional_missionTask.notify_all();
 }
 
 BlackBoard::BlackBoard(const BlackBoard& other)
@@ -20,6 +22,9 @@ BlackBoard::BlackBoard(const BlackBoard& other)
     this->position.y = other.position.y;
     this->position.theta = other.position.theta;
     std::string* vName = new std::string{other.robotName};
+    char vIP[16];
+    strcpy(vIP, other.robotIP);
+    this->setRobotIP(vIP);
     //other.getRobotsName(*vName);
     this->setRobotsName(vName);
     delete vName;
@@ -34,6 +39,9 @@ BlackBoard& BlackBoard::operator=(const BlackBoard& other)
         this->position.theta = other.position.theta;
         std::string* vName = new std::string{other.robotName};
         this->setRobotsName(vName);
+        char vIP[16];
+        strcpy(vIP, other.robotIP);
+        this->setRobotIP(vIP);
     }
     return *this;
 }
@@ -52,6 +60,39 @@ void BlackBoard::getRobotsName(std::string& name)
 {
     name = this->robotName;
 }
+
+void BlackBoard::setRobotIP(char* vIP)
+{
+    struct ifaddrs *ifap, *ifa;
+    struct sockaddr_in *sa;
+    getifaddrs (&ifap);
+    for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
+
+        if (ifa->ifa_addr && ifa->ifa_addr->sa_family==AF_INET && strstr(ifa->ifa_name,"lo")==nullptr) {
+            sa = (struct sockaddr_in *) ifa->ifa_addr;
+            
+            //addr = inet_ntoa(sa->sin_addr);
+            strcpy(this->robotIP, inet_ntoa(sa->sin_addr));
+            //printf("Interface: %s\tAddress: %s\n", ifa->ifa_name, addr);
+            break;
+        }
+    }
+    freeifaddrs(ifap);
+    strncpy(this->broadcastIP, this->robotIP, sizeof(robotIP));
+    char* lastDot = strrchr(this->broadcastIP,'.');
+    strcpy(lastDot + 1, "255");
+}
+
+void BlackBoard::getRobotsIP(char& vIP)
+{
+    strcpy(&vIP, this->robotIP);
+}
+
+void BlackBoard::getBroadcastIP(char& vBroadcast)
+{
+    strcpy(&vBroadcast, this->broadcastIP);
+}
+
 
 void BlackBoard::chargeBattery(float energy)
 {
@@ -108,7 +149,7 @@ void BlackBoard::getPosition(s_pose& p)
     //this->mutex_position.lock();
     std::unique_lock<std::mutex> lk(mutex_position);
             //start = std::chrono::high_resolution_clock::now();
-        std::memcpy(&p, &position, sizeof(position));
+        memcpy(&p, &position, sizeof(position));
             //end = std::chrono::high_resolution_clock::now();
             //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
             //std::cout << "getPositionMemcpy time: " << duration << std::endl;
@@ -120,7 +161,7 @@ void BlackBoard::setPosition(s_pose& p)
 {
     //this->mutex_position.lock();
     std::unique_lock<std::mutex> lk(mutex_position);
-        std::memcpy(&this->position, &p, sizeof(position));
+        memcpy(&this->position, &p, sizeof(position));
     //this->mutex_position.unlock();
     lk.unlock();
 }
@@ -191,8 +232,8 @@ void BlackBoard::getMapCoodinates(std::array<float,2>& coord)
 //****************************************************
 //*            Task Related Functions                *
 //****************************************************
-
-void BlackBoard::addTask(Task& vTask)
+/*
+void BlackBoard::addTask(AtomicTask& vTask)
 {
     std::unique_lock<std::mutex> lk(mutex_task);
     //this->mutex_task.lock();
@@ -202,7 +243,7 @@ void BlackBoard::addTask(Task& vTask)
     this->conditional_task.notify_one();
 }
 
-void BlackBoard::getTask(Task& vTask)
+void BlackBoard::getTask(AtomicTask& vTask)
 {
     std::unique_lock<std::mutex> lk(mutex_task);
     
@@ -234,6 +275,184 @@ bool BlackBoard::isTaskListEmpty()
     lk.unlock();
     return status;
 }
+*/
+
+//****************************************************
+//*      Decomposable Tasks Related Functions        *
+//****************************************************
+
+
+void BlackBoard::addDecomposableTaskList(enum_DecomposableTask vTaskToBeDecomposed, std::vector<enum_AtomicTask> vAtomicTask)
+{
+    std::unique_lock<std::mutex> lk(mutex_decomposableTask);
+        this->decomposableTaskAvaliable.insert_or_assign(vTaskToBeDecomposed, vAtomicTask);
+    lk.unlock();
+}
+
+bool BlackBoard::getDecomposableTask(enum_DecomposableTask vTaskToBeDecomposed, std::vector<enum_AtomicTask>& vAtomicTask)
+{
+    bool status = false;
+    std::unique_lock<std::mutex> lk(mutex_decomposableTask);
+        auto search = this->decomposableTaskAvaliable.find(vTaskToBeDecomposed);
+        if(search != this->decomposableTaskAvaliable.end())
+        {
+            //vAtomicTask = *search->second;
+            //memcpy(&vAtomicTask, &search->second, sizeof(*search->second));
+            for(auto n : search->second)
+            {
+                vAtomicTask.push_back(n);
+            }
+            status = true;
+        }
+    lk.unlock();
+    return status;
+}
+
+bool BlackBoard::isDecomposable(enum_DecomposableTask vTaskToBeDecomposed)
+{
+    bool status= false;
+    
+    std::unique_lock<std::mutex> lk(mutex_decomposableTask);
+        auto search = this->decomposableTaskAvaliable.find(vTaskToBeDecomposed);
+    lk.unlock();
+    
+    if (search != this->decomposableTaskAvaliable.end())
+        status = true;
+    return status;
+}
+
+float BlackBoard::getDecomposableTaskCost(enum_DecomposableTask vTaskToBeDecomposed)
+{
+    return 0.0;
+}
+
+void BlackBoard::acceptDecomposableTask(enum_DecomposableTask vDecomposableTask)
+{
+    std::unique_lock<std::mutex> lk(mutex_decomposableTask);
+        
+    lk.unlock();
+}
+
+//****************************************************
+//*         MissionMessage Related Functions         *
+//****************************************************
+
+bool BlackBoard::isMissionMessageListEmpty()
+{
+    bool status;
+    std::unique_lock<std::mutex> lk(mutex_missionList);
+    status = this->missionMessageList.empty();
+    lk.unlock();
+    return status;
+}
+
+void BlackBoard::addMissionMessage(s_MissionMessage& vMissionMessage)
+{
+    std::unique_lock<std::mutex> lk(mutex_missionList);
+        this->missionMessageList.push_back(vMissionMessage);
+    lk.unlock();
+    this->conditional_MissionMessageList.notify_one();
+}
+
+void BlackBoard::getMissionMessage(s_MissionMessage& vMissionMessage)
+{
+    std::unique_lock<std::mutex> lk(mutex_missionList);
+    
+    if (this->missionMessageList.empty() == false){
+            vMissionMessage = this->missionMessageList.front();
+        this->missionMessageList.erase(missionMessageList.begin());
+        lk.unlock();
+    }else
+    {
+        this->conditional_MissionMessageList.wait(lk);
+        
+        if (this->missionMessageList.empty() == false){
+            vMissionMessage = this->missionMessageList.front();
+            this->missionMessageList.erase(missionMessageList.begin());
+            lk.unlock();
+        }
+    }
+}
+
+// Selected Mission
+
+bool BlackBoard::isMissionCompleted()
+{
+    bool status = false;
+    std::unique_lock<std::mutex> lk(mutex_mission);
+    if(this->selectedMission.enum_execution == enum_MissionExecution::missionComplete)
+        status = true;
+    lk.unlock();
+    return status;
+}
+
+bool BlackBoard::isRobotAvailable()
+{
+    bool status = false;
+    std::unique_lock<std::mutex> lk(mutex_mission);
+    if (this->selectedMission.enum_execution == enum_MissionExecution::missionComplete || this->selectedMission.enum_execution == enum_MissionExecution::null)
+        status = true;
+    lk.unlock();
+    return status;
+}
+
+void BlackBoard::addMissionToExecute(Mission& vMission)
+{
+    std::unique_lock<std::mutex> lk(mutex_mission);
+    if (this->selectedMission.enum_execution == enum_MissionExecution::missionComplete || this->selectedMission.enum_execution == enum_MissionExecution::null) // Is necessary to check if the previous mission is already completed.
+    {
+        this->selectedMission = vMission;
+        this->selectedMission.atomicTaskIndex = 0;
+        this->selectedMission.enum_execution = enum_MissionExecution::waitingStart;
+        //this->conditional_missionTask.notify_one();
+    }
+    lk.unlock();
+}
+
+void BlackBoard::getTaskFromMission(AtomicTask& vTask)
+{
+    std::unique_lock<std::mutex> lk(mutex_mission);
+    
+    if(this->selectedMission.atomicTaskIndex == this->selectedMission.atomicTaskList.size() && this->selectedMission.atomicTaskList.size() != 0)
+    {
+        std::cout << "Mission Complete!!!!" << std::endl;
+        this->selectedMission.enum_execution = enum_MissionExecution::missionComplete;
+    }
+    
+    if (this->selectedMission.enum_execution == enum_MissionExecution::executing){
+        vTask = this->selectedMission.atomicTaskList.at(this->selectedMission.atomicTaskIndex);
+        this->selectedMission.atomicTaskIndex++;
+        lk.unlock();
+    }else
+    {
+        this->conditional_missionTask.wait(lk);
+        
+        if (this->selectedMission.enum_execution == enum_MissionExecution::executing){
+            vTask = this->selectedMission.atomicTaskList.at(this->selectedMission.atomicTaskIndex);
+            this->selectedMission.atomicTaskIndex++;
+        lk.unlock();
+        }
+    }
+}
+
+void BlackBoard::startMissionExecution()
+{
+    std::unique_lock<std::mutex> lk(mutex_mission);
+    if(this->selectedMission.enum_execution == enum_MissionExecution::waitingStart)
+    {
+        this->selectedMission.enum_execution = enum_MissionExecution::executing;
+        this->conditional_missionTask.notify_one();
+    }
+    lk.unlock();
+}
+
+void BlackBoard::cancelMission()
+{
+    std::unique_lock<std::mutex> lk(mutex_mission);
+        this->selectedMission.enum_execution = enum_MissionExecution::null;
+    lk.unlock();
+}
+
 
 //****************************************************
 //*         UDPMessages Related Functions            *
@@ -275,3 +494,4 @@ void BlackBoard::getUDPMessage(s_UDPMessage& vUDPMessage)
         }
     }
 }
+

@@ -10,6 +10,7 @@
 #define Task_hpp
 
 #include <iostream>
+#include <string.h>
 #include "dataTypes.hpp"
 
 class Task{

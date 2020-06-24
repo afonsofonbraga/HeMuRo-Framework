@@ -9,20 +9,26 @@
 #ifndef dataTypes_h
 #define dataTypes_h
 
-enum class TaskDescription{null, chargeBattery, turnOn, goTo};
-enum class Operation{null, setRobotsPosition, missionAssignment};
+
+enum class Operation{null, setRobotsPosition, missionMessage};
 enum class RobotType{null, uav, ugv, usv};
+
 enum class TaskStatus{null, waiting, running, completed};
-
+// enum class TaskDescription{null, chargeBattery, turnOn, goTo};
 enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo};
-enum class enum_DecomposableTask{null, checkPosition};
 
 
-template<typename T>
-std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type& stream, const T& e)
-{
-    return stream << static_cast<typename std::underlying_type<T>::type>(e);
-}
+enum class enum_DecomposableTask{null, checkPosition}; //Trocar por DecomposableMission
+enum class enum_MissionRequest{null, waitingBids, notifyingWinner, executingMission, missionComplete};
+enum class enum_MissionExecution{null, waitingAuction, waitingStart, executing, missionComplete};
+enum class enum_MissionOperation{null, createMission, addMission, addAndRequestCost, Bid, removeMission, winningBid, acceptMission , startMission};
+
+
+//template<typename T>
+//std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type& stream, const T& e)
+//{
+//    return stream << static_cast<typename std::underlying_type<T>::type>(e);
+//}
 
 
 struct s_pose
@@ -34,15 +40,24 @@ struct s_pose
 
 struct s_robotsPose
 {
-    std::string robotName;
+    char robotName[10] = "null";
     s_pose position;
 };
 
 struct s_UDPMessage
 {
-    char address[15];
-    char buffer[500];
-    int messageSize;
+    char address[16] = "null";
+    char buffer[500] = "null";
+    int messageSize = 0;
+};
+
+struct s_MissionMessage
+{
+    char missionCode[5] = "null";
+    char senderAddress[16] = "null";
+    enum_MissionOperation operation = enum_MissionOperation::null;
+    enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
+    float Cost = 0;
 };
 
 #endif /* datatypes_h */

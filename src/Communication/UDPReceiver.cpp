@@ -67,7 +67,7 @@ void UDPReceiver::dataTreatment(char *mensagem)
     int dataSize;
     char *temp = mensagem + sizeof(operation);
     dataSize = ((int*) temp)[0];
-    
+    temp = temp + sizeof(dataSize);
     switch(operation){
         case Operation::null:
             std::cout << "deuruim" <<std::endl;
@@ -75,22 +75,16 @@ void UDPReceiver::dataTreatment(char *mensagem)
             
         case Operation::setRobotsPosition:
         {
-            s_robotsPose* robotPosition = new s_robotsPose;
-            memcpy(robotPosition, mensagem + sizeof(operation) + 4, dataSize);
-            this->monitor->setAllRobotsPosition(*robotPosition);
-            delete robotPosition;
+            s_robotsPose robotPosition = ((s_robotsPose*) temp)[0];
+            this->monitor->setAllRobotsPosition(robotPosition);
             break;
         }
             
-        case Operation::missionAssignment:
+        case Operation::missionMessage:
         {
-            enum_DecomposableTask* decomposableTask = new enum_DecomposableTask;
-            std::cout << "oioi"<< std::endl;
-            
-            delete decomposableTask;
+            s_MissionMessage missionMessage = ((s_MissionMessage*) temp)[0];
+            this->monitor->addMissionMessage(missionMessage);
             break;
         }
-                    
-
     }
 }

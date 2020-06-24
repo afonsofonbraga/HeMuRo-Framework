@@ -15,30 +15,37 @@ TaskManager::TaskManager(BlackBoard* monitor): Module(monitor)
 
 TaskManager::~TaskManager()
 {
-    this->monitor->conditional_task.notify_one();
+    this->monitor->conditional_missionTask.notify_one();
 }
 
 void TaskManager::run()
 {
     if (performingTask== false && this->isRunning == true)
     {
-        vTask = new Task();
-        this->monitor->getTask(*vTask);
+        vTask = new AtomicTask();
+        this->monitor->getTaskFromMission(*vTask);
         
         if (vTask != nullptr && this->isRunning == true)
         {
-            std::cout<< "Removed: "<<vTask->taskName <<std::endl;
+            //std::cout<< "Removed: "<<vTask->taskName <<std::endl;
+            std::cout << "Removed!! " << std::endl;
             this -> performingTask = true;
-            taskSwitch(*vTask);
+            //taskSwitch(*vTask);
+            vTask->run();
+            this-> performingTask = false; // Ainda tem que implementar essa volta do RUN para que as tasks informem quando concluiram
         }
     }
     else if (this->isRunning == true)
-        taskSwitch(*vTask);
-        else
+    {
+        vTask->run();
+        this-> performingTask = false;
+    }
+    else
             std::cout << "Vazio" << std::endl;
 }
 
-void TaskManager::taskSwitch(Task& menu)
+/*
+void TaskManager::taskSwitch(AtomicTask& menu)
 {
     switch(menu.taskName)
     {
@@ -126,3 +133,4 @@ void TaskManager::goToPosition()
     }
     
 }
+*/

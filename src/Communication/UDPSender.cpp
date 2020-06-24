@@ -14,12 +14,12 @@ UDPSender::UDPSender(BlackBoard* monitor): Module(monitor)
     if(this->vSocket<0)
         error("%s: cannot open socket\n");
     
-    //int broadcast = 1;
-    //if(setsockopt(this->vSocket,SOL_SOCKET,SO_BROADCAST,&broadcast,sizeof(broadcast)) < 0)
-    //{
-    //    close(this->vSocket);
-    //    error("Error in setting Broadcast option \n");
-    //}
+    int broadcast = 1;
+    if(setsockopt(this->vSocket,SOL_SOCKET,SO_BROADCAST,&broadcast,sizeof(broadcast)) < 0)
+    {
+        close(this->vSocket);
+        error("Error in setting Broadcast option \n");
+    }
 
     this->cliAddr.sin_family = AF_INET;
     // Receiver IP will be set up on the run void

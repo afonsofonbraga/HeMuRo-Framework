@@ -9,6 +9,7 @@
 
 UDPBroadcast::UDPBroadcast(BlackBoard* monitor): ModulePeriodic(monitor)
 {
+    this->monitor->getBroadcastIP(*this->broadcastIP);
     this->vSocket = socket(AF_INET,SOCK_DGRAM,0);
     if(this->vSocket<0)
         error("%s: cannot open socket\n");
@@ -21,7 +22,7 @@ UDPBroadcast::UDPBroadcast(BlackBoard* monitor): ModulePeriodic(monitor)
     }
 
     this->cliAddr.sin_family = AF_INET;
-    this->cliAddr.sin_addr.s_addr = inet_addr("10.0.0.255");
+    this->cliAddr.sin_addr.s_addr = inet_addr(this->broadcastIP);
     this->cliAddr.sin_port = htons(this->port);
 }
 
@@ -47,7 +48,7 @@ UDPBroadcast::UDPBroadcast(const UDPBroadcast& other): ModulePeriodic(other.moni
     }
 
     this->cliAddr.sin_family = AF_INET;
-    this->cliAddr.sin_addr.s_addr = inet_addr("10.0.0.255");
+    this->cliAddr.sin_addr.s_addr = inet_addr(this->broadcastIP);
     this->cliAddr.sin_port = htons(this->port);
 }
 
@@ -69,7 +70,7 @@ UDPBroadcast& UDPBroadcast::operator =(const UDPBroadcast& other)
         }
 
         this->cliAddr.sin_family = AF_INET;
-        this->cliAddr.sin_addr.s_addr = inet_addr("10.0.0.255");
+        this->cliAddr.sin_addr.s_addr = inet_addr(this->broadcastIP);
         this->cliAddr.sin_port = htons(this->port);
     }
     return *this;
@@ -84,8 +85,9 @@ void UDPBroadcast::run(){
     
     s_robotsPose robo;
     monitor->getPosition(robo.position);
-    monitor->getRobotsName(robo.robotName);
-    
+    std::string lala;
+    monitor->getRobotsName(lala);
+    strcpy(robo.robotName, lala.c_str());
     *((int*)(buffer + 4)) = sizeof(robo);
     
     memmove(buffer+8,(const unsigned char*)&robo,sizeof(robo));

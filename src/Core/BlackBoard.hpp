@@ -10,7 +10,8 @@
 #define blackBoard_hpp
 
 #include <iostream>
-#include <string>
+//#include <string>
+#include <string.h> //Não sei pq tem que colocar string.h no linux e pq string não funciona
 #include <thread>
 #include <chrono>
 #include <unordered_map>
@@ -19,7 +20,12 @@
 #include <vector>
 #include <condition_variable>
 
-#include "Task.hpp"
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <ifaddrs.h>
+
+#include "AtomicTask.hpp"
+#include "Mission.hpp"
 #include "dataTypes.hpp"
 
 class BlackBoard {
@@ -27,6 +33,10 @@ protected:
     
     //Robots Description
     std::string robotName;
+    char robotIP[16];
+    char broadcastIP[16];
+    
+    void setRobotIP(char* vIP);
     void setRobotsName(std::string* name);
     
     float batteryLevel;
@@ -44,25 +54,40 @@ protected:
     std::mutex mutex_mapRobotsPosition;
     std::unordered_map<std::string, s_pose> mapRobotsPosition;
     
-    
     // Map Related Variables
     std::array<float,2> mapSize = {0.0,0.0};
     std::mutex mutex_map;
     // Obstacles
     
     // Tasks
-    std::vector<Task> taskList;
-    std::mutex mutex_task;
+    //std::vector<AtomicTask> taskList;
+    //std::mutex mutex_task;
 
-
+    // Decomposable Tasks
+    std::vector <enum_AtomicTask> atomictaskList;
+    enum_DecomposableTask decomposableTaskName;
+    
+    std::mutex mutex_decomposableTask;
+    std::unordered_map<enum_DecomposableTask, std::vector<enum_AtomicTask> > decomposableTaskAvaliable;
+    
+    // Mission Messages
+    // Mission List: Available Missions
+    std::mutex mutex_missionList;
+    std::vector<s_MissionMessage> missionMessageList;
+    
+    // Mission: Selected Mission to execute
+    std::mutex mutex_mission;
+    Mission selectedMission;
+    
     // UDP Messages
     std::vector<s_UDPMessage> UDPMessageList;
     std::mutex mutex_UDPMessageList;
 
     
 public:
-        std::condition_variable conditional_UDPMessageList;
-        std::condition_variable conditional_task;
+    std::condition_variable conditional_UDPMessageList;
+    std::condition_variable conditional_missionTask;
+    std::condition_variable conditional_MissionMessageList;
     
     BlackBoard(std::string& name);                          // Constructor
     ~BlackBoard();                                          // Destructor
@@ -71,6 +96,9 @@ public:
     
     //Robot's description
     void getRobotsName(std::string& name);                  // Get the name of the Robot
+    
+    void getRobotsIP(char& vIP);                            // Get the IP address of the Robot
+    void getBroadcastIP(char& vBroadcast);                  // Get the IP Broadcast address
     
     void chargeBattery(float energy);                       // Add the value to the total amount of available energy
     void consumeBattery(float energy);                      // Remove the value from the total amount of available energy
@@ -91,14 +119,40 @@ public:
     void getMapCoodinates(std::array<float,2>& coord);      // Get Map MAX Dimensions
     
     // Tasks functions
-    bool isTaskListEmpty();                                 // Return if the list of ToDo tasks is empty
-    void addTask(Task& vTask);                              // Add task to the ToDo list
-    void getTask(Task& vTask);                              // Get the first task from the ToDo list
+    //bool isTaskListEmpty();                                 // Return if the list of ToDo tasks is empty
+    //void addTask(AtomicTask& vTask);                              // Add task to the ToDo list
+    //void getTask(AtomicTask& vTask);                              // Get the first task from the ToDo list
+    
+    // Decomposable Tasks
+    
+    void addDecomposableTaskList(enum_DecomposableTask vTaskToBeDecomposed, std::vector<enum_AtomicTask> vAtomicTask);
+    bool getDecomposableTask(enum_DecomposableTask vTaskToBeDecomposed, std::vector<enum_AtomicTask>& vAtomicTask);
+    
+    
+    
+    bool isDecomposable(enum_DecomposableTask vTaskToBeDecomposed);
+    float getDecomposableTaskCost(enum_DecomposableTask vTaskToBeDecomposed);
+    void acceptDecomposableTask(enum_DecomposableTask vDecomposableTask);
+    
+    // Selected Mission
+    
+    bool isMissionCompleted(); // NAO ESTA IMPLEMENTADA
+    bool isRobotAvailable();    // NAO ESTA IMPLEMENTADA
+    void addMissionToExecute(Mission& vMission);
+    void startMissionExecution();
+    void getTaskFromMission(AtomicTask& vTask);
+    void cancelMission();
+
+    // Mission Messages
+    bool isMissionMessageListEmpty();
+    void addMissionMessage(s_MissionMessage& vMissionMessage);
+    void getMissionMessage(s_MissionMessage& vMissionMessage);
     
     // Messages to be sent
     bool isUDPMessageListEmpty();
     void addUDPMessage(s_UDPMessage& vUDPMessage);
     void getUDPMessage(s_UDPMessage& vUDPMessage);
+    
     
 };
 

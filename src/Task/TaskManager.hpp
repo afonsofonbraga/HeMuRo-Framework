@@ -16,6 +16,7 @@
 #include "BlackBoard.hpp"
 #include "Module.hpp"
 #include "dataTypes.hpp"
+#include "AtomicTask.hpp"
 //#include "taskDescription.hpp"
 
 class TaskManager: public Module
@@ -27,14 +28,14 @@ private:
     
     // Robot Functions
     bool performingTask = false;
-    Task* vTask;
+    AtomicTask* vTask;
     
-    void taskSwitch(Task& menu);
+    //void taskSwitch(AtomicTask& menu);
     
-    virtual void charging();
-    virtual void turnOn();
+    //virtual void charging();
+    //virtual void turnOn();
     
-    virtual void goToPosition();
+    //virtual void goToPosition();
     s_pose* goal = nullptr;
     
     
