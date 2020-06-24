@@ -43,8 +43,6 @@
 		234FD6982490263D00F586DE /* original.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = original.cpp; sourceTree = "<group>"; };
 		235CC3E92493F0200012376D /* Mission.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mission.cpp; sourceTree = "<group>"; };
 		235CC3EA2493F0200012376D /* Mission.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mission.hpp; sourceTree = "<group>"; };
-		23805D372460BCC30061F4A0 /* Task.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Task.cpp; sourceTree = "<group>"; };
-		23805D382460BCC30061F4A0 /* Task.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Task.hpp; sourceTree = "<group>"; };
 		23805D3A2460BF1E0061F4A0 /* dataTypes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dataTypes.hpp; sourceTree = "<group>"; };
 		2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPBroadcast.cpp; sourceTree = "<group>"; };
 		2381ABAB245DC25B00465752 /* UDPBroadcast.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPBroadcast.hpp; sourceTree = "<group>"; };
@@ -93,24 +91,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		23805D362460BC730061F4A0 /* Task */ = {
+		237E6C6124A3DB05009F5B02 /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				233F8D3924621A5900C5B39B /* CMakeLists.txt */,
-				23805D372460BCC30061F4A0 /* Task.cpp */,
-				23805D382460BCC30061F4A0 /* Task.hpp */,
-				238FAE382460FB8A00755B29 /* TaskManager.cpp */,
-				238FAE392460FB8A00755B29 /* TaskManager.hpp */,
-				23F00C8324634A2F00EC7860 /* AtomicTask.cpp */,
-				23F00C8424634A2F00EC7860 /* AtomicTask.hpp */,
 				23F00C8624634DDF00EC7860 /* GoTo.cpp */,
 				23F00C8724634DDF00EC7860 /* GoTo.hpp */,
-				23F00C89246351C700EC7860 /* DecomposableTask.cpp */,
-				23F00C8A246351C700EC7860 /* DecomposableTask.hpp */,
 				23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */,
 				23C6E54D246EF4C500D99185 /* ChargeBattery.hpp */,
 				23C6E54F246EF4F100D99185 /* TurnOn.cpp */,
 				23C6E550246EF4F100D99185 /* TurnOn.hpp */,
+			);
+			path = Default;
+			sourceTree = "<group>";
+		};
+		23805D362460BC730061F4A0 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				237E6C6124A3DB05009F5B02 /* Default */,
+				233F8D3924621A5900C5B39B /* CMakeLists.txt */,
+				238FAE382460FB8A00755B29 /* TaskManager.cpp */,
+				238FAE392460FB8A00755B29 /* TaskManager.hpp */,
+				23F00C8324634A2F00EC7860 /* AtomicTask.cpp */,
+				23F00C8424634A2F00EC7860 /* AtomicTask.hpp */,
+				23F00C89246351C700EC7860 /* DecomposableTask.cpp */,
+				23F00C8A246351C700EC7860 /* DecomposableTask.hpp */,
 			);
 			path = Task;
 			sourceTree = "<group>";
