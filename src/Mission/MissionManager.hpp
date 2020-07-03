@@ -18,7 +18,10 @@
 #include "Module.hpp"
 #include "dataTypes.hpp"
 #include "AtomicTask.hpp"
-#include "Mission.hpp"
+
+//#include "Mission.hpp"
+#include "MissionRequest.hpp"
+#include "MissionExecution.hpp"
 
 #include "GoTo.hpp"
 #include "ChargeBattery.hpp"
@@ -31,22 +34,21 @@ protected:
     
     char broadcastIP[16]="null";
     
-    std::map<std::string, Mission> MissionList;
-    Mission* vMission;
+    std::map<std::string, MissionExecution> MissionList;
+    MissionExecution* vMission;
     s_MissionMessage* vMissionMessage;
     std::vector<enum_AtomicTask> vAtomicTaskVector;
     
     
-    std::unordered_map<std::string, Mission> missionOwnerList;
+    std::unordered_map<std::string, MissionRequest> missionOwnerList;
     //std::unordered_map<std::string, int> timerList;
     virtual void run() override;
-    
 public:
     MissionManager(BlackBoard* monitor);
     ~MissionManager();
     void addAtomicTask();
-    void calculateMissionCost(Mission& mission);
-    void sendMissionCost(Mission& mission);
+    void calculateMissionCost(MissionExecution& mission);
+    void sendMissionCost(MissionExecution& mission);
     void sendUDPMessage(s_MissionMessage& vMissionMessage, char& address);
     void timer(char* missionID);
 };

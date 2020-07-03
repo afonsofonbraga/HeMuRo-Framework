@@ -25,7 +25,7 @@
 #include <ifaddrs.h>
 
 #include "AtomicTask.hpp"
-#include "Mission.hpp"
+#include "MissionExecution.hpp"
 #include "dataTypes.hpp"
 
 class BlackBoard {
@@ -36,7 +36,7 @@ protected:
     char robotIP[16];
     char broadcastIP[16];
     
-    void setRobotIP(char* vIP);
+    void setRobotIP();
     void setRobotsName(std::string* name);
     
     float batteryLevel;
@@ -58,14 +58,8 @@ protected:
     std::array<float,2> mapSize = {0.0,0.0};
     std::mutex mutex_map;
     // Obstacles
-    
-    // Tasks
-    //std::vector<AtomicTask> taskList;
-    //std::mutex mutex_task;
 
     // Decomposable Tasks
-    std::vector <enum_AtomicTask> atomictaskList;
-    enum_DecomposableTask decomposableTaskName;
     
     std::mutex mutex_decomposableTask;
     std::unordered_map<enum_DecomposableTask, std::vector<enum_AtomicTask> > decomposableTaskAvaliable;
@@ -77,7 +71,7 @@ protected:
     
     // Mission: Selected Mission to execute
     std::mutex mutex_mission;
-    Mission selectedMission;
+    MissionExecution selectedMission;
     
     // UDP Messages
     std::vector<s_UDPMessage> UDPMessageList;
@@ -105,7 +99,6 @@ public:
     float getBatteryLevel();                                // Return the battery
     
     //Robot's Position Functions
-    void getPositionAssignment(s_pose& p);                  // This will be soon excluded
     void getPosition(s_pose& p);                            // Get the current robot's position
     void setPosition(s_pose& p);                            // Set the robot's current position
     
@@ -117,11 +110,6 @@ public:
     // Map Related Functions
     void setMapCoodinates(std::array<float,2>& coord);      // Set Map MAX Dimensions
     void getMapCoodinates(std::array<float,2>& coord);      // Get Map MAX Dimensions
-    
-    // Tasks functions
-    //bool isTaskListEmpty();                                 // Return if the list of ToDo tasks is empty
-    //void addTask(AtomicTask& vTask);                              // Add task to the ToDo list
-    //void getTask(AtomicTask& vTask);                              // Get the first task from the ToDo list
     
     // Decomposable Tasks
     
@@ -138,9 +126,9 @@ public:
     
     bool isMissionCompleted(); // NAO ESTA IMPLEMENTADA
     bool isRobotAvailable();    // NAO ESTA IMPLEMENTADA
-    void addMissionToExecute(Mission& vMission);
+    void addMissionToExecute(MissionExecution& vMission);
     void startMissionExecution();
-    void getTaskFromMission(AtomicTask& vTask);
+    AtomicTask* getTaskFromMission();
     void cancelMission();
 
     // Mission Messages

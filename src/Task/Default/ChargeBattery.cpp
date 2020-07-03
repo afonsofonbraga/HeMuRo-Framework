@@ -19,11 +19,13 @@ ChargeBattery::~ChargeBattery(){}
 
 void ChargeBattery::run()
 {
-    std::cout << " Ainda tenho que colocar como ele vai andar ou acessar valores la de cima."<< std::endl;
+    this->status = enum_AtomicTaskStatus::running;
+    std::cout << " Carregando Bateria."<< std::endl;
+    this->status = enum_AtomicTaskStatus::completed;
 }
 
 void ChargeBattery::calculateCost()
 {
-    this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costMeter;
+    this->cost = this->costMeter; //sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costMeter;
 }
 

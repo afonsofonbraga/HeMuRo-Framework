@@ -10,7 +10,7 @@
 
 AtomicTask::AtomicTask(s_pose& start, s_pose& end)
 {
-    this->status = TaskStatus::waiting;
+    this->status = enum_AtomicTaskStatus::waiting;
     this->startPosition = start;
     this->endPosition = end;
     this->calculateCost();
@@ -23,7 +23,7 @@ AtomicTask::AtomicTask()
 
 AtomicTask::AtomicTask(s_pose& end)
 {
-    this->status = TaskStatus::waiting;
+    this->status = enum_AtomicTaskStatus::waiting;
     this->startPosition = end;
     this->endPosition = end;
     this->calculateCost();
@@ -40,4 +40,7 @@ void AtomicTask::calculateCost() { this->cost = 0; }
 
 float AtomicTask::getCost(){ return this->cost; }
 
-
+enum_AtomicTaskStatus AtomicTask::getStatus()
+{
+    return this->status;
+}

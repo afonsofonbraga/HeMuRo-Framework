@@ -54,7 +54,7 @@ void MissionManager::run()
                     if(status == true)
                     {
                         std::cout << "[bidder] Received a mission." <<std::endl;
-                        vMission = new Mission;
+                        vMission = new MissionExecution;
                         strcpy(vMission->missionCode,vMissionMessage->missionCode);
                         strcpy(vMission->senderAddress,vMissionMessage->senderAddress);
                         vMission->enum_execution = enum_MissionExecution::waitingAuction;
@@ -73,7 +73,7 @@ void MissionManager::run()
                     bool status = this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vAtomicTaskVector);
                     if(status == true){
                         std::cout << "[bidder] Received a mission." <<std::endl;
-                        vMission = new Mission;
+                        vMission = new MissionExecution;
                         strcpy(vMission->missionCode,vMissionMessage->missionCode);
                         strcpy(vMission->senderAddress,vMissionMessage->senderAddress);
                         vMission->enum_execution = enum_MissionExecution::waitingAuction;
@@ -172,22 +172,22 @@ void MissionManager::addAtomicTask()
         }
         if (vAtomicTaskitem != nullptr)
         {
-            this->vMission->atomicTaskList.push_back(*vAtomicTaskitem);
-            delete vAtomicTaskitem;
+            this->vMission->atomicTaskList.push_back(vAtomicTaskitem);
+            //delete vAtomicTaskitem;
         } else {
             std::cout << "Not found\n";
         }
     }
 }
 
-void MissionManager::calculateMissionCost(Mission& mission){
+void MissionManager::calculateMissionCost(MissionExecution& mission){
     mission.missionCost = 0;
     for (auto n: mission.atomicTaskList){
-        mission.missionCost += n.getCost();
+        mission.missionCost += n->getCost();
     }
 }
 
-void MissionManager::sendMissionCost(Mission& mission)
+void MissionManager::sendMissionCost(MissionExecution& mission)
 {
     s_MissionMessage missionMessage;
     

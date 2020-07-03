@@ -10,13 +10,14 @@
 
 DecomposableTask::DecomposableTask(BlackBoard* vMonitor,  enum_DecomposableTask vtaskToBeDecomposed)
 {
+    /*
     std::vector<enum_AtomicTask> teste;
     teste.push_back(enum_AtomicTask::turnOn);
     teste.push_back(enum_AtomicTask::chargeBattery);
     enum_DecomposableTask lala = enum_DecomposableTask::checkPosition;
     
     avaliableTasks.insert_or_assign(lala , &teste);
-    
+    */
     
     
     this->monitor = vMonitor;
@@ -62,15 +63,6 @@ DecomposableTask::DecomposableTask(BlackBoard* vMonitor,  enum_DecomposableTask 
 
 DecomposableTask::DecomposableTask(BlackBoard* vMonitor,  enum_DecomposableTask vtaskToBeDecomposed, std::vector<AtomicTask>& taskVector)
 {
-    std::vector<enum_AtomicTask> teste;
-    teste.push_back(enum_AtomicTask::turnOn);
-    teste.push_back(enum_AtomicTask::chargeBattery);
-    enum_DecomposableTask lala = enum_DecomposableTask::checkPosition;
-    
-    avaliableTasks.insert_or_assign(lala , &teste);
-    
-    
-    
     this->monitor = vMonitor;
     this->taskToBeDecomposed = vtaskToBeDecomposed;
     auto search = avaliableTasks.find(this->taskToBeDecomposed);

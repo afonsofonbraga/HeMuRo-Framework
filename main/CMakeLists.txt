@@ -1,6 +1,7 @@
 include_directories(${Framework_SOURCE_DIR}/src/Core)
 include_directories(${Framework_SOURCE_DIR}/src/Communication)
 include_directories(${Framework_SOURCE_DIR}/src/Task)
+include_directories(${Framework_SOURCE_DIR}/src/Task/Default)
 include_directories(${Framework_SOURCE_DIR}/src/Mission)
 
 find_package (Threads)
@@ -8,6 +9,7 @@ find_package (Threads)
 link_directories(${Framework_SOURCE_DIR}/src/Core)
 link_directories(${Framework_SOURCE_DIR}/src/Communication)
 link_directories(${Framework_SOURCE_DIR}/src/Task)
+link_directories(${Framework_SOURCE_DIR}/src/Task/Default)
 link_directories(${Framework_SOURCE_DIR}/src/Mission)
 
 add_executable(Framework main.cpp)

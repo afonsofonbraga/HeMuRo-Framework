@@ -21,16 +21,20 @@ struct Bid
     float price;
 };
 
-struct Mission
+class Mission
 {
+public:
+    Mission();
+    ~Mission();
     // Common Variables
     char missionCode[5];
     char senderAddress[15];
+    char winnerAddress[15];
     enum_DecomposableTask mission = enum_DecomposableTask::null;
     //REQUIREMENTS
     
     // Owner Variables
-    //WHOBID
+    /*WHOBID
     enum_MissionRequest enum_request = enum_MissionRequest::null;
     std::thread* t5;
     int biddingTime = 5;
@@ -39,16 +43,18 @@ struct Mission
     std::vector<Bid> vectorBids;
     std::condition_variable* cv;
     std::mutex* cv_m;
+     */
     
     
     
     // Execution Variables
+    /*
     enum_MissionExecution enum_execution = enum_MissionExecution::null;
     char winnerAddress[15];
     bool missionAccepted = false;
-    std::vector<AtomicTask> atomicTaskList;
+    std::vector<AtomicTask*> atomicTaskList;
     int atomicTaskIndex = 0;
-    float missionCost = 0;
+    float missionCost = 0;*/
 };
 
 #endif /* Mission_hpp */

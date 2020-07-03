@@ -18,7 +18,9 @@ TurnOn::~TurnOn(){}
 
 void TurnOn::run()
 {
-    std::cout << " Ainda tenho que colocar como ele vai andar ou acessar valores la de cima."<< std::endl;
+    this->status = enum_AtomicTaskStatus::running;
+    std::cout << " Ligando."<< std::endl;
+    this->status = enum_AtomicTaskStatus::completed;
 }
 
 void TurnOn::calculateCost()

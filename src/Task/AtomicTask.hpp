@@ -19,7 +19,7 @@ protected:
     s_pose startPosition;
     s_pose endPosition;
     float cost;
-    TaskStatus status;
+    enum_AtomicTaskStatus status;
 
 public:
     AtomicTask(s_pose& start, s_pose& end);
@@ -28,6 +28,7 @@ public:
     ~AtomicTask();
     
     virtual void run();
+    enum_AtomicTaskStatus getStatus();
     virtual void calculateCost();
     float getCost();
 };

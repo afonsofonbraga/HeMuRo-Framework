@@ -13,7 +13,7 @@
 enum class Operation{null, setRobotsPosition, missionMessage};
 enum class RobotType{null, uav, ugv, usv};
 
-enum class TaskStatus{null, waiting, running, completed};
+enum class enum_AtomicTaskStatus{null, waiting, running, completed};
 // enum class TaskDescription{null, chargeBattery, turnOn, goTo};
 enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo};
 
@@ -24,11 +24,11 @@ enum class enum_MissionExecution{null, waitingAuction, waitingStart, executing, 
 enum class enum_MissionOperation{null, createMission, addMission, addAndRequestCost, Bid, removeMission, winningBid, acceptMission , startMission};
 
 
-//template<typename T>
-//std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type& stream, const T& e)
-//{
-//    return stream << static_cast<typename std::underlying_type<T>::type>(e);
-//}
+template<typename T>
+std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type& stream, const T& e)
+{
+    return stream << static_cast<typename std::underlying_type<T>::type>(e);
+}
 
 
 struct s_pose

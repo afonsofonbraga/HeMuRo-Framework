@@ -7,8 +7,8 @@ BlackBoard::BlackBoard(std::string& name)
     this->position.theta = 0;
     this->batteryLevel = 56;
     setRobotsName(&name);
-    char vname[16] = "10.0.0.103";
-    setRobotIP(vname);
+    this->setRobotIP();
+    
 }
 
 BlackBoard::~BlackBoard(){
@@ -22,10 +22,7 @@ BlackBoard::BlackBoard(const BlackBoard& other)
     this->position.y = other.position.y;
     this->position.theta = other.position.theta;
     std::string* vName = new std::string{other.robotName};
-    char vIP[16];
-    strcpy(vIP, other.robotIP);
-    this->setRobotIP(vIP);
-    //other.getRobotsName(*vName);
+    this->setRobotIP();
     this->setRobotsName(vName);
     delete vName;
 }
@@ -39,9 +36,7 @@ BlackBoard& BlackBoard::operator=(const BlackBoard& other)
         this->position.theta = other.position.theta;
         std::string* vName = new std::string{other.robotName};
         this->setRobotsName(vName);
-        char vIP[16];
-        strcpy(vIP, other.robotIP);
-        this->setRobotIP(vIP);
+        this->setRobotIP();
     }
     return *this;
 }
@@ -61,7 +56,7 @@ void BlackBoard::getRobotsName(std::string& name)
     name = this->robotName;
 }
 
-void BlackBoard::setRobotIP(char* vIP)
+void BlackBoard::setRobotIP()
 {
     struct ifaddrs *ifap, *ifa;
     struct sockaddr_in *sa;
@@ -70,10 +65,7 @@ void BlackBoard::setRobotIP(char* vIP)
 
         if (ifa->ifa_addr && ifa->ifa_addr->sa_family==AF_INET && strstr(ifa->ifa_name,"lo")==nullptr) {
             sa = (struct sockaddr_in *) ifa->ifa_addr;
-            
-            //addr = inet_ntoa(sa->sin_addr);
             strcpy(this->robotIP, inet_ntoa(sa->sin_addr));
-            //printf("Interface: %s\tAddress: %s\n", ifa->ifa_name, addr);
             break;
         }
     }
@@ -96,19 +88,15 @@ void BlackBoard::getBroadcastIP(char& vBroadcast)
 
 void BlackBoard::chargeBattery(float energy)
 {
-    //this->mutex_battery.lock();
     std::unique_lock<std::mutex> lk(mutex_battery);
         this->batteryLevel + energy < 100.0 ? this->batteryLevel += energy : this->batteryLevel = 100.0;
-    //this->mutex_battery.unlock();
     lk.unlock();
 }
 
 void BlackBoard::consumeBattery(float energy)
 {
-    //this->mutex_battery.lock();
     std::unique_lock<std::mutex> lk(mutex_battery);
         this->batteryLevel - energy > 0.0 ? this->batteryLevel -= energy : this->batteryLevel = 0;
-    //this->mutex_battery.unlock();
     lk.unlock();
 }
 
@@ -116,9 +104,7 @@ float BlackBoard::getBatteryLevel()
 {
     float vBattery;
     std::unique_lock<std::mutex> lk(mutex_battery);
-    //this->mutex_battery.lock();
         vBattery = this->batteryLevel;
-    //this->mutex_battery.unlock();
     lk.unlock();
     return vBattery;
 }
@@ -129,79 +115,54 @@ float BlackBoard::getBatteryLevel()
 //****************************************************
 
 
-void BlackBoard::getPositionAssignment(s_pose& p)
-{
-    //this->mutex_position.lock();
-    std::unique_lock<std::mutex> lk(mutex_position);
-            //start = std::chrono::high_resolution_clock::now();
-        p.x = position.x;
-        p.y = position.y;
-        p.theta = position.theta;
-            //end = std::chrono::high_resolution_clock::now();
-            //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
-            //std::cout << "getPositionAssignment time: " << duration << std::endl;
-    lk.unlock();
-    //this->mutex_position.unlock();
-}
-
 void BlackBoard::getPosition(s_pose& p)
 {
-    //this->mutex_position.lock();
     std::unique_lock<std::mutex> lk(mutex_position);
             //start = std::chrono::high_resolution_clock::now();
         memcpy(&p, &position, sizeof(position));
             //end = std::chrono::high_resolution_clock::now();
             //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
             //std::cout << "getPositionMemcpy time: " << duration << std::endl;
-    //this->mutex_position.unlock();
     lk.unlock();
 }
 
 void BlackBoard::setPosition(s_pose& p)
 {
-    //this->mutex_position.lock();
     std::unique_lock<std::mutex> lk(mutex_position);
         memcpy(&this->position, &p, sizeof(position));
-    //this->mutex_position.unlock();
     lk.unlock();
 }
 
 void BlackBoard::setAllRobotsPosition(s_robotsPose &p)
 {
-    //this->mutex_mapRobotsPosition.lock();
     std::unique_lock<std::mutex> lk(mutex_mapRobotsPosition);
             //start = std::chrono::high_resolution_clock::now();
         this->mapRobotsPosition.insert_or_assign(p.robotName, p.position);
             //end = std::chrono::high_resolution_clock::now();
             //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
             //std::cout << "set " << p.robotName << " time: " << duration << std::endl;
-    //this->mutex_mapRobotsPosition.unlock();
     lk.unlock();
 }
 
 void BlackBoard::removeAllRobotsPosition(s_robotsPose &p)
 {
-    //this->mutex_mapRobotsPosition.lock();
     std::unique_lock<std::mutex> lk(mutex_mapRobotsPosition);
             //start = std::chrono::high_resolution_clock::now();
         this->mapRobotsPosition.erase(p.robotName);
             //end = std::chrono::high_resolution_clock::now();
             //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
             //std::cout << "Remove " << p.robotName << " time: " << duration << std::endl;
-    //this->mutex_mapRobotsPosition.unlock();
     lk.unlock();
 }
 
 void BlackBoard::getAllRobotsPosition(std::unordered_map<std::string, s_pose> &p)
 {
-    //this->mutex_mapRobotsPosition.lock();
     std::unique_lock<std::mutex> lk(mutex_mapRobotsPosition);
             //start = std::chrono::high_resolution_clock::now();
         memcpy(&p, &this->mapRobotsPosition, sizeof(mapRobotsPosition));
             //end = std::chrono::high_resolution_clock::now();
             //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
             //std::cout << "getAllRobotsPosition time: " << duration << std::endl;
-    //this->mutex_mapRobotsPosition.unlock();
     lk.unlock();
 }
 
@@ -230,54 +191,6 @@ void BlackBoard::getMapCoodinates(std::array<float,2>& coord)
 
 
 //****************************************************
-//*            Task Related Functions                *
-//****************************************************
-/*
-void BlackBoard::addTask(AtomicTask& vTask)
-{
-    std::unique_lock<std::mutex> lk(mutex_task);
-    //this->mutex_task.lock();
-        this->taskList.push_back(vTask);
-    //this->mutex_task.unlock();
-    lk.unlock();
-    this->conditional_task.notify_one();
-}
-
-void BlackBoard::getTask(AtomicTask& vTask)
-{
-    std::unique_lock<std::mutex> lk(mutex_task);
-    
-    if (this->taskList.empty() == false){
-        //this->mutex_task.lock();
-            vTask = this->taskList.front();
-        this->taskList.erase(taskList.begin());
-        lk.unlock();
-        //this->mutex_task.unlock();
-    }else
-    {
-        this->conditional_task.wait(lk);
-        
-        if (this->taskList.empty() == false){
-            vTask = this->taskList.front();
-            this->taskList.erase(taskList.begin());
-            lk.unlock();
-        }
-    }
-}
-
-bool BlackBoard::isTaskListEmpty()
-{
-    bool status;
-    std::unique_lock<std::mutex> lk(mutex_task);
-    //this->mutex_task.lock();
-        status = this->taskList.empty();
-    //this->mutex_task.unlock();
-    lk.unlock();
-    return status;
-}
-*/
-
-//****************************************************
 //*      Decomposable Tasks Related Functions        *
 //****************************************************
 
@@ -296,8 +209,6 @@ bool BlackBoard::getDecomposableTask(enum_DecomposableTask vTaskToBeDecomposed, 
         auto search = this->decomposableTaskAvaliable.find(vTaskToBeDecomposed);
         if(search != this->decomposableTaskAvaliable.end())
         {
-            //vAtomicTask = *search->second;
-            //memcpy(&vAtomicTask, &search->second, sizeof(*search->second));
             for(auto n : search->second)
             {
                 vAtomicTask.push_back(n);
@@ -396,7 +307,7 @@ bool BlackBoard::isRobotAvailable()
     return status;
 }
 
-void BlackBoard::addMissionToExecute(Mission& vMission)
+void BlackBoard::addMissionToExecute(MissionExecution& vMission)
 {
     std::unique_lock<std::mutex> lk(mutex_mission);
     if (this->selectedMission.enum_execution == enum_MissionExecution::missionComplete || this->selectedMission.enum_execution == enum_MissionExecution::null) // Is necessary to check if the previous mission is already completed.
@@ -409,30 +320,21 @@ void BlackBoard::addMissionToExecute(Mission& vMission)
     lk.unlock();
 }
 
-void BlackBoard::getTaskFromMission(AtomicTask& vTask)
+AtomicTask* BlackBoard::getTaskFromMission()
 {
     std::unique_lock<std::mutex> lk(mutex_mission);
     
-    if(this->selectedMission.atomicTaskIndex == this->selectedMission.atomicTaskList.size() && this->selectedMission.atomicTaskList.size() != 0)
+    AtomicTask* vtask = nullptr;
+    if (this->selectedMission.enum_execution == enum_MissionExecution::executing)
     {
-        std::cout << "Mission Complete!!!!" << std::endl;
-        this->selectedMission.enum_execution = enum_MissionExecution::missionComplete;
-    }
-    
-    if (this->selectedMission.enum_execution == enum_MissionExecution::executing){
-        vTask = this->selectedMission.atomicTaskList.at(this->selectedMission.atomicTaskIndex);
-        this->selectedMission.atomicTaskIndex++;
-        lk.unlock();
-    }else
+        vtask = this->selectedMission.selectNextAction();
+    } else
     {
         this->conditional_missionTask.wait(lk);
-        
-        if (this->selectedMission.enum_execution == enum_MissionExecution::executing){
-            vTask = this->selectedMission.atomicTaskList.at(this->selectedMission.atomicTaskIndex);
-            this->selectedMission.atomicTaskIndex++;
-        lk.unlock();
-        }
+        vtask = this->selectedMission.selectNextAction();
     }
+    lk.unlock();
+    return vtask;
 }
 
 void BlackBoard::startMissionExecution()

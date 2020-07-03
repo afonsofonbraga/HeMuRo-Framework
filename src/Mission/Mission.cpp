@@ -7,7 +7,7 @@
 //
 
 #include "Mission.hpp"
-/*
+
 Mission::Mission()
 {
 }
@@ -15,9 +15,13 @@ Mission::Mission()
 
 Mission::~Mission()
 {
-    
+    //for(auto p:this->atomicTaskList)
+    //{
+        //delete p;
+    //}
 }
 
+/*
 Mission::Mission(const Mission& other)
 {
 }

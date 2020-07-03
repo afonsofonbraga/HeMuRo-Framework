@@ -17,7 +17,9 @@ GoTo::~GoTo(){}
 
 void GoTo::run()
 {
-    std::cout << " Ainda tenho que colocar como ele vai andar ou acessar valores la de cima."<< std::endl;
+    this->status = enum_AtomicTaskStatus::running;
+    std::cout << " Indo para destino selecionado."<< std::endl;
+    this->status = enum_AtomicTaskStatus::completed;
 }
 
 void GoTo::calculateCost()
