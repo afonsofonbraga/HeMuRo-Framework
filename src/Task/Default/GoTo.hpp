@@ -17,7 +17,7 @@ class GoTo : public AtomicTask
 protected:
     float costMeter = 2.0;
 public:
-    GoTo(s_pose& start, s_pose& end);
+    GoTo(BlackBoard* vMonitor, s_pose& start, s_pose& end);
     ~GoTo();
     void run() override;
     void calculateCost() override;

@@ -22,7 +22,7 @@
 #include "UDPSender.hpp"
 
 #include "AtomicTask.hpp"
-#include "TaskManager.hpp"
+//#include "TaskManager.hpp"
 
 #include "MissionManager.hpp"
 
@@ -34,7 +34,7 @@ int main(){
     std::vector<UDPReceiver*> v_Receiver;
     std::vector<UDPSender*> v_Sender;
     
-    std::vector<TaskManager*> v_TaskManager;
+    //std::vector<TaskManager*> v_TaskManager;
     
     std::vector<MissionManager*> v_MissionManager;
     
@@ -48,13 +48,13 @@ int main(){
     UDPReceiver* receiver = new UDPReceiver(v_BlackBoard.at(i));
     UDPSender* sender = new UDPSender(v_BlackBoard.at(i));
     
-    TaskManager* taskManager = new TaskManager(v_BlackBoard.at(i));
+    //TaskManager* taskManager = new TaskManager(v_BlackBoard.at(i));
     
     MissionManager* missionManager = new MissionManager(v_BlackBoard.at(i));
     
     v_Broadcast.push_back(broadcast);
     v_Receiver.push_back(receiver);
-    v_TaskManager.push_back(taskManager);
+    //v_TaskManager.push_back(taskManager);
     v_MissionManager.push_back(missionManager);
     
     char vIP[16];
@@ -77,6 +77,18 @@ int main(){
     memmove(message.buffer+8,(const unsigned char*)&mission,sizeof(mission));
     message.messageSize = sizeof(message.buffer);
 
+    v_BlackBoard.at(0)->addUDPMessage(message);
+    
+    
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+    strcpy(mission.missionCode, "tag2");
+    mission.operation = enum_MissionOperation::emergency;
+    mission.taskToBeDecomposed = enum_DecomposableTask::lowBattery;
+    *((Operation*)message.buffer) = operation;
+    *((int*)(message.buffer + 4)) = sizeof(mission);
+    memmove(message.buffer+8,(const unsigned char*)&mission,sizeof(mission));
+    message.messageSize = sizeof(message.buffer);
+    
     v_BlackBoard.at(0)->addUDPMessage(message);
 
     std::this_thread::sleep_for(std::chrono::seconds(150));

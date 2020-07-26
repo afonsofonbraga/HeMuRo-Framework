@@ -28,7 +28,11 @@ void TaskManager::run()
             if(vTask->getStatus() == enum_AtomicTaskStatus::waiting)
             {
                 this -> performingTask = true;
-                vTask->run();
+                //if (TurnOn* p = dynamic_cast<TurnOn*>(vTask))
+                //{
+                //    p->run(this->monitor);
+                //}else
+                    vTask->run();
             }
         }
     }

@@ -18,18 +18,29 @@ MissionExecution::~MissionExecution()
     
 };
 
-AtomicTask* MissionExecution::selectNextAction()
+void MissionExecution::run()
 {
     if(this->atomicTaskIndex == this->atomicTaskList.size() && this->atomicTaskList.size() != 0)
     {
         this->enum_execution = enum_MissionExecution::missionComplete;
         std::cout <<"Mission Complete!"<< std::endl;
-        return nullptr;
     }
+    
     if(this->enum_execution == enum_MissionExecution::executing)
     {
-        this->atomicTaskIndex++;
-        return this->atomicTaskList.at(this->atomicTaskIndex-1);
+        switch(this->atomicTaskList.at(atomicTaskIndex)->getStatus())
+        {
+            case enum_AtomicTaskStatus::null:
+                break;
+            case enum_AtomicTaskStatus::waiting:
+                this->atomicTaskList.at(atomicTaskIndex)->run();
+                break;
+            case enum_AtomicTaskStatus::running:
+                this->atomicTaskList.at(atomicTaskIndex)->run();
+                break;
+            case enum_AtomicTaskStatus::completed:
+                atomicTaskIndex++;
+                break;
+        }
     }
-    return nullptr;
 }

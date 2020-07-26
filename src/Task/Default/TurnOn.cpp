@@ -9,7 +9,7 @@
 #include "TurnOn.hpp"
 
 
-TurnOn::TurnOn(s_pose& start, s_pose& end) : AtomicTask(start, end)
+TurnOn::TurnOn(BlackBoard* vMonitor,s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     calculateCost();
 }
@@ -19,12 +19,13 @@ TurnOn::~TurnOn(){}
 void TurnOn::run()
 {
     this->status = enum_AtomicTaskStatus::running;
-    std::cout << " Ligando."<< std::endl;
+    std::cout << "Ligando."<< std::endl;
+    this->monitor->consumeBattery(this->cost);
     this->status = enum_AtomicTaskStatus::completed;
 }
 
 void TurnOn::calculateCost()
 {
-    this->cost = 3;
+    this->cost = 4;
 }
 

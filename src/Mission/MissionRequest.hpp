@@ -29,6 +29,7 @@ public:
     std::condition_variable* cv;
     std::mutex* cv_m;
     bool missionAccepted = false;
+    bool endMission = false;
 
 public:
     MissionRequest();

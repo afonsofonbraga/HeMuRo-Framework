@@ -21,14 +21,13 @@
 class MissionExecution: public Mission{
 public:
     enum_MissionExecution enum_execution = enum_MissionExecution::null;
-    //char winnerAddress[15];
-    //bool missionAccepted = false;
-    std::vector<AtomicTask*> atomicTaskList;
+    std::vector<enum_AtomicTask> vAtomicTaskVector;
+    std::vector<std::shared_ptr<AtomicTask>> atomicTaskList;
     int atomicTaskIndex = 0;
     float missionCost = 0;
 public:
     MissionExecution();
     ~MissionExecution();
-    AtomicTask* selectNextAction();
+    void run();
 };
 #endif /* MissionExecution_hpp */

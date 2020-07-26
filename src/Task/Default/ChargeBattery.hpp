@@ -17,7 +17,7 @@ class ChargeBattery: public AtomicTask
 protected:
     float costMeter = 2.0;
 public:
-    ChargeBattery(s_pose& start, s_pose& end);
+    ChargeBattery(BlackBoard* vMonitor, s_pose& start, s_pose& end);
     ~ChargeBattery();
     void run() override;
     void calculateCost() override;

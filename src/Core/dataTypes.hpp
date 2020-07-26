@@ -9,7 +9,6 @@
 #ifndef dataTypes_h
 #define dataTypes_h
 
-
 enum class Operation{null, setRobotsPosition, missionMessage};
 enum class RobotType{null, uav, ugv, usv};
 
@@ -18,10 +17,10 @@ enum class enum_AtomicTaskStatus{null, waiting, running, completed};
 enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo};
 
 
-enum class enum_DecomposableTask{null, checkPosition}; //Trocar por DecomposableMission
+enum class enum_DecomposableTask{null, checkPosition, lowBattery}; //Trocar por DecomposableMission
 enum class enum_MissionRequest{null, waitingBids, notifyingWinner, executingMission, missionComplete};
 enum class enum_MissionExecution{null, waitingAuction, waitingStart, executing, missionComplete};
-enum class enum_MissionOperation{null, createMission, addMission, addAndRequestCost, Bid, removeMission, winningBid, acceptMission , startMission};
+enum class enum_MissionOperation{null, createMission, addMission, addAndRequestCost, Bid, abortMission, winningBid, acceptMission , startMission, emergency, missionComplete};
 
 
 template<typename T>

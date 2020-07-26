@@ -24,8 +24,8 @@
 #include <sys/socket.h>
 #include <ifaddrs.h>
 
-#include "AtomicTask.hpp"
-#include "MissionExecution.hpp"
+//#include "AtomicTask.hpp"
+//#include "MissionExecution.hpp"
 #include "dataTypes.hpp"
 
 class BlackBoard {
@@ -71,7 +71,8 @@ protected:
     
     // Mission: Selected Mission to execute
     std::mutex mutex_mission;
-    MissionExecution selectedMission;
+    bool executingMission = false;
+    //MissionExecution selectedMission;
     
     // UDP Messages
     std::vector<s_UDPMessage> UDPMessageList;
@@ -80,7 +81,6 @@ protected:
     
 public:
     std::condition_variable conditional_UDPMessageList;
-    std::condition_variable conditional_missionTask;
     std::condition_variable conditional_MissionMessageList;
     
     BlackBoard(std::string& name);                          // Constructor
@@ -126,10 +126,13 @@ public:
     
     bool isMissionCompleted(); // NAO ESTA IMPLEMENTADA
     bool isRobotAvailable();    // NAO ESTA IMPLEMENTADA
-    void addMissionToExecute(MissionExecution& vMission);
-    void startMissionExecution();
-    AtomicTask* getTaskFromMission();
-    void cancelMission();
+    bool lockRobot();
+    bool unlockRobot();
+    //WILL BE IMPLEMENTED IN MISSION MODULE
+    //void addMissionToExecute(MissionExecution& vMission);
+    //void startMissionExecution();
+    //std::shared_ptr<AtomicTask> getTaskFromMission();
+    //void cancelMission();
 
     // Mission Messages
     bool isMissionMessageListEmpty();

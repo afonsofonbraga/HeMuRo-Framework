@@ -13,7 +13,6 @@
 		2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */; };
 		2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAD245DD23900465752 /* UDPReceiver.cpp */; };
 		23872A1B248049B200EC738C /* UDPSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23872A19248049B200EC738C /* UDPSender.cpp */; };
-		238FAE3A2460FB8A00755B29 /* TaskManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 238FAE382460FB8A00755B29 /* TaskManager.cpp */; };
 		239C81DD248FBED900B58BAD /* AtomicTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8324634A2F00EC7860 /* AtomicTask.cpp */; };
 		23C6E54A246EE01A00D99185 /* GoTo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8624634DDF00EC7860 /* GoTo.cpp */; };
 		23C6E54E246EF4C500D99185 /* ChargeBattery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */; };
@@ -23,7 +22,6 @@
 		23ECC3C9248E99AC0025CBC7 /* MissionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23ECC3C7248E99AC0025CBC7 /* MissionManager.cpp */; };
 		23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51B245CA8B9003D13A3 /* Module.cpp */; };
 		23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */; };
-		23F4FFA1246F2C5F003711EA /* DecomposableTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C89246351C700EC7860 /* DecomposableTask.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -74,6 +72,9 @@
 		23D20B50245C71560013F98A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		23ECC3C7248E99AC0025CBC7 /* MissionManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MissionManager.cpp; sourceTree = "<group>"; };
 		23ECC3C8248E99AC0025CBC7 /* MissionManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MissionManager.hpp; sourceTree = "<group>"; };
+		23ED54D724CE179100239D05 /* package.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = package.xml; sourceTree = "<group>"; };
+		23ED54D924CE17EB00239D05 /* Alive.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Alive.cpp; sourceTree = "<group>"; };
+		23ED54DA24CE17EB00239D05 /* Alive.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Alive.hpp; sourceTree = "<group>"; };
 		23EDB51B245CA8B9003D13A3 /* Module.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Module.cpp; sourceTree = "<group>"; };
 		23EDB51C245CA8B9003D13A3 /* Module.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Module.hpp; sourceTree = "<group>"; };
 		23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ModulePeriodic.cpp; sourceTree = "<group>"; };
@@ -83,8 +84,6 @@
 		23F00C8424634A2F00EC7860 /* AtomicTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AtomicTask.hpp; sourceTree = "<group>"; };
 		23F00C8624634DDF00EC7860 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
 		23F00C8724634DDF00EC7860 /* GoTo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
-		23F00C89246351C700EC7860 /* DecomposableTask.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecomposableTask.cpp; sourceTree = "<group>"; };
-		23F00C8A246351C700EC7860 /* DecomposableTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DecomposableTask.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,8 +119,6 @@
 				238FAE392460FB8A00755B29 /* TaskManager.hpp */,
 				23F00C8324634A2F00EC7860 /* AtomicTask.cpp */,
 				23F00C8424634A2F00EC7860 /* AtomicTask.hpp */,
-				23F00C89246351C700EC7860 /* DecomposableTask.cpp */,
-				23F00C8A246351C700EC7860 /* DecomposableTask.hpp */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -145,6 +142,7 @@
 		23D20B42245C705C0013F98A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				23ED54D824CE17D200239D05 /* Alive */,
 				23ECC3C6248E99940025CBC7 /* Mission */,
 				23805D362460BC730061F4A0 /* Task */,
 				23EDB521245CC72F003D13A3 /* Communication */,
@@ -203,6 +201,15 @@
 			path = Mission;
 			sourceTree = "<group>";
 		};
+		23ED54D824CE17D200239D05 /* Alive */ = {
+			isa = PBXGroup;
+			children = (
+				23ED54D924CE17EB00239D05 /* Alive.cpp */,
+				23ED54DA24CE17EB00239D05 /* Alive.hpp */,
+			);
+			path = Alive;
+			sourceTree = "<group>";
+		};
 		23EDB521245CC72F003D13A3 /* Communication */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +227,7 @@
 		23F9DFE3245C6FDB008506C4 = {
 			isa = PBXGroup;
 			children = (
+				23ED54D724CE179100239D05 /* package.xml */,
 				23D20B41245C705C0013F98A /* build */,
 				23D20B48245C705C0013F98A /* CMakeLists.txt */,
 				23D20B3E245C705C0013F98A /* main */,
@@ -320,8 +328,6 @@
 				23C6E551246EF4F100D99185 /* TurnOn.cpp in Sources */,
 				2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */,
 				23D20B51245C71560013F98A /* main.cpp in Sources */,
-				23F4FFA1246F2C5F003711EA /* DecomposableTask.cpp in Sources */,
-				238FAE3A2460FB8A00755B29 /* TaskManager.cpp in Sources */,
 				2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */,
 				23789A9224AB95D1001372E5 /* MissionRequest.cpp in Sources */,
 				23C6E54E246EF4C500D99185 /* ChargeBattery.cpp in Sources */,

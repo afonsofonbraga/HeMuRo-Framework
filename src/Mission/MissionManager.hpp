@@ -29,28 +29,62 @@
 
 class MissionManager: public Module
 {
+private:
+    char broadcastIP[16]="null";
+    std::map<std::string, MissionExecution> MissionList;
+    std::unordered_map<std::string, MissionRequest> missionOwnerList;
+    
+    std::thread* executeMission;
+    MissionExecution missionToExecute;
+    std::condition_variable conditional_executeMission;
+    std::mutex mutex_mission;
+    bool emergency = false;
+    std::mutex mutex_emergency;
+    MissionExecution missionEmergency;
+    
+    
 protected:
     // Here is the deal, we will create an ordened map, with the first argument the mission code that will be based on the name of the robot+3NUMBERS (ex. Thor001). This code will be also inside the Mission object. The second argument will be the Mission Object. It will be easier to locate the misison, I dont know if it is the most efficient way to programm it. Don`t care at the moment. Later will be a good thing to accept multiple missions to be executed.
     
-    char broadcastIP[16]="null";
-    
-    std::map<std::string, MissionExecution> MissionList;
-    MissionExecution* vMission;
-    s_MissionMessage* vMissionMessage;
-    std::vector<enum_AtomicTask> vAtomicTaskVector;
-    
-    
-    std::unordered_map<std::string, MissionRequest> missionOwnerList;
-    //std::unordered_map<std::string, int> timerList;
     virtual void run() override;
-public:
-    MissionManager(BlackBoard* monitor);
-    ~MissionManager();
-    void addAtomicTask();
+    virtual void mainThread() override;
+    
+    
+    // Starting to incorporate TaskManagerModule
+    void createMission(s_MissionMessage* vMissionMessage);
+    void addMissionReceived(s_MissionMessage* vMissionMessage);
+    void addMissionCalculateCost(s_MissionMessage* vMissionMessage);
+    void addBidReceived(s_MissionMessage* vMissionMessage);
+    void winningBid(s_MissionMessage* vMissionMessage);
+    void missionAccepted(s_MissionMessage* vMissionMessage);
+    void startCommand(s_MissionMessage* vMissionMessage);
+    void missionComplete(s_MissionMessage* vMissionMessage);
+    void waitingForBids(char* missionID);
+    void notifyingWinner(char* missionID);
+    void notifyingToExecute(char* missionID);
+    void notifyingMissionComplete();
+
+    void addMissionToExecute(MissionExecution& vMissionExecute);
+    void startMissionToExecute();
+    
+    // Variables and functions related to mission emergency
+
+    void addMissionEmergency(MissionExecution& vMissionExecute);
+    bool getEmergencyStatus();
+    bool setEmergency();
+    bool cleanEmergecy();
+    void redirectMission(MissionExecution& vMissionExecute);
+    void emergencyCall(s_MissionMessage* vMissionMessage);
+    void missionAborted(s_MissionMessage* vMissionMessage);
+    void addAtomicTask(MissionExecution& mission);
     void calculateMissionCost(MissionExecution& mission);
     void sendMissionCost(MissionExecution& mission);
     void sendUDPMessage(s_MissionMessage& vMissionMessage, char& address);
-    void timer(char* missionID);
+    void missionRequestController(char* missionID);
+    
+public:
+    MissionManager(BlackBoard* monitor);
+    ~MissionManager();
 };
 
 #endif /* MissionManager_hpp */

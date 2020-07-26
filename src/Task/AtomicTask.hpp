@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "dataTypes.hpp"
+#include "BlackBoard.hpp"
 
 class AtomicTask
 {
@@ -20,10 +21,10 @@ protected:
     s_pose endPosition;
     float cost;
     enum_AtomicTaskStatus status;
-
+    BlackBoard* monitor;
 public:
-    AtomicTask(s_pose& start, s_pose& end);
-    AtomicTask(s_pose& end);
+    AtomicTask(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    AtomicTask(BlackBoard* vMonitor, s_pose& end);
     AtomicTask();
     ~AtomicTask();
     

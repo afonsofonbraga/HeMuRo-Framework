@@ -45,8 +45,8 @@ bool Module::getRunningStatus()
 
 void Module::start()
 {
-    t_main = std::thread(&Module::mainThread,this);
     this->isRunning = true;
+    t_main = std::thread(&Module::mainThread,this);
 }
 
 void Module::stop()

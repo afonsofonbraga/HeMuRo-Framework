@@ -8,7 +8,7 @@
 
 #include "AtomicTask.hpp"
 
-AtomicTask::AtomicTask(s_pose& start, s_pose& end)
+AtomicTask::AtomicTask(BlackBoard* vMonitor, s_pose& start, s_pose& end): monitor(vMonitor)
 {
     this->status = enum_AtomicTaskStatus::waiting;
     this->startPosition = start;
@@ -21,7 +21,7 @@ AtomicTask::AtomicTask()
     
 }
 
-AtomicTask::AtomicTask(s_pose& end)
+AtomicTask::AtomicTask(BlackBoard* vMonitor, s_pose& end): monitor(vMonitor)
 {
     this->status = enum_AtomicTaskStatus::waiting;
     this->startPosition = end;
@@ -34,7 +34,11 @@ AtomicTask::~AtomicTask()
     
 }
 
-void AtomicTask::run() {}
+void AtomicTask::run() {
+    this->status = enum_AtomicTaskStatus::running;
+    std::cout << "Default"<< std::endl;
+    this->status = enum_AtomicTaskStatus::completed;
+}
 
 void AtomicTask::calculateCost() { this->cost = 0; }
 

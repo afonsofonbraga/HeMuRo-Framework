@@ -22,9 +22,10 @@
 #include "UDPSender.hpp"
 
 #include "AtomicTask.hpp"
-#include "TaskManager.hpp"
 
 #include "MissionManager.hpp"
+
+#include "Alive.hpp"
 
 int main( int argc, char *argv[ ] ){
     
@@ -42,7 +43,6 @@ int main( int argc, char *argv[ ] ){
     std::vector<UDPReceiver*> v_Receiver;
     std::vector<UDPSender*> v_Sender;
     
-    std::vector<TaskManager*> v_TaskManager;
     
     std::vector<MissionManager*> v_MissionManager;
     
@@ -55,26 +55,27 @@ int main( int argc, char *argv[ ] ){
     UDPReceiver* receiver = new UDPReceiver(v_BlackBoard.at(i));
     UDPSender* sender = new UDPSender(v_BlackBoard.at(i));
     
-    TaskManager* taskManager = new TaskManager(v_BlackBoard.at(i));
+    Alive* alive = new Alive(v_BlackBoard.at(i));
     
     MissionManager* missionManager = new MissionManager(v_BlackBoard.at(i));
     
     v_Broadcast.push_back(broadcast);
     v_Receiver.push_back(receiver);
-    v_TaskManager.push_back(taskManager);
     v_MissionManager.push_back(missionManager);
     
-    s_MissionMessage mission;
+    char vIP[16];
     
+    s_MissionMessage mission;
+    v_BlackBoard.at(0)->getRobotsIP(*vIP);
     strcpy(mission.missionCode, "tag1");
-    strcpy(mission.senderAddress , "10.0.0.108");
+    strcpy(mission.senderAddress , vIP);
     mission.operation = enum_MissionOperation::createMission;
     mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
     
     std::cout << "Time to send a Mission!!!!!"<< std::endl;
     
     s_UDPMessage message;
-    strcpy(message.address , "10.0.0.108");
+    strcpy(message.address , vIP);
     
     Operation operation = Operation::missionMessage;
     *((Operation*)message.buffer) = operation;
@@ -83,5 +84,8 @@ int main( int argc, char *argv[ ] ){
     message.messageSize = sizeof(message.buffer);
 
     v_BlackBoard.at(0)->addUDPMessage(message);
-    std::this_thread::sleep_for(std::chrono::seconds(150));
+    alive->stop();
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+    delete alive;
+std::this_thread::sleep_for(std::chrono::seconds(10));
 }

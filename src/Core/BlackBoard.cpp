@@ -12,7 +12,6 @@ BlackBoard::BlackBoard(std::string& name)
 }
 
 BlackBoard::~BlackBoard(){
-    this->conditional_missionTask.notify_all();
 }
 
 BlackBoard::BlackBoard(const BlackBoard& other)
@@ -291,22 +290,53 @@ bool BlackBoard::isMissionCompleted()
 {
     bool status = false;
     std::unique_lock<std::mutex> lk(mutex_mission);
-    if(this->selectedMission.enum_execution == enum_MissionExecution::missionComplete)
-        status = true;
+    //if(this->selectedMission.enum_execution == enum_MissionExecution::missionComplete)
+    //    status = true;
     lk.unlock();
     return status;
 }
 
 bool BlackBoard::isRobotAvailable()
 {
-    bool status = false;
+    bool status;
     std::unique_lock<std::mutex> lk(mutex_mission);
-    if (this->selectedMission.enum_execution == enum_MissionExecution::missionComplete || this->selectedMission.enum_execution == enum_MissionExecution::null)
-        status = true;
+    //if (this->selectedMission.enum_execution == enum_MissionExecution::missionComplete || this->selectedMission.enum_execution == enum_MissionExecution::null)
+    //    status = true;
+    status = this->executingMission;
     lk.unlock();
     return status;
 }
 
+bool BlackBoard::lockRobot()
+{
+    bool status = false;
+    std::unique_lock<std::mutex> lk(mutex_mission);
+    if (this->executingMission == false)
+    {
+        status = true;
+        this->executingMission= true;
+    } else
+        status = false;
+    lk.unlock();
+    return status;
+}
+
+bool BlackBoard::unlockRobot()
+{
+    bool status = false;
+    std::unique_lock<std::mutex> lk(mutex_mission);
+        if (this->executingMission == true)
+        {
+            status= true;
+            this->executingMission= false;
+        } else
+            status = false;
+    lk.unlock();
+    return status;
+}
+
+// Deprecated
+/*
 void BlackBoard::addMissionToExecute(MissionExecution& vMission)
 {
     std::unique_lock<std::mutex> lk(mutex_mission);
@@ -315,16 +345,17 @@ void BlackBoard::addMissionToExecute(MissionExecution& vMission)
         this->selectedMission = vMission;
         this->selectedMission.atomicTaskIndex = 0;
         this->selectedMission.enum_execution = enum_MissionExecution::waitingStart;
+        std::cout << "Tamanho da mensagem "<< sizeof(this->selectedMission) << std::endl;
         //this->conditional_missionTask.notify_one();
     }
     lk.unlock();
 }
 
-AtomicTask* BlackBoard::getTaskFromMission()
+std::shared_ptr<AtomicTask> BlackBoard::getTaskFromMission()
 {
     std::unique_lock<std::mutex> lk(mutex_mission);
     
-    AtomicTask* vtask = nullptr;
+    std::shared_ptr<AtomicTask> vtask = nullptr;
     if (this->selectedMission.enum_execution == enum_MissionExecution::executing)
     {
         vtask = this->selectedMission.selectNextAction();
@@ -354,6 +385,7 @@ void BlackBoard::cancelMission()
         this->selectedMission.enum_execution = enum_MissionExecution::null;
     lk.unlock();
 }
+ */
 
 
 //****************************************************

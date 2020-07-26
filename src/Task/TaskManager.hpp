@@ -17,6 +17,7 @@
 #include "Module.hpp"
 #include "dataTypes.hpp"
 #include "AtomicTask.hpp"
+#include "TurnOn.hpp"
 //#include "taskDescription.hpp"
 
 class TaskManager: public Module
@@ -28,7 +29,7 @@ private:
     
     // Robot Functions
     bool performingTask = false;
-    AtomicTask* vTask;
+    std::shared_ptr<AtomicTask> vTask;
     
     //void taskSwitch(AtomicTask& menu);
     
