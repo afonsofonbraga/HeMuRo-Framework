@@ -65,7 +65,7 @@ int main(){
     strcpy(mission.senderAddress , vIP);
     mission.operation = enum_MissionOperation::createMission;
     mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
-    mission.goal.x = 2.0;
+    mission.goal.x = 8.0;
     mission.goal.y = 3.0;
     mission.goal.theta = 0.0;
     
@@ -82,7 +82,7 @@ int main(){
     message.messageSize = sizeof(message.buffer);
 
     v_BlackBoard.at(0)->addUDPMessage(message);
-   
+   /*
     strcpy(mission.missionCode, "Pic1");
     mission.operation = enum_MissionOperation::createMission;
     mission.taskToBeDecomposed = enum_DecomposableTask::takePicture;
@@ -97,7 +97,7 @@ int main(){
     message.messageSize = sizeof(message.buffer);
     
     v_BlackBoard.at(0)->addUDPMessage(message);
-    /*
+    
     
     std::this_thread::sleep_for(std::chrono::seconds(5));
     strcpy(mission.missionCode, "tag2");

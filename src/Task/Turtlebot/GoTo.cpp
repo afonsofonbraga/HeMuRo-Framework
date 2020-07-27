@@ -78,6 +78,7 @@ void GoTo::run()
         }
             break;
         case enum_AtomicTaskStatus::completed:
+            ros::shutdown();
             break;
     }
 }

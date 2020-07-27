@@ -15,7 +15,6 @@
 		2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAD245DD23900465752 /* UDPReceiver.cpp */; };
 		23872A1B248049B200EC738C /* UDPSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23872A19248049B200EC738C /* UDPSender.cpp */; };
 		239C81DD248FBED900B58BAD /* AtomicTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8324634A2F00EC7860 /* AtomicTask.cpp */; };
-		23AB0C2C24CF8486002EF252 /* GoTo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2345667224CF265600B28F87 /* GoTo.cpp */; };
 		23C6E54A246EE01A00D99185 /* GoTo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8624634DDF00EC7860 /* GoTo.cpp */; };
 		23C6E54E246EF4C500D99185 /* ChargeBattery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */; };
 		23C6E551246EF4F100D99185 /* TurnOn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54F246EF4F100D99185 /* TurnOn.cpp */; };
@@ -42,7 +41,7 @@
 		233F8D3924621A5900C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		233F8D3A24621B0D00C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		2345667224CF265600B28F87 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
-		2345667324CF265600B28F87 /* GoTo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
+		2345667324CF265600B28F87 /* GoTo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GoTo.hpp; path = src/Task/Turtlebot/GoTo.hpp; sourceTree = SOURCE_ROOT; };
 		23494C8F24CF130200697ABA /* TakePicture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TakePicture.cpp; sourceTree = "<group>"; };
 		23494C9024CF130200697ABA /* TakePicture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TakePicture.hpp; sourceTree = "<group>"; };
 		234EDEBC24AFAE7800385914 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -340,7 +339,6 @@
 				23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */,
 				239C81DD248FBED900B58BAD /* AtomicTask.cpp in Sources */,
 				23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */,
-				23AB0C2C24CF8486002EF252 /* GoTo.cpp in Sources */,
 				23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */,
 				235CC3EB2493F0200012376D /* Mission.cpp in Sources */,
 				23C6E54A246EE01A00D99185 /* GoTo.cpp in Sources */,
