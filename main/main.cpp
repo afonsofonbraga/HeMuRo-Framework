@@ -64,7 +64,7 @@ int main( int argc, char *argv[ ] ){
     v_MissionManager.push_back(missionManager);
     
     char vIP[16];
-    
+    /*
     s_MissionMessage mission;
     v_BlackBoard.at(0)->getRobotsIP(*vIP);
     strcpy(mission.missionCode, "tag1");
@@ -86,8 +86,8 @@ int main( int argc, char *argv[ ] ){
     message.messageSize = sizeof(message.buffer);
 
     v_BlackBoard.at(0)->addUDPMessage(message);
-    std::this_thread::sleep_for(std::chrono::seconds(30));
-//std::this_thread::sleep_for(std::chrono::seconds(20));
+    std::this_thread::sleep_for(std::chrono::seconds(30));*/
+    std::this_thread::sleep_for(std::chrono::seconds(1000));
 }
 
 
