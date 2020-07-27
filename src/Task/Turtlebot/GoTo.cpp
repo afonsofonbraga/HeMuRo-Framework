@@ -12,15 +12,6 @@
 GoTo::GoTo(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     calculateCost();
-    std::map<std::string, std::string> map;
-    ros::init(map,"speed");
-    /*ros::NodeHandle n;
-    ros::Publisher chatter_pub = n.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 1000);
-    ros::Rate loop_rate(10);*/
-    n = new ros::NodeHandle();
-    chatter_pub = new ros::Publisher(n->advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 1000));
-    loop_rate = new ros::Rate(10);
-
 }
 
 GoTo::~GoTo(){}
@@ -34,9 +25,21 @@ void GoTo::run()
             break;
             
         case enum_AtomicTaskStatus::waiting:
+        {
+            std::map<std::string, std::string> map;
+            std::string vname;
+            this->monitor->getRobotsName(vname);
+            std::string node = vname + "_cmd_vel";
+            ros::init(map,node);
+            n = new ros::NodeHandle();
+            std::string topic = vname + "/cmd_vel";
+            chatter_pub = new ros::Publisher(n->advertise<geometry_msgs::Twist>(topic, 1000));
+            loop_rate = new ros::Rate(10);
+            
             std::cout << "Going to the location."<< std::endl;
             this->status = enum_AtomicTaskStatus::running;
             break;
+        }
             
         case enum_AtomicTaskStatus::running:
         {
@@ -47,7 +50,7 @@ void GoTo::run()
             deltaError.x = this->endPosition.x - p.x;
             deltaError.y = this->endPosition.y - p.y;
             deltaError.theta = this->endPosition.theta - p.theta;
-		geometry_msgs::Twist msg;
+            geometry_msgs::Twist msg;
             
             if(sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2)) <= 0.1)
             {
