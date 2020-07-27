@@ -65,11 +65,15 @@ int main(){
     strcpy(mission.senderAddress , vIP);
     mission.operation = enum_MissionOperation::createMission;
     mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
+    mission.goal.x = 2.0;
+    mission.goal.y = 3.0;
+    mission.goal.theta = 0.0;
     
     std::cout << "Time to send a Mission!!!!!"<< std::endl;
     
     s_UDPMessage message;
     strcpy(message.address , vIP);
+    
     
     Operation operation = Operation::missionMessage;
     *((Operation*)message.buffer) = operation;
@@ -77,6 +81,21 @@ int main(){
     memmove(message.buffer+8,(const unsigned char*)&mission,sizeof(mission));
     message.messageSize = sizeof(message.buffer);
 
+    v_BlackBoard.at(0)->addUDPMessage(message);
+   
+    strcpy(mission.missionCode, "Pic1");
+    mission.operation = enum_MissionOperation::createMission;
+    mission.taskToBeDecomposed = enum_DecomposableTask::takePicture;
+    mission.goal.x = 5.0;
+    mission.goal.y = 10.0;
+    mission.goal.theta = 1.0;
+    
+    
+    *((Operation*)message.buffer) = operation;
+    *((int*)(message.buffer + 4)) = sizeof(mission);
+    memmove(message.buffer+8,(const unsigned char*)&mission,sizeof(mission));
+    message.messageSize = sizeof(message.buffer);
+    
     v_BlackBoard.at(0)->addUDPMessage(message);
     
     

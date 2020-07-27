@@ -26,6 +26,7 @@
 #include "GoTo.hpp"
 #include "ChargeBattery.hpp"
 #include "TurnOn.hpp"
+#include "TakePicture.hpp"
 
 class MissionManager: public Module
 {

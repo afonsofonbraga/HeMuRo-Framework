@@ -8,8 +8,9 @@
 
 #include "AtomicTask.hpp"
 
-AtomicTask::AtomicTask(BlackBoard* vMonitor, s_pose& start, s_pose& end): monitor(vMonitor)
+AtomicTask::AtomicTask(BlackBoard* vMonitor, s_pose& start, s_pose& end)
 {
+    this->monitor = vMonitor;
     this->status = enum_AtomicTaskStatus::waiting;
     this->startPosition = start;
     this->endPosition = end;
@@ -21,8 +22,9 @@ AtomicTask::AtomicTask()
     
 }
 
-AtomicTask::AtomicTask(BlackBoard* vMonitor, s_pose& end): monitor(vMonitor)
+AtomicTask::AtomicTask(BlackBoard* vMonitor, s_pose& end)
 {
+    this->monitor = vMonitor;
     this->status = enum_AtomicTaskStatus::waiting;
     this->startPosition = end;
     this->endPosition = end;

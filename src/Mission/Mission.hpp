@@ -31,6 +31,7 @@ public:
     char senderAddress[15];
     char winnerAddress[15];
     enum_DecomposableTask mission = enum_DecomposableTask::null;
+    s_pose goal;
 };
 
 #endif /* Mission_hpp */

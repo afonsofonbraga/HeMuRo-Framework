@@ -13,11 +13,10 @@ enum class Operation{null, setRobotsPosition, missionMessage};
 enum class RobotType{null, uav, ugv, usv};
 
 enum class enum_AtomicTaskStatus{null, waiting, running, completed};
-// enum class TaskDescription{null, chargeBattery, turnOn, goTo};
-enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo};
+enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo, takePicture};
+enum class enum_DecomposableTask{null, checkPosition, lowBattery, takePicture}; //Trocar por DecomposableMission
 
 
-enum class enum_DecomposableTask{null, checkPosition, lowBattery}; //Trocar por DecomposableMission
 enum class enum_MissionRequest{null, waitingBids, notifyingWinner, executingMission, missionComplete};
 enum class enum_MissionExecution{null, waitingAuction, waitingStart, executing, missionComplete};
 enum class enum_MissionOperation{null, createMission, addMission, addAndRequestCost, Bid, abortMission, winningBid, acceptMission , startMission, emergency, missionComplete};
@@ -57,6 +56,8 @@ struct s_MissionMessage
     enum_MissionOperation operation = enum_MissionOperation::null;
     enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
     float Cost = 0;
+    //char buffer[500] = "null";
+    s_pose goal;
 };
 
 #endif /* datatypes_h */

@@ -13,9 +13,14 @@ MissionManager::MissionManager(BlackBoard* monitor) : Module(monitor)
     this->monitor->getBroadcastIP(*this->broadcastIP);
     // In the future it won't be here
     std::vector<enum_AtomicTask> teste;
-    teste.push_back(enum_AtomicTask::turnOn);
-    //teste.push_back(enum_AtomicTask::chargeBattery);
+    teste.push_back(enum_AtomicTask::goTo);
     enum_DecomposableTask lala = enum_DecomposableTask::checkPosition;
+    this->monitor->addDecomposableTaskList(lala, teste);
+    
+    teste.clear();
+    teste.push_back(enum_AtomicTask::goTo);
+    teste.push_back(enum_AtomicTask::takePicture);
+    lala = enum_DecomposableTask::takePicture;
     this->monitor->addDecomposableTaskList(lala, teste);
     
     teste.clear();
@@ -214,14 +219,16 @@ void MissionManager::addMissionReceived(s_MissionMessage* vMissionMessage)
         std::cout << "[bidder] Mission received is decomposable." <<std::endl;
 
         // Adding the new Mission into database, including all AtomicTasks and calculating total cost
-        
+        //Protect if the robot is executing a mission it doesnt need to bid
         strcpy(vMission->missionCode,vMissionMessage->missionCode);
         strcpy(vMission->senderAddress,vMissionMessage->senderAddress);
         vMission->enum_execution = enum_MissionExecution::waitingAuction;
         vMission->mission = vMissionMessage->taskToBeDecomposed;
+        vMission->goal = vMissionMessage->goal;
         
         addAtomicTask(*vMission);
         calculateMissionCost(*vMission);
+        //CHECK IF THERE IS ENOUGH BATTERY OR IF THE PATH IS FEASABLE
         this->MissionList.insert_or_assign(vMission->missionCode, *vMission);
         
         // Send back the proposal
@@ -246,6 +253,7 @@ void MissionManager::addMissionCalculateCost(s_MissionMessage* vMissionMessage)
         strcpy(vMission->senderAddress,vMissionMessage->senderAddress);
         vMission->enum_execution = enum_MissionExecution::waitingAuction;
         vMission->mission = vMissionMessage->taskToBeDecomposed;
+        vMission->goal = vMissionMessage->goal;
         
         addAtomicTask(*vMission);
         calculateMissionCost(*vMission);
@@ -361,6 +369,7 @@ void MissionManager::createMission(s_MissionMessage* vMissionMessage)
     this->monitor->getRobotsIP(*this->missionOwnerList[vMissionMessage->missionCode].senderAddress);
     this->missionOwnerList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
     this->missionOwnerList[vMissionMessage->missionCode].enum_request = enum_MissionRequest::waitingBids;
+    this->missionOwnerList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
     this->missionOwnerList[vMissionMessage->missionCode].t5 =  new std::thread(&MissionManager::missionRequestController, this, std::ref(this->missionOwnerList[vMissionMessage->missionCode].missionCode));
 }
 
@@ -380,7 +389,7 @@ void MissionManager::waitingForBids(char* missionID)
     this->monitor->getRobotsIP(*missionMessage.senderAddress);
     missionMessage.operation = enum_MissionOperation::addMission;
     missionMessage.taskToBeDecomposed = this->missionOwnerList[missionID].mission;
-    
+    missionMessage.goal = this->missionOwnerList[missionID].goal;
     sendUDPMessage(missionMessage, *this->broadcastIP);
     
     // Lock and wait intil the time is passed by
@@ -518,22 +527,25 @@ void MissionManager::addAtomicTask(MissionExecution& vMissionDecomposable)
     vMissionDecomposable.atomicTaskList.clear();
     std::shared_ptr<AtomicTask> vAtomicTaskitem = nullptr;
     s_pose currentPosition;
-    s_pose goalPosition;
+    this->monitor->getPosition(currentPosition);
     
     for (auto n : vMissionDecomposable.vAtomicTaskVector){
         switch(n){
             case enum_AtomicTask::null :
                 break;
             case enum_AtomicTask::goTo :
-                vAtomicTaskitem = std::make_shared<GoTo>(this->monitor, currentPosition,goalPosition);
-                currentPosition = goalPosition;
+                vAtomicTaskitem = std::make_shared<GoTo>(this->monitor, currentPosition,vMissionDecomposable.goal);
+                currentPosition = vMissionDecomposable.goal;
                 break;
             case enum_AtomicTask::turnOn :
-                vAtomicTaskitem = std::make_shared<TurnOn>(this->monitor, currentPosition,goalPosition);
+                vAtomicTaskitem = std::make_shared<TurnOn>(this->monitor, currentPosition,currentPosition);
                 break;
             case enum_AtomicTask::chargeBattery :
-                vAtomicTaskitem = std::make_shared<ChargeBattery>(this->monitor, currentPosition,goalPosition);
+                vAtomicTaskitem = std::make_shared<ChargeBattery>(this->monitor, currentPosition,currentPosition);
                 break;
+            case enum_AtomicTask::takePicture :
+            vAtomicTaskitem = std::make_shared<TakePicture>(this->monitor, currentPosition,currentPosition);
+            break;
         }
         if (vAtomicTaskitem != nullptr)
         {

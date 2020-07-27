@@ -84,8 +84,9 @@ int main( int argc, char *argv[ ] ){
     message.messageSize = sizeof(message.buffer);
 
     v_BlackBoard.at(0)->addUDPMessage(message);
-    alive->stop();
     std::this_thread::sleep_for(std::chrono::seconds(10));
     delete alive;
 std::this_thread::sleep_for(std::chrono::seconds(10));
 }
+
+
