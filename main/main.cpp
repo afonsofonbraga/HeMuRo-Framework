@@ -71,9 +71,11 @@ int main( int argc, char *argv[ ] ){
     strcpy(mission.senderAddress , vIP);
     mission.operation = enum_MissionOperation::createMission;
     mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
+    mission.goal.x = 2.0;
+    mission.goal.y = 3.0;
+    mission.goal.theta = 0.0;
     
     std::cout << "Time to send a Mission!!!!!"<< std::endl;
-    
     s_UDPMessage message;
     strcpy(message.address , vIP);
     
@@ -84,9 +86,8 @@ int main( int argc, char *argv[ ] ){
     message.messageSize = sizeof(message.buffer);
 
     v_BlackBoard.at(0)->addUDPMessage(message);
-    std::this_thread::sleep_for(std::chrono::seconds(10));
-    delete alive;
-std::this_thread::sleep_for(std::chrono::seconds(10));
+    std::this_thread::sleep_for(std::chrono::seconds(30));
+//std::this_thread::sleep_for(std::chrono::seconds(20));
 }
 
 

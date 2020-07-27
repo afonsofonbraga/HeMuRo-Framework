@@ -14,7 +14,7 @@
 
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include "geometry_msgs/Twist.h"
+#include <geometry_msgs/Twist.h>
 
 class GoTo : public AtomicTask
 {
@@ -27,7 +27,10 @@ protected:
     float omega = 0;
     float alpha_t = 0;
     float v = 0;
-    
+
+ros::NodeHandle* n;
+ros::Publisher* chatter_pub; //= n.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 1000);
+ros::Rate* loop_rate;
     
 public:
     GoTo(BlackBoard* vMonitor, s_pose& start, s_pose& end);

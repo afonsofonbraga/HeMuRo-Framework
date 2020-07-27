@@ -11,7 +11,7 @@
 
 void Alive::chatterCallbackPosition(const turtlesim::Pose::ConstPtr& msg)
 {
-  ROS_INFO("TurtleBot Position: [%f, %f, %f]", msg->x,msg->y,msg->theta);
+  //ROS_INFO("TurtleBot Position: [%f, %f, %f]", msg->x,msg->y,msg->theta);
   s_pose pose;
   pose.x = msg->x;
   pose.y = msg->y;
@@ -43,7 +43,7 @@ void Alive::run()
     ros::NodeHandle n;
 
     ros::Subscriber sub1 = n.subscribe("turtle1/pose", 1000, &Alive::chatterCallbackPosition,this);
-    ros::Subscriber sub2 = n.subscribe("turtle1/color_sensor", 1000, &Alive::chatterCallbackColor, this);
+    //ros::Subscriber sub2 = n.subscribe("turtle1/color_sensor", 1000, &Alive::chatterCallbackColor, this);
   
     ros::spin();
 }
