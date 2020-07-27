@@ -103,6 +103,7 @@ void MissionManager::run()
                     break;
             }
         }
+        std::cout << "Deleting vMissionMessage" <<std::endl;
         delete vMissionMessage;
     }
 }
@@ -138,6 +139,7 @@ void MissionManager::missionRequestController(char* missionID)
                 break;
         }
     }
+    std::cout << "Deleting Mutexes" <<std::endl;
     delete this->missionOwnerList[missionID].cv;
     delete this->missionOwnerList[missionID].cv_m;
 }
@@ -234,6 +236,7 @@ void MissionManager::addMissionReceived(s_MissionMessage* vMissionMessage)
         // Send back the proposal
         sendMissionCost(this->MissionList[vMissionMessage->missionCode]);
     }
+    std::cout << "Deleting vMission" <<std::endl;
     delete vMission;
 }
 
@@ -260,6 +263,7 @@ void MissionManager::addMissionCalculateCost(s_MissionMessage* vMissionMessage)
         this->MissionList.insert_or_assign(vMission->missionCode, *vMission);
         // This one doesn't send back
     }
+    std::cout << "Deleting vMission" <<std::endl;
     delete vMission;
 }
 
@@ -344,6 +348,7 @@ void MissionManager::emergencyCall(s_MissionMessage *vMissionMessage)
         this->monitor->lockRobot();
         addMissionEmergency(*vMission);
     }
+    std::cout << "Deleting vMission Emergency" <<std::endl;
     delete vMission;
 }
 

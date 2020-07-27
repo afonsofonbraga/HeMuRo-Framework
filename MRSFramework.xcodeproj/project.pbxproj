@@ -88,7 +88,7 @@
 		23F00C8324634A2F00EC7860 /* AtomicTask.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AtomicTask.cpp; sourceTree = "<group>"; };
 		23F00C8424634A2F00EC7860 /* AtomicTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AtomicTask.hpp; sourceTree = "<group>"; };
 		23F00C8624634DDF00EC7860 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
-		23F00C8724634DDF00EC7860 /* GoTo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
+		23F00C8724634DDF00EC7860 /* GoTo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GoTo.hpp; path = src/Task/Default/GoTo.hpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

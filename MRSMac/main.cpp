@@ -65,8 +65,8 @@ int main(){
     strcpy(mission.senderAddress , vIP);
     mission.operation = enum_MissionOperation::createMission;
     mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
-    mission.goal.x = 8.0;
-    mission.goal.y = 3.0;
+    mission.goal.x = 6.0;
+    mission.goal.y = 5.0;
     mission.goal.theta = 0.0;
     
     std::cout << "Time to send a Mission!!!!!"<< std::endl;

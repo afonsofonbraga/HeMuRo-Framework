@@ -46,6 +46,5 @@ void Alive::run()
     std::string topic = vname + "/pose";
     ros::Subscriber sub1 = n.subscribe(topic, 1000, &Alive::chatterCallbackPosition,this);
     //ros::Subscriber sub2 = n.subscribe("turtle1/color_sensor", 1000, &Alive::chatterCallbackColor, this);
-  
     ros::spin();
 }

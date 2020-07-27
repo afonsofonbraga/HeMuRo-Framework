@@ -54,7 +54,6 @@ void GoTo::run()
             
             if(sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2)) <= 0.1)
             {
-                std::cout << "Arrived at the destination!"<< std::endl;
             	msg.linear.x = 0;
             	msg.angular.z = 0;
                 this->status = enum_AtomicTaskStatus::completed;
@@ -78,6 +77,10 @@ void GoTo::run()
         }
             break;
         case enum_AtomicTaskStatus::completed:
+            std::cout << "Arrived at the destination!"<< std::endl;
+            delete chatter_pub;
+            delete loop_rate;
+            delete n;
             ros::shutdown();
             break;
     }
