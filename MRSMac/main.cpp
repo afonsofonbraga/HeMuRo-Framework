@@ -110,7 +110,7 @@ int main(){
     
     v_BlackBoard.at(0)->addUDPMessage(message);
 */
-    std::this_thread::sleep_for(std::chrono::seconds(150));
+    std::this_thread::sleep_for(std::chrono::seconds(10));
     
     return 0;
 }

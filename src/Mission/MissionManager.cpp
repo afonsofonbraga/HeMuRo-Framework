@@ -104,7 +104,7 @@ void MissionManager::run()
             }
         }
         std::cout << "Deleting vMissionMessage" <<std::endl;
-        delete vMissionMessage;
+        //delete vMissionMessage;
     }
 }
 
@@ -237,7 +237,7 @@ void MissionManager::addMissionReceived(s_MissionMessage* vMissionMessage)
         sendMissionCost(this->MissionList[vMissionMessage->missionCode]);
     }
     std::cout << "Deleting vMission" <<std::endl;
-    delete vMission;
+    //delete vMission;
 }
 
 void MissionManager::addMissionCalculateCost(s_MissionMessage* vMissionMessage)
@@ -264,7 +264,7 @@ void MissionManager::addMissionCalculateCost(s_MissionMessage* vMissionMessage)
         // This one doesn't send back
     }
     std::cout << "Deleting vMission" <<std::endl;
-    delete vMission;
+    //delete vMission;
 }
 
 
@@ -349,7 +349,7 @@ void MissionManager::emergencyCall(s_MissionMessage *vMissionMessage)
         addMissionEmergency(*vMission);
     }
     std::cout << "Deleting vMission Emergency" <<std::endl;
-    delete vMission;
+    //delete vMission;
 }
 
 void MissionManager::notifyingMissionComplete()
