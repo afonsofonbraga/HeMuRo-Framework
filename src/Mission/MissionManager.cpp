@@ -213,8 +213,8 @@ void MissionManager::startMissionToExecute()
 void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     std::cout << "[bidder] Received a mission." <<std::endl;
-    //MissionExecution* vMission = new MissionExecution;
-    auto vMission = std::make_unique<MissionExecution>();
+    MissionExecution* vMission = new MissionExecution;
+    //auto vMission = std::make_unique<MissionExecution>();
     
     bool status = this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector); // Checking if it is decomposable
     if(status == true)
@@ -223,17 +223,24 @@ void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissi
 
         // Adding the new Mission into database, including all AtomicTasks and calculating total cost
         //Protect if the robot is executing a mission it doesnt need to bid
-        strcpy(vMission->missionCode,vMissionMessage->missionCode);
-        strcpy(vMission->senderAddress,vMissionMessage->senderAddress);
-        vMission->enum_execution = enum_MissionExecution::waitingAuction;
-        vMission->mission = vMissionMessage->taskToBeDecomposed;
-        vMission->goal = vMissionMessage->goal;
+        //strcpy(vMission->missionCode,vMissionMessage->missionCode);
+        //strcpy(vMission->senderAddress,vMissionMessage->senderAddress);
+        //vMission->enum_execution = enum_MissionExecution::waitingAuction;
+        //vMission->mission = vMissionMessage->taskToBeDecomposed;
+        //vMission->goal = vMissionMessage->goal;
         
-        addAtomicTask(*vMission);
-        calculateMissionCost(*vMission);
+        strcpy(this->MissionList[vMissionMessage->missionCode].missionCode,vMissionMessage->missionCode);
+        strcpy(this->MissionList[vMissionMessage->missionCode].senderAddress,vMissionMessage->senderAddress);
+        this->MissionList[vMissionMessage->missionCode].enum_execution = enum_MissionExecution::waitingAuction;
+        this->MissionList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
+        this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
+        this->MissionList[vMissionMessage->missionCode].vAtomicTaskVector = std::move(vMission->vAtomicTaskVector);
+        
+        addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
+        calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
         //CHECK IF THERE IS ENOUGH BATTERY OR IF THE PATH IS FEASABLE
-        this->MissionList.insert_or_assign(vMission->missionCode, *vMission);
-        
+        //this->MissionList.insert_or_assign(vMission->missionCode, *vMission);
+    
         // Send back the proposal
         sendMissionCost(this->MissionList[vMissionMessage->missionCode]);
     }
