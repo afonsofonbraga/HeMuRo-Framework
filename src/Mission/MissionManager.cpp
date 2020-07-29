@@ -48,8 +48,10 @@ void MissionManager::run()
 {
     if(this->isRunning == true)
     {
-        s_MissionMessage* vMissionMessage = new s_MissionMessage;
+        //s_MissionMessage* vMissionMessage = new s_MissionMessage;
+        auto vMissionMessage = std::make_unique<s_MissionMessage>();
         this->monitor->getMissionMessage(*vMissionMessage);
+        
         
         if (vMissionMessage != nullptr && this->isRunning == true)
         {
@@ -61,50 +63,48 @@ void MissionManager::run()
                     // All related to Auctioneer
                     
                 case enum_MissionOperation::createMission:
-                    createMission(vMissionMessage);
+                    createMission(std::move(vMissionMessage));
                     break;
                     
                 case enum_MissionOperation::Bid:
-                    addBidReceived(vMissionMessage);
+                    addBidReceived(std::move(vMissionMessage));
                     break;
                     
                 case enum_MissionOperation::acceptMission:
-                    missionAccepted(vMissionMessage);
+                    missionAccepted(std::move(vMissionMessage));
                     break;
                     
                 case enum_MissionOperation::abortMission:
-                    missionAborted(vMissionMessage);
+                    missionAborted(std::move(vMissionMessage));
                     break;
                     
                 case enum_MissionOperation::missionComplete:
-                    missionComplete(vMissionMessage);
+                    missionComplete(std::move(vMissionMessage));
                     break;
                     
                     // All Related to Bidders
                     
                 case enum_MissionOperation::addMission:
-                    addMissionReceived(vMissionMessage);
+                    addMissionReceived(std::move(vMissionMessage));
                     break;
                     
                 case enum_MissionOperation::addAndRequestCost:
-                    addMissionCalculateCost(vMissionMessage);
+                    addMissionCalculateCost(std::move(vMissionMessage));
                     break;
                     
                 case enum_MissionOperation::winningBid:
-                    winningBid(vMissionMessage);
+                    winningBid(std::move(vMissionMessage));
                     break;
                     
                 case enum_MissionOperation::startMission:
-                    startCommand(vMissionMessage);
+                    startCommand(std::move(vMissionMessage));
                     break;
                     
                 case enum_MissionOperation::emergency:
-                    emergencyCall(vMissionMessage);
+                    emergencyCall(std::move(vMissionMessage));
                     break;
             }
         }
-        std::cout << "Deleting vMissionMessage" <<std::endl;
-        //delete vMissionMessage;
     }
 }
 
@@ -210,10 +210,11 @@ void MissionManager::startMissionToExecute()
 //*        Functions Related to The Bidder           *
 //****************************************************
 
-void MissionManager::addMissionReceived(s_MissionMessage* vMissionMessage)
+void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     std::cout << "[bidder] Received a mission." <<std::endl;
-    MissionExecution* vMission = new MissionExecution;
+    //MissionExecution* vMission = new MissionExecution;
+    auto vMission = std::make_unique<MissionExecution>();
     
     bool status = this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector); // Checking if it is decomposable
     if(status == true)
@@ -236,14 +237,15 @@ void MissionManager::addMissionReceived(s_MissionMessage* vMissionMessage)
         // Send back the proposal
         sendMissionCost(this->MissionList[vMissionMessage->missionCode]);
     }
-    std::cout << "Deleting vMission" <<std::endl;
+    //std::cout << "Deleting vMission" <<std::endl;
     //delete vMission;
 }
 
-void MissionManager::addMissionCalculateCost(s_MissionMessage* vMissionMessage)
+void MissionManager::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     std::cout << "[bidder] Received a mission." <<std::endl;
-    MissionExecution* vMission = new MissionExecution;
+    //MissionExecution* vMission = new MissionExecution;
+    auto vMission = std::make_unique<MissionExecution>();
     
     bool status = this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector); // Checking if it is decomposable
     if(status == true)
@@ -263,12 +265,12 @@ void MissionManager::addMissionCalculateCost(s_MissionMessage* vMissionMessage)
         this->MissionList.insert_or_assign(vMission->missionCode, *vMission);
         // This one doesn't send back
     }
-    std::cout << "Deleting vMission" <<std::endl;
+    //std::cout << "Deleting vMission" <<std::endl;
     //delete vMission;
 }
 
 
-void MissionManager::winningBid(s_MissionMessage* vMissionMessage)
+void MissionManager::winningBid(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     // If this mission was already waitinf for the auctions result and won, execute:
     
@@ -308,7 +310,7 @@ void MissionManager::addMissionToExecute(MissionExecution& vMissionExecute)
     lk.unlock();
 }
 
-void MissionManager::startCommand(s_MissionMessage *vMissionMessage)
+void MissionManager::startCommand(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     std::unique_lock<std::mutex> lk(mutex_mission);
     if(strcmp(this->missionToExecute.missionCode, vMissionMessage->missionCode) == 0 && this->missionToExecute.enum_execution == enum_MissionExecution::waitingStart)
@@ -321,11 +323,12 @@ void MissionManager::startCommand(s_MissionMessage *vMissionMessage)
     }
 }
 
-void MissionManager::emergencyCall(s_MissionMessage *vMissionMessage)
+void MissionManager::emergencyCall(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     //Configurar Missão, checar se está acontecendo algo, travar robo, cancelar e terceirizar missão, executar missão de emergência.
     std::cout << "[bidder] EMERGENCY ALLERT!!!!" <<std::endl;
-    MissionExecution* vMission = new MissionExecution;
+    //MissionExecution* vMission = new MissionExecution;
+    auto vMission = std::make_unique<MissionExecution>();
     
     if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector))
     {
@@ -348,7 +351,7 @@ void MissionManager::emergencyCall(s_MissionMessage *vMissionMessage)
         this->monitor->lockRobot();
         addMissionEmergency(*vMission);
     }
-    std::cout << "Deleting vMission Emergency" <<std::endl;
+    //std::cout << "Deleting vMission Emergency" <<std::endl;
     //delete vMission;
 }
 
@@ -368,7 +371,7 @@ void MissionManager::notifyingMissionComplete()
 //*       Functions Related to The auctioneer         *
 //****************************************************
 
-void MissionManager::createMission(s_MissionMessage* vMissionMessage)
+void MissionManager::createMission(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     strcpy(this->missionOwnerList[vMissionMessage->missionCode].missionCode, vMissionMessage->missionCode);
     this->monitor->getRobotsIP(*this->missionOwnerList[vMissionMessage->missionCode].senderAddress);
@@ -411,7 +414,7 @@ void MissionManager::waitingForBids(char* missionID)
     }
 }
 
-void MissionManager::addBidReceived(s_MissionMessage* vMissionMessage)
+void MissionManager::addBidReceived(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     // Check if the mission is still receiving bids.
     std::unique_lock<std::mutex> lk(*this->missionOwnerList[vMissionMessage->missionCode].cv_m);
@@ -483,7 +486,7 @@ void MissionManager::notifyingToExecute(char* missionID)
     this->missionOwnerList[missionID].cv->wait(lk);
 }
 
-void MissionManager::missionAccepted(s_MissionMessage* vMissionMessage)
+void MissionManager::missionAccepted(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     // it is necessary to check if the winner still is the one selected to perform the mission.
     if (strcmp(this->missionOwnerList[vMissionMessage->missionCode].winnerAddress, vMissionMessage->senderAddress) == 0)
@@ -493,7 +496,7 @@ void MissionManager::missionAccepted(s_MissionMessage* vMissionMessage)
     }
 }
 
-void MissionManager::missionAborted(s_MissionMessage *vMissionMessage)
+void MissionManager::missionAborted(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     // Check if the received message comes from the winning bid, clear bidding vector, restart auctionProcess.
     std::unique_lock<std::mutex> lk(*this->missionOwnerList[vMissionMessage->missionCode].cv_m);
@@ -507,7 +510,7 @@ void MissionManager::missionAborted(s_MissionMessage *vMissionMessage)
     }
 }
 
-void MissionManager::missionComplete(s_MissionMessage *vMissionMessage)
+void MissionManager::missionComplete(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     // Check if the received message comes from the winning bid and finish the mission
     std::unique_lock<std::mutex> lk(*this->missionOwnerList[vMissionMessage->missionCode].cv_m);

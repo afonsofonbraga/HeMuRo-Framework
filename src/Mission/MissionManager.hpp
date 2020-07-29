@@ -52,14 +52,14 @@ protected:
     
     
     // Starting to incorporate TaskManagerModule
-    void createMission(s_MissionMessage* vMissionMessage);
-    void addMissionReceived(s_MissionMessage* vMissionMessage);
-    void addMissionCalculateCost(s_MissionMessage* vMissionMessage);
-    void addBidReceived(s_MissionMessage* vMissionMessage);
-    void winningBid(s_MissionMessage* vMissionMessage);
-    void missionAccepted(s_MissionMessage* vMissionMessage);
-    void startCommand(s_MissionMessage* vMissionMessage);
-    void missionComplete(s_MissionMessage* vMissionMessage);
+    void createMission(std::unique_ptr<s_MissionMessage> vMissionMessage);
+    void addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessage);
+    void addMissionCalculateCost(std::unique_ptr<s_MissionMessage> vMissionMessage);
+    void addBidReceived(std::unique_ptr<s_MissionMessage> vMissionMessage);
+    void winningBid(std::unique_ptr<s_MissionMessage> vMissionMessage);
+    void missionAccepted(std::unique_ptr<s_MissionMessage> vMissionMessage);
+    void startCommand(std::unique_ptr<s_MissionMessage> vMissionMessage);
+    void missionComplete(std::unique_ptr<s_MissionMessage> vMissionMessage);
     void waitingForBids(char* missionID);
     void notifyingWinner(char* missionID);
     void notifyingToExecute(char* missionID);
@@ -75,8 +75,8 @@ protected:
     bool setEmergency();
     bool cleanEmergecy();
     void redirectMission(MissionExecution& vMissionExecute);
-    void emergencyCall(s_MissionMessage* vMissionMessage);
-    void missionAborted(s_MissionMessage* vMissionMessage);
+    void emergencyCall(std::unique_ptr<s_MissionMessage> vMissionMessage);
+    void missionAborted(std::unique_ptr<s_MissionMessage> vMissionMessage);
     void addAtomicTask(MissionExecution& mission);
     void calculateMissionCost(MissionExecution& mission);
     void sendMissionCost(MissionExecution& mission);
