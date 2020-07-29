@@ -41,7 +41,7 @@
 		233F8D3924621A5900C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		233F8D3A24621B0D00C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		2345667224CF265600B28F87 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
-		2345667324CF265600B28F87 /* GoTo2.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GoTo2.hpp; path = src/Task/Turtlebot/GoTo2.hpp; sourceTree = SOURCE_ROOT; };
+		2345667324CF265600B28F87 /* GoTo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GoTo.hpp; path = src/Task/Turtlebot/GoTo.hpp; sourceTree = SOURCE_ROOT; };
 		23494C8F24CF130200697ABA /* TakePicture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TakePicture.cpp; sourceTree = "<group>"; };
 		23494C9024CF130200697ABA /* TakePicture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TakePicture.hpp; sourceTree = "<group>"; };
 		234EDEBC24AFAE7800385914 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				2345667224CF265600B28F87 /* GoTo.cpp */,
-				2345667324CF265600B28F87 /* GoTo2.hpp */,
+				2345667324CF265600B28F87 /* GoTo.hpp */,
 			);
 			path = Turtlebot;
 			sourceTree = "<group>";

@@ -312,7 +312,16 @@ void MissionManager::addMissionToExecute(MissionExecution& vMissionExecute)
     // The pointers from atomictasklist are not created they just point to the variables
     // Solved using shared_ptr
     std::unique_lock<std::mutex> lk(mutex_mission);
-    missionToExecute = vMissionExecute;
+    //missionToExecute = vMissionExecute;
+    strcpy(missionToExecute.missionCode,vMissionExecute.missionCode);
+    strcpy(missionToExecute.senderAddress,vMissionExecute.senderAddress);
+    missionToExecute.mission = vMissionExecute.mission;
+    missionToExecute.goal = vMissionExecute.goal;
+    missionToExecute.vAtomicTaskVector = std::move(vMissionExecute.vAtomicTaskVector);
+    missionToExecute.atomicTaskList = std::move(vMissionExecute.atomicTaskList);
+    missionToExecute.atomicTaskIndex = vMissionExecute.atomicTaskIndex;
+    missionToExecute.missionCost = vMissionExecute.missionCost;
+    
     missionToExecute.enum_execution = enum_MissionExecution::waitingStart;
     lk.unlock();
 }
