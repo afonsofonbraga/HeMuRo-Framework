@@ -35,9 +35,11 @@ protected:
     std::string robotName;
     char robotIP[16];
     char broadcastIP[16];
+    enum_RobotCategory robotCategory= enum_RobotCategory::null;
     
     void setRobotIP();
-    void setRobotsName(std::string* name);
+    void setRobotsName(std::string name);
+    void setRobotCategory(enum_RobotCategory cat);
     
     float batteryLevel;
     std::mutex mutex_battery;
@@ -77,19 +79,25 @@ protected:
     // UDP Messages
     std::vector<s_UDPMessage> UDPMessageList;
     std::mutex mutex_UDPMessageList;
+    
+    // ROSBridge
+    std::vector<s_ROSBridgeMessage> ROSBridgeMessageList;
+    std::mutex mutex_ROSBridgeMessageList;
 
     
 public:
     std::condition_variable conditional_UDPMessageList;
     std::condition_variable conditional_MissionMessageList;
+    std::condition_variable conditional_ROSBridgeMessageList;
     
-    BlackBoard(std::string& name);                          // Constructor
+    BlackBoard(std::string& name, enum_RobotCategory cat);                          // Constructor
     ~BlackBoard();                                          // Destructor
     BlackBoard(const BlackBoard& other);                    // Copy Constructor
     BlackBoard& operator=(const BlackBoard& other);         // Copy Assignment
     
     //Robot's description
     void getRobotsName(std::string& name);                  // Get the name of the Robot
+    enum_RobotCategory getRobotsCategory();         // Get the category of the Robot
     
     void getRobotsIP(char& vIP);                            // Get the IP address of the Robot
     void getBroadcastIP(char& vBroadcast);                  // Get the IP Broadcast address
@@ -143,6 +151,12 @@ public:
     bool isUDPMessageListEmpty();
     void addUDPMessage(s_UDPMessage& vUDPMessage);
     void getUDPMessage(s_UDPMessage& vUDPMessage);
+    
+    
+    // ROSBridge Messages
+    bool isROSBridgeMessageListEmpty();
+    void addROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage);
+    void getROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage);
     
     
 };
