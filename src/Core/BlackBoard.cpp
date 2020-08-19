@@ -473,7 +473,7 @@ void BlackBoard::getROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage)
         lk.unlock();
     }else
     {
-        this->conditional_UDPMessageList.wait(lk);
+        this->conditional_ROSBridgeMessageList.wait(lk);
         
         if (this->ROSBridgeMessageList.empty() == false){
             vROSBridgeMessage = this->ROSBridgeMessageList.front();
@@ -482,5 +482,6 @@ void BlackBoard::getROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage)
         }
     }
 }
+
 
 

@@ -33,10 +33,10 @@ void MissionExecution::run()
             case enum_AtomicTaskStatus::null:
                 break;
             case enum_AtomicTaskStatus::waiting:
-                this->atomicTaskList.at(atomicTaskIndex)->run();
+               this->atomicTaskList.at(atomicTaskIndex)->run();
                 break;
             case enum_AtomicTaskStatus::running:
-                this->atomicTaskList.at(atomicTaskIndex)->run();
+               this->atomicTaskList.at(atomicTaskIndex)->run();
                 break;
             case enum_AtomicTaskStatus::completed:
                 atomicTaskIndex++;

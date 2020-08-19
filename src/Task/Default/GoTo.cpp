@@ -55,3 +55,4 @@ void GoTo::calculateCost()
     this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costMeter;
 }
 
+

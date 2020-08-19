@@ -53,6 +53,7 @@ void Alive::run()
     //ros::spin();
     
     std::map <std::string, ros::Publisher> publisherList;
+    publisherList["thor/cmd_vel"] = n.advertise<geometry_msgs::Twist>("thor/cmd_vel", 5);
     while (this->isRunning)
     {
         vROSBridgeMessage = new s_ROSBridgeMessage;
@@ -62,12 +63,14 @@ void Alive::run()
         {
             //Ainda esta com erro aqui, não sei como resolver.
             
-            geometry_msgs::Twist msg;
-            s_cmdvel vCmdvel = ((s_cmdvel*) vROSBridgeMessage)[0];
-            msg.linear.x = vCmdvel.x;
-            msg.angular.z = vCmdvel.theta;
-            publisherList[vROSBridgeMessage->topicName].publish(vROSBridgeMessage->buffer);
+            geometry_msgs::Twist msg = ((geometry_msgs::Twist*)vROSBridgeMessage->buffer)[0] ;
+
+std::cout << "X " << msg.linear.x << "Z "<< msg.angular.z << std::endl;
+            //std::cout << vROSBridgeMessage->topicName << std::endl;
+            publisherList["thor/cmd_vel"].publish(msg);
         }
     }
     ros::waitForShutdown();
 }
+
+

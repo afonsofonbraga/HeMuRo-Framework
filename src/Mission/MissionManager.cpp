@@ -170,13 +170,14 @@ void MissionManager::startMissionToExecute()
                 case enum_MissionExecution::executing:
                 {
                     auto currentTime = std::chrono::system_clock::now();
-                    if (this->missionToExecute.startTime - currentTime <= std::chrono::seconds(this->missionToExecute.executionTime))
+                    if ( currentTime - this->missionToExecute.startTime <= std::chrono::seconds(this->missionToExecute.executionTime))
                         this->missionToExecute.run();
                     else
                     {
                         std::cout << "[bidder] TIMEOUT!!! Redirecting Misssion!" <<std::endl;
                         this->missionToExecute.enum_execution = enum_MissionExecution::null;
                         redirectMission(this->missionToExecute);
+                        this->monitor->unlockRobot();
                     }
                     break;
                 }
@@ -436,6 +437,9 @@ void MissionManager::waitingForBids(char* missionID)
     missionMessage.operation = enum_MissionOperation::addMission;
     missionMessage.taskToBeDecomposed = this->missionOwnerList[missionID].mission;
     missionMessage.goal = this->missionOwnerList[missionID].goal;
+    missionMessage.robotCat = this->missionOwnerList[missionID].robotCategory;
+    missionMessage.executionTime = this->missionOwnerList[missionID].executionTime;
+    
     sendUDPMessage(missionMessage, *this->broadcastIP);
     
     // Lock and wait intil the time is passed by
@@ -698,3 +702,4 @@ void MissionManager::redirectMission(MissionExecution& vMissionExecute)
     
     sendUDPMessage(missionMessage, *vMissionExecute.senderAddress);
 }
+

@@ -18,7 +18,7 @@ GoTo::~GoTo(){}
 
 void GoTo::run()
 {
-
+    
     switch(this->status)
     {
         case enum_AtomicTaskStatus::null:
@@ -35,18 +35,7 @@ void GoTo::run()
             
         case enum_AtomicTaskStatus::running:
         {
-                std::map<std::string, std::string> map;
-                std::string vname;
-
-                this->monitor->getRobotsName(vname);
-                std::string node = vname + "_cmd_vel";
-                ros::init(map,node);
-                ros::NodeHandle n;
-                std::string topic = vname + "/cmd_vel";
-                ros::Publisher chatter_pub = n.advertise<geometry_msgs::Twist>(topic, 1000);
-                ros::Rate loop_rate(10);
-            
-            while(this->status != enum_AtomicTaskStatus::completed){
+            if(this->status != enum_AtomicTaskStatus::completed){
                 s_pose p;
                 this->monitor->getPosition(p);
                 s_pose deltaError;
@@ -66,6 +55,7 @@ void GoTo::run()
                     float ro = sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2));
                     alpha_t_old = alpha_t;
                     alpha_t = atan2(deltaError.y, deltaError.x) - p.theta;
+                    alpha_t = fmod(alpha_t, 2*M_PI);
                     if(alpha_t > M_PI)
                         alpha_t = alpha_t - 2*M_PI ;
                     if (alpha_t < -M_PI)
@@ -74,18 +64,16 @@ void GoTo::run()
                     v = fmin(ro, 1.0);
                     sum_Alpha_t += alpha_t;
                     omega = kp * alpha_t + ki * sum_Alpha_t + kd * (alpha_t - alpha_t_old);
-
-                msg.linear.x = v;
-               msg.angular.z = omega;
-                    //std::cout << "X : "<< msg.linear.x <<" RO " << ro << " Omega " << msg.angular.z<< std::endl;
+                    
+                    msg.linear.x = v;
+                    msg.angular.z = omega;
                 }
-        //ROS_INFO("%f %f", msg.linear.x, msg.angular.z);
-                //chatter_pub.publish(msg);
-                //ros::spinOnce();
-                //loop_rate.sleep();
+                
                 s_ROSBridgeMessage teste;
                 strcpy(teste.topicName,"thor/cmd_vel");
-                memmove(teste.buffer,(const unsigned geometry_msgs::Twist*) msg,sizeof(msg));
+                memmove(teste.buffer,(char*)&msg,sizeof(msg));
+                this->monitor->addROSBridgeMessage(teste);
+                usleep(10000); //Vamos Precisar de um buffer
             }
             
         }
@@ -100,4 +88,5 @@ void GoTo::calculateCost()
 {
     this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costMeter;
 }
+
 
