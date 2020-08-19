@@ -15,7 +15,7 @@
 class GoTo : public AtomicTask
 {
 protected:
-    float costMeter = 2.0;
+    float costMeter = 12.0;
 public:
     GoTo(BlackBoard* vMonitor, s_pose& start, s_pose& end);
     ~GoTo();

@@ -10,7 +10,7 @@
 #define dataTypes_h
 
 enum class Operation{null, setRobotsPosition, missionMessage};
-enum class RobotType{null, uav, ugv, usv};
+enum class enum_RobotCategory{null, uav, ugv, usv};
 
 enum class enum_AtomicTaskStatus{null, waiting, running, completed};
 enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo, takePicture};
@@ -58,6 +58,21 @@ struct s_MissionMessage
     float Cost = 0;
     //char buffer[500] = "null";
     s_pose goal;
+    enum_RobotCategory robotCat;
+    int executionTime;
+    
 };
 
+
+struct s_ROSBridgeMessage
+{
+    char topicName[30] = "null";
+    char buffer[500]="null";
+};
+
+struct s_cmdvel
+{
+    float x;
+    float theta;
+};
 #endif /* datatypes_h */

@@ -27,6 +27,7 @@
 class Alive: public Module
 {
 protected:
+    s_ROSBridgeMessage* vROSBridgeMessage;
     virtual void run() override;
 public:
     

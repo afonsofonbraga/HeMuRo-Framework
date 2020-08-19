@@ -1,12 +1,13 @@
 #include "BlackBoard.hpp"
 
-BlackBoard::BlackBoard(std::string& name)
+BlackBoard::BlackBoard(std::string& name, enum_RobotCategory cat)
 {
     this->position.x = 0;
     this->position.y = 0;
     this->position.theta = 0;
     this->batteryLevel = 56;
-    setRobotsName(&name);
+    setRobotsName(name);
+    setRobotCategory(cat);
     this->setRobotIP();
     
 }
@@ -20,10 +21,9 @@ BlackBoard::BlackBoard(const BlackBoard& other)
     this->position.x = other.position.x;
     this->position.y = other.position.y;
     this->position.theta = other.position.theta;
-    std::string* vName = new std::string{other.robotName};
+    //std::string vName = other.robotName;
     this->setRobotIP();
-    this->setRobotsName(vName);
-    delete vName;
+    this->setRobotsName(other.robotName);
 }
 
 BlackBoard& BlackBoard::operator=(const BlackBoard& other)
@@ -33,8 +33,8 @@ BlackBoard& BlackBoard::operator=(const BlackBoard& other)
         this->position.x = other.position.x;
         this->position.y = other.position.y;
         this->position.theta = other.position.theta;
-        std::string* vName = new std::string{other.robotName};
-        this->setRobotsName(vName);
+        //std::string vName = new std::string{other.robotName};
+        this->setRobotsName(other.robotName);
         this->setRobotIP();
     }
     return *this;
@@ -45,15 +45,28 @@ BlackBoard& BlackBoard::operator=(const BlackBoard& other)
 //****************************************************
 
 
-void BlackBoard::setRobotsName(std::string* name)
+void BlackBoard::setRobotsName(std::string name)
 {
-    this->robotName = *name;
+    this->robotName = name;
 }
 
 void BlackBoard::getRobotsName(std::string& name)
 {
     name = this->robotName;
 }
+
+void BlackBoard::setRobotCategory(enum_RobotCategory cat)
+{
+    this->robotCategory = cat;
+}
+
+enum_RobotCategory BlackBoard::getRobotsCategory()
+{
+   return this->robotCategory;
+}
+
+
+
 
 void BlackBoard::setRobotIP()
 {
@@ -128,7 +141,7 @@ void BlackBoard::getPosition(s_pose& p)
 void BlackBoard::setPosition(s_pose& p)
 {
     std::unique_lock<std::mutex> lk(mutex_position);
-        memcpy(&this->position, &p, sizeof(position));
+        memcpy(&this->position, &p, sizeof(p));
     lk.unlock();
 }
 
@@ -230,7 +243,7 @@ bool BlackBoard::isDecomposable(enum_DecomposableTask vTaskToBeDecomposed)
         status = true;
     return status;
 }
-
+/*
 float BlackBoard::getDecomposableTaskCost(enum_DecomposableTask vTaskToBeDecomposed)
 {
     return 0.0;
@@ -241,7 +254,7 @@ void BlackBoard::acceptDecomposableTask(enum_DecomposableTask vDecomposableTask)
     std::unique_lock<std::mutex> lk(mutex_decomposableTask);
         
     lk.unlock();
-}
+}*/
 
 //****************************************************
 //*         MissionMessage Related Functions         *
@@ -428,4 +441,46 @@ void BlackBoard::getUDPMessage(s_UDPMessage& vUDPMessage)
         }
     }
 }
+
+//****************************************************
+//*         ROSBridgeMessages Related Functions      *
+//****************************************************
+
+bool BlackBoard::isROSBridgeMessageListEmpty()
+{
+    bool status;
+    std::unique_lock<std::mutex> lk(mutex_ROSBridgeMessageList);
+    status = this->ROSBridgeMessageList.empty();
+    lk.unlock();
+    return status;
+}
+
+void BlackBoard::addROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage)
+{
+    std::unique_lock<std::mutex> lk(mutex_ROSBridgeMessageList);
+        this->ROSBridgeMessageList.push_back(vROSBridgeMessage);
+    lk.unlock();
+    this->conditional_ROSBridgeMessageList.notify_one();
+}
+
+void BlackBoard::getROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage)
+{
+    std::unique_lock<std::mutex> lk(mutex_ROSBridgeMessageList);
+    
+    if (this->ROSBridgeMessageList.empty() == false){
+            vROSBridgeMessage = this->ROSBridgeMessageList.front();
+        this->ROSBridgeMessageList.erase(ROSBridgeMessageList.begin());
+        lk.unlock();
+    }else
+    {
+        this->conditional_UDPMessageList.wait(lk);
+        
+        if (this->ROSBridgeMessageList.empty() == false){
+            vROSBridgeMessage = this->ROSBridgeMessageList.front();
+            this->ROSBridgeMessageList.erase(ROSBridgeMessageList.begin());
+            lk.unlock();
+        }
+    }
+}
+
 

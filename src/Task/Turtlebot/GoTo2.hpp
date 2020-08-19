@@ -18,19 +18,19 @@
 
 class GoTo : public AtomicTask
 {
-protected:
+public:
     float costMeter = 2.0;
     
-    float kp = 1, ki = 1, kd = 1;
+    float kp = 1, ki = 0.2, kd = 0.5;
     float sum_Alpha_t = 0;
     float alpha_t_old = 0;
     float omega = 0;
     float alpha_t = 0;
     float v = 0;
 
-ros::NodeHandle* n;
-ros::Publisher* chatter_pub; //= n.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 1000);
-ros::Rate* loop_rate;
+//ros::NodeHandle* n;
+//ros::Publisher* chatter_pub; //= n.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 1000);
+//ros::Rate* loop_rate;
     
 public:
     GoTo(BlackBoard* vMonitor, s_pose& start, s_pose& end);

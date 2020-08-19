@@ -26,15 +26,7 @@ void GoTo::run()
             
         case enum_AtomicTaskStatus::waiting:
         {
-            std::map<std::string, std::string> map;
-            std::string vname;
-            this->monitor->getRobotsName(vname);
-            std::string node = vname + "_cmd_vel";
-            ros::init(map,node);
-            n = new ros::NodeHandle();
-            std::string topic = vname + "/cmd_vel";
-            chatter_pub = new ros::Publisher(n->advertise<geometry_msgs::Twist>(topic, 1000));
-            loop_rate = new ros::Rate(10);
+            
             
             std::cout << "Going to the location."<< std::endl;
             this->status = enum_AtomicTaskStatus::running;
@@ -43,45 +35,63 @@ void GoTo::run()
             
         case enum_AtomicTaskStatus::running:
         {
-            s_pose p;
-            this->monitor->getPosition(p);
-            s_pose deltaError;
+                std::map<std::string, std::string> map;
+                std::string vname;
+
+                this->monitor->getRobotsName(vname);
+                std::string node = vname + "_cmd_vel";
+                ros::init(map,node);
+                ros::NodeHandle n;
+                std::string topic = vname + "/cmd_vel";
+                ros::Publisher chatter_pub = n.advertise<geometry_msgs::Twist>(topic, 1000);
+                ros::Rate loop_rate(10);
             
-            deltaError.x = this->endPosition.x - p.x;
-            deltaError.y = this->endPosition.y - p.y;
-            deltaError.theta = this->endPosition.theta - p.theta;
-            geometry_msgs::Twist msg;
+            while(this->status != enum_AtomicTaskStatus::completed){
+                s_pose p;
+                this->monitor->getPosition(p);
+                s_pose deltaError;
+                
+                deltaError.x = this->endPosition.x - p.x;
+                deltaError.y = this->endPosition.y - p.y;
+                deltaError.theta = this->endPosition.theta - p.theta;
+                geometry_msgs::Twist msg;
+                
+                if(sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2)) <= 0.1)
+                {
+                    msg.linear.x = 0;
+                    msg.angular.z = 0;
+                    this->status = enum_AtomicTaskStatus::completed;
+                } else
+                {
+                    float ro = sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2));
+                    alpha_t_old = alpha_t;
+                    alpha_t = atan2(deltaError.y, deltaError.x) - p.theta;
+                    if(alpha_t > M_PI)
+                        alpha_t = alpha_t - 2*M_PI ;
+                    if (alpha_t < -M_PI)
+                        alpha_t = alpha_t + 2*M_PI ;
+                    
+                    v = fmin(ro, 1.0);
+                    sum_Alpha_t += alpha_t;
+                    omega = kp * alpha_t + ki * sum_Alpha_t + kd * (alpha_t - alpha_t_old);
+
+                msg.linear.x = v;
+               msg.angular.z = omega;
+                    //std::cout << "X : "<< msg.linear.x <<" RO " << ro << " Omega " << msg.angular.z<< std::endl;
+                }
+        //ROS_INFO("%f %f", msg.linear.x, msg.angular.z);
+                //chatter_pub.publish(msg);
+                //ros::spinOnce();
+                //loop_rate.sleep();
+                s_ROSBridgeMessage teste;
+                strcpy(teste.topicName,"thor/cmd_vel");
+                memmove(teste.buffer,(const unsigned geometry_msgs::Twist*) msg,sizeof(msg));
+            }
             
-            if(sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2)) <= 0.1)
-            {
-            	msg.linear.x = 0;
-            	msg.angular.z = 0;
-                this->status = enum_AtomicTaskStatus::completed;
-            } else
-            {
-                float ro = sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2));
-                alpha_t_old = alpha_t;
-                alpha_t = atan2(deltaError.y, deltaError.x) - p.theta;
-                if(fmod(alpha_t, 2*M_PI) > M_PI)
-                    alpha_t= alpha_t - 2*M_PI;
-                v = fmin(ro, 1.0);
-                sum_Alpha_t += alpha_t;
-                omega = kp * alpha_t + ki * sum_Alpha_t + kd * (alpha_t - alpha_t_old);
-            	msg.linear.x = v;
-           	msg.angular.z = omega;
-            	std::cout << "X : "<< msg.linear.x <<" RO " << ro << " Omega " << msg.angular.z<< std::endl;
-}
-            chatter_pub->publish(msg);
-            ros::spinOnce();
-            loop_rate->sleep();
         }
             break;
         case enum_AtomicTaskStatus::completed:
             std::cout << "Arrived at the destination!"<< std::endl;
-            delete chatter_pub;
-            delete loop_rate;
-            delete n;
-            ros::shutdown();
             break;
     }
 }
