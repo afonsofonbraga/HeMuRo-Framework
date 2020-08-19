@@ -111,8 +111,9 @@ void MissionManager::run()
 // This is a timer for each new MissionRequest
 void MissionManager::missionRequestController(char* missionID)
 {
-    this->missionOwnerList[missionID].cv = new std::condition_variable;
-    this->missionOwnerList[missionID].cv_m = new std::mutex;
+    this->missionOwnerList[missionID].cv = std::make_unique<std::condition_variable>() ;
+    this->missionOwnerList[missionID].cv_m = std::make_unique<std::mutex>();
+    
     
     while(this->missionOwnerList[missionID].endMission == false)
     {
@@ -139,9 +140,9 @@ void MissionManager::missionRequestController(char* missionID)
                 break;
         }
     }
-    std::cout << "Deleting Mutexes" <<std::endl;
-    delete this->missionOwnerList[missionID].cv;
-    delete this->missionOwnerList[missionID].cv_m;
+    //std::cout << "Deleting Mutexes" <<std::endl;
+    this->missionOwnerList[missionID].cv.release();
+    this->missionOwnerList[missionID].cv_m.release();
 }
 
 void MissionManager::startMissionToExecute()
@@ -167,8 +168,18 @@ void MissionManager::startMissionToExecute()
                     break;
                 
                 case enum_MissionExecution::executing:
-                    this->missionToExecute.run();
+                {
+                    auto currentTime = std::chrono::system_clock::now();
+                    if (this->missionToExecute.startTime - currentTime <= std::chrono::seconds(this->missionToExecute.executionTime))
+                        this->missionToExecute.run();
+                    else
+                    {
+                        std::cout << "[bidder] TIMEOUT!!! Redirecting Misssion!" <<std::endl;
+                        this->missionToExecute.enum_execution = enum_MissionExecution::null;
+                        redirectMission(this->missionToExecute);
+                    }
                     break;
+                }
                     
                 case enum_MissionExecution::missionComplete:
                     notifyingMissionComplete();
@@ -213,11 +224,12 @@ void MissionManager::startMissionToExecute()
 void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     std::cout << "[bidder] Received a mission." <<std::endl;
-    MissionExecution* vMission = new MissionExecution;
-    //auto vMission = std::make_unique<MissionExecution>();
+    //MissionExecution* vMission = new MissionExecution;
+    auto vMission = std::make_unique<MissionExecution>();
     
-    bool status = this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector); // Checking if it is decomposable
-    if(status == true)
+    //bool status = this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector); // Checking if it is decomposable
+    
+    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory())
     {
         std::cout << "[bidder] Mission received is decomposable." <<std::endl;
 
@@ -235,6 +247,8 @@ void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissi
         this->MissionList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
         this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
         this->MissionList[vMissionMessage->missionCode].vAtomicTaskVector = std::move(vMission->vAtomicTaskVector);
+        this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
+        this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
         
         addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
@@ -254,22 +268,23 @@ void MissionManager::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> v
     //MissionExecution* vMission = new MissionExecution;
     auto vMission = std::make_unique<MissionExecution>();
     
-    bool status = this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector); // Checking if it is decomposable
-    if(status == true)
+    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory())
     {
         std::cout << "[bidder] Mission received is decomposable." <<std::endl;
         
         // Adding the new Mission into database, including all AtomicTasks and calculating total cost
 
-        strcpy(vMission->missionCode,vMissionMessage->missionCode);
-        strcpy(vMission->senderAddress,vMissionMessage->senderAddress);
-        vMission->enum_execution = enum_MissionExecution::waitingAuction;
-        vMission->mission = vMissionMessage->taskToBeDecomposed;
-        vMission->goal = vMissionMessage->goal;
+        strcpy(this->MissionList[vMissionMessage->missionCode].missionCode,vMissionMessage->missionCode);
+        strcpy(this->MissionList[vMissionMessage->missionCode].senderAddress,vMissionMessage->senderAddress);
+        this->MissionList[vMissionMessage->missionCode].enum_execution = enum_MissionExecution::waitingAuction;
+        this->MissionList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
+        this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
+        this->MissionList[vMissionMessage->missionCode].vAtomicTaskVector = std::move(vMission->vAtomicTaskVector);
+        this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
+        this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
         
-        addAtomicTask(*vMission);
-        calculateMissionCost(*vMission);
-        this->MissionList.insert_or_assign(vMission->missionCode, *vMission);
+        addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
+        calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
         // This one doesn't send back
     }
     //std::cout << "Deleting vMission" <<std::endl;
@@ -322,6 +337,9 @@ void MissionManager::addMissionToExecute(MissionExecution& vMissionExecute)
     missionToExecute.atomicTaskIndex = vMissionExecute.atomicTaskIndex;
     missionToExecute.missionCost = vMissionExecute.missionCost;
     
+    missionToExecute.robotCategory = vMissionExecute.robotCategory;
+    missionToExecute.executionTime = vMissionExecute.executionTime;
+    
     missionToExecute.enum_execution = enum_MissionExecution::waitingStart;
     lk.unlock();
 }
@@ -334,6 +352,7 @@ void MissionManager::startCommand(std::unique_ptr<s_MissionMessage> vMissionMess
         std::cout << "[bidder] Adding mission to execute!"<<std::endl;
         missionToExecute.enum_execution = enum_MissionExecution::executing;
         lk.unlock();
+        this->missionToExecute.startTime = std::chrono::system_clock::now();
         this->conditional_executeMission.notify_one();
         this->MissionList.clear();
     }
@@ -394,6 +413,9 @@ void MissionManager::createMission(std::unique_ptr<s_MissionMessage> vMissionMes
     this->missionOwnerList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
     this->missionOwnerList[vMissionMessage->missionCode].enum_request = enum_MissionRequest::waitingBids;
     this->missionOwnerList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
+    this->missionOwnerList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
+    this->missionOwnerList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
+    
     this->missionOwnerList[vMissionMessage->missionCode].t5 =  new std::thread(&MissionManager::missionRequestController, this, std::ref(this->missionOwnerList[vMissionMessage->missionCode].missionCode));
 }
 
@@ -573,7 +595,7 @@ void MissionManager::addAtomicTask(MissionExecution& vMissionDecomposable)
         }
         if (vAtomicTaskitem != nullptr)
         {
-            vMissionDecomposable.atomicTaskList.push_back(vAtomicTaskitem);
+            vMissionDecomposable.atomicTaskList.push_back(std::move(vAtomicTaskitem));
             //delete vAtomicTaskitem;
         } else {
             std::cout << "Not found\n";

@@ -31,6 +31,8 @@ public:
     char senderAddress[15];
     char winnerAddress[15];
     enum_DecomposableTask mission = enum_DecomposableTask::null;
+    enum_RobotCategory robotCategory;
+    int executionTime = 30;
     s_pose goal;
 };
 

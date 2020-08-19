@@ -48,7 +48,9 @@ int main( int argc, char *argv[ ] ){
     
     int i = 0;
     
-    BlackBoard* memory = new BlackBoard(nome);
+    enum_RobotCategory cat = enum_RobotCategory::ugv;
+    
+    BlackBoard* memory = new BlackBoard(nome, cat);
     v_BlackBoard.push_back(memory);
     
     UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
