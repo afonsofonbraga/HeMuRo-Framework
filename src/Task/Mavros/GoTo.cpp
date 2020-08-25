@@ -63,10 +63,10 @@ void GoTo::run()
             break;
         }
     }
-    
-    void GoTo::calculateCost()
-    {
-        this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2) + pow(this->endPosition.z - this->startPosition.z, 2)) * this->costMeter;
-    }
-    
-    
+}
+void GoTo::calculateCost()
+{
+    this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2) + pow(this->endPosition.z - this->startPosition.z, 2)) * this->costMeter;
+}
+
+

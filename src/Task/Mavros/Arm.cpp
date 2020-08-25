@@ -1,21 +1,22 @@
 //
-//  Land.cpp
+//  Arm.cpp
 //  MRSFramework
 //
 //  Created by Afonso Braga on 25/08/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#include "Land.hpp"
+#include "Arm.hpp"
 
-Land::Land(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+
+Arm::Arm(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     calculateCost();
 }
 
-Land::~Land() {}
+Arm::~Arm() {}
 
-void Land::run()
+void Arm::run()
 {
     switch(this->status)
     {
@@ -28,9 +29,9 @@ void Land::run()
             
         case enum_AtomicTaskStatus::running:
         {
-            std::cout << "Landing."<< std::endl;
+            std::cout << "Arming."<< std::endl;
             s_ROSBridgeMessage teste;
-            strcpy(teste.topicName,"Land");
+            strcpy(teste.topicName,"Arm");
             this->monitor->addROSBridgeMessage(teste);
             this->status = enum_AtomicTaskStatus::completed;
             break;
@@ -41,7 +42,7 @@ void Land::run()
     }
 }
 
-void Land::calculateCost()
+void Arm::calculateCost()
 {
     this->cost = this->costMeter;
 }

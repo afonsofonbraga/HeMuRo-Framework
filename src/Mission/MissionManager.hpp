@@ -28,6 +28,10 @@
 #include "TurnOn.hpp"
 #include "TakePicture.hpp"
 
+#include "Arm.hpp"
+#include "TakeOff.hpp"
+#include "Land.hpp"
+
 class MissionManager: public Module
 {
 private:

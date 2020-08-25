@@ -1,24 +1,24 @@
 //
-//  Land.hpp
+//  Arm.hpp
 //  MRSFramework
 //
 //  Created by Afonso Braga on 25/08/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#ifndef Land_hpp
-#define Land_hpp
+#ifndef Arm_hpp
+#define Arm_hpp
 
 #include <stdio.h>
 #include "AtomicTask.hpp"
 
-class Land: public AtomicTask
+class Arm: public AtomicTask
 {
 protected:
     float costMeter = 1.0;
 public:
-    Land(BlackBoard* vMonitor, s_pose& start, s_pose& end);
-    ~Land();
+    Arm(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    ~Arm();
     void run() override;
     void calculateCost() override;
 };

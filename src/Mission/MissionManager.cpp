@@ -28,6 +28,15 @@ MissionManager::MissionManager(BlackBoard* monitor) : Module(monitor)
     lala = enum_DecomposableTask::lowBattery;
     
     this->monitor->addDecomposableTaskList(lala, teste);
+
+    teste.clear();
+    teste.push_back(enum_AtomicTask::arm);
+    teste.push_back(enum_AtomicTask::takeOff);
+    teste.push_back(enum_AtomicTask::goTo);
+    teste.push_back(enum_AtomicTask::land);
+    lala = enum_DecomposableTask::flightTest;
+    this->monitor->addDecomposableTaskList(lala, teste);
+    
 }
 
 MissionManager::~MissionManager()
@@ -596,6 +605,21 @@ void MissionManager::addAtomicTask(MissionExecution& vMissionDecomposable)
             case enum_AtomicTask::takePicture :
             vAtomicTaskitem = std::make_shared<TakePicture>(this->monitor, currentPosition,currentPosition);
             break;
+            
+                
+            case enum_AtomicTask::arm :
+            //vAtomicTaskitem = std::make_shared<Arm>(this->monitor, currentPosition,currentPosition);
+            break;
+                
+            case enum_AtomicTask::takeOff :
+            //vAtomicTaskitem = std::make_shared<TakeOff>(this->monitor, currentPosition,vMissionDecomposable.goal);
+            //currentPosition = vMissionDecomposable.goal;
+            break;
+                
+            case enum_AtomicTask::land :
+            //vAtomicTaskitem = std::make_shared<Land>(this->monitor, currentPosition,currentPosition);
+            break;
+            
         }
         if (vAtomicTaskitem != nullptr)
         {

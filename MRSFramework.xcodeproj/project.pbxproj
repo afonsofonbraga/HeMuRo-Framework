@@ -56,6 +56,10 @@
 		2376201124F54C91000C1B23 /* TakeOff.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TakeOff.hpp; sourceTree = "<group>"; };
 		2376201224F54C9C000C1B23 /* Land.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Land.cpp; sourceTree = "<group>"; };
 		2376201324F54C9C000C1B23 /* Land.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Land.hpp; sourceTree = "<group>"; };
+		2376201824F56AC6000C1B23 /* GoTo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
+		2376201924F56ACD000C1B23 /* GoTo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
+		2376201A24F56B3B000C1B23 /* Arm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Arm.cpp; sourceTree = "<group>"; };
+		2376201B24F56B3B000C1B23 /* Arm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Arm.hpp; sourceTree = "<group>"; };
 		23789A9024AB95D1001372E5 /* MissionRequest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MissionRequest.cpp; sourceTree = "<group>"; };
 		23789A9124AB95D1001372E5 /* MissionRequest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MissionRequest.hpp; sourceTree = "<group>"; };
 		23789A9324AB9694001372E5 /* MissionExecution.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MissionExecution.cpp; sourceTree = "<group>"; };
@@ -113,6 +117,7 @@
 		2345667124CF262400B28F87 /* Turtlebot */ = {
 			isa = PBXGroup;
 			children = (
+				2376201924F56ACD000C1B23 /* GoTo.hpp */,
 				2376200E24F54B87000C1B23 /* Alive.cpp */,
 				2376200F24F54B87000C1B23 /* Alive.hpp */,
 				2345667224CF265600B28F87 /* GoTo.cpp */,
@@ -254,6 +259,7 @@
 		23F0BD4524F54A75003194C1 /* Mavros */ = {
 			isa = PBXGroup;
 			children = (
+				2376201824F56AC6000C1B23 /* GoTo.hpp */,
 				2376200D24F54B81000C1B23 /* Alive.cpp */,
 				2376200C24F54B81000C1B23 /* Alive.hpp */,
 				23F0BD4624F54A91003194C1 /* GoTo.cpp */,
@@ -261,6 +267,8 @@
 				2376201124F54C91000C1B23 /* TakeOff.hpp */,
 				2376201224F54C9C000C1B23 /* Land.cpp */,
 				2376201324F54C9C000C1B23 /* Land.hpp */,
+				2376201A24F56B3B000C1B23 /* Arm.cpp */,
+				2376201B24F56B3B000C1B23 /* Arm.hpp */,
 			);
 			path = Mavros;
 			sourceTree = "<group>";

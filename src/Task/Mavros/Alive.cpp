@@ -35,7 +35,7 @@ void Alive::pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg)
     pose.x = this->current_pose.pose.position.x;
     pose.y = this->current_pose.pose.position.x;
     pose.z = this->current_pose.pose.position.z;
-    pose.yaw = this->current_heading;
+    pose.yaw = this->current_heading.data;
     this->monitor->setPosition(pose);
     
     ROS_INFO("x: %f y: %f z: %f", current_pose.pose.position.x, current_pose.pose.position.y, current_pose.pose.position.z);
@@ -58,7 +58,7 @@ void Alive::heading_cb(const std_msgs::Float64::ConstPtr& msg)
     pose.x = this->current_pose.pose.position.x;
     pose.y = this->current_pose.pose.position.x;
     pose.z = this->current_pose.pose.position.z;
-    pose.yaw = this->current_heading;
+    pose.yaw = this->current_heading.data;
     this->monitor->setPosition(pose);
 }
 
@@ -117,20 +117,20 @@ void Alive::run()
     
     // Subscribers
     std::string topic = vname + "mavros/state";
-    ros::Subscriber state_sub = nh.subscribe<mavros_msgs::State>(topic, 10, state_cb);
+    ros::Subscriber state_sub = n.subscribe<mavros_msgs::State>(topic, 10, &Alive::state_cb, this);
     
     topic = vname + "/mavros/global_position/pose";
-    ros::Subscriber state_sub = nh.subscribe<geometry_msgs::PoseStamped>(topic, 10, pose_cb);
+    ros::Subscriber currentPos = n.subscribe<geometry_msgs::PoseStamped>(topic, 10, &Alive::pose_cb, this);
     
     topic = vname + "/mavros/global_position/compass_hdg";
-    ros::Subscriber state_sub = nh.subscribe<std_msgs::Float64>(topic, 10, heading_cb);
+    ros::Subscriber currentHeading = n.subscribe<std_msgs::Float64>(topic, 10, &Alive::heading_cb, this);
     
     // Publishers
     topic = vname + "mavros/setpoint_raw/local";
-    ros::Subscriber state_sub = nh.advertise<mavros_msgs::PositionTarget>(topic, 10);
+    ros::Publisher set_vel_pub = n.advertise<mavros_msgs::PositionTarget>(topic, 10);
     
     topic = vname + "mavros/setpoint_position/local";
-    ros::Subscriber state_sub = nh.subscribe<geometry_msgs::PoseStamped>(topic, 10);
+    ros::Publisher local_pos_pub = n.advertise<geometry_msgs::PoseStamped>(topic, 10);
     
     std::map <std::string, ros::Publisher> publisherList;
     
@@ -141,16 +141,7 @@ void Alive::run()
         
         if (vROSBridgeMessage != nullptr && this->isRunning == true)
         {
-            //Ainda esta com erro aqui, não sei como resolver.
-            
-            geometry_msgs::Twist msg;
-            s_cmdvel vCmdvel = ((s_cmdvel*) vROSBridgeMessage)[0];
-            msg.linear.x = vCmdvel.x;
-            msg.angular.z = vCmdvel.theta;
-            publisherList[vROSBridgeMessage->topicName].publish(vROSBridgeMessage->buffer);
-            
-            
-            
+        
             if (vROSBridgeMessage->topicName == "Arm")
             {
                 GYM_OFFSET = 0;
@@ -163,7 +154,7 @@ void Alive::run()
                 }
                 GYM_OFFSET /= 30;
                 ROS_INFO("the N' axis is facing: %f", GYM_OFFSET);
-                cout << GYM_OFFSET << "\n" << endl;
+                std::cout << GYM_OFFSET << "\n" << std::endl;
                 
                 std::string topic = vname + "mavros/cmd/arming";
                 ros::ServiceClient arming_client_i = n.serviceClient<mavros_msgs::CommandBool>(topic);
@@ -221,7 +212,7 @@ void Alive::run()
                         // float percentErrorX = abs((pose.pose.position.x - current_pose.pose.position.x)/(pose.pose.position.x));
                         // float percentErrorY = abs((pose.pose.position.y - current_pose.pose.position.y)/(pose.pose.position.y));
                         // float percentErrorZ = abs((pose.pose.position.z - current_pose.pose.position.z)/(pose.pose.position.z));
-                        // cout << " px " << percentErrorX << " py " << percentErrorY << " pz " << percentErrorZ << endl;
+                        // std::cout << " px " << percentErrorX << " py " << percentErrorY << " pz " << percentErrorZ << std::endl;
                         // if(percentErrorX < tollorance && percentErrorY < tollorance && percentErrorZ < tollorance)
                         // {
                         //   break;
@@ -229,9 +220,9 @@ void Alive::run()
                         float deltaX = abs(pose.pose.position.x - current_pose.pose.position.x);
                         float deltaY = abs(pose.pose.position.y - current_pose.pose.position.y);
                         float deltaZ = abs(pose.pose.position.z - current_pose.pose.position.z);
-                        //cout << " dx " << deltaX << " dy " << deltaY << " dz " << deltaZ << endl;
+                        //std::cout << " dx " << deltaX << " dy " << deltaY << " dz " << deltaZ << std::endl;
                         float dMag = sqrt( pow(deltaX, 2) + pow(deltaY, 2) + pow(deltaZ, 2) );
-                        cout << dMag << endl;
+                        std::cout << dMag << std::endl;
                         //if( dMag < tollorance)
                         //{
                         //    break;

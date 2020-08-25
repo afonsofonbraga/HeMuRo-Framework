@@ -13,8 +13,8 @@ enum class Operation{null, setRobotsPosition, missionMessage};
 enum class enum_RobotCategory{null, uav, ugv, usv};
 
 enum class enum_AtomicTaskStatus{null, waiting, running, completed};
-enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo, takePicture};
-enum class enum_DecomposableTask{null, checkPosition, lowBattery, takePicture}; //Trocar por DecomposableMission
+enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo, takePicture, arm, takeOff, land};
+enum class enum_DecomposableTask{null, checkPosition, lowBattery, takePicture, flightTest}; //Trocar por DecomposableMission
 
 
 enum class enum_MissionRequest{null, waitingBids, notifyingWinner, executingMission, missionComplete};
