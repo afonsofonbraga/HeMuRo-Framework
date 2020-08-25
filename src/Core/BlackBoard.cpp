@@ -4,7 +4,10 @@ BlackBoard::BlackBoard(std::string& name, enum_RobotCategory cat)
 {
     this->position.x = 0;
     this->position.y = 0;
-    this->position.theta = 0;
+    this->position.z = 0;
+    this->position.roll = 0;
+    this->position.pitch = 0;
+    this->position.yaw = 0;
     this->batteryLevel = 56;
     setRobotsName(name);
     setRobotCategory(cat);
@@ -20,10 +23,14 @@ BlackBoard::BlackBoard(const BlackBoard& other)
     this->batteryLevel = other.batteryLevel;
     this->position.x = other.position.x;
     this->position.y = other.position.y;
-    this->position.theta = other.position.theta;
+    this->position.z = other.position.z;
+    this->position.roll = other.position.roll;
+    this->position.pitch = other.position.pitch;
+    this->position.yaw = other.position.yaw;
     //std::string vName = other.robotName;
     this->setRobotIP();
     this->setRobotsName(other.robotName);
+    this->setRobotCategory(other.robotCategory);
 }
 
 BlackBoard& BlackBoard::operator=(const BlackBoard& other)
@@ -32,10 +39,14 @@ BlackBoard& BlackBoard::operator=(const BlackBoard& other)
         this->batteryLevel = other.batteryLevel;
         this->position.x = other.position.x;
         this->position.y = other.position.y;
-        this->position.theta = other.position.theta;
+        this->position.z = other.position.z;
+        this->position.roll = other.position.roll;
+        this->position.pitch = other.position.pitch;
+        this->position.yaw = other.position.yaw;
         //std::string vName = new std::string{other.robotName};
-        this->setRobotsName(other.robotName);
         this->setRobotIP();
+        this->setRobotsName(other.robotName);
+        this->setRobotCategory(other.robotCategory);
     }
     return *this;
 }

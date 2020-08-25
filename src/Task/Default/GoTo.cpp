@@ -31,7 +31,7 @@ void GoTo::run()
         {
             s_pose p;
             this->monitor->getPosition(p);
-            if(p.x == this->endPosition.x && p.y== this->endPosition.y && p.theta == this->endPosition.theta)
+            if(p.x == this->endPosition.x && p.y== this->endPosition.y && p.roll == this->endPosition.roll)
             {
                 std::cout << "Arrived at the destination!"<< std::endl;
                 this->status = enum_AtomicTaskStatus::completed;
@@ -39,7 +39,7 @@ void GoTo::run()
             {
                 p.x = this->endPosition.x;
                 p.y = this->endPosition.y;
-                p.theta = this->endPosition.theta;
+                p.roll = this->endPosition.roll;
                 this->monitor->setPosition(p);
                 this->monitor->consumeBattery(this->cost);
             }

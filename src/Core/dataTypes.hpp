@@ -31,9 +31,13 @@ std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::os
 
 struct s_pose
 {
-  float x = 0;
-  float y = 0;
-  float theta = 0;
+    float x = 0;
+    float y = 0;
+    float z = 0;
+    float roll = 0;
+    float pitch = 0;
+    float yaw = 0;
+    //float theta = 0;
 };
 
 struct s_robotsPose

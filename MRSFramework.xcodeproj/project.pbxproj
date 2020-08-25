@@ -52,6 +52,10 @@
 		2376200D24F54B81000C1B23 /* Alive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Alive.cpp; sourceTree = "<group>"; };
 		2376200E24F54B87000C1B23 /* Alive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Alive.cpp; sourceTree = "<group>"; };
 		2376200F24F54B87000C1B23 /* Alive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Alive.hpp; sourceTree = "<group>"; };
+		2376201024F54C91000C1B23 /* TakeOff.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TakeOff.cpp; sourceTree = "<group>"; };
+		2376201124F54C91000C1B23 /* TakeOff.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TakeOff.hpp; sourceTree = "<group>"; };
+		2376201224F54C9C000C1B23 /* Land.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Land.cpp; sourceTree = "<group>"; };
+		2376201324F54C9C000C1B23 /* Land.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Land.hpp; sourceTree = "<group>"; };
 		23789A9024AB95D1001372E5 /* MissionRequest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MissionRequest.cpp; sourceTree = "<group>"; };
 		23789A9124AB95D1001372E5 /* MissionRequest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MissionRequest.hpp; sourceTree = "<group>"; };
 		23789A9324AB9694001372E5 /* MissionExecution.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MissionExecution.cpp; sourceTree = "<group>"; };
@@ -93,8 +97,6 @@
 		23F00C8624634DDF00EC7860 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
 		23F00C8724634DDF00EC7860 /* GoTo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GoTo.hpp; path = src/Task/Default/GoTo.hpp; sourceTree = SOURCE_ROOT; };
 		23F0BD4624F54A91003194C1 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
-		23F0BD4724F54A91003194C1 /* GoTo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
-		23F0BD4824F54B0A003194C1 /* GoTo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +115,6 @@
 			children = (
 				2376200E24F54B87000C1B23 /* Alive.cpp */,
 				2376200F24F54B87000C1B23 /* Alive.hpp */,
-				23F0BD4824F54B0A003194C1 /* GoTo.hpp */,
 				2345667224CF265600B28F87 /* GoTo.cpp */,
 			);
 			path = Turtlebot;
@@ -256,7 +257,10 @@
 				2376200D24F54B81000C1B23 /* Alive.cpp */,
 				2376200C24F54B81000C1B23 /* Alive.hpp */,
 				23F0BD4624F54A91003194C1 /* GoTo.cpp */,
-				23F0BD4724F54A91003194C1 /* GoTo.hpp */,
+				2376201024F54C91000C1B23 /* TakeOff.cpp */,
+				2376201124F54C91000C1B23 /* TakeOff.hpp */,
+				2376201224F54C9C000C1B23 /* Land.cpp */,
+				2376201324F54C9C000C1B23 /* Land.hpp */,
 			);
 			path = Mavros;
 			sourceTree = "<group>";

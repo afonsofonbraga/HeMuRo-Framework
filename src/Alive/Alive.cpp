@@ -15,7 +15,7 @@ void Alive::chatterCallbackPosition(const turtlesim::Pose::ConstPtr& msg)
   s_pose pose;
   pose.x = msg->x;
   pose.y = msg->y;
-  pose.theta = msg->theta;
+  pose.roll = msg->roll;
 
   this->monitor->setPosition(pose);
 }

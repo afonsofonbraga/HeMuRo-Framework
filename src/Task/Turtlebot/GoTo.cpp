@@ -42,7 +42,7 @@ void GoTo::run()
                 
                 deltaError.x = this->endPosition.x - p.x;
                 deltaError.y = this->endPosition.y - p.y;
-                deltaError.theta = this->endPosition.theta - p.theta;
+                deltaError.yaw = this->endPosition.yaw - p.yaw;
                 geometry_msgs::Twist msg;
                 
                 if(sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2)) <= 0.1)
@@ -54,7 +54,7 @@ void GoTo::run()
                 {
                     float ro = sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2));
                     alpha_t_old = alpha_t;
-                    alpha_t = atan2(deltaError.y, deltaError.x) - p.theta;
+                    alpha_t = atan2(deltaError.y, deltaError.x) - p.yaw;
                     alpha_t = fmod(alpha_t, 2*M_PI);
                     if(alpha_t > M_PI)
                         alpha_t = alpha_t - 2*M_PI ;

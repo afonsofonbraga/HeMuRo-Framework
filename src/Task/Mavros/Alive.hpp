@@ -13,6 +13,8 @@
 #include <chrono> /* select() */
 #include <iostream>
 #include <thread>
+#include <cmath>
+#include <math.h>
 #include <sys/time.h>
 
 #include "BlackBoard.hpp"
@@ -20,21 +22,43 @@
 #include "dataTypes.hpp"
 
 #include "ros/ros.h"
-#include "std_msgs/String.h"
-#include "turtlesim/Pose.h"
-#include "turtlesim/Color.h"
+#include <ros/duration.h>
+//#include <nav_msgs/Odometry.h>
+#include "std_msgs/Float64.h"
+#include <geometry_msgs/Pose2D.h>
+#include <geometry_msgs/PoseStamped.h>
+#include <mavros_msgs/CommandBool.h>
+#include <mavros_msgs/CommandTOL.h>
+#include <mavros_msgs/PositionTarget.h>
+#include <mavros_msgs/SetMode.h>
+#include <mavros_msgs/State.h>
 
 class Alive: public Module
 {
 protected:
     s_ROSBridgeMessage* vROSBridgeMessage;
+    
+    //Set global variables
+    mavros_msgs::State current_state;
+    //nav_msgs::Odometry current_pose;
+    geometry_msgs::PoseStamped current_pose;
+    geometry_msgs::PoseStamped pose;
+    std_msgs::Float64 current_heading;
+    float GYM_OFFSET;
+    
     virtual void run() override;
 public:
     
     Alive(BlackBoard* monitor);
     ~Alive();
-     void chatterCallbackPosition(const turtlesim::Pose::ConstPtr& msg);
-     void chatterCallbackColor(const turtlesim::Color::ConstPtr& msg);
+    
+    void state_cb(const mavros_msgs::State::ConstPtr& msg);
+    void pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg);
+    void heading_cb(const std_msgs::Float64::ConstPtr& msg);
+    
+    void setDestination(float x, float y, float z);
+    void setHeading(float heading);
+    
     //void error(const char* msg);                    // Print an error
 };
 
