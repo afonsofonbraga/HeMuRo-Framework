@@ -33,6 +33,7 @@ void Arm::run()
             s_ROSBridgeMessage teste;
             strcpy(teste.topicName,"Arm");
             this->monitor->addROSBridgeMessage(teste);
+            usleep(1000000); //Vamos Precisar de um buffer
             this->status = enum_AtomicTaskStatus::completed;
             break;
         }

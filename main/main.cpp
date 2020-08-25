@@ -48,7 +48,7 @@ int main( int argc, char *argv[ ] ){
     
     int i = 0;
     
-    enum_RobotCategory cat = enum_RobotCategory::ugv;
+    enum_RobotCategory cat = enum_RobotCategory::uav;
     
     BlackBoard* memory = new BlackBoard(nome, cat);
     v_BlackBoard.push_back(memory);

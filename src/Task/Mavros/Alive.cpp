@@ -38,7 +38,7 @@ void Alive::pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg)
     pose.yaw = this->current_heading.data;
     this->monitor->setPosition(pose);
     
-    ROS_INFO("x: %f y: %f z: %f", current_pose.pose.position.x, current_pose.pose.position.y, current_pose.pose.position.z);
+    //ROS_INFO("x: %f y: %f z: %f", current_pose.pose.position.x, current_pose.pose.position.y, current_pose.pose.position.z);
     // ROS_INFO("y: %f", current_pose.pose.position.y);
     // ROS_INFO("z: %f", current_pose.pose.position.z);
 }
@@ -107,8 +107,8 @@ void Alive::run()
     std::map<std::string, std::string> map;
     std::string vname;
     this->monitor->getRobotsName(vname);
-    vname = "";
     std::string node = vname + "_mavros";
+    vname = "";
     ros::init(map,node);
     ros::NodeHandle n;
     
@@ -119,7 +119,7 @@ void Alive::run()
     std::string topic = vname + "mavros/state";
     ros::Subscriber state_sub = n.subscribe<mavros_msgs::State>(topic, 10, &Alive::state_cb, this);
     
-    topic = vname + "/mavros/global_position/pose";
+    topic = vname + "/mavros/local_position/pose";
     ros::Subscriber currentPos = n.subscribe<geometry_msgs::PoseStamped>(topic, 10, &Alive::pose_cb, this);
     
     topic = vname + "/mavros/global_position/compass_hdg";
@@ -142,13 +142,13 @@ void Alive::run()
         if (vROSBridgeMessage != nullptr && this->isRunning == true)
         {
         
-            if (vROSBridgeMessage->topicName == "Arm")
+            if (strcmp(vROSBridgeMessage->topicName, "Arm" )== 0)
             {
                 GYM_OFFSET = 0;
-                for (int i = 1; i <= 30; ++i)
+                for (int i = 1; i <= 1; ++i)
                 {
-                    ros::spinOnce();
-                    ros::Duration(0.1).sleep();
+                    //ros::spinOnce();
+                    //ros::Duration(0.1).sleep();
                     GYM_OFFSET += current_heading.data;
                     ROS_INFO("current heading%d: %f", i, GYM_OFFSET/i);
                 }
@@ -165,7 +165,7 @@ void Alive::run()
                 else
                     ROS_ERROR("Failed arming");
             }
-            else if(vROSBridgeMessage->topicName == "TakeOff")
+            else if(strcmp(vROSBridgeMessage->topicName, "TakeOff") == 0)
             {
                 std::string service = vname + "/mavros/cmd/takeoff";
                 ros::ServiceClient takeoff_cl = n.serviceClient<mavros_msgs::CommandTOL>(service);
@@ -181,7 +181,7 @@ void Alive::run()
                     ROS_ERROR("Failed Takeoff");
                 }
             }
-            else if(vROSBridgeMessage->topicName == "Land")
+            else if(strcmp(vROSBridgeMessage->topicName, "Land") == 0)
             {
                 std::string service = vname + "/mavros/cmd/land";
                 ros::ServiceClient land_client = n.serviceClient<mavros_msgs::CommandTOL>(service);
@@ -193,20 +193,37 @@ void Alive::run()
                     ROS_ERROR("Landing failed");
                 }
             }
-            else if(vROSBridgeMessage->topicName == "GoTo")
+            else if(strcmp(vROSBridgeMessage->topicName, "GoTo") == 0)
             {
                 
                 //move foreward
                 setHeading(0);
-                
-                s_pose vPose = ((s_pose*) vROSBridgeMessage)[0];
+                s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
+
+                std::string service = vname + "/navigate";
+                ros::ServiceClient nav_client = n.serviceClient<clover::Navigate>(service);
+                clover::Navigate tt;
+                tt.request.x = vPose.x;
+                tt.request.y = vPose.y;
+                tt.request.z = vPose.z;
+                tt.request.speed = 1;
+                tt.request.frame_id = "map";
+                tt.request.auto_arm = true;
+
+                if (nav_client.call(tt) && tt.response.success)
+                    ROS_INFO("VAAAAI DEMOIN %d", tt.response.success);
+                else
+                {
+                    ROS_ERROR("Landing failed");
+                }
+                /*
                 setDestination(vPose.x, vPose.y, vPose.z);
                 float tollorance = .35;
                 if (local_pos_pub)
                 {
                     
-                    //for (int i = 10000; ros::ok() && i > 0; --i)
-                    //{
+                    for (int i = 10000; ros::ok() && i > 0; --i)
+                    {
                         
                         local_pos_pub.publish(pose);
                         // float percentErrorX = abs((pose.pose.position.x - current_pose.pose.position.x)/(pose.pose.position.x));
@@ -223,20 +240,20 @@ void Alive::run()
                         //std::cout << " dx " << deltaX << " dy " << deltaY << " dz " << deltaZ << std::endl;
                         float dMag = sqrt( pow(deltaX, 2) + pow(deltaY, 2) + pow(deltaZ, 2) );
                         std::cout << dMag << std::endl;
-                        //if( dMag < tollorance)
-                        //{
-                        //    break;
-                        //}
+                        if( dMag < tollorance)
+                        {
+                            break;
+                        }
                         //ros::spinOnce();
                         //ros::Duration(0.5).sleep();
                         //if(i == 1)
                         //{
                         //    ROS_INFO("Failed to reach destination. Stepping to next task.");
                         //}
-                    //}
+                    }
                     ROS_INFO("Going to destination!!");
                     //ROS_INFO("Done moving foreward.");
-                }
+                }*/
                 
                 
                 
@@ -244,5 +261,6 @@ void Alive::run()
             }
         }
     }
-    ros::waitForShutdown();
+    spinner.stop();
+ //   ros::waitForShutdown();
 }

@@ -608,16 +608,16 @@ void MissionManager::addAtomicTask(MissionExecution& vMissionDecomposable)
             
                 
             case enum_AtomicTask::arm :
-            //vAtomicTaskitem = std::make_shared<Arm>(this->monitor, currentPosition,currentPosition);
+            vAtomicTaskitem = std::make_shared<Arm>(this->monitor, currentPosition,currentPosition);
             break;
                 
             case enum_AtomicTask::takeOff :
-            //vAtomicTaskitem = std::make_shared<TakeOff>(this->monitor, currentPosition,vMissionDecomposable.goal);
-            //currentPosition = vMissionDecomposable.goal;
+            vAtomicTaskitem = std::make_shared<TakeOff>(this->monitor, currentPosition,vMissionDecomposable.goal);
+            currentPosition = vMissionDecomposable.goal;
             break;
                 
             case enum_AtomicTask::land :
-            //vAtomicTaskitem = std::make_shared<Land>(this->monitor, currentPosition,currentPosition);
+            vAtomicTaskitem = std::make_shared<Land>(this->monitor, currentPosition,currentPosition);
             break;
             
         }

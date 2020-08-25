@@ -33,6 +33,8 @@
 #include <mavros_msgs/SetMode.h>
 #include <mavros_msgs/State.h>
 
+#include <clover/Navigate.h>
+
 class Alive: public Module
 {
 protected:

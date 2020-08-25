@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "AtomicTask.hpp"
+#include <unistd.h>
 
 class Arm: public AtomicTask
 {

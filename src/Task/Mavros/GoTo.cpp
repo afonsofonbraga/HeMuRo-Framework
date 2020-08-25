@@ -50,15 +50,41 @@ void GoTo::run()
                 } else
                 {
                     s_ROSBridgeMessage teste;
+                    s_pose caminho;
+                    
+                    caminho.x = this->endPosition.x;
+                    caminho.y = this->endPosition.y;
+                    caminho.z = this->endPosition.z;
                     strcpy(teste.topicName,"GoTo");
-                    memmove(teste.buffer,(char*)&this->endPosition,sizeof(this->endPosition));
+                    memmove(teste.buffer,(char*)&caminho,sizeof(caminho));
                     this->monitor->addROSBridgeMessage(teste);
-                    usleep(10000); //Vamos Precisar de um buffer
+                    bool a=true;
+                    while (a)
+                    {
+                        usleep(10000000); //Vamos Precisar de um buffer
+
+                        this->monitor->getPosition(p);
+
+                        deltaError.x = this->endPosition.x - p.x;
+                        deltaError.y = this->endPosition.y - p.y;
+                        deltaError.z = this->endPosition.z - p.z;
+                        std::cout << "Goal! X: " << endPosition.x << " Y: "<< endPosition.y <<" Z: " << endPosition.z << std::endl;
+                        std::cout << "Posicao Robo! X: " << p.x << " Y: "<< p.y <<" Z: " << p.z << std::endl;
+                        std::cout << "Erro Robo! X: " << deltaError.x << " Y: "<< deltaError.y <<" Z: " << deltaError.z << std::endl;
+                        std::cout << sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2) + pow(deltaError.z, 2)) << std::endl;
+                        if(sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2) + pow(deltaError.z, 2)) <= 0.2)
+                        {this->status = enum_AtomicTaskStatus::completed;
+                        a = false;}
+
+                    }
+
                 }
                 
             }
             break;
+        }
         case enum_AtomicTaskStatus::completed:
+        {
             std::cout << "Arrived at the destination!"<< std::endl;
             break;
         }

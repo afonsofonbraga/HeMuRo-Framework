@@ -11,6 +11,8 @@
 
 #include <stdio.h>
 #include "AtomicTask.hpp"
+#include <math.h>
+#include <unistd.h>
 
 class TakeOff: public AtomicTask
 {

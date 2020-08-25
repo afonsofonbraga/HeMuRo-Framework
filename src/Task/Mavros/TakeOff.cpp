@@ -48,13 +48,14 @@ void TakeOff::run()
                     strcpy(teste.topicName,"TakeOff");
                     memmove(teste.buffer,(char*)&this->endPosition,sizeof(this->endPosition));
                     this->monitor->addROSBridgeMessage(teste);
+                    usleep(10000000); //Vamos Precisar de um buffer
+                    std::cout << "subiu" << std::endl;
                     this->status = enum_AtomicTaskStatus::completed;
                 }
                 
             }
             break;
         case enum_AtomicTaskStatus::completed:
-            usleep(1000000); //Vamos Precisar de um buffer
             std::cout << "Arrived at the destination!"<< std::endl;
             break;
         }

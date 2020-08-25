@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   turtlesim
   #message_generation
   mavros_msgs
+  clover
 )
 
 
@@ -19,7 +20,7 @@ catkin_package(
   #INCLUDE_DIRS include
   #LIBRARIES beginner_tutorials
   CATKIN_DEPENDS roscpp rospy std_msgs
-  mavros_msgs
+  mavros_msgs clover
 #  DEPENDS system_lib
 )
 
