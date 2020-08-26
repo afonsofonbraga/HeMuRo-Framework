@@ -11,14 +11,7 @@
 
 std::map<std::string, std::string> map;
 std::string vname;
-this->monitor->getRobotsName(vname);
-std::string node = vname + "_mavros";
-vname = "";
-ros::init(map,node);
-ros::NodeHandle n;
 
-ros::AsyncSpinner spinner(0); //This Will use as many threads as there are processors
-spinner.start();
 
 Alive::Alive(BlackBoard *monitor): Module(monitor)
 {
@@ -52,8 +45,8 @@ void Alive::pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg)
     //ROS_INFO("x: %f y: %f z: %f", current_pose.pose.position.x, current_pose.pose.position.y, current_pose.pose.position.z);
     // ROS_INFO("y: %f", current_pose.pose.position.y);
     // ROS_INFO("z: %f", current_pose.pose.position.z);
-    
-    std::string service = vname + "/get_telemetry";
+    ros::NodeHandle n;
+    std::string service = "/get_telemetry";
     ros::ServiceClient telemetry_client = n.serviceClient<clover::GetTelemetry>(service);
     clover::GetTelemetry tt;
     tt.request.frame_id = "map";
@@ -128,7 +121,15 @@ void Alive::setDestination(float x, float y, float z)
 
 void Alive::run()
 {
-    
+    this->monitor->getRobotsName(vname);
+    std::string node = vname + "_mavros";
+
+    vname = "";
+    ros::init(map,node);
+    ros::NodeHandle n;
+    ros::AsyncSpinner spinner(0); //This Will use as many threads as there are processors
+    spinner.start();
+
     // Subscribers
     std::string topic = vname + "mavros/state";
     ros::Subscriber state_sub = n.subscribe<mavros_msgs::State>(topic, 10, &Alive::state_cb, this);
