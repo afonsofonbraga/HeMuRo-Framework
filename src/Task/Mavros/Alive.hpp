@@ -34,7 +34,7 @@
 #include <mavros_msgs/State.h>
 
 #include <clover/Navigate.h>
-
+#include <clover/GetTelemetry.h>
 class Alive: public Module
 {
 protected:

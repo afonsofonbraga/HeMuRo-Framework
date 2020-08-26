@@ -9,6 +9,17 @@
 #include "Alive.hpp"
 #include <map>
 
+std::map<std::string, std::string> map;
+std::string vname;
+this->monitor->getRobotsName(vname);
+std::string node = vname + "_mavros";
+vname = "";
+ros::init(map,node);
+ros::NodeHandle n;
+
+ros::AsyncSpinner spinner(0); //This Will use as many threads as there are processors
+spinner.start();
+
 Alive::Alive(BlackBoard *monitor): Module(monitor)
 {
     
@@ -50,7 +61,7 @@ void Alive::pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg)
     pose.x = tt.response.x;
     pose.y = tt.response.y;
     pose.z = tt.response.z;
-    pose.rol = tt.response.roll;
+    pose.roll = tt.response.roll;
     pose.pitch = tt.response.pitch;
     pose.yaw = tt.response.yaw;
     this->monitor->setPosition(pose);
@@ -117,16 +128,6 @@ void Alive::setDestination(float x, float y, float z)
 
 void Alive::run()
 {
-    std::map<std::string, std::string> map;
-    std::string vname;
-    this->monitor->getRobotsName(vname);
-    std::string node = vname + "_mavros";
-    vname = "";
-    ros::init(map,node);
-    ros::NodeHandle n;
-    
-    ros::AsyncSpinner spinner(0); //This Will use as many threads as there are processors
-    spinner.start();
     
     // Subscribers
     std::string topic = vname + "mavros/state";
