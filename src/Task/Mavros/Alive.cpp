@@ -32,15 +32,28 @@ void Alive::pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg)
 {
     this->current_pose = *msg;
     s_pose pose;
-    pose.x = this->current_pose.pose.position.x;
-    pose.y = this->current_pose.pose.position.x;
-    pose.z = this->current_pose.pose.position.z;
-    pose.yaw = this->current_heading.data;
-    this->monitor->setPosition(pose);
+    //pose.x = this->current_pose.pose.position.x;
+    //pose.y = this->current_pose.pose.position.x;
+    //pose.z = this->current_pose.pose.position.z;
+    //pose.yaw = this->current_heading.data;
+    //this->monitor->setPosition(pose);
     
     //ROS_INFO("x: %f y: %f z: %f", current_pose.pose.position.x, current_pose.pose.position.y, current_pose.pose.position.z);
     // ROS_INFO("y: %f", current_pose.pose.position.y);
     // ROS_INFO("z: %f", current_pose.pose.position.z);
+    
+    std::string service = vname + "/get_telemetry";
+    ros::ServiceClient telemetry_client = n.serviceClient<clover::GetTelemetry>(service);
+    clover::GetTelemetry tt;
+    tt.request.frame_id = "map";
+    telemetry_client.call(tt);
+    pose.x = tt.response.x;
+    pose.y = tt.response.y;
+    pose.z = tt.response.z;
+    pose.rol = tt.response.roll;
+    pose.pitch = tt.response.pitch;
+    pose.yaw = tt.response.yaw;
+    this->monitor->setPosition(pose);
 }
 // void pose_cb(const nav_msgs::Odometry::ConstPtr& msg)
 // {
