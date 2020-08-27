@@ -64,12 +64,12 @@ int main(){
     strcpy(mission.missionCode, "tag1");
     strcpy(mission.senderAddress , vIP);
     mission.operation = enum_MissionOperation::createMission;
-    mission.taskToBeDecomposed = enum_DecomposableTask::flightTest;
+    mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
     mission.goal.x = 33.0;
     mission.goal.y = 22.0;
-    mission.goal.z = 4.0;
+    mission.goal.z = 0.0;
     mission.executionTime = 30;
-    mission.robotCat = enum_RobotCategory::uav;
+    mission.robotCat = enum_RobotCategory::ugv;
     
     std::cout << "Time to send a Mission!!!!!"<< std::endl;
     

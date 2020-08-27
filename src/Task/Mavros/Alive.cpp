@@ -211,7 +211,7 @@ void Alive::run()
             else if(strcmp(vROSBridgeMessage->topicName, "GoTo") == 0)
             {
                 
-                //move foreward
+                //move forward
                 setHeading(0);
                 s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
 
