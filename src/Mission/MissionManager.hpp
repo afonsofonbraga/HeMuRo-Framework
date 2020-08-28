@@ -28,10 +28,18 @@
 #include "TurnOn.hpp"
 #include "TakePicture.hpp"
 
+
+#ifdef MAVROS
 #include "Arm.hpp"
 #include "TakeOff.hpp"
 #include "Land.hpp"
+#endif
 
+#ifdef TURTLEBOT
+#endif
+
+#ifdef ROSBOT
+#endif
 class MissionManager: public Module
 {
 private:

@@ -33,7 +33,7 @@ class Alive: public Module
 {
 protected:
     s_ROSBridgeMessage* vROSBridgeMessage;
-    
+    void chatterCallbackOdometry(const nav_msgs::Odometry::ConstPtr& msg);
     virtual void run() override;
 public:
     

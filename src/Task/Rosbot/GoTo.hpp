@@ -11,13 +11,14 @@
 
 #include "AtomicTask.hpp"
 #include <math.h>
+#include <unistd.h>
 
 class GoTo : public AtomicTask
 {
 public:
     float costMeter = 2.0;
     
-    float kp = 1, ki = 0.2, kd = 0.5;
+    float kp = 1, ki = 0.05, kd = 0;
     float sum_Alpha_t = 0;
     float alpha_t_old = 0;
     float omega = 0;

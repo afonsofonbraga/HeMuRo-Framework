@@ -41,7 +41,7 @@ int main(){
     int i = 0;
     
     std::string nome = "Robo" + std::to_string(i);
-    BlackBoard* memory = new BlackBoard(nome, enum_RobotCategory::ugv);
+    BlackBoard* memory = new BlackBoard(nome, enum_RobotCategory::null);
     v_BlackBoard.push_back(memory);
     
     UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
@@ -65,10 +65,11 @@ int main(){
     strcpy(mission.senderAddress , vIP);
     mission.operation = enum_MissionOperation::createMission;
     mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
-    mission.goal.x = 33.0;
-    mission.goal.y = 22.0;
+    mission.goal.x = 12.0;
+    mission.goal.y = 10.0;
     mission.goal.z = 0.0;
-    mission.executionTime = 30;
+    mission.goal.yaw = 0.3;
+    mission.executionTime = 300;
     mission.robotCat = enum_RobotCategory::ugv;
     
     std::cout << "Time to send a Mission!!!!!"<< std::endl;
@@ -112,7 +113,7 @@ int main(){
     
     v_BlackBoard.at(0)->addUDPMessage(message);
 */
-    std::this_thread::sleep_for(std::chrono::seconds(10));
+    std::this_thread::sleep_for(std::chrono::seconds(100));
     
     return 0;
 }

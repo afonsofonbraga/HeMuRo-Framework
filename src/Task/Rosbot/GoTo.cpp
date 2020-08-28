@@ -55,16 +55,15 @@ void GoTo::run()
                     float ro = sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2));
                     alpha_t_old = alpha_t;
                     alpha_t = atan2(deltaError.y, deltaError.x) - p.yaw;
-                    alpha_t = fmod(alpha_t, 2*M_PI);
                     if(alpha_t > M_PI)
                         alpha_t = alpha_t - 2*M_PI ;
                     if (alpha_t < -M_PI)
                         alpha_t = alpha_t + 2*M_PI ;
                     
-                    v = fmin(ro, 1.0);
+                    v = fmin(ro, 0.5);
                     sum_Alpha_t += alpha_t;
-                    omega = kp * alpha_t + ki * sum_Alpha_t + kd * (alpha_t - alpha_t_old);
-                    
+                    omega = kp * alpha_t + ki * sum_Alpha_t;// + kd * (alpha_t - alpha_t_old);
+
                     vCmdvel.x = v;
                     vCmdvel.theta = omega;
                 }
@@ -73,7 +72,10 @@ void GoTo::run()
                 strcpy(teste.topicName,"GoTo");
                 memmove(teste.buffer,(char*)&vCmdvel,sizeof(vCmdvel));
                 this->monitor->addROSBridgeMessage(teste);
-                usleep(10000); //Vamos Precisar de um buffer
+std::cout << "Alpha_t: " << alpha_t << " OMEGA: " << omega << std::endl;
+std::cout << "Posicao: X " << p.x << " Y: " << p.y << " Z: "<< p.z << " Theta: " << p.yaw << std::endl;
+std::cout << "cmd_vel v: " << vCmdvel.x << " theta: " << vCmdvel.theta << std::endl;
+                usleep(100000); //Vamos Precisar de um buffer
             }
             
         }
@@ -88,5 +90,4 @@ void GoTo::calculateCost()
 {
     this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costMeter;
 }
-
 

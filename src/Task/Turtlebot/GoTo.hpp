@@ -19,7 +19,7 @@
 class GoTo : public AtomicTask
 {
 public:
-    float costMeter = 2.0;
+    float costMeter = 12.0;
     
     float kp = 1, ki = 0.2, kd = 0.5;
     float sum_Alpha_t = 0;

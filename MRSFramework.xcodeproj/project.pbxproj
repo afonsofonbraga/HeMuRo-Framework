@@ -38,6 +38,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2324E2D124F815E90033C523 /* GoTo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
 		233F8D3924621A5900C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		233F8D3A24621B0D00C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		2345667224CF265600B28F87 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
@@ -263,6 +264,7 @@
 		23F0BD4524F54A75003194C1 /* Mavros */ = {
 			isa = PBXGroup;
 			children = (
+				2324E2D124F815E90033C523 /* GoTo.hpp */,
 				2376200D24F54B81000C1B23 /* Alive.cpp */,
 				2376200C24F54B81000C1B23 /* Alive.hpp */,
 				23F0BD4624F54A91003194C1 /* GoTo.cpp */,
@@ -405,6 +407,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"DEFAULT=1",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
