@@ -3,21 +3,28 @@
 //  MRSFramework
 //
 //  Created by Afonso Braga on 26/08/20.
-//  Copyright © 2020 Afonso Braga. All rights reserved.
+//  Copyright � 2020 Afonso Braga. All rights reserved.
 //
 
 #include "Alive.hpp"
 #include <map>
 
 
-Alive::Alive(BlackBoard *monitor): Module(monitor)
+Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
 {
+    this->monitor->getRobotsName(vName);
+    std::string topic = vName + "/odom";
+    subscribersList["odom"] = node.subscribe(topic, 1000, &Alive::chatterCallbackOdometry,this);
     
+    topic = vName + "/cmd_vel";
+    publishersList["cmd_vel"] = node.advertise<geometry_msgs::Twist>(topic, 10);
 }
 
 Alive::~Alive()
 {
-    ros::shutdown();
+    this->stop();
+    this->monitor->conditional_ROSBridgeMessageList.notify_one();
+
 }
 
 void Alive::chatterCallbackOdometry(const nav_msgs::Odometry::ConstPtr& msg)
@@ -58,29 +65,9 @@ void Alive::chatterCallbackOdometry(const nav_msgs::Odometry::ConstPtr& msg)
 
 void Alive::run()
 {
-    std::map<std::string, std::string> map;
-    std::string vname;
-    this->monitor->getRobotsName(vname);
-    std::string node = vname + "_rosbot";
-    ros::init(map,node);
-    ros::NodeHandle n;
-    
-    ros::AsyncSpinner spinner(0); //This Will use as many threads as there are processors
-    spinner.start();
-    
-    std::string topic = vname + "/odom";
-    ros::Subscriber sub1 = n.subscribe(topic, 1000, &Alive::chatterCallbackOdometry,this);
-    
-    // Publishers
-    topic = vname + "/cmd_vel";
-    ros::Publisher set_vel_pub = n.advertise<geometry_msgs::Twist>(topic, 10);
-    
-    std::map <std::string, ros::Publisher> publisherList;
-    while (this->isRunning)
-    {
         vROSBridgeMessage = new s_ROSBridgeMessage;
+    
         this->monitor->getROSBridgeMessage(*vROSBridgeMessage);
-        
         if (vROSBridgeMessage != nullptr && this->isRunning == true)
         {
             if(strcmp(vROSBridgeMessage->topicName, "GoTo") == 0)
@@ -90,10 +77,9 @@ void Alive::run()
                 geometry_msgs::Twist msg;
                 msg.linear.x = vCmdvel.x;
                 msg.angular.z = vCmdvel.theta;
-                set_vel_pub.publish(msg);
+                this->publishersList["cmd_vel"].publish(msg);
             }
         }
-    }
-    spinner.stop();
 }
+
 

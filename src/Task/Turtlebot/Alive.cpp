@@ -11,63 +11,54 @@
 
 void Alive::chatterCallbackPosition(const turtlesim::Pose::ConstPtr& msg)
 {
-  //ROS_INFO("TurtleBot Position: [%f, %f, %f]", msg->x,msg->y,msg->theta);
-  s_pose pose;
-  pose.x = msg->x;
-  pose.y = msg->y;
-  pose.theta = msg->theta;
-
-  this->monitor->setPosition(pose);
+    //ROS_INFO("TurtleBot Position: [%f, %f, %f]", msg->x,msg->y,msg->theta);
+    s_pose pose;
+    pose.x = msg->x;
+    pose.y = msg->y;
+    pose.theta = msg->theta;
+    
+    this->monitor->setPosition(pose);
 }
 
 void Alive::chatterCallbackColor(const turtlesim::Color::ConstPtr& msg)
 {
-  ROS_INFO("TurtleBot Color: [%i, %i, %i]", msg->r,msg->g,msg->b);
+    ROS_INFO("TurtleBot Color: [%i, %i, %i]", msg->r,msg->g,msg->b);
 }
 
-Alive::Alive(BlackBoard *monitor): Module(monitor)
+Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
 {
-
+    this->monitor->getRobotsName(vName);
+    
+    // Subscribers
+    std::string topic = vname + "/pose";
+    subscribersList["pose"] = node.subscribe(topic, 1000, &Alive::chatterCallbackPosition,this);
+    
+    // Publishers
+    topic = vName + "/cmd_vel";
+    publishersList["cmd_vel"] = node.advertise<geometry_msgs::Twist>(topic, 10);
 }
 
 Alive::~Alive()
 {
-    ros::shutdown();
+    this->stop();
+    this->monitor->conditional_ROSBridgeMessageList.notify_one();
 }
 
 void Alive::run()
 {
-    std::map<std::string, std::string> map;
-    std::string vname;
-    this->monitor->getRobotsName(vname);
-    std::string node = vname + "_pose";
-    ros::init(map,node);
-    ros::NodeHandle n;
+    vROSBridgeMessage = new s_ROSBridgeMessage;
+    this->monitor->getROSBridgeMessage(*vROSBridgeMessage);
     
-    ros::AsyncSpinner spinner(0); //This Will use as many threads as there are processors
-    spinner.start();
-    
-    std::string topic = vname + "/pose";
-    ros::Subscriber sub1 = n.subscribe(topic, 1000, &Alive::chatterCallbackPosition,this);
-    //ros::Subscriber sub2 = n.subscribe("turtle1/color_sensor", 1000, &Alive::chatterCallbackColor, this);
-    //ros::spin();
-    
-    std::map <std::string, ros::Publisher> publisherList;
-    while (this->isRunning)
+    if (vROSBridgeMessage != nullptr && this->isRunning == true)
     {
-        vROSBridgeMessage = new s_ROSBridgeMessage;
-        this->monitor->getROSBridgeMessage(*vROSBridgeMessage);
-        
-        if (vROSBridgeMessage != nullptr && this->isRunning == true)
+        if(strcmp(vROSBridgeMessage->topicName, "GoTo") == 0)
         {
-            //Ainda esta com erro aqui, não sei como resolver.
-            
+            //move forward
+            s_cmdvel vCmdvel = ((s_cmdvel*) vROSBridgeMessage->buffer)[0];
             geometry_msgs::Twist msg;
-            s_cmdvel vCmdvel = ((s_cmdvel*) vROSBridgeMessage)[0];
             msg.linear.x = vCmdvel.x;
             msg.angular.z = vCmdvel.theta;
-            publisherList[vROSBridgeMessage->topicName].publish(vROSBridgeMessage->buffer);
+            this->publishersList["cmd_vel"].publish(msg);
         }
     }
-    ros::waitForShutdown();
 }

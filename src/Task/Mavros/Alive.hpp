@@ -39,21 +39,19 @@ class Alive: public Module
 {
 protected:
     s_ROSBridgeMessage* vROSBridgeMessage;
+    virtual void run() override;
+    std::map <std::string, ros::Publisher> publishersList;
+    std::map <std::string, ros::Subscriber> subscribersList;
+    ros::NodeHandle& node;
+    std::string vName;
     
-    //Set global variables
+    //MAVROS global variables
     mavros_msgs::State current_state;
     //nav_msgs::Odometry current_pose;
     geometry_msgs::PoseStamped current_pose;
     geometry_msgs::PoseStamped pose;
     std_msgs::Float64 current_heading;
     float GYM_OFFSET;
-    
-    virtual void run() override;
-public:
-    
-    Alive(BlackBoard* monitor);
-    ~Alive();
-    
     void state_cb(const mavros_msgs::State::ConstPtr& msg);
     void pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg);
     void heading_cb(const std_msgs::Float64::ConstPtr& msg);
@@ -61,6 +59,11 @@ public:
     void setDestination(float x, float y, float z);
     void setHeading(float heading);
     
+    
+public:
+    
+    Alive(BlackBoard* monitor, ros::NodeHandle& vNode);
+    ~Alive();
     //void error(const char* msg);                    // Print an error
 };
 

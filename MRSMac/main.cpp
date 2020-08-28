@@ -84,7 +84,7 @@ int main(){
     memmove(message.buffer+8,(const unsigned char*)&mission,sizeof(mission));
     message.messageSize = sizeof(message.buffer);
 
-    v_BlackBoard.at(0)->addUDPMessage(message);
+    //v_BlackBoard.at(0)->addUDPMessage(message);
     
     
     strcpy(mission.missionCode, "Task2");
@@ -113,7 +113,7 @@ int main(){
     mission.goal.z = 0.0;
     mission.goal.yaw = 1;
     mission.executionTime = 300;
-    mission.robotCat = enum_RobotCategory::null;
+    mission.robotCat = enum_RobotCategory::ugv;
     
     
     *((Operation*)message.buffer) = operation;

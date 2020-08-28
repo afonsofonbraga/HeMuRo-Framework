@@ -18,7 +18,6 @@ GoTo::~GoTo(){}
 
 void GoTo::run()
 {
-    
     switch(this->status)
     {
         case enum_AtomicTaskStatus::null:
@@ -26,8 +25,6 @@ void GoTo::run()
             
         case enum_AtomicTaskStatus::waiting:
         {
-            
-            
             std::cout << "Going to the location."<< std::endl;
             this->status = enum_AtomicTaskStatus::running;
             break;
@@ -64,7 +61,7 @@ void GoTo::run()
                     sum_Alpha_t += alpha_t;
                     omega = kp * alpha_t + ki * sum_Alpha_t + kd * (alpha_t - alpha_t_old);
                     
-                    // Limitando a atuação 
+                    // Limitando a atuação
                     if (omega > M_PI)
                         omega = M_PI;
                     else if (omega < - M_PI)
@@ -79,12 +76,8 @@ void GoTo::run()
                 strcpy(teste.topicName,"GoTo");
                 memmove(teste.buffer,(char*)&vCmdvel,sizeof(vCmdvel));
                 this->monitor->addROSBridgeMessage(teste);
-std::cout << "Alpha_t: " << alpha_t << " OMEGA: " << omega << std::endl;
-std::cout << "Posicao: X " << p.x << " Y: " << p.y << " Z: "<< p.z << " Theta: " << p.yaw << std::endl;
-std::cout << "cmd_vel v: " << vCmdvel.x << " theta: " << vCmdvel.theta << std::endl;
                 usleep(100000); //Vamos Precisar de um buffer
             }
-            
         }
             break;
         case enum_AtomicTaskStatus::completed:

@@ -37,11 +37,14 @@ protected:
     s_ROSBridgeMessage* vROSBridgeMessage;
     void chatterCallbackOdometry(const nav_msgs::Odometry::ConstPtr& msg);
     virtual void run() override;
+    std::map <std::string, ros::Publisher> publishersList;
+    std::map <std::string, ros::Subscriber> subscribersList;
+    ros::NodeHandle& node;
+    std::string vName;
 public:
     
-    Alive(BlackBoard* monitor);
+    Alive(BlackBoard* monitor, ros::NodeHandle& vNode);
     ~Alive();
-    
     //void error(const char* msg);                    // Print an error
 };
 #endif /* Alive_hpp */

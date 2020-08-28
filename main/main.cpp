@@ -5,6 +5,7 @@
 //  Created by Afonso Braga on 01/05/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
+
 #include <chrono>
 #include <thread>
 #include <vector>
@@ -20,34 +21,20 @@
 #include "UDPBroadcast.hpp"
 #include "UDPReceiver.hpp"
 #include "UDPSender.hpp"
+#include "MissionManager.hpp"
+#include "Alive.hpp"
 
 #include "AtomicTask.hpp"
-
-#include "MissionManager.hpp"
-
-#include "Alive.hpp"
 
 int main( int argc, char *argv[ ] ){
     
     if (argc != 2)
     {
-        std::cerr << "Favor informar apenas o nome do robô como argumento.";
+        std::cerr << "Please, inform the robot's name:";
         return 0;
     }
     
-    std::string nome{argv[1]};
-    
-    std::vector<BlackBoard *> v_BlackBoard; // = new std::vector<BlackBoard>;
-    
-    std::vector<UDPBroadcast*> v_Broadcast;// = new std::vector<UDPBroadcast>;
-    std::vector<UDPReceiver*> v_Receiver;
-    std::vector<UDPSender*> v_Sender;
-    
-    
-    std::vector<MissionManager*> v_MissionManager;
-    
-    int i = 0;
-
+    std::string name{argv[1]};
     enum_RobotCategory cat = enum_RobotCategory::null;
     
 #ifdef MAVROS
@@ -58,46 +45,28 @@ int main( int argc, char *argv[ ] ){
     cat = enum_RobotCategory::ugv;
 #endif
     
-    BlackBoard* memory = new BlackBoard(nome, cat);
-    v_BlackBoard.push_back(memory);
+    BlackBoard* memory = new BlackBoard(name, cat);
+    UDPBroadcast* broadcast = new UDPBroadcast(memory);
+    UDPReceiver* receiver = new UDPReceiver(memory);
+    UDPSender* sender = new UDPSender(memory);
+    MissionManager* missionManager = new MissionManager(memory);
     
-    UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
-    UDPReceiver* receiver = new UDPReceiver(v_BlackBoard.at(i));
-    UDPSender* sender = new UDPSender(v_BlackBoard.at(i));
+#ifndef DEFAULT
+    std::string node = name;
+    ros::init(argc, argv ,node);
+    ros::NodeHandle n;
+    ros::AsyncSpinner spinner(0);
+    spinner.start();
     
-    Alive* alive = new Alive(v_BlackBoard.at(i));
+    Alive* alive = new Alive(memory, n);
+#endif
     
-    MissionManager* missionManager = new MissionManager(v_BlackBoard.at(i));
+#ifdef DEFAULT
+    Alive* alive = new Alive(memory);
+#endif
     
-    v_Broadcast.push_back(broadcast);
-    v_Receiver.push_back(receiver);
-    v_MissionManager.push_back(missionManager);
-    
-    char vIP[16];
-    /*
-    s_MissionMessage mission;
-    v_BlackBoard.at(0)->getRobotsIP(*vIP);
-    strcpy(mission.missionCode, "tag1");
-    strcpy(mission.senderAddress , vIP);
-    mission.operation = enum_MissionOperation::createMission;
-    mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
-    mission.goal.x = 2.0;
-    mission.goal.y = 3.0;
-    mission.goal.theta = 0.0;
-    
-    std::cout << "Time to send a Mission!!!!!"<< std::endl;
-    s_UDPMessage message;
-    strcpy(message.address , vIP);
-    
-    Operation operation = Operation::missionMessage;
-    *((Operation*)message.buffer) = operation;
-    *((int*)(message.buffer + 4)) = sizeof(mission);
-    memmove(message.buffer+8,(const unsigned char*)&mission,sizeof(mission));
-    message.messageSize = sizeof(message.buffer);
-
-    v_BlackBoard.at(0)->addUDPMessage(message);
-    std::this_thread::sleep_for(std::chrono::seconds(30));*/
-    std::this_thread::sleep_for(std::chrono::seconds(1000));
+    while (std::getchar() != 'c'){}
+    return 0;
 }
 
 
