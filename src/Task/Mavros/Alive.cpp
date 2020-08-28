@@ -182,6 +182,7 @@ void Alive::run()
             }
             else if(strcmp(vROSBridgeMessage->topicName, "TakeOff") == 0)
             {
+                /*
                 std::string service = vname + "/mavros/cmd/takeoff";
                 ros::ServiceClient takeoff_cl = n.serviceClient<mavros_msgs::CommandTOL>(service);
                 mavros_msgs::CommandTOL srv_takeoff;
@@ -190,7 +191,21 @@ void Alive::run()
                 srv_takeoff.request.altitude = vPose.z;
                 if(takeoff_cl.call(srv_takeoff))
                 {
-                    ROS_INFO("takeoff sent %d", srv_takeoff.response.success);
+                    ROS_INFO("takeoff sent %d", srv_takeoff.response.success);*/
+                s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
+
+                std::string service = vname + "/navigate";
+                ros::ServiceClient nav_client = n.serviceClient<clover::Navigate>(service);
+                clover::Navigate tt;
+                tt.request.x = vPose.x;
+                tt.request.y = vPose.y;
+                tt.request.z = vPose.z;
+                tt.request.speed = 1;
+                tt.request.frame_id = "map";
+                tt.request.auto_arm = true;
+
+                if (nav_client.call(tt) && tt.response.success)
+                    ROS_INFO("VAAAAI DEMOIN %d", tt.response.success);
                 } else
                 {
                     ROS_ERROR("Failed Takeoff");
