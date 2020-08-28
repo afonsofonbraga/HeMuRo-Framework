@@ -609,7 +609,7 @@ void MissionManager::addAtomicTask(MissionExecution& vMissionDecomposable)
                 
             case enum_AtomicTask::arm :
             {
-#ifndef DEFAULT
+#ifdef MAVROS
                 vAtomicTaskitem = std::make_shared<Arm>(this->monitor, currentPosition,currentPosition);
 #endif
             }
@@ -618,7 +618,7 @@ void MissionManager::addAtomicTask(MissionExecution& vMissionDecomposable)
                 
             case enum_AtomicTask::takeOff :
             {
-#ifndef DEFAULT
+#ifdef MAVROS
                 vAtomicTaskitem = std::make_shared<TakeOff>(this->monitor, currentPosition,vMissionDecomposable.goal);
                 currentPosition = vMissionDecomposable.goal;
 #endif
@@ -628,7 +628,7 @@ void MissionManager::addAtomicTask(MissionExecution& vMissionDecomposable)
                 
             case enum_AtomicTask::land :
             {
-#ifndef DEFAULT
+#ifdef MAVROS
                 vAtomicTaskitem = std::make_shared<Land>(this->monitor, currentPosition,currentPosition);
 #endif
             }
