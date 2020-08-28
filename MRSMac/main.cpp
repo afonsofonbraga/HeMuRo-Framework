@@ -41,7 +41,7 @@ int main(){
     int i = 0;
     
     std::string nome = "Robo" + std::to_string(i);
-    BlackBoard* memory = new BlackBoard(nome, enum_RobotCategory::null);
+    BlackBoard* memory = new BlackBoard(nome, enum_RobotCategory::ugv);
     v_BlackBoard.push_back(memory);
     
     UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
@@ -113,7 +113,7 @@ int main(){
     mission.goal.z = 0.0;
     mission.goal.yaw = 1;
     mission.executionTime = 300;
-    mission.robotCat = enum_RobotCategory::ugv;
+    mission.robotCat = enum_RobotCategory::null;
     
     
     *((Operation*)message.buffer) = operation;

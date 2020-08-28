@@ -55,7 +55,7 @@ struct s_UDPMessage
 
 struct s_MissionMessage
 {
-    char missionCode[5] = "null";
+    char missionCode[10] = "null";
     char senderAddress[16] = "null";
     enum_MissionOperation operation = enum_MissionOperation::null;
     enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
