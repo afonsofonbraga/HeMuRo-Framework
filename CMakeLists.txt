@@ -5,16 +5,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project (framework)
 
 if(MAVROS)
+add_definitions(-DMAVROS=1)
 find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs mavros_msgs clover)
 catkin_package( CATKIN_DEPENDS roscpp rospy std_msgs mavros_msgs clover )
 endif()
 
 if(ROSBOT)
+add_definitions(-ROSBOT=1)
 find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs nav_msgs )
 catkin_package( CATKIN_DEPENDS roscpp rospy std_msgs nav_msgs )
 endif()
 
 if(TURTLESIM)
+add_definitions(-TURTLESIM=1)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy

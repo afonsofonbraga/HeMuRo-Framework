@@ -619,8 +619,11 @@ void MissionManager::addAtomicTask(MissionExecution& vMissionDecomposable)
             case enum_AtomicTask::takeOff :
             {
 #ifdef MAVROS
-                vAtomicTaskitem = std::make_shared<TakeOff>(this->monitor, currentPosition,vMissionDecomposable.goal);
-                currentPosition = vMissionDecomposable.goal;
+                s_pose vPose;
+                vPose = currentPosition;
+                vPose.z = vMissionDecomposable.goal.z;
+                vAtomicTaskitem = std::make_shared<TakeOff>(this->monitor, currentPosition,vPose);
+                currentPosition = vPose;
 #endif
             }
                 

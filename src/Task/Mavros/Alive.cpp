@@ -186,7 +186,7 @@ void Alive::run()
                 ros::ServiceClient takeoff_cl = n.serviceClient<mavros_msgs::CommandTOL>(service);
                 mavros_msgs::CommandTOL srv_takeoff;
                 
-                s_pose vPose = ((s_pose*) vROSBridgeMessage)[0];
+                s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
                 srv_takeoff.request.altitude = vPose.z;
                 if(takeoff_cl.call(srv_takeoff))
                 {

@@ -39,7 +39,7 @@ void TakeOff::run()
                 
                 deltaError.z = this->endPosition.z - p.z;
                 
-                if(sqrt(pow(deltaError.z, 2)) <= 0.1)
+                if(sqrt(pow(deltaError.z, 2)) <= 0.2)
                 {
                     this->status = enum_AtomicTaskStatus::completed;
                 } else
@@ -50,7 +50,6 @@ void TakeOff::run()
                     this->monitor->addROSBridgeMessage(teste);
                     usleep(10000000); //Vamos Precisar de um buffer
                     std::cout << "subiu" << std::endl;
-                    this->status = enum_AtomicTaskStatus::completed;
                 }
                 
             }
