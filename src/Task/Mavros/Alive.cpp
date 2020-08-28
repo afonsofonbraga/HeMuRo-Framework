@@ -204,7 +204,7 @@ void Alive::run()
                 tt.request.frame_id = "map";
                 tt.request.auto_arm = true;
 
-                if (nav_client.call(tt) && tt.response.success)
+                if (nav_client.call(tt) && tt.response.success){
                     ROS_INFO("VAAAAI DEMOIN %d", tt.response.success);
                 } else
                 {

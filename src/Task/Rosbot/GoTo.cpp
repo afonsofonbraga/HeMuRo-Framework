@@ -62,10 +62,17 @@ void GoTo::run()
                     
                     v = fmin(ro, 0.5);
                     sum_Alpha_t += alpha_t;
-                    omega = kp * alpha_t + ki * sum_Alpha_t;// + kd * (alpha_t - alpha_t_old);
-
+                    omega = kp * alpha_t + ki * sum_Alpha_t + kd * (alpha_t - alpha_t_old);
+                    
+                    // Limitando a atuação 
+                    if (omega > M_PI)
+                        omega = M_PI;
+                    else if (omega < - M_PI)
+                        omega = - M_PI;
+                    
                     vCmdvel.x = v;
                     vCmdvel.theta = omega;
+                    
                 }
                 
                 s_ROSBridgeMessage teste;

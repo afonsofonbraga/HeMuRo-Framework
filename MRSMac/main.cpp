@@ -65,10 +65,10 @@ int main(){
     strcpy(mission.senderAddress , vIP);
     mission.operation = enum_MissionOperation::createMission;
     mission.taskToBeDecomposed = enum_DecomposableTask::flightTest;
-    mission.goal.x = 12.0;
-    mission.goal.y = 10.0;
-    mission.goal.z = 5.0;
-    mission.goal.yaw = 0.3;
+    mission.goal.x = -12.0;
+    mission.goal.y = 5.0;
+    mission.goal.z = 3.0;
+    mission.goal.yaw = 0;
     mission.executionTime = 300;
     mission.robotCat = enum_RobotCategory::uav;
     
@@ -86,7 +86,7 @@ int main(){
 
     v_BlackBoard.at(0)->addUDPMessage(message);
     
-    /*
+    
     strcpy(mission.missionCode, "Task2");
     mission.operation = enum_MissionOperation::createMission;
     mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
@@ -122,7 +122,7 @@ int main(){
     message.messageSize = sizeof(message.buffer);
     
     v_BlackBoard.at(0)->addUDPMessage(message);
-*/	
+
     /*
     
     std::this_thread::sleep_for(std::chrono::seconds(5));
