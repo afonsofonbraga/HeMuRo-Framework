@@ -61,16 +61,16 @@ int main(){
     
     s_MissionMessage mission;
     v_BlackBoard.at(0)->getRobotsIP(*vIP);
-    strcpy(mission.missionCode, "tag1");
+    strcpy(mission.missionCode, "Task1");
     strcpy(mission.senderAddress , vIP);
     mission.operation = enum_MissionOperation::createMission;
-    mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
+    mission.taskToBeDecomposed = enum_DecomposableTask::flightTest;
     mission.goal.x = 12.0;
     mission.goal.y = 10.0;
     mission.goal.z = 0.0;
     mission.goal.yaw = 0.3;
     mission.executionTime = 300;
-    mission.robotCat = enum_RobotCategory::ugv;
+    mission.robotCat = enum_RobotCategory::uav;
     
     std::cout << "Time to send a Mission!!!!!"<< std::endl;
     
@@ -85,13 +85,17 @@ int main(){
     message.messageSize = sizeof(message.buffer);
 
     v_BlackBoard.at(0)->addUDPMessage(message);
-   /*
-    strcpy(mission.missionCode, "Pic1");
+    
+    
+    strcpy(mission.missionCode, "Task2");
     mission.operation = enum_MissionOperation::createMission;
-    mission.taskToBeDecomposed = enum_DecomposableTask::takePicture;
-    mission.goal.x = 9.0;
-    mission.goal.y = 9.0;
-    mission.goal.theta = 1.0;
+    mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
+    mission.goal.x = 12.0;
+    mission.goal.y = 10.0;
+    mission.goal.z = 0.0;
+    mission.goal.yaw = 0.3;
+    mission.executionTime = 300;
+    mission.robotCat = enum_RobotCategory::ugv;
     
     
     *((Operation*)message.buffer) = operation;
@@ -101,6 +105,25 @@ int main(){
     
     v_BlackBoard.at(0)->addUDPMessage(message);
     
+    strcpy(mission.missionCode, "Task3");
+    mission.operation = enum_MissionOperation::createMission;
+    mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
+    mission.goal.x = 5.0;
+    mission.goal.y = 5.0;
+    mission.goal.z = 0.0;
+    mission.goal.yaw = 1;
+    mission.executionTime = 300;
+    mission.robotCat = enum_RobotCategory::ugv;
+    
+    
+    *((Operation*)message.buffer) = operation;
+    *((int*)(message.buffer + 4)) = sizeof(mission);
+    memmove(message.buffer+8,(const unsigned char*)&mission,sizeof(mission));
+    message.messageSize = sizeof(message.buffer);
+    
+    v_BlackBoard.at(0)->addUDPMessage(message);
+
+    /*
     
     std::this_thread::sleep_for(std::chrono::seconds(5));
     strcpy(mission.missionCode, "tag2");

@@ -47,8 +47,16 @@ int main( int argc, char *argv[ ] ){
     std::vector<MissionManager*> v_MissionManager;
     
     int i = 0;
+
+    enum_RobotCategory cat = enum_RobotCategory::null;
     
-    enum_RobotCategory cat = enum_RobotCategory::uav;
+#ifdef MAVROS
+    cat = enum_RobotCategory::uav;
+#endif
+    
+#ifdef ROSBOT
+    cat = enum_RobotCategory::ugv;
+#endif
     
     BlackBoard* memory = new BlackBoard(nome, cat);
     v_BlackBoard.push_back(memory);

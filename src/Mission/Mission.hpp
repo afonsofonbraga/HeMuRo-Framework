@@ -27,7 +27,7 @@ public:
     Mission();
     ~Mission();
     // Common Variables
-    char missionCode[5];
+    char missionCode[10];
     char senderAddress[15];
     char winnerAddress[15];
     enum_DecomposableTask mission = enum_DecomposableTask::null;
