@@ -9,14 +9,19 @@
 #ifndef dataTypes_h
 #define dataTypes_h
 
+#ifdef DEFAULT
+#import "../Task/Default/dataTask.hpp"
+#endif
+
+#ifndef DEFAULT
+#import "dataTask.hpp"
+#endif
+
 enum class Operation{null, setRobotsPosition, missionMessage};
 enum class enum_RobotCategory{null, uav, ugv, usv};
 
+
 enum class enum_AtomicTaskStatus{null, waiting, running, completed};
-enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo, takePicture, arm, takeOff, land};
-enum class enum_DecomposableTask{null, checkPosition, lowBattery, takePicture, flightTest}; //Trocar por DecomposableMission
-
-
 enum class enum_MissionRequest{null, waitingBids, notifyingWinner, executingMission, missionComplete};
 enum class enum_MissionExecution{null, waitingAuction, waitingStart, executing, missionComplete};
 enum class enum_MissionOperation{null, createMission, addMission, addAndRequestCost, Bid, abortMission, winningBid, acceptMission , startMission, emergency, missionComplete};

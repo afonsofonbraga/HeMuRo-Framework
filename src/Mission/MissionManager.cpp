@@ -12,6 +12,7 @@ MissionManager::MissionManager(BlackBoard* monitor) : Module(monitor)
 {
     this->monitor->getBroadcastIP(*this->broadcastIP);
     // In the future it won't be here
+    /*
     std::vector<enum_AtomicTask> teste;
     teste.push_back(enum_AtomicTask::goTo);
     enum_DecomposableTask lala = enum_DecomposableTask::checkPosition;
@@ -35,7 +36,8 @@ MissionManager::MissionManager(BlackBoard* monitor) : Module(monitor)
     teste.push_back(enum_AtomicTask::goTo);
     teste.push_back(enum_AtomicTask::land);
     lala = enum_DecomposableTask::flightTest;
-    this->monitor->addDecomposableTaskList(lala, teste);
+    this->monitor->addDecomposableTaskList(lala, teste);*/
+    decomposableTaskList(monitor);
     
 }
 
@@ -260,7 +262,8 @@ void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissi
         this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
         this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
         
-        addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
+        //addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
+        addAtomicTask2(monitor, this->MissionList[vMissionMessage->missionCode]);
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
         //CHECK IF THERE IS ENOUGH BATTERY OR IF THE PATH IS FEASABLE
         //this->MissionList.insert_or_assign(vMission->missionCode, *vMission);
@@ -293,7 +296,8 @@ void MissionManager::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> v
         this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
         this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
         
-        addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
+        //addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
+        addAtomicTask2(monitor, this->MissionList[vMissionMessage->missionCode]);
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
         // This one doesn't send back
     }
@@ -390,7 +394,9 @@ void MissionManager::emergencyCall(std::unique_ptr<s_MissionMessage> vMissionMes
         strcpy(vMission->senderAddress,vMissionMessage->senderAddress);
         vMission->mission = vMissionMessage->taskToBeDecomposed;
         
-        addAtomicTask(*vMission);
+        //addAtomicTask(*vMission);
+        
+        addAtomicTask2(monitor, *vMission);
         calculateMissionCost(*vMission);
         
         this->monitor->lockRobot();
@@ -580,7 +586,7 @@ void MissionManager::missionComplete(std::unique_ptr<s_MissionMessage> vMissionM
 
 
 
-
+/*
 void MissionManager::addAtomicTask(MissionExecution& vMissionDecomposable)
 {
     vMissionDecomposable.atomicTaskList.clear();
@@ -648,7 +654,7 @@ void MissionManager::addAtomicTask(MissionExecution& vMissionDecomposable)
         }
     }
 }
-
+*/
 
 void MissionManager::calculateMissionCost(MissionExecution& mission)
 {

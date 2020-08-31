@@ -187,7 +187,7 @@ void Alive::run()
         else if(strcmp(vROSBridgeMessage->topicName, "Land") == 0)
         {
             std::string service = vName + "/mavros/cmd/land";
-            ros::ServiceClient land_client = n.serviceClient<mavros_msgs::CommandTOL>(service);
+            ros::ServiceClient land_client = node.serviceClient<mavros_msgs::CommandTOL>(service);
             mavros_msgs::CommandTOL srv_land;
             if (land_client.call(srv_land) && srv_land.response.success)
                 ROS_INFO("land sent %d", srv_land.response.success);
@@ -202,7 +202,7 @@ void Alive::run()
             s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
             
             std::string service = vName + "/navigate";
-            ros::ServiceClient nav_client = n.serviceClient<clover::Navigate>(service);
+            ros::ServiceClient nav_client = node.serviceClient<clover::Navigate>(service);
             clover::Navigate tt;
             tt.request.x = vPose.x;
             tt.request.y = vPose.y;
@@ -261,5 +261,4 @@ void Alive::run()
             
         }
     }
-}
 }

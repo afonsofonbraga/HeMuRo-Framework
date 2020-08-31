@@ -28,6 +28,7 @@
 #include "TurnOn.hpp"
 #include "TakePicture.hpp"
 
+#include "DecomposableTasks.hpp"
 
 #ifdef MAVROS
 #include "Arm.hpp"

@@ -41,7 +41,7 @@ int main(){
     int i = 0;
     
     std::string nome = "Robo" + std::to_string(i);
-    BlackBoard* memory = new BlackBoard(nome, enum_RobotCategory::null);
+    BlackBoard* memory = new BlackBoard(nome, enum_RobotCategory::ugv);
     v_BlackBoard.push_back(memory);
     
     UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
@@ -65,7 +65,7 @@ int main(){
     strcpy(mission.senderAddress , vIP);
     mission.operation = enum_MissionOperation::createMission;
     mission.taskToBeDecomposed = enum_DecomposableTask::flightTest;
-    mission.goal.x = -12.0;
+    mission.goal.x = -6.0;
     mission.goal.y = 5.0;
     mission.goal.z = 3.0;
     mission.goal.yaw = 0;
@@ -84,14 +84,14 @@ int main(){
     memmove(message.buffer+8,(const unsigned char*)&mission,sizeof(mission));
     message.messageSize = sizeof(message.buffer);
 
-    //v_BlackBoard.at(0)->addUDPMessage(message);
+    v_BlackBoard.at(0)->addUDPMessage(message);
     
     
     strcpy(mission.missionCode, "Task2");
     mission.operation = enum_MissionOperation::createMission;
     mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
-    mission.goal.x = 12.0;
-    mission.goal.y = 10.0;
+    mission.goal.x = 5.0;
+    mission.goal.y = 4.0;
     mission.goal.z = 0.0;
     mission.goal.yaw = 0.3;
     mission.executionTime = 300;
@@ -108,8 +108,8 @@ int main(){
     strcpy(mission.missionCode, "Task3");
     mission.operation = enum_MissionOperation::createMission;
     mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
-    mission.goal.x = 5.0;
-    mission.goal.y = 5.0;
+    mission.goal.x = 2.0;
+    mission.goal.y = 1.0;
     mission.goal.z = 0.0;
     mission.goal.yaw = 1;
     mission.executionTime = 300;

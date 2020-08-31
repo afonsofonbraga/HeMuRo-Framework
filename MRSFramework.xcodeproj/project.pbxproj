@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2335B7F724FD71BF00661D4C /* DecomposableTasks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2335B7F524FD71BF00661D4C /* DecomposableTasks.cpp */; };
 		23494C9124CF130200697ABA /* TakePicture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23494C8F24CF130200697ABA /* TakePicture.cpp */; };
 		235CC3EB2493F0200012376D /* Mission.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235CC3E92493F0200012376D /* Mission.cpp */; };
 		23789A9224AB95D1001372E5 /* MissionRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23789A9024AB95D1001372E5 /* MissionRequest.cpp */; };
@@ -39,6 +40,18 @@
 
 /* Begin PBXFileReference section */
 		2324E2D124F815E90033C523 /* GoTo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
+		2335B7F524FD71BF00661D4C /* DecomposableTasks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecomposableTasks.cpp; sourceTree = "<group>"; };
+		2335B7F624FD71BF00661D4C /* DecomposableTasks.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DecomposableTasks.hpp; sourceTree = "<group>"; };
+		2335B7F824FD7A8A00661D4C /* dataTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dataTask.hpp; sourceTree = "<group>"; };
+		2335B7F924FD7BEA00661D4C /* dataTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dataTask.hpp; sourceTree = "<group>"; };
+		2335B7FA24FD7BFB00661D4C /* dataTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dataTask.hpp; sourceTree = "<group>"; };
+		2335B7FC24FD7C6A00661D4C /* DecomposableTasks.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DecomposableTasks.hpp; sourceTree = "<group>"; };
+		2335B7FD24FD7C6A00661D4C /* DecomposableTasks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecomposableTasks.cpp; sourceTree = "<group>"; };
+		2335B7FE24FD7C7200661D4C /* DecomposableTasks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecomposableTasks.cpp; sourceTree = "<group>"; };
+		2335B7FF24FD7C7200661D4C /* DecomposableTasks.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DecomposableTasks.hpp; sourceTree = "<group>"; };
+		2335B80024FD7C7D00661D4C /* DecomposableTasks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecomposableTasks.cpp; sourceTree = "<group>"; };
+		2335B80124FD7C7D00661D4C /* DecomposableTasks.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DecomposableTasks.hpp; sourceTree = "<group>"; };
+		2335B80224FD7F3E00661D4C /* dataTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dataTask.hpp; sourceTree = "<group>"; };
 		233F8D3924621A5900C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		233F8D3A24621B0D00C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		2345667224CF265600B28F87 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
@@ -63,15 +76,13 @@
 		23789A9124AB95D1001372E5 /* MissionRequest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MissionRequest.hpp; sourceTree = "<group>"; };
 		23789A9324AB9694001372E5 /* MissionExecution.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MissionExecution.cpp; sourceTree = "<group>"; };
 		23789A9424AB9694001372E5 /* MissionExecution.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MissionExecution.hpp; sourceTree = "<group>"; };
-		23805D3A2460BF1E0061F4A0 /* dataTypes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dataTypes.hpp; sourceTree = "<group>"; };
+		23805D3A2460BF1E0061F4A0 /* dataTypes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = dataTypes.hpp; path = src/Core/dataTypes.hpp; sourceTree = SOURCE_ROOT; };
 		2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPBroadcast.cpp; sourceTree = "<group>"; };
 		2381ABAB245DC25B00465752 /* UDPBroadcast.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPBroadcast.hpp; sourceTree = "<group>"; };
 		2381ABAD245DD23900465752 /* UDPReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPReceiver.cpp; sourceTree = "<group>"; };
 		2381ABAE245DD23900465752 /* UDPReceiver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPReceiver.hpp; sourceTree = "<group>"; };
 		23872A19248049B200EC738C /* UDPSender.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPSender.cpp; sourceTree = "<group>"; };
 		23872A1A248049B200EC738C /* UDPSender.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPSender.hpp; sourceTree = "<group>"; };
-		238FAE382460FB8A00755B29 /* TaskManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TaskManager.cpp; sourceTree = "<group>"; };
-		238FAE392460FB8A00755B29 /* TaskManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TaskManager.hpp; sourceTree = "<group>"; };
 		23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargeBattery.cpp; sourceTree = "<group>"; };
 		23C6E54D246EF4C500D99185 /* ChargeBattery.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargeBattery.hpp; sourceTree = "<group>"; };
 		23C6E54F246EF4F100D99185 /* TurnOn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TurnOn.cpp; sourceTree = "<group>"; };
@@ -121,10 +132,13 @@
 		2345667124CF262400B28F87 /* Turtlebot */ = {
 			isa = PBXGroup;
 			children = (
+				2335B7FD24FD7C6A00661D4C /* DecomposableTasks.cpp */,
+				2335B7FC24FD7C6A00661D4C /* DecomposableTasks.hpp */,
 				23F682EB24F6A869008ED536 /* GoTo.hpp */,
 				2376200E24F54B87000C1B23 /* Alive.cpp */,
 				2376200F24F54B87000C1B23 /* Alive.hpp */,
 				2345667224CF265600B28F87 /* GoTo.cpp */,
+				2335B7F924FD7BEA00661D4C /* dataTask.hpp */,
 			);
 			path = Turtlebot;
 			sourceTree = "<group>";
@@ -140,6 +154,9 @@
 				23C6E550246EF4F100D99185 /* TurnOn.hpp */,
 				23494C8F24CF130200697ABA /* TakePicture.cpp */,
 				23494C9024CF130200697ABA /* TakePicture.hpp */,
+				2335B7F524FD71BF00661D4C /* DecomposableTasks.cpp */,
+				2335B7F624FD71BF00661D4C /* DecomposableTasks.hpp */,
+				2335B7F824FD7A8A00661D4C /* dataTask.hpp */,
 			);
 			path = Default;
 			sourceTree = "<group>";
@@ -152,8 +169,6 @@
 				2345667124CF262400B28F87 /* Turtlebot */,
 				237E6C6124A3DB05009F5B02 /* Default */,
 				233F8D3924621A5900C5B39B /* CMakeLists.txt */,
-				238FAE382460FB8A00755B29 /* TaskManager.cpp */,
-				238FAE392460FB8A00755B29 /* TaskManager.hpp */,
 				23F00C8324634A2F00EC7860 /* AtomicTask.cpp */,
 				23F00C8424634A2F00EC7860 /* AtomicTask.hpp */,
 			);
@@ -264,6 +279,8 @@
 		23F0BD4524F54A75003194C1 /* Mavros */ = {
 			isa = PBXGroup;
 			children = (
+				2335B7FE24FD7C7200661D4C /* DecomposableTasks.cpp */,
+				2335B7FF24FD7C7200661D4C /* DecomposableTasks.hpp */,
 				2324E2D124F815E90033C523 /* GoTo.hpp */,
 				2376200D24F54B81000C1B23 /* Alive.cpp */,
 				2376200C24F54B81000C1B23 /* Alive.hpp */,
@@ -274,6 +291,7 @@
 				2376201324F54C9C000C1B23 /* Land.hpp */,
 				2376201A24F56B3B000C1B23 /* Arm.cpp */,
 				2376201B24F56B3B000C1B23 /* Arm.hpp */,
+				2335B7FA24FD7BFB00661D4C /* dataTask.hpp */,
 			);
 			path = Mavros;
 			sourceTree = "<group>";
@@ -281,6 +299,9 @@
 		23F682ED24F6A882008ED536 /* Rosbot */ = {
 			isa = PBXGroup;
 			children = (
+				2335B80224FD7F3E00661D4C /* dataTask.hpp */,
+				2335B80024FD7C7D00661D4C /* DecomposableTasks.cpp */,
+				2335B80124FD7C7D00661D4C /* DecomposableTasks.hpp */,
 				23F682EE24F6A8A1008ED536 /* GoTo.cpp */,
 				23F682EF24F6A8A1008ED536 /* GoTo.hpp */,
 				23F682F024F6A8AD008ED536 /* Alive.cpp */,
@@ -392,6 +413,7 @@
 				23C6E54A246EE01A00D99185 /* GoTo.cpp in Sources */,
 				23789A9524AB9694001372E5 /* MissionExecution.cpp in Sources */,
 				23C6E551246EF4F100D99185 /* TurnOn.cpp in Sources */,
+				2335B7F724FD71BF00661D4C /* DecomposableTasks.cpp in Sources */,
 				2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */,
 				23D20B51245C71560013F98A /* main.cpp in Sources */,
 				2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */,
