@@ -23,13 +23,14 @@
 #include "MissionRequest.hpp"
 #include "MissionExecution.hpp"
 
+/*
 #include "GoTo.hpp"
 #include "ChargeBattery.hpp"
 #include "TurnOn.hpp"
 #include "TakePicture.hpp"
-
+*/
 #include "DecomposableTasks.hpp"
-
+/*
 #ifdef MAVROS
 #include "Arm.hpp"
 #include "TakeOff.hpp"
@@ -41,6 +42,7 @@
 
 #ifdef ROSBOT
 #endif
+ */
 class MissionManager: public Module
 {
 private:

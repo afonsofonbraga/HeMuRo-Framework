@@ -10,11 +10,11 @@
 #define dataTypes_h
 
 #ifdef DEFAULT
-#import "../Task/Default/dataTask.hpp"
+#include "../Task/Default/dataTask.hpp"
 #endif
 
 #ifndef DEFAULT
-#import "dataTask.hpp"
+#include "dataTask.hpp"
 #endif
 
 enum class Operation{null, setRobotsPosition, missionMessage};
