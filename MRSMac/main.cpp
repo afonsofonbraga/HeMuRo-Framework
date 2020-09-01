@@ -109,7 +109,7 @@ int main(){
         mission.executionTime = 300;
         
         
-        memcpy(message.buffer,name,10);
+        memcpy(message.buffer,"Robo0",10);
         *((Operation*)(message.buffer + 10)) = operation;
         *((int*)(message.buffer + 14)) = sizeof(mission);
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
@@ -130,7 +130,7 @@ int main(){
         mission.goal.yaw = 0.3;
         mission.executionTime = 300;
         
-        memcpy(message.buffer,name,10);
+        memcpy(message.buffer,"Robo0",10);
         *((Operation*)(message.buffer + 10)) = operation;
         *((int*)(message.buffer + 14)) = sizeof(mission);
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
