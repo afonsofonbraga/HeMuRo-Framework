@@ -32,7 +32,10 @@ void GoTo::run()
             
         case enum_AtomicTaskStatus::running:
         {
-            if(this->status != enum_AtomicTaskStatus::completed){
+            auto t0 = std::chrono::high_resolution_clock::now();
+            std::this_thread::sleep_until(t0 + this->tick);
+            
+            if(this->status == enum_AtomicTaskStatus::running){
                 s_pose p;
                 this->monitor->getPosition(p);
                 s_pose deltaError;
@@ -76,8 +79,9 @@ void GoTo::run()
                 strcpy(teste.topicName,"GoTo");
                 memmove(teste.buffer,(char*)&vCmdvel,sizeof(vCmdvel));
                 this->monitor->addROSBridgeMessage(teste);
-                usleep(100000); //Vamos Precisar de um buffer
             }
+            
+            t0 = t0 + this->tick;
         }
             break;
         case enum_AtomicTaskStatus::completed:

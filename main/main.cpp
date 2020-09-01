@@ -9,6 +9,7 @@
 #include <chrono>
 #include <thread>
 #include <vector>
+#include <string>
 #include <iostream>
 #include <string.h>
 #include <unordered_map>
@@ -20,6 +21,7 @@
 
 #include "UDPBroadcast.hpp"
 #include "UDPReceiver.hpp"
+#include "UDPReceiverSim.hpp"
 #include "UDPSender.hpp"
 #include "MissionManager.hpp"
 #include "Alive.hpp"
@@ -35,6 +37,7 @@ int main( int argc, char *argv[ ] ){
     }
     
     std::string name{argv[1]};
+    int numberOfRobots = std::stoi(argv[2]);
     enum_RobotCategory cat = enum_RobotCategory::null;
     
 #ifdef MAVROS
@@ -45,26 +48,45 @@ int main( int argc, char *argv[ ] ){
     cat = enum_RobotCategory::ugv;
 #endif
     
-    BlackBoard* memory = new BlackBoard(name, cat);
-    UDPBroadcast* broadcast = new UDPBroadcast(memory);
-    UDPReceiver* receiver = new UDPReceiver(memory);
-    UDPSender* sender = new UDPSender(memory);
-    MissionManager* missionManager = new MissionManager(memory);
+    
+    std::vector<BlackBoard *> v_BlackBoard; // = new std::vector<BlackBoard>;
+    std::vector<UDPBroadcast*> v_Broadcast;// = new std::vector<UDPBroadcast>;
+    //std::vector<UDPReceiver*> v_Receiver;
+    std::vector<UDPSender*> v_Sender;
+    std::vector<MissionManager*> v_MissionManager;
+    std::vector<Alive*> v_Alive;
+    UDPReceiverSim* receiver = new UDPReceiverSim();
     
 #ifndef DEFAULT
-    std::string node = name;
-    ros::init(argc, argv ,node);
+    //std::string node = name;
+    ros::init(argc, argv ,name);
     ros::NodeHandle n;
     ros::AsyncSpinner spinner(0);
     spinner.start();
-    
-    Alive* alive = new Alive(memory, n);
 #endif
     
+    for (int i=0; i< numberOfRobots; i++)
+    {
+        std::string robotsName = name + std::to_string(i);
+        BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::ugv);
+        v_BlackBoard.push_back(memory);
+        UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
+        //UDPReceiver* receiver = new UDPReceiver(v_BlackBoard.at(i));
+        receiver->addRobot(v_BlackBoard.at(i));
+        UDPSender* sender = new UDPSender(v_BlackBoard.at(i));
+        MissionManager* missionManager = new MissionManager(v_BlackBoard.at(i));
+        
+#ifndef DEFAULT
+        Alive* alive = new Alive(v_BlackBoard.at(i), n);
+#endif
 #ifdef DEFAULT
-    Alive* alive = new Alive(memory);
+        Alive* alive = new Alive(v_BlackBoard.at(i));
 #endif
-    
+        v_Broadcast.push_back(broadcast);
+        //v_Receiver.push_back(receiver);
+        v_MissionManager.push_back(missionManager);
+        v_Alive.push_back(alive);
+    }
     while (std::getchar() != 'c'){}
     return 0;
 }

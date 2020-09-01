@@ -18,6 +18,7 @@
 struct Bid
 {
     char bidderIP[15];
+    char bidderName[10];
     float price;
 };
 
@@ -29,7 +30,9 @@ public:
     // Common Variables
     char missionCode[10];
     char senderAddress[15];
+    char senderName[10];
     char winnerAddress[15];
+    char winnerName[10];
     enum_DecomposableTask mission = enum_DecomposableTask::null;
     enum_RobotCategory robotCategory;
     int executionTime = 30;

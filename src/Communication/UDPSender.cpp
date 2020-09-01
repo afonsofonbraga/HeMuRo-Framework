@@ -76,6 +76,7 @@ void UDPSender::run(){
     if (vUDPMessage != nullptr && this->isRunning == true)
     {
         //std::cout << "Sending a message through UDPSender!!" <<std::endl;
+        //std::cout << "Receiver : " << vUDPMessage->name << std::endl;
         this->cliAddr.sin_addr.s_addr = inet_addr(vUDPMessage->address);
         rc = (int) sendto(this->vSocket, vUDPMessage->buffer, vUDPMessage->messageSize, 0, (struct sockaddr*) &this->cliAddr, sizeof(this->cliAddr));
     }

@@ -10,12 +10,15 @@
 #define GoTo_hpp
 
 #include "AtomicTask.hpp"
+#include <chrono>
+#include <thread>
 #include <math.h>
 #include <unistd.h>
 
 class GoTo : public AtomicTask
 {
-public:
+protected:
+    std::chrono::milliseconds tick = std::chrono::milliseconds(100); // 0.1s
     float costMeter = 2.0;
     
     float kp = 1, ki = 0.05, kd = 0.5;

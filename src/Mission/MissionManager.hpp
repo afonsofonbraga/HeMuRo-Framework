@@ -95,7 +95,7 @@ protected:
     void addAtomicTask(MissionExecution& mission);
     void calculateMissionCost(MissionExecution& mission);
     void sendMissionCost(MissionExecution& mission);
-    void sendUDPMessage(s_MissionMessage& vMissionMessage, char& address);
+    void sendUDPMessage(s_MissionMessage& vMissionMessage, char& targetAddress, char& targetName);
     void missionRequestController(char* missionID);
     
 public:

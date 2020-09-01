@@ -63,9 +63,13 @@ void UDPReceiver::error(const char *msg){
 void UDPReceiver::dataTreatment(char *mensagem)
 {
     //int operation = mensagem[0];
-    Operation operation = ((Operation*) mensagem)[0];
+    char name[10];
+    memcpy(name, mensagem, 10);
+    
+    char *temp = mensagem + 10;
+    Operation operation = ((Operation*) temp)[0];
     int dataSize;
-    char *temp = mensagem + sizeof(operation);
+    temp = temp + sizeof(operation);
     dataSize = ((int*) temp)[0];
     temp = temp + sizeof(dataSize);
     switch(operation){

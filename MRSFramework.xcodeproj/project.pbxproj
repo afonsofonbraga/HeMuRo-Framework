@@ -14,6 +14,7 @@
 		23789A9524AB9694001372E5 /* MissionExecution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23789A9324AB9694001372E5 /* MissionExecution.cpp */; };
 		2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */; };
 		2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAD245DD23900465752 /* UDPReceiver.cpp */; };
+		2386344024FEBD0800049ED1 /* UDPReceiverSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2386343D24FEB45600049ED1 /* UDPReceiverSim.cpp */; };
 		23872A1B248049B200EC738C /* UDPSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23872A19248049B200EC738C /* UDPSender.cpp */; };
 		239C81DD248FBED900B58BAD /* AtomicTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8324634A2F00EC7860 /* AtomicTask.cpp */; };
 		23C6E54A246EE01A00D99185 /* GoTo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8624634DDF00EC7860 /* GoTo.cpp */; };
@@ -97,6 +98,8 @@
 		2381ABAB245DC25B00465752 /* UDPBroadcast.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPBroadcast.hpp; sourceTree = "<group>"; };
 		2381ABAD245DD23900465752 /* UDPReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPReceiver.cpp; sourceTree = "<group>"; };
 		2381ABAE245DD23900465752 /* UDPReceiver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPReceiver.hpp; sourceTree = "<group>"; };
+		2386343D24FEB45600049ED1 /* UDPReceiverSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPReceiverSim.cpp; sourceTree = "<group>"; };
+		2386343E24FEB45600049ED1 /* UDPReceiverSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPReceiverSim.hpp; sourceTree = "<group>"; };
 		23872A19248049B200EC738C /* UDPSender.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPSender.cpp; sourceTree = "<group>"; };
 		23872A1A248049B200EC738C /* UDPSender.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPSender.hpp; sourceTree = "<group>"; };
 		23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargeBattery.cpp; sourceTree = "<group>"; };
@@ -292,6 +295,8 @@
 				2381ABAE245DD23900465752 /* UDPReceiver.hpp */,
 				23872A19248049B200EC738C /* UDPSender.cpp */,
 				23872A1A248049B200EC738C /* UDPSender.hpp */,
+				2386343D24FEB45600049ED1 /* UDPReceiverSim.cpp */,
+				2386343E24FEB45600049ED1 /* UDPReceiverSim.hpp */,
 			);
 			path = Communication;
 			sourceTree = "<group>";
@@ -440,6 +445,7 @@
 				23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */,
 				239C81DD248FBED900B58BAD /* AtomicTask.cpp in Sources */,
 				23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */,
+				2386344024FEBD0800049ED1 /* UDPReceiverSim.cpp in Sources */,
 				23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */,
 				235CC3EB2493F0200012376D /* Mission.cpp in Sources */,
 				23C6E54A246EE01A00D99185 /* GoTo.cpp in Sources */,

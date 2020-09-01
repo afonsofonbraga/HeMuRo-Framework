@@ -97,6 +97,7 @@ public:
     
     //Robot's description
     void getRobotsName(std::string& name);                  // Get the name of the Robot
+    void getRobotsName(char& name);                  // Get the name of the Robot
     enum_RobotCategory getRobotsCategory();         // Get the category of the Robot
     
     void getRobotsIP(char& vIP);                            // Get the IP address of the Robot

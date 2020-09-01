@@ -54,6 +54,7 @@ struct s_robotsPose
 struct s_UDPMessage
 {
     char address[16] = "null";
+    char name[10] = "null";
     char buffer[500] = "null";
     int messageSize = 0;
 };
@@ -62,6 +63,7 @@ struct s_MissionMessage
 {
     char missionCode[10] = "null";
     char senderAddress[16] = "null";
+    char senderName[10] = "null";
     enum_MissionOperation operation = enum_MissionOperation::null;
     enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
     float Cost = 0;

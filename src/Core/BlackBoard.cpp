@@ -66,6 +66,11 @@ void BlackBoard::getRobotsName(std::string& name)
     name = this->robotName;
 }
 
+void BlackBoard::getRobotsName(char& name)
+{
+    strcpy(&name, this->robotName.c_str());
+}
+
 void BlackBoard::setRobotCategory(enum_RobotCategory cat)
 {
     this->robotCategory = cat;

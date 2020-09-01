@@ -11,32 +11,6 @@
 MissionManager::MissionManager(BlackBoard* monitor) : Module(monitor)
 {
     this->monitor->getBroadcastIP(*this->broadcastIP);
-    // In the future it won't be here
-    /*
-    std::vector<enum_AtomicTask> teste;
-    teste.push_back(enum_AtomicTask::goTo);
-    enum_DecomposableTask lala = enum_DecomposableTask::checkPosition;
-    this->monitor->addDecomposableTaskList(lala, teste);
-    
-    teste.clear();
-    teste.push_back(enum_AtomicTask::goTo);
-    teste.push_back(enum_AtomicTask::takePicture);
-    lala = enum_DecomposableTask::takePicture;
-    this->monitor->addDecomposableTaskList(lala, teste);
-    
-    teste.clear();
-    teste.push_back(enum_AtomicTask::chargeBattery);
-    lala = enum_DecomposableTask::lowBattery;
-    
-    this->monitor->addDecomposableTaskList(lala, teste);
-    
-    teste.clear();
-    teste.push_back(enum_AtomicTask::arm);
-    teste.push_back(enum_AtomicTask::takeOff);
-    teste.push_back(enum_AtomicTask::goTo);
-    teste.push_back(enum_AtomicTask::land);
-    lala = enum_DecomposableTask::flightTest;
-    this->monitor->addDecomposableTaskList(lala, teste);*/
     decomposableTaskList(monitor);
     
 }
@@ -245,16 +219,9 @@ void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissi
     {
         std::cout << "[bidder] Mission received is decomposable." <<std::endl;
         
-        // Adding the new Mission into database, including all AtomicTasks and calculating total cost
-        //Protect if the robot is executing a mission it doesnt need to bid
-        //strcpy(vMission->missionCode,vMissionMessage->missionCode);
-        //strcpy(vMission->senderAddress,vMissionMessage->senderAddress);
-        //vMission->enum_execution = enum_MissionExecution::waitingAuction;
-        //vMission->mission = vMissionMessage->taskToBeDecomposed;
-        //vMission->goal = vMissionMessage->goal;
-        
         strcpy(this->MissionList[vMissionMessage->missionCode].missionCode,vMissionMessage->missionCode);
         strcpy(this->MissionList[vMissionMessage->missionCode].senderAddress,vMissionMessage->senderAddress);
+        strcpy(this->MissionList[vMissionMessage->missionCode].senderName,vMissionMessage->senderName);
         this->MissionList[vMissionMessage->missionCode].enum_execution = enum_MissionExecution::waitingAuction;
         this->MissionList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
         this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
@@ -289,6 +256,7 @@ void MissionManager::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> v
         
         strcpy(this->MissionList[vMissionMessage->missionCode].missionCode,vMissionMessage->missionCode);
         strcpy(this->MissionList[vMissionMessage->missionCode].senderAddress,vMissionMessage->senderAddress);
+        strcpy(this->MissionList[vMissionMessage->missionCode].senderName,vMissionMessage->senderName);
         this->MissionList[vMissionMessage->missionCode].enum_execution = enum_MissionExecution::waitingAuction;
         this->MissionList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
         this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
@@ -325,10 +293,13 @@ void MissionManager::winningBid(std::unique_ptr<s_MissionMessage> vMissionMessag
             
             // Send to the auctioneer that the mission was accepted
             strcpy(missionMessage.missionCode, vMissionMessage->missionCode);
+            
             this->monitor->getRobotsIP(*missionMessage.senderAddress);
+            this->monitor->getRobotsName(*missionMessage.senderName);
+            
             missionMessage.operation = enum_MissionOperation::acceptMission;
             
-            sendUDPMessage(missionMessage, *vMissionMessage->senderAddress);
+            sendUDPMessage(missionMessage, *vMissionMessage->senderAddress, *vMissionMessage->senderName);
         }
         else
             std::cout << "[bidder] I'm unavailable to execute this mission." << std::endl;
@@ -344,6 +315,7 @@ void MissionManager::addMissionToExecute(MissionExecution& vMissionExecute)
     //missionToExecute = vMissionExecute;
     strcpy(missionToExecute.missionCode,vMissionExecute.missionCode);
     strcpy(missionToExecute.senderAddress,vMissionExecute.senderAddress);
+    strcpy(missionToExecute.senderName,vMissionExecute.senderName);
     missionToExecute.mission = vMissionExecute.mission;
     missionToExecute.goal = vMissionExecute.goal;
     missionToExecute.vAtomicTaskVector = std::move(vMissionExecute.vAtomicTaskVector);
@@ -392,6 +364,7 @@ void MissionManager::emergencyCall(std::unique_ptr<s_MissionMessage> vMissionMes
         
         strcpy(vMission->missionCode,vMissionMessage->missionCode);
         strcpy(vMission->senderAddress,vMissionMessage->senderAddress);
+        strcpy(vMission->senderName,vMissionMessage->senderName);
         vMission->mission = vMissionMessage->taskToBeDecomposed;
         
         //addAtomicTask(*vMission);
@@ -412,10 +385,13 @@ void MissionManager::notifyingMissionComplete()
     
     // Send to the auctioneer that the mission was accepted
     strcpy(missionMessage.missionCode, this->missionToExecute.missionCode);
+    
     this->monitor->getRobotsIP(*missionMessage.senderAddress);
+    this->monitor->getRobotsName(*missionMessage.senderName);
+    
     missionMessage.operation = enum_MissionOperation::missionComplete;
     
-    sendUDPMessage(missionMessage, *this->missionToExecute.senderAddress);
+    sendUDPMessage(missionMessage, *this->missionToExecute.senderAddress, *this->missionToExecute.senderName);
 }
 
 //****************************************************
@@ -426,6 +402,9 @@ void MissionManager::createMission(std::unique_ptr<s_MissionMessage> vMissionMes
 {
     strcpy(this->missionOwnerList[vMissionMessage->missionCode].missionCode, vMissionMessage->missionCode);
     this->monitor->getRobotsIP(*this->missionOwnerList[vMissionMessage->missionCode].senderAddress);
+    
+    this->monitor->getRobotsName(*this->missionOwnerList[vMissionMessage->missionCode].senderName);
+    
     this->missionOwnerList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
     this->missionOwnerList[vMissionMessage->missionCode].enum_request = enum_MissionRequest::waitingBids;
     this->missionOwnerList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
@@ -449,13 +428,14 @@ void MissionManager::waitingForBids(char* missionID)
     
     strcpy(missionMessage.missionCode, missionID);
     this->monitor->getRobotsIP(*missionMessage.senderAddress);
+    this->monitor->getRobotsName(*missionMessage.senderName);
     missionMessage.operation = enum_MissionOperation::addMission;
     missionMessage.taskToBeDecomposed = this->missionOwnerList[missionID].mission;
     missionMessage.goal = this->missionOwnerList[missionID].goal;
     missionMessage.robotCat = this->missionOwnerList[missionID].robotCategory;
     missionMessage.executionTime = this->missionOwnerList[missionID].executionTime;
-    
-    sendUDPMessage(missionMessage, *this->broadcastIP);
+    char broadcast[10] = "Broadcast";
+    sendUDPMessage(missionMessage, *this->broadcastIP, *broadcast);
     
     // Lock and wait intil the time is passed by
     this->missionOwnerList[missionID].cv->wait_until(lk, now + std::chrono::seconds(this->missionOwnerList[missionID].biddingTime));
@@ -477,10 +457,11 @@ void MissionManager::addBidReceived(std::unique_ptr<s_MissionMessage> vMissionMe
     std::unique_lock<std::mutex> lk(*this->missionOwnerList[vMissionMessage->missionCode].cv_m);
     if (this->missionOwnerList[vMissionMessage->missionCode].enum_request == enum_MissionRequest::waitingBids)
     {
-        std::cout << "[owner] Received a bid!" <<std::endl;
+        std::cout << "[owner] Received a bid from "<< vMissionMessage->senderName << "!" <<std::endl;
         Bid bid;
         bid.price = vMissionMessage->Cost;
         strcpy(bid.bidderIP, vMissionMessage->senderAddress);
+        strcpy(bid.bidderName, vMissionMessage->senderName);
         
         this->missionOwnerList[vMissionMessage->missionCode].vectorBids.push_back(bid);
     }
@@ -503,6 +484,8 @@ void MissionManager::notifyingWinner(char* missionID)
                 winner = i;
         }
         strcpy(this->missionOwnerList[missionID].winnerAddress, this->missionOwnerList[missionID].vectorBids.at(winner).bidderIP);
+        strcpy(this->missionOwnerList[missionID].winnerName, this->missionOwnerList[missionID].vectorBids.at(winner).bidderName);
+        
         this->missionOwnerList[missionID].vectorBids.erase(this->missionOwnerList[missionID].vectorBids.begin() + winner);
         
         std::cout << "[owner] Notifying Winner" << std::endl;
@@ -510,10 +493,13 @@ void MissionManager::notifyingWinner(char* missionID)
         s_MissionMessage missionMessage;
         
         strcpy(missionMessage.missionCode, missionID);
+        
         this->monitor->getRobotsIP(*missionMessage.senderAddress);
+        this->monitor->getRobotsName(*missionMessage.senderName);
+        
         missionMessage.operation = enum_MissionOperation::winningBid;
         
-        sendUDPMessage(missionMessage, *this->missionOwnerList[missionID].winnerAddress);
+        sendUDPMessage(missionMessage, *this->missionOwnerList[missionID].winnerAddress, *this->missionOwnerList[missionID].winnerName);
         
         auto now = std::chrono::system_clock::now();
         this->missionOwnerList[missionID].cv->wait_until(lk, now + std::chrono::seconds(this->missionOwnerList[missionID].communicationTime));
@@ -536,10 +522,13 @@ void MissionManager::notifyingToExecute(char* missionID)
     s_MissionMessage missionMessage;
     
     strcpy(missionMessage.missionCode, missionID);
+    
     this->monitor->getRobotsIP(*missionMessage.senderAddress);
+    this->monitor->getRobotsName(*missionMessage.senderName);
+    
     missionMessage.operation = enum_MissionOperation::startMission;
     
-    sendUDPMessage(missionMessage, *this->missionOwnerList[missionID].winnerAddress);
+    sendUDPMessage(missionMessage, *this->missionOwnerList[missionID].winnerAddress, *this->missionOwnerList[missionID].winnerName);
     this->missionOwnerList[missionID].cv->wait(lk);
 }
 
@@ -584,78 +573,6 @@ void MissionManager::missionComplete(std::unique_ptr<s_MissionMessage> vMissionM
 //****************************************************
 
 
-
-
-/*
-void MissionManager::addAtomicTask(MissionExecution& vMissionDecomposable)
-{
-    vMissionDecomposable.atomicTaskList.clear();
-    std::shared_ptr<AtomicTask> vAtomicTaskitem = nullptr;
-    s_pose currentPosition;
-    this->monitor->getPosition(currentPosition);
-    
-    for (auto n : vMissionDecomposable.vAtomicTaskVector){
-        switch(n){
-            case enum_AtomicTask::null :
-                break;
-            case enum_AtomicTask::goTo :
-                vAtomicTaskitem = std::make_shared<GoTo>(this->monitor, currentPosition,vMissionDecomposable.goal);
-                currentPosition = vMissionDecomposable.goal;
-                break;
-            case enum_AtomicTask::turnOn :
-                vAtomicTaskitem = std::make_shared<TurnOn>(this->monitor, currentPosition,currentPosition);
-                break;
-            case enum_AtomicTask::chargeBattery :
-                vAtomicTaskitem = std::make_shared<ChargeBattery>(this->monitor, currentPosition,currentPosition);
-                break;
-            case enum_AtomicTask::takePicture :
-                vAtomicTaskitem = std::make_shared<TakePicture>(this->monitor, currentPosition,currentPosition);
-                break;
-                
-                
-            case enum_AtomicTask::arm :
-            {
-#ifdef MAVROS
-                vAtomicTaskitem = std::make_shared<Arm>(this->monitor, currentPosition,currentPosition);
-#endif
-            }
-                
-                break;
-                
-            case enum_AtomicTask::takeOff :
-            {
-#ifdef MAVROS
-                s_pose vPose;
-                vPose = currentPosition;
-                vPose.z = vMissionDecomposable.goal.z;
-                vAtomicTaskitem = std::make_shared<TakeOff>(this->monitor, currentPosition,vPose);
-                currentPosition = vPose;
-#endif
-            }
-                
-                break;
-                
-            case enum_AtomicTask::land :
-            {
-#ifdef MAVROS
-                vAtomicTaskitem = std::make_shared<Land>(this->monitor, currentPosition,currentPosition);
-#endif
-            }
-                
-                break;
-                
-        }
-        if (vAtomicTaskitem != nullptr)
-        {
-            vMissionDecomposable.atomicTaskList.push_back(std::move(vAtomicTaskitem));
-            //delete vAtomicTaskitem;
-        } else {
-            std::cout << "Not found\n";
-        }
-    }
-}
-*/
-
 void MissionManager::calculateMissionCost(MissionExecution& mission)
 {
     mission.missionCost = 0;
@@ -671,21 +588,24 @@ void MissionManager::sendMissionCost(MissionExecution& mission)
     
     strcpy(missionMessage.missionCode, mission.missionCode);
     this->monitor->getRobotsIP(*missionMessage.senderAddress);
+    this->monitor->getRobotsName(*missionMessage.senderName);
     missionMessage.operation = enum_MissionOperation::Bid;
     missionMessage.Cost = mission.missionCost;
     
-    sendUDPMessage(missionMessage, *mission.senderAddress);
+    sendUDPMessage(missionMessage, *mission.senderAddress, *mission.senderName);
 }
 
-void MissionManager::sendUDPMessage(s_MissionMessage &vMissionMessage, char &address)
+void MissionManager::sendUDPMessage(s_MissionMessage &vMissionMessage, char &targetAddress, char& targetName)
 {
     s_UDPMessage message;
     
-    strcpy(message.address, &address);
+    strcpy(message.address, &targetAddress);
+    strcpy(message.name, &targetName);
+    memcpy(message.buffer, &targetName,10);
     Operation operation = Operation::missionMessage;
-    *((Operation*)message.buffer) = operation;
-    *((int*)(message.buffer + 4)) = sizeof(vMissionMessage);
-    memmove(message.buffer+8,(const unsigned char*)&vMissionMessage,sizeof(vMissionMessage));
+    *((Operation*)(message.buffer + 10)) = operation;
+    *((int*)(message.buffer + 14)) = sizeof(vMissionMessage);
+    memmove(message.buffer+18,(const unsigned char*)&vMissionMessage,sizeof(vMissionMessage));
     message.messageSize = sizeof(message.buffer);
     this->monitor->addUDPMessage(message);
 }
@@ -748,6 +668,6 @@ void MissionManager::redirectMission(MissionExecution& vMissionExecute)
     this->monitor->getRobotsIP(*missionMessage.senderAddress);
     missionMessage.operation = enum_MissionOperation::abortMission;
     
-    sendUDPMessage(missionMessage, *vMissionExecute.senderAddress);
+    sendUDPMessage(missionMessage, *vMissionExecute.senderAddress, *vMissionExecute.senderName);
 }
 
