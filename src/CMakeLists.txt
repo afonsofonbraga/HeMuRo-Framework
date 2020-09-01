@@ -32,7 +32,7 @@ include_directories(
 )
 
 add_library(core Core/BlackBoard.cpp Core/Module.cpp Core/ModulePeriodic.cpp)
-add_library(communication Core/BlackBoard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Communication/UDPBroadcast.cpp Communication/UDPReceiver.cpp Communication/UDPSender.cpp Communication/UDPReceiverSIM.cpp)
+add_library(communication Core/BlackBoard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Communication/UDPBroadcast.cpp Communication/UDPReceiver.cpp Communication/UDPSender.cpp Communication/UDPReceiverSim.cpp)
 
 if(DEFAULT)
 add_library(task Core/BlackBoard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Mission/MissionManager.cpp Mission/Mission.cpp Mission/MissionRequest.cpp Mission/MissionExecution.cpp Task/AtomicTask.cpp Task/Default/DecomposableTasks.cpp Task/Default/GoTo.cpp Task/Default/ChargeBattery.cpp Task/Default/TurnOn.cpp Task/Default/TakePicture.cpp)
