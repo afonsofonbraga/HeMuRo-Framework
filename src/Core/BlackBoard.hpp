@@ -105,7 +105,7 @@ public:
     
     void chargeBattery(float energy);                       // Add the value to the total amount of available energy
     void consumeBattery(float energy);                      // Remove the value from the total amount of available energy
-    void setBattery(float energy);                          // Set Battery Level, external battery controller
+    void setBatteryLevel(float energy);                          // Set Battery Level, external battery controller
     float getBatteryLevel();                                // Return the battery
     
     //Robot's Position Functions

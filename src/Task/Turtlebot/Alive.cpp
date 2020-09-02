@@ -27,7 +27,7 @@ void Alive::callbackColor(const turtlesim::Color::ConstPtr& msg)
 
 void Alive::callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg)
 {
-    this->monitor->setBattery(msg.data);
+    this->monitor->setBatteryLevel(msg.data);
 }
 
 Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
