@@ -28,8 +28,9 @@ class Alive: public Module
 {
 protected:
     s_ROSBridgeMessage* vROSBridgeMessage;
-    void chatterCallbackPosition(const turtlesim::Pose::ConstPtr& msg);
-    void chatterCallbackColor(const turtlesim::Color::ConstPtr& msg);
+    void callbackPosition(const turtlesim::Pose::ConstPtr& msg);
+    void callbackColor(const turtlesim::Color::ConstPtr& msg);
+    void callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg);
     virtual void run() override;
     std::map <std::string, ros::Publisher> publishersList;
     std::map <std::string, ros::Subscriber> subscribersList;

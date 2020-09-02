@@ -9,7 +9,7 @@
 #include "Alive.hpp"
 #include <map>
 
-void Alive::chatterCallbackPosition(const turtlesim::Pose::ConstPtr& msg)
+void Alive::callbackPosition(const turtlesim::Pose::ConstPtr& msg)
 {
     //ROS_INFO("TurtleBot Position: [%f, %f, %f]", msg->x,msg->y,msg->theta);
     s_pose pose;
@@ -20,9 +20,14 @@ void Alive::chatterCallbackPosition(const turtlesim::Pose::ConstPtr& msg)
     this->monitor->setPosition(pose);
 }
 
-void Alive::chatterCallbackColor(const turtlesim::Color::ConstPtr& msg)
+void Alive::callbackColor(const turtlesim::Color::ConstPtr& msg)
 {
     ROS_INFO("TurtleBot Color: [%i, %i, %i]", msg->r,msg->g,msg->b);
+}
+
+void Alive::callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg)
+{
+    this->monitor->setBattery(msg.data);
 }
 
 Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
@@ -31,12 +36,16 @@ Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(
     
     // Subscribers
     std::string topic = vname + "/pose";
-    subscribersList["pose"] = node.subscribe(topic, 1000, &Alive::chatterCallbackPosition,this);
+    subscribersList["pose"] = node.subscribe(topic, 1000, &Alive::callbackPosition,this);
+    
+    std::string topic = vName + "/battery/percent";
+    subscribersList["battery/percent"] = node.subscribe(topic, 1, &Alive::callbackBatteryPercentage,this);
     
     // Publishers
     topic = vName + "/cmd_vel";
     publishersList["cmd_vel"] = node.advertise<geometry_msgs::Twist>(topic, 10);
 }
+
 
 Alive::~Alive()
 {

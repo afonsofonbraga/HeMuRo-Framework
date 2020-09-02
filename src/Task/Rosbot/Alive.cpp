@@ -13,9 +13,15 @@
 Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
 {
     this->monitor->getRobotsName(vName);
+ 
+    //Subscribers
     std::string topic = vName + "/odom";
-    subscribersList["odom"] = node.subscribe(topic, 1000, &Alive::chatterCallbackOdometry,this);
+    subscribersList["odom"] = node.subscribe(topic, 1000, &Alive::callbackOdometry,this);
     
+    std::string topic = vName + "/battery/percent";
+    subscribersList["battery/percent"] = node.subscribe(topic, 1, &Alive::callbackBatteryPercentage,this);
+    
+    //Publishers
     topic = vName + "/cmd_vel";
     publishersList["cmd_vel"] = node.advertise<geometry_msgs::Twist>(topic, 10);
 }
@@ -27,7 +33,7 @@ Alive::~Alive()
 
 }
 
-void Alive::chatterCallbackOdometry(const nav_msgs::Odometry::ConstPtr& msg)
+void Alive::callbackOdometry(const nav_msgs::Odometry::ConstPtr& msg)
 {
     //ROS_INFO("TurtleBot Position: [%f, %f, %f]", msg->x,msg->y,msg->theta);
     s_pose pose;
@@ -62,6 +68,10 @@ void Alive::chatterCallbackOdometry(const nav_msgs::Odometry::ConstPtr& msg)
     this->monitor->setPosition(pose);
 }
 
+void Alive::callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg)
+{
+    this->monitor->setBattery(msg.data);
+}
 
 void Alive::run()
 {

@@ -30,14 +30,14 @@
 
 int main( int argc, char *argv[ ] ){
     
-    if (argc != 2)
+    if (argc <= 2)
     {
         std::cerr << "Please, inform the robot's name:";
         return 0;
     }
     
-    std::string name{argv[1]};
-    int numberOfRobots = std::stoi(argv[2]);
+    //std::string name{argv[1]};
+    //int numberOfRobots = std::stoi(argv[2]);
     enum_RobotCategory cat = enum_RobotCategory::null;
     
 #ifdef MAVROS
@@ -58,16 +58,16 @@ int main( int argc, char *argv[ ] ){
     UDPReceiverSim* receiver = new UDPReceiverSim();
     
 #ifndef DEFAULT
-    //std::string node = name;
-    ros::init(argc, argv ,name);
+    std::string node = "node"; //name;
+    ros::init(argc, argv ,node);
     ros::NodeHandle n;
     ros::AsyncSpinner spinner(0);
     spinner.start();
 #endif
     
-    for (int i=0; i< numberOfRobots; i++)
+    for (int i = 0; i < argc - 1; i++)
     {
-        std::string robotsName = name + std::to_string(i);
+        std::string robotsName = argv[i+1];
         BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::ugv);
         v_BlackBoard.push_back(memory);
         UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));

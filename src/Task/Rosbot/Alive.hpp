@@ -35,7 +35,8 @@ class Alive: public Module
 {
 protected:
     s_ROSBridgeMessage* vROSBridgeMessage;
-    void chatterCallbackOdometry(const nav_msgs::Odometry::ConstPtr& msg);
+    void callbackOdometry(const nav_msgs::Odometry::ConstPtr& msg);
+    void callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg);
     virtual void run() override;
     std::map <std::string, ros::Publisher> publishersList;
     std::map <std::string, ros::Subscriber> subscribersList;

@@ -137,6 +137,13 @@ float BlackBoard::getBatteryLevel()
     return vBattery;
 }
 
+void BlackBoard::getBatteryLevel(float energy)
+{
+    std::unique_lock<std::mutex> lk(mutex_battery);
+        this->batteryLevel = energy;
+    lk.unlock();
+}
+
 
 //****************************************************
 //*           Robot's Position Variables             *
