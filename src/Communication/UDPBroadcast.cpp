@@ -85,7 +85,6 @@ void UDPBroadcast::run(){
     
     Operation operation = Operation::setRobotsPosition;
     *((Operation*)(buffer + 10)) = operation;
-    
     s_robotsPose robo;
     monitor->getPosition(robo.position);
     std::string lala;

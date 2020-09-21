@@ -27,12 +27,12 @@ void GoTo::run()
         {
             std::cout << "Going to the location."<< std::endl;
             this->status = enum_AtomicTaskStatus::running;
+            t0 = std::chrono::system_clock::now();
             break;
         }
             
         case enum_AtomicTaskStatus::running:
         {
-            auto t0 = std::chrono::high_resolution_clock::now();
             std::this_thread::sleep_until(t0 + this->tick);
             
             if(this->status == enum_AtomicTaskStatus::running){

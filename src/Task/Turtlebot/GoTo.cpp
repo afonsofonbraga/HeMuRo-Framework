@@ -1,8 +1,8 @@
 //
 //  GoTo.cpp
-//  MRSMac
+//  MRSFramework
 //
-//  Created by Afonso Braga on 06/05/20.
+//  Created by Afonso Braga on 26/08/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
@@ -27,12 +27,15 @@ void GoTo::run()
         {
             std::cout << "Going to the location."<< std::endl;
             this->status = enum_AtomicTaskStatus::running;
+            t0 = std::chrono::system_clock::now();
             break;
         }
             
         case enum_AtomicTaskStatus::running:
         {
-            if(this->status != enum_AtomicTaskStatus::completed){
+            std::this_thread::sleep_until(t0 + this->tick);
+            
+            if(this->status == enum_AtomicTaskStatus::running){
                 s_pose p;
                 this->monitor->getPosition(p);
                 s_pose deltaError;
@@ -76,8 +79,9 @@ void GoTo::run()
                 strcpy(teste.topicName,"GoTo");
                 memmove(teste.buffer,(char*)&vCmdvel,sizeof(vCmdvel));
                 this->monitor->addROSBridgeMessage(teste);
-                usleep(100000); //Vamos Precisar de um buffer
             }
+            
+            t0 = t0 + this->tick;
         }
             break;
         case enum_AtomicTaskStatus::completed:

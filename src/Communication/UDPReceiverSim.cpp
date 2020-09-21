@@ -137,23 +137,29 @@ void UDPReceiverSim::dataTreatment(char *mensagem)
 void UDPReceiverSim::switchoperation(Operation operation, char* temp, const char* name)
 {
     switch(operation){
-    case Operation::null:
-        std::cout << "deuruim" <<std::endl;
-        break;
-        
-    case Operation::setRobotsPosition:
-    {
-        s_robotsPose robotPosition = ((s_robotsPose*) temp)[0];
-        this->robotsList[name]->setAllRobotsPosition(robotPosition);
-        break;
+        case Operation::null:
+            std::cout << "deuruim" <<std::endl;
+            break;
+            
+        case Operation::setRobotsPosition:
+        {
+            s_robotsPose robotPosition = ((s_robotsPose*) temp)[0];
+            this->robotsList[name]->setAllRobotsPosition(robotPosition);
+            break;
+        }
+            
+        case Operation::missionMessage:
+        {
+            s_MissionMessage missionMessage = ((s_MissionMessage*) temp)[0];
+            this->robotsList[name]->addMissionMessage(missionMessage);
+            break;
+        }
+        case Operation::batteryMessage:
+        {
+            s_BatteryMessage batteryMessage = ((s_BatteryMessage*) temp)[0];
+            this->robotsList[name]->addBatteryMessage(batteryMessage);
+            break;
+        }
     }
-        
-    case Operation::missionMessage:
-    {
-        s_MissionMessage missionMessage = ((s_MissionMessage*) temp)[0];
-        this->robotsList[name]->addMissionMessage(missionMessage);
-        break;
-    }
-}
 }
 

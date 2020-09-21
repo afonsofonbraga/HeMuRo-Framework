@@ -19,8 +19,6 @@
 #include "TurnOn.hpp"
 #include "TakePicture.hpp"
 
-
-
 void decomposableTaskList(BlackBoard* monitor);
 void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable);
 #endif /* DecomposableTasks_hpp */

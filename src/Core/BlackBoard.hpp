@@ -39,7 +39,6 @@ protected:
     
     void setRobotIP();
     void setRobotsName(std::string name);
-    void setRobotCategory(enum_RobotCategory cat);
     
     float batteryLevel;
     std::mutex mutex_battery;
@@ -71,6 +70,10 @@ protected:
     std::mutex mutex_missionList;
     std::vector<s_MissionMessage> missionMessageList;
     
+    // Battery Messages
+    std::mutex mutex_batteryList;
+    std::vector<s_BatteryMessage> batteryMessageList;
+    
     // Mission: Selected Mission to execute
     std::mutex mutex_mission;
     bool executingMission = false;
@@ -88,6 +91,7 @@ protected:
 public:
     std::condition_variable conditional_UDPMessageList;
     std::condition_variable conditional_MissionMessageList;
+    std::condition_variable conditional_BatteryMessageList;
     std::condition_variable conditional_ROSBridgeMessageList;
     
     BlackBoard(std::string& name, enum_RobotCategory cat);                          // Constructor
@@ -98,6 +102,7 @@ public:
     //Robot's description
     void getRobotsName(std::string& name);                  // Get the name of the Robot
     void getRobotsName(char& name);                  // Get the name of the Robot
+    void setRobotCategory(enum_RobotCategory cat);
     enum_RobotCategory getRobotsCategory();         // Get the category of the Robot
     
     void getRobotsIP(char& vIP);                            // Get the IP address of the Robot
@@ -117,17 +122,10 @@ public:
     void getAllRobotsPosition(std::unordered_map<std::string, s_pose>& p); // Get all positions from the robot's position list
     void removeAllRobotsPosition(s_robotsPose& p);          // Clean the list
     
-    // Map Related Functions
-    void setMapCoodinates(std::array<float,2>& coord);      // Set Map MAX Dimensions
-    void getMapCoodinates(std::array<float,2>& coord);      // Get Map MAX Dimensions
-    
     // Decomposable Tasks
     
     void addDecomposableTaskList(enum_DecomposableTask vTaskToBeDecomposed, std::vector<enum_AtomicTask> vAtomicTask);
     bool getDecomposableTask(enum_DecomposableTask vTaskToBeDecomposed, std::vector<enum_AtomicTask>& vAtomicTask);
-    
-    
-    
     bool isDecomposable(enum_DecomposableTask vTaskToBeDecomposed);
     float getDecomposableTaskCost(enum_DecomposableTask vTaskToBeDecomposed);
     void acceptDecomposableTask(enum_DecomposableTask vDecomposableTask);
@@ -138,16 +136,17 @@ public:
     bool isRobotAvailable();    // NAO ESTA IMPLEMENTADA
     bool lockRobot();
     bool unlockRobot();
-    //WILL BE IMPLEMENTED IN MISSION MODULE
-    //void addMissionToExecute(MissionExecution& vMission);
-    //void startMissionExecution();
-    //std::shared_ptr<AtomicTask> getTaskFromMission();
-    //void cancelMission();
+
 
     // Mission Messages
     bool isMissionMessageListEmpty();
     void addMissionMessage(s_MissionMessage& vMissionMessage);
     void getMissionMessage(s_MissionMessage& vMissionMessage);
+    
+    // Battery Messages
+    bool isBatteryMessageListEmpty();
+    void addBatteryMessage(s_BatteryMessage& vBatteryMessage);
+    void getBatteryMessage(s_BatteryMessage& vBatteryMessage);
     
     // Messages to be sent
     bool isUDPMessageListEmpty();
@@ -160,7 +159,17 @@ public:
     void addROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage);
     void getROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage);
     
+    //NOT USED YET
     
+    // Map Related Functions
+    void setMapCoodinates(std::array<float,2>& coord);      // Set Map MAX Dimensions
+    void getMapCoodinates(std::array<float,2>& coord);      // Get Map MAX Dimensions
+    
+    //WILL BE IMPLEMENTED IN MISSION MODULE
+    //void addMissionToExecute(MissionExecution& vMission);
+    //void startMissionExecution();
+    //std::shared_ptr<AtomicTask> getTaskFromMission();
+    //void cancelMission();
 };
 
 #endif

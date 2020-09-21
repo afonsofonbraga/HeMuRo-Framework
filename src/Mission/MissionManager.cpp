@@ -120,7 +120,7 @@ void MissionManager::missionRequestController(char* missionID)
                 break;
                 
             case enum_MissionRequest::missionComplete:
-                std::cout << "[owner] Mission Complete!" << std::endl;
+                std::cout << "[owner] Mission " << missionID << " Complete!" << std::endl;
                 this->missionOwnerList[missionID].endMission = true;
                 break;
         }
@@ -159,7 +159,7 @@ void MissionManager::startMissionToExecute()
                         this->missionToExecute.run();
                     else
                     {
-                        std::cout << "[bidder] TIMEOUT!!! Redirecting Misssion!" <<std::endl;
+                        std::cout << "[bidder] TIMEOUT!!! Redirecting Misssion "<< this->missionToExecute.missionCode <<"!"<<std::endl;
                         this->missionToExecute.enum_execution = enum_MissionExecution::null;
                         redirectMission(this->missionToExecute);
                         this->monitor->unlockRobot();
@@ -209,7 +209,7 @@ void MissionManager::startMissionToExecute()
 
 void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
-    std::cout << "[bidder] Received a mission." <<std::endl;
+    std::cout << "[bidder] Received "<< vMissionMessage->missionCode <<"!" <<std::endl;
     //MissionExecution* vMission = new MissionExecution;
     auto vMission = std::make_unique<MissionExecution>();
     
@@ -217,7 +217,7 @@ void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissi
     
     if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory())
     {
-        std::cout << "[bidder] Mission received is decomposable." <<std::endl;
+        std::cout << "[bidder] "<< vMissionMessage->missionCode <<" is decomposable." <<std::endl;
         
         strcpy(this->MissionList[vMissionMessage->missionCode].missionCode,vMissionMessage->missionCode);
         strcpy(this->MissionList[vMissionMessage->missionCode].senderAddress,vMissionMessage->senderAddress);
@@ -244,13 +244,13 @@ void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissi
 
 void MissionManager::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
-    std::cout << "[bidder] Received a mission." <<std::endl;
+    std::cout << "[bidder] Received "<< vMissionMessage->missionCode <<"!" <<std::endl;
     //MissionExecution* vMission = new MissionExecution;
     auto vMission = std::make_unique<MissionExecution>();
     
     if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory())
     {
-        std::cout << "[bidder] Mission received is decomposable." <<std::endl;
+        std::cout << "[bidder] "<< vMissionMessage->missionCode <<" is decomposable." <<std::endl;
         
         // Adding the new Mission into database, including all AtomicTasks and calculating total cost
         
@@ -285,7 +285,7 @@ void MissionManager::winningBid(std::unique_ptr<s_MissionMessage> vMissionMessag
         // First check if the robot is still available to execute the mission, if so, lock it up!
         if (this->monitor->lockRobot() == true)
         {
-            std::cout << "[bidder] I'm available to execute this mission!"<<std::endl;
+            std::cout << "[bidder] I'm available to execute "<< vMissionMessage->missionCode <<"!"<<std::endl;
             
             // Add this mission into the execution Module.
             addMissionToExecute(this->MissionList[vMissionMessage->missionCode]);
@@ -302,7 +302,7 @@ void MissionManager::winningBid(std::unique_ptr<s_MissionMessage> vMissionMessag
             sendUDPMessage(missionMessage, *vMissionMessage->senderAddress, *vMissionMessage->senderName);
         }
         else
-            std::cout << "[bidder] I'm unavailable to execute this mission." << std::endl;
+            std::cout << "[bidder] I'm unavailable to execute " << vMissionMessage->missionCode <<"!"<<std::endl;
     }
 }
 
@@ -335,7 +335,7 @@ void MissionManager::startCommand(std::unique_ptr<s_MissionMessage> vMissionMess
     std::unique_lock<std::mutex> lk(mutex_mission);
     if(strcmp(this->missionToExecute.missionCode, vMissionMessage->missionCode) == 0 && this->missionToExecute.enum_execution == enum_MissionExecution::waitingStart)
     {
-        std::cout << "[bidder] Adding mission to execute!"<<std::endl;
+        std::cout << "[bidder] Adding "<< this->missionToExecute.missionCode << " to execute!"<<std::endl;
         missionToExecute.enum_execution = enum_MissionExecution::executing;
         lk.unlock();
         this->missionToExecute.startTime = std::chrono::system_clock::now();
@@ -357,7 +357,7 @@ void MissionManager::emergencyCall(std::unique_ptr<s_MissionMessage> vMissionMes
         if(this->missionToExecute.enum_execution == enum_MissionExecution::waitingStart || this->missionToExecute.enum_execution == enum_MissionExecution::executing)
         {
             this->missionToExecute.enum_execution = enum_MissionExecution::null;
-            std::cout << "[bidder] Redirecting Misssion!" <<std::endl;
+            std::cout << "[bidder] Redirecting " << this->missionToExecute.missionCode << "!" <<std::endl;
             redirectMission(this->missionToExecute);
         }
         
@@ -419,7 +419,7 @@ void MissionManager::waitingForBids(char* missionID)
 {
     // Lock mutex and start timer
     std::unique_lock<std::mutex> lk(*this->missionOwnerList[missionID].cv_m);
-    auto now = std::chrono::system_clock::now();
+    std::chrono::time_point now = std::chrono::system_clock::now();
     
     std::cout << "[owner] Waiting for Bids" << std::endl;
     
@@ -439,7 +439,7 @@ void MissionManager::waitingForBids(char* missionID)
     
     // Lock and wait intil the time is passed by
     this->missionOwnerList[missionID].cv->wait_until(lk, now + std::chrono::seconds(this->missionOwnerList[missionID].biddingTime));
-    
+
     if(this->missionOwnerList[missionID].vectorBids.empty())
     {
         // If there is no available robots, start again.
@@ -457,7 +457,7 @@ void MissionManager::addBidReceived(std::unique_ptr<s_MissionMessage> vMissionMe
     std::unique_lock<std::mutex> lk(*this->missionOwnerList[vMissionMessage->missionCode].cv_m);
     if (this->missionOwnerList[vMissionMessage->missionCode].enum_request == enum_MissionRequest::waitingBids)
     {
-        std::cout << "[owner] Received a bid from "<< vMissionMessage->senderName << "!" <<std::endl;
+        std::cout << "[owner] " << vMissionMessage->missionCode << " received a bid from "<< vMissionMessage->senderName << "!" <<std::endl;
         Bid bid;
         bid.price = vMissionMessage->Cost;
         strcpy(bid.bidderIP, vMissionMessage->senderAddress);
@@ -473,7 +473,7 @@ void MissionManager::notifyingWinner(char* missionID)
     std::unique_lock<std::mutex> lk(*this->missionOwnerList[missionID].cv_m);
     if(this->missionOwnerList[missionID].vectorBids.empty() || this->missionOwnerList[missionID].vectorBids.size() == 0)
     {
-        std::cout << "[owner] No one accepted the mission, offering again..." << std::endl;
+        std::cout << "[owner] No one accepted "<< missionID << ". Offering again..." << std::endl;
         this->missionOwnerList[missionID].enum_request = enum_MissionRequest::waitingBids;
     } else
     {
@@ -488,7 +488,7 @@ void MissionManager::notifyingWinner(char* missionID)
         
         this->missionOwnerList[missionID].vectorBids.erase(this->missionOwnerList[missionID].vectorBids.begin() + winner);
         
-        std::cout << "[owner] Notifying Winner" << std::endl;
+        std::cout << "[owner] "<< this->missionOwnerList[missionID].winnerName << " won " << missionID <<"! Notifying!" << std::endl;
         
         s_MissionMessage missionMessage;
         
@@ -535,7 +535,7 @@ void MissionManager::notifyingToExecute(char* missionID)
 void MissionManager::missionAccepted(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     // it is necessary to check if the winner still is the one selected to perform the mission.
-    if (strcmp(this->missionOwnerList[vMissionMessage->missionCode].winnerAddress, vMissionMessage->senderAddress) == 0)
+    if (strcmp(this->missionOwnerList[vMissionMessage->missionCode].winnerAddress, vMissionMessage->senderAddress) == 0 && strcmp(this->missionOwnerList[vMissionMessage->missionCode].winnerName, vMissionMessage->senderName)==0)
     {
         this->missionOwnerList[vMissionMessage->missionCode].missionAccepted = true;
         this->missionOwnerList[vMissionMessage->missionCode].cv->notify_one();

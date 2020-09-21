@@ -16,19 +16,15 @@
 
 #include "dataTypes.hpp"
 #include "BlackBoard.hpp"
-#include "Module.hpp"
-#include "ModulePeriodic.hpp"
-
-#include "UDPBroadcast.hpp"
-#include "UDPReceiver.hpp"
 #include "UDPReceiverSim.hpp"
-#include "UDPSender.hpp"
-#include "MissionManager.hpp"
-#include "Alive.hpp"
 
-#include "AtomicTask.hpp"
+#include "MavrosRobot.hpp"
+#include "DefaultRobot.hpp"
+#include "TurtlebotRobot.hpp"
+#include "RosbotRobot.hpp"
 
-int main( int argc, char *argv[ ] ){
+int main( int argc, char *argv[ ] )
+{
     
     if (argc <= 2)
     {
@@ -36,26 +32,24 @@ int main( int argc, char *argv[ ] ){
         return 0;
     }
     
-    //std::string name{argv[1]};
-    //int numberOfRobots = std::stoi(argv[2]);
-    enum_RobotCategory cat = enum_RobotCategory::null;
+    std::vector<BlackBoard *> v_BlackBoard; // = new std::vector<BlackBoard>;
+    UDPReceiverSim* receiver = new UDPReceiverSim();
+    
+#ifdef DEFAULT
+    std::vector<DefaultRobot* > v_Robot;
+#endif
     
 #ifdef MAVROS
-    cat = enum_RobotCategory::uav;
+    std::vector<MavrosRobot* > v_Robot;
 #endif
     
 #ifdef ROSBOT
-    cat = enum_RobotCategory::ugv;
+    std::vector<RosbotRobot* > v_Robot;
 #endif
     
-    
-    std::vector<BlackBoard *> v_BlackBoard; // = new std::vector<BlackBoard>;
-    std::vector<UDPBroadcast*> v_Broadcast;// = new std::vector<UDPBroadcast>;
-    //std::vector<UDPReceiver*> v_Receiver;
-    std::vector<UDPSender*> v_Sender;
-    std::vector<MissionManager*> v_MissionManager;
-    std::vector<Alive*> v_Alive;
-    UDPReceiverSim* receiver = new UDPReceiverSim();
+#ifdef TRUTLEBOT
+    std::vector<TurtlebotRobot* > v_Robot;
+#endif
     
 #ifndef DEFAULT
     std::string node = "node"; //name;
@@ -68,24 +62,26 @@ int main( int argc, char *argv[ ] ){
     for (int i = 0; i < argc - 1; i++)
     {
         std::string robotsName = argv[i+1];
-        BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::ugv);
+        BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
         v_BlackBoard.push_back(memory);
-        UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
-        //UDPReceiver* receiver = new UDPReceiver(v_BlackBoard.at(i));
         receiver->addRobot(v_BlackBoard.at(i));
-        UDPSender* sender = new UDPSender(v_BlackBoard.at(i));
-        MissionManager* missionManager = new MissionManager(v_BlackBoard.at(i));
-        
-#ifndef DEFAULT
-        Alive* alive = new Alive(v_BlackBoard.at(i), n);
-#endif
+        bool decentralizedCommunication = false;
 #ifdef DEFAULT
-        Alive* alive = new Alive(v_BlackBoard.at(i));
+        DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
 #endif
-        v_Broadcast.push_back(broadcast);
-        //v_Receiver.push_back(receiver);
-        v_MissionManager.push_back(missionManager);
-        v_Alive.push_back(alive);
+        
+#ifdef MAVROS
+        MavrosRobot* robot = new MavrosRobot(v_BlackBoard.at(i), decentralizedCommunication);
+#endif
+        
+#ifdef ROSBOT
+        RosbotRobot* robot = new RosbotRobot(v_BlackBoard.at(i), decentralizedCommunication);
+#endif
+        
+#ifdef TRUTLEBOT
+        TurtlebotRobot* robot = new TurtlebotRobot(v_BlackBoard.at(i), decentralizedCommunication);
+#endif
+        v_Robot.push_back(robot);
     }
     while (std::getchar() != 'c'){}
     return 0;

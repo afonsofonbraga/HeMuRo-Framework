@@ -90,5 +90,11 @@ void UDPReceiver::dataTreatment(char *mensagem)
             this->monitor->addMissionMessage(missionMessage);
             break;
         }
+        case Operation::batteryMessage:
+        {
+            s_BatteryMessage batteryMessage = ((s_BatteryMessage*) temp)[0];
+            this->monitor->addBatteryMessage(batteryMessage);
+            break;
+        }
     }
 }

@@ -8,7 +8,7 @@ BlackBoard::BlackBoard(std::string& name, enum_RobotCategory cat)
     this->position.roll = 0;
     this->position.pitch = 0;
     this->position.yaw = 0;
-    this->batteryLevel = 56;
+    this->batteryLevel = 22;
     setRobotsName(name);
     setRobotCategory(cat);
     this->setRobotIP();
@@ -506,5 +506,44 @@ void BlackBoard::getROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage)
     }
 }
 
+//****************************************************
+//*         BatteryMessage Related Functions         *
+//****************************************************
 
+bool BlackBoard::isBatteryMessageListEmpty()
+{
+    bool status;
+    std::unique_lock<std::mutex> lk(mutex_batteryList);
+    status = this->batteryMessageList.empty();
+    lk.unlock();
+    return status;
+}
+
+void BlackBoard::addBatteryMessage(s_BatteryMessage& vBatteryMessage)
+{
+    std::unique_lock<std::mutex> lk(mutex_batteryList);
+    this->batteryMessageList.push_back(vBatteryMessage);
+    lk.unlock();
+    this->conditional_BatteryMessageList.notify_one();
+}
+
+void BlackBoard::getBatteryMessage(s_BatteryMessage& vBatteryMessage)
+{
+    std::unique_lock<std::mutex> lk(mutex_batteryList);
+    
+    if (this->batteryMessageList.empty() == false){
+        vBatteryMessage = this->batteryMessageList.front();
+        this->batteryMessageList.erase(batteryMessageList.begin());
+        lk.unlock();
+    }else
+    {
+        this->conditional_BatteryMessageList.wait(lk);
+        
+        if (this->batteryMessageList.empty() == false){
+            vBatteryMessage = this->batteryMessageList.front();
+            this->batteryMessageList.erase(batteryMessageList.begin());
+            lk.unlock();
+        }
+    }
+}
 

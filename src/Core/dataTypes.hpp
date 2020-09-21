@@ -8,6 +8,7 @@
 
 #ifndef dataTypes_h
 #define dataTypes_h
+#include <iostream>
 
 #ifdef DEFAULT
 #include "../Task/Default/dataTask.hpp"
@@ -17,7 +18,14 @@
 #include "dataTask.hpp"
 #endif
 
-enum class Operation{null, setRobotsPosition, missionMessage};
+template<typename T>
+std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type& stream, const T& e)
+{
+    return stream << static_cast<typename std::underlying_type<T>::type>(e);
+}
+
+
+enum class Operation{null, setRobotsPosition, missionMessage, batteryMessage};
 enum class enum_RobotCategory{null, uav, ugv, usv};
 
 
@@ -26,12 +34,9 @@ enum class enum_MissionRequest{null, waitingBids, notifyingWinner, executingMiss
 enum class enum_MissionExecution{null, waitingAuction, waitingStart, executing, missionComplete};
 enum class enum_MissionOperation{null, createMission, addMission, addAndRequestCost, Bid, abortMission, winningBid, acceptMission , startMission, emergency, missionComplete};
 
-
-template<typename T>
-std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type& stream, const T& e)
-{
-    return stream << static_cast<typename std::underlying_type<T>::type>(e);
-}
+enum class enum_ChargingRequest{null, ok, chargingRequest, notfyingWinner, goingToLocation, charging, chargingComplete};
+enum class enum_ChargingService{null, waitingRequest, bid, waitingForArrival, charging, chargingComplete};
+enum class enum_ChargingOperation{null, chargingRequest, bid, winningBid, acceptRequest, arrivedAtStation, startCharging, chargingComplete, atomicTaskInterrupt};
 
 
 struct s_pose
@@ -74,6 +79,20 @@ struct s_MissionMessage
     
 };
 
+struct s_BatteryMessage
+{
+    char requestID[10] = "null";
+    char spotID[10] = "null";
+    char senderAddress[16] = "null";
+    char senderName[10] = "null";
+    enum_ChargingOperation operation = enum_ChargingOperation::null;
+    float Cost = 0;
+    //char buffer[500] = "null";
+    s_pose position;
+    enum_RobotCategory robotCat;
+    int executionTime;
+    
+};
 
 struct s_ROSBridgeMessage
 {

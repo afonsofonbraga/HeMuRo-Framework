@@ -12,42 +12,75 @@
 #include <iostream>
 #include <unordered_map>
 
-#include "BlackBoard.hpp"
 #include "dataTypes.hpp"
+#include "BlackBoard.hpp"
+#include "Module.hpp"
+#include "ModulePeriodic.hpp"
+
+#include "UDPBroadcast.hpp"
+#include "UDPReceiver.hpp"
 #include "UDPReceiverSim.hpp"
-#include "DefaultRobot.hpp"
-#include "ChargingStation.hpp"
+#include "UDPSender.hpp"
 
+#include "AtomicTask.hpp"
+//#include "TaskManager.hpp"
 
+#include "MissionManager.hpp"
 
 int main(){
     
     std::string name{"Robo"};
     int numberOfRobots = 1;
-
-    std::vector<BlackBoard* > v_BlackBoard; // = new std::vector<BlackBoard>;
-    std::vector<DefaultRobot* > v_DefaultRobot;
-    std::vector<ChargingStation* > v_ChargingStation;
-    UDPReceiverSim* receiver = new UDPReceiverSim();
-
+    enum_RobotCategory cat = enum_RobotCategory::null;
+    
+#ifdef MAVROS
+    cat = enum_RobotCategory::uav;
+#endif
+    
+#ifdef ROSBOT
+    cat = enum_RobotCategory::ugv;
+#endif
+    
+    
+    std::vector<BlackBoard *> v_BlackBoard; // = new std::vector<BlackBoard>;
+    std::vector<UDPBroadcast*> v_Broadcast;// = new std::vector<UDPBroadcast>;
+    std::vector<UDPReceiver*> v_Receiver;
+    std::vector<UDPSender*> v_Sender;
+    std::vector<MissionManager*> v_MissionManager;
+    //std::vector<Alive*> v_Alive;
+    //UDPReceiverSim* receiver = new UDPReceiverSim();
+    
+#ifndef DEFAULT
+    //std::string node = name;
+    ros::init(argc, argv ,name);
+    ros::NodeHandle n;
+    ros::AsyncSpinner spinner(0);
+    spinner.start();
+#endif
+    
     for (int i=0; i< numberOfRobots; i++)
     {
         std::string robotsName = name + std::to_string(i);
         BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
         v_BlackBoard.push_back(memory);
-        receiver->addRobot(v_BlackBoard.at(i));
-        bool decentralizedCommunication = false;
-        DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
-        v_DefaultRobot.push_back(robot);
+        UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
+        UDPReceiver* receiver = new UDPReceiver(v_BlackBoard.at(i));
+        //receiver->addRobot(v_BlackBoard.at(i));
+        UDPSender* sender = new UDPSender(v_BlackBoard.at(i));
+        MissionManager* missionManager = new MissionManager(v_BlackBoard.at(i));
         
-        robotsName = name + std::to_string(2);
-        memory = new BlackBoard(robotsName, enum_RobotCategory::null);
-        v_BlackBoard.push_back(memory);
-        receiver->addRobot(v_BlackBoard.at(1));
-        ChargingStation* station = new ChargingStation(v_BlackBoard.at(1), decentralizedCommunication);
-        v_ChargingStation.push_back(station);
+#ifndef DEFAULT
+        //Alive* alive = new Alive(v_BlackBoard.at(i), n);
+#endif
+#ifdef DEFAULT
+        //Alive* alive = new Alive(v_BlackBoard.at(i));
+#endif
+        v_Broadcast.push_back(broadcast);
+        v_Receiver.push_back(receiver);
+        v_MissionManager.push_back(missionManager);
+        //v_Alive.push_back(alive);
     }
-    /*
+    
     char vIP[16];
     
     
@@ -63,6 +96,28 @@ int main(){
     strcpy(message.address , vIP);
     Operation operation = Operation::missionMessage;
     v_BlackBoard.at(0)->getRobotsName(*message.name);
+    
+    /*
+    {
+        strcpy(mission.missionCode, "Task1");
+        mission.taskToBeDecomposed = enum_DecomposableTask::flightTest;
+        mission.robotCat = enum_RobotCategory::uav;
+        mission.goal.x = -6.0;
+        mission.goal.y = 5.0;
+        mission.goal.z = 3.0;
+        mission.goal.yaw = 0;
+        mission.executionTime = 300;
+        
+        
+        memcpy(message.buffer,"Robo0",10);
+        *((Operation*)(message.buffer + 10)) = operation;
+        *((int*)(message.buffer + 14)) = sizeof(mission);
+        memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
+        message.messageSize = sizeof(message.buffer);
+        
+        v_BlackBoard.at(0)->addUDPMessage(message);
+    }*/
+    
     
     {
         strcpy(mission.missionCode, "Task2");
@@ -122,7 +177,7 @@ int main(){
         message.messageSize = sizeof(message.buffer);
         
         v_BlackBoard.at(0)->addUDPMessage(message);
-    }*/
+    }
     
     while (std::getchar() != 'c'){}
     return 0;

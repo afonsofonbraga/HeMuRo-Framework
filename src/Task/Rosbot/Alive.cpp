@@ -70,7 +70,7 @@ void Alive::callbackOdometry(const nav_msgs::Odometry::ConstPtr& msg)
 
 void Alive::callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg)
 {
-    this->monitor->setBatteryLevel(msg.data);
+    this->monitor->setBatteryLevel(msg->data);
 }
 
 void Alive::run()

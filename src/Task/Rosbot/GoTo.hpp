@@ -18,6 +18,7 @@
 class GoTo : public AtomicTask
 {
 protected:
+    std::chrono::system_clock::time_point t0;
     std::chrono::milliseconds tick = std::chrono::milliseconds(100); // 0.1s
     float costMeter = 2.0;
     

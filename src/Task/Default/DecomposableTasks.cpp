@@ -23,6 +23,7 @@ void decomposableTaskList(BlackBoard* monitor)
     monitor->addDecomposableTaskList(lala, teste);
     
     teste.clear();
+    teste.push_back(enum_AtomicTask::goTo);
     teste.push_back(enum_AtomicTask::chargeBattery);
     lala = enum_DecomposableTask::lowBattery;
     

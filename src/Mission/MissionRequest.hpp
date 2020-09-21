@@ -23,7 +23,7 @@ public:
     enum_MissionRequest enum_request = enum_MissionRequest::null;
     std::thread* t5;
     int biddingTime = 5;
-    int communicationTime = 1;
+    int communicationTime = 2;
     int executionTime = 30;
     std::vector<Bid> vectorBids;
     std::unique_ptr<std::condition_variable> cv;

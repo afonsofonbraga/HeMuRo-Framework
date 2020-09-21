@@ -23,6 +23,8 @@
 #include "std_msgs/String.h"
 #include "turtlesim/Pose.h"
 #include "turtlesim/Color.h"
+#include "std_msgs/Int32.h"
+
 
 class Alive: public Module
 {
