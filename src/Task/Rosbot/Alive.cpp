@@ -27,6 +27,7 @@ Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(
     
     topic = vName + "/battery/recharge";
     publishersList["battery/recharge"] = node.advertise<std_msgs::Bool>(topic, 10);
+}
 
 Alive::~Alive()
 {
@@ -91,7 +92,7 @@ void Alive::run()
                 msg.angular.z = vCmdvel.theta;
                 this->publishersList["cmd_vel"].publish(msg);
             }
-            if(strcmp(vROSBridgeMessage->topicName, "chargeBattery") == 0)
+            if(strcmp(vROSBridgeMessage->topicName, "ChargeBattery") == 0)
             {
                 //recharge battery
                 bool rechargeStatus = ((bool*)vROSBridgeMessage->buffer)[0];

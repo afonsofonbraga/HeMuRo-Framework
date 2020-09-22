@@ -51,7 +51,7 @@ int main(){
     
     char vIP[16];
     
-    
+    /*
     std::cout << "Time to send a Mission!!!!!"<< std::endl;
     
     s_MissionMessage mission;
@@ -123,7 +123,7 @@ int main(){
         message.messageSize = sizeof(message.buffer);
         
         v_BlackBoard.at(0)->addUDPMessage(message);
-    }
+    }*/
     
     while (std::getchar() != 'c'){}
     return 0;
