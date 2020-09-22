@@ -98,6 +98,7 @@ void Alive::run()
                 bool rechargeStatus = ((bool*)vROSBridgeMessage->buffer)[0];
                 std_msgs::Bool msg;
                 msg.data = rechargeStatus;
+                std::cout << "Sending ROS command! " << msg.data << std::endl;
                 this->publishersList["battery/recharge"].publish(msg);
             }
         }
