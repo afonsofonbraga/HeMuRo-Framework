@@ -24,7 +24,9 @@ Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(
     //Publishers
     topic = vName + "/cmd_vel";
     publishersList["cmd_vel"] = node.advertise<geometry_msgs::Twist>(topic, 10);
-}
+    
+    topic = vName + "/battery/recharge";
+    publishersList["battery/recharge"] = node.advertise<std_msgs::Bool>(topic, 10);
 
 Alive::~Alive()
 {
@@ -88,6 +90,14 @@ void Alive::run()
                 msg.linear.x = vCmdvel.x;
                 msg.angular.z = vCmdvel.theta;
                 this->publishersList["cmd_vel"].publish(msg);
+            }
+            if(strcmp(vROSBridgeMessage->topicName, "chargeBattery") == 0)
+            {
+                //recharge battery
+                bool rechargeStatus = ((bool*)vROSBridgeMessage->buffer)[0];
+                std_msgs::Bool msg;
+                msg.data = rechargeStatus;
+                this->publishersList["battery/recharge"].publish(msg);
             }
         }
 }

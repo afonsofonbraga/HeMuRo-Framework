@@ -27,6 +27,7 @@
 #include <nav_msgs/Odometry.h>
 #include "std_msgs/Float64.h"
 #include "std_msgs/Int32.h"
+#include "std_msgs/Bool.h"
 #include <geometry_msgs/Pose2D.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Twist.h>

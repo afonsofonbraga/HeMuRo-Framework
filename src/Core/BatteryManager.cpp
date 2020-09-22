@@ -61,7 +61,7 @@ void BatteryManager::run()
     {
         auto vBatteryMessage = std::make_unique<s_BatteryMessage>();
         this->monitor->getBatteryMessage(*vBatteryMessage);
-                        
+        
         if (vBatteryMessage != nullptr && this->isRunning == true)
         {
             switch(vBatteryMessage->operation)
@@ -132,20 +132,24 @@ void BatteryManager::batteryCheckLoop()
             }
             case enum_ChargingRequest::chargingRequest:
             {
-                s_BatteryMessage message;
-                strcpy(message.requestID,"test");
-                this->monitor->getRobotsName(*message.senderName);
-                this->monitor->getRobotsIP(*message.senderAddress);
-                message.robotCat = this->monitor->getRobotsCategory();
-                message.operation = enum_ChargingOperation::chargingRequest;
-                
-                char broadcast[10] = "Broadcast";
-                
-                sendUDPMessage(message, *this->broadcastIP, *broadcast);
-                
-                auto t0 = std::chrono::high_resolution_clock::now();
-                conditional_batteryCheck.wait_until(lock1, t0 + std::chrono::seconds(5));
-                this->batteryStatus = enum_ChargingRequest::notfyingWinner;
+                if(batteryLevel < 30) //Remember to modify this line in case of modyfing the conditions for the charging request
+                {
+                    s_BatteryMessage message;
+                    strcpy(message.requestID,"test");
+                    this->monitor->getRobotsName(*message.senderName);
+                    this->monitor->getRobotsIP(*message.senderAddress);
+                    message.robotCat = this->monitor->getRobotsCategory();
+                    message.operation = enum_ChargingOperation::chargingRequest;
+                    
+                    char broadcast[10] = "Broadcast";
+                    
+                    sendUDPMessage(message, *this->broadcastIP, *broadcast);
+                    
+                    auto t0 = std::chrono::high_resolution_clock::now();
+                    conditional_batteryCheck.wait_until(lock1, t0 + std::chrono::seconds(5));
+                    this->batteryStatus = enum_ChargingRequest::notfyingWinner;
+                } else
+                    this->batteryStatus = enum_ChargingRequest::ok;
                 lock1.unlock();
                 break;
             }
@@ -154,7 +158,7 @@ void BatteryManager::batteryCheckLoop()
                 if(this->vectorBids.empty() || this->vectorBids.size() == 0)
                 {
                     std::cout << "[robot] Charging request ignored by all. Trying again." << std::endl;
-                    this->batteryStatus = enum_ChargingRequest::chargingRequest;
+                    this->batteryStatus = enum_ChargingRequest::ok;
                 } else
                 {
                     int winner = 0;
@@ -209,7 +213,7 @@ void BatteryManager::batteryCheckLoop()
                     this->batteryStatus = enum_ChargingRequest::charging;
                     
                 }
-                    
+                
                 lock1.unlock();
                 break;
             }

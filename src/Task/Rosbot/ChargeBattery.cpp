@@ -34,6 +34,13 @@ void ChargeBattery::run()
             this->monitor->addBatteryMessage(message);
             t0 = std::chrono::system_clock::now();
             this->status = enum_AtomicTaskStatus::running;
+            
+            bool chargeStatus = true;
+            s_ROSBridgeMessage msg;
+            strcpy(msg.topicName,"ChargeBattery");
+            memmove(teste.buffer,(char*)&chargeStatus,sizeof(chargeStatus));
+            this->monitor->addROSBridgeMessage(msg);
+            
             break;
         }
 
@@ -42,12 +49,17 @@ void ChargeBattery::run()
             if(this->monitor->getBatteryLevel() < 100)
             {
                 std::this_thread::sleep_until(t0 + this->tick);
-                this->monitor->chargeBattery(1.0);
                 t0 = t0 + this->tick;
                 
             } else
             {
                 std::cout << "Bateria Carregada!"<< std::endl;
+                
+                bool chargeStatus = false;
+                s_ROSBridgeMessage msg;
+                strcpy(msg.topicName,"ChargeBattery");
+                memmove(teste.buffer,(char*)&chargeStatus,sizeof(chargeStatus));
+                this->monitor->addROSBridgeMessage(msg);
                 
                 //Send a interrupt to inform that the charging is complete!"
                 s_BatteryMessage message;
