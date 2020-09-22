@@ -197,6 +197,7 @@ void MissionManager::startMissionToExecute()
                 case enum_MissionExecution::missionComplete:
                     cleanEmergecy();
                     this->monitor->unlockRobot();
+                    this->conditional_executeMission.wait(lk);
                     break;
             }
         }
@@ -234,9 +235,9 @@ void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissi
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
         //CHECK IF THERE IS ENOUGH BATTERY OR IF THE PATH IS FEASABLE
         //this->MissionList.insert_or_assign(vMission->missionCode, *vMission);
-        
-        // Send back the proposal
-        sendMissionCost(this->MissionList[vMissionMessage->missionCode]);
+        std::cout << "Mission "<< vMissionMessage->missionCode << " costs: " << this->MissionList[vMissionMessage->missionCode].missionCost << std::endl;
+        if(this->MissionList[vMissionMessage->missionCode].missionCost <= this->monitor->getBatteryLevel())
+            sendMissionCost(this->MissionList[vMissionMessage->missionCode]); // Send back the proposal
     }
     //std::cout << "Deleting vMission" <<std::endl;
     //delete vMission;

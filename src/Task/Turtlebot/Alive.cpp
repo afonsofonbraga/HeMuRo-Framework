@@ -38,7 +38,7 @@ Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(
     std::string topic = vname + "/pose";
     subscribersList["pose"] = node.subscribe(topic, 1000, &Alive::callbackPosition,this);
     
-    std::string topic = vName + "/battery/percent";
+    topic = vName + "/battery/percent";
     subscribersList["battery/percent"] = node.subscribe(topic, 1, &Alive::callbackBatteryPercentage,this);
     
     // Publishers

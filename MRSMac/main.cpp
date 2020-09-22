@@ -47,7 +47,7 @@ int main(){
         ChargingStation* station = new ChargingStation(v_BlackBoard.at(1), decentralizedCommunication);
         v_ChargingStation.push_back(station);
     }
-    /*
+    
     char vIP[16];
     
     
@@ -69,8 +69,8 @@ int main(){
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
         mission.robotCat = enum_RobotCategory::ugv;
-        mission.goal.x = 105.0;
-        mission.goal.y = 104.0;
+        mission.goal.x = 10.0;
+        mission.goal.y = 10.0;
         mission.goal.z = 0.0;
         mission.goal.yaw = 0.3;
         mission.executionTime = 300;
@@ -89,8 +89,8 @@ int main(){
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
         mission.robotCat = enum_RobotCategory::ugv;
-        mission.goal.x = 0.0;
-        mission.goal.y = 0.0;
+        mission.goal.x = 15.0;
+        mission.goal.y = 2.0;
         mission.goal.z = 0.0;
         mission.goal.yaw = 0.3;
         mission.executionTime = 300;
@@ -109,8 +109,8 @@ int main(){
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
         mission.robotCat = enum_RobotCategory::ugv;
-        mission.goal.x = 0.0;
-        mission.goal.y = 0.0;
+        mission.goal.x = -20.0;
+        mission.goal.y = 10.0;
         mission.goal.z = 0.0;
         mission.goal.yaw = 0.3;
         mission.executionTime = 300;
@@ -122,7 +122,7 @@ int main(){
         message.messageSize = sizeof(message.buffer);
         
         v_BlackBoard.at(0)->addUDPMessage(message);
-    }*/
+    }
     
     while (std::getchar() != 'c'){}
     return 0;

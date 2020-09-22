@@ -232,13 +232,6 @@
 			path = ChargingStation;
 			sourceTree = "<group>";
 		};
-		23965EAF25013D8900F6E7A5 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		23D20B3E245C705C0013F98A /* main */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,7 +255,6 @@
 				23EDB521245CC72F003D13A3 /* Communication */,
 				23D20B44245C705C0013F98A /* Core */,
 				23ECC3C6248E99940025CBC7 /* Mission */,
-				23965EAF25013D8900F6E7A5 /* New Group */,
 				23805D362460BC730061F4A0 /* Task */,
 			);
 			path = src;

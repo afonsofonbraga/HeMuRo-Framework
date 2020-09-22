@@ -9,6 +9,8 @@ include_directories(${framework_SOURCE_DIR}/src/Core)
 include_directories(${framework_SOURCE_DIR}/src/Task)
 include_directories(${framework_SOURCE_DIR}/src/Mission)
 
+include_directories(${framework_SOURCE_DIR}/src/Task/ChargingStation)
+
 
 if(DEFAULT)
     include_directories(${framework_SOURCE_DIR}/src/Task/Default)
@@ -30,7 +32,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_library(core Core/BlackBoard.cpp Core/Module.cpp Core/ModulePeriodic.cpp BattteryManager.cpp)
+add_library(core Core/BlackBoard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Core/BatteryManager.cpp Task/ChargingStation/ChargingSpot.cpp Task/ChargingStation/ChargingStation.cpp )
 add_library(communication Core/BlackBoard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Communication/UDPBroadcast.cpp Communication/UDPReceiver.cpp Communication/UDPSender.cpp Communication/UDPReceiverSim.cpp)
 
 if(DEFAULT)

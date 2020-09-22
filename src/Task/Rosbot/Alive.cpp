@@ -18,7 +18,7 @@ Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(
     std::string topic = vName + "/odom";
     subscribersList["odom"] = node.subscribe(topic, 1000, &Alive::callbackOdometry,this);
     
-    std::string topic = vName + "/battery/percent";
+    topic = vName + "/battery/percent";
     subscribersList["battery/percent"] = node.subscribe(topic, 1, &Alive::callbackBatteryPercentage,this);
     
     //Publishers

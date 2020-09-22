@@ -41,6 +41,7 @@ void GoTo::run()
                 p.y = this->endPosition.y;
                 p.roll = this->endPosition.roll;
                 this->monitor->setPosition(p);
+                std::cout << "COST: " << this->cost << std::endl;
                 this->monitor->consumeBattery(this->cost);
             }
         }

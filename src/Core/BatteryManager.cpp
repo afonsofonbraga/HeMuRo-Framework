@@ -120,6 +120,7 @@ void BatteryManager::batteryCheckLoop()
             }
             case enum_ChargingRequest::ok:
             {
+                std::cout << "BatteryLevel: " << batteryLevel << std::endl;
                 if(batteryLevel >= 30)
                 {
                     auto t0 = std::chrono::high_resolution_clock::now();

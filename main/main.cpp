@@ -18,10 +18,21 @@
 #include "BlackBoard.hpp"
 #include "UDPReceiverSim.hpp"
 
-#include "MavrosRobot.hpp"
-#include "DefaultRobot.hpp"
-#include "TurtlebotRobot.hpp"
-#include "RosbotRobot.hpp"
+#ifdef DEFAULT
+    #include "DefaultRobot.hpp"
+#endif
+    
+#ifdef MAVROS
+    #include "MavrosRobot.hpp"
+#endif
+    
+#ifdef ROSBOT
+    #include "RosbotRobot.hpp"
+#endif
+    
+#ifdef TRUTLEBOT
+    #include "TurtlebotRobot.hpp"
+#endif
 
 int main( int argc, char *argv[ ] )
 {
@@ -71,15 +82,15 @@ int main( int argc, char *argv[ ] )
 #endif
         
 #ifdef MAVROS
-        MavrosRobot* robot = new MavrosRobot(v_BlackBoard.at(i), decentralizedCommunication);
+        MavrosRobot* robot = new MavrosRobot(v_BlackBoard.at(i), n , decentralizedCommunication);
 #endif
         
 #ifdef ROSBOT
-        RosbotRobot* robot = new RosbotRobot(v_BlackBoard.at(i), decentralizedCommunication);
+        RosbotRobot* robot = new RosbotRobot(v_BlackBoard.at(i), n, decentralizedCommunication);
 #endif
         
 #ifdef TRUTLEBOT
-        TurtlebotRobot* robot = new TurtlebotRobot(v_BlackBoard.at(i), decentralizedCommunication);
+        TurtlebotRobot* robot = new TurtlebotRobot(v_BlackBoard.at(i), n, decentralizedCommunication);
 #endif
         v_Robot.push_back(robot);
     }

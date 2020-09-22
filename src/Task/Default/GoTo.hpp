@@ -15,7 +15,7 @@
 class GoTo : public AtomicTask
 {
 protected:
-    float costMeter = 20.0;
+    float costMeter = 0.2;
 int i = 0;
 
     float kp = 1, ki = 1, kd = 1;
