@@ -29,6 +29,7 @@ class MissionManager: public Module
 {
 private:
     char broadcastIP[16]="null";
+    char robotName[10] = "null";
     std::map<std::string, MissionExecution> MissionList;
     std::unordered_map<std::string, MissionRequest> missionOwnerList;
     

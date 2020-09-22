@@ -32,7 +32,8 @@ int main(){
 
     for (int i=0; i< numberOfRobots; i++)
     {
-        std::string robotsName = name + std::to_string(i);
+        //std::string robotsName = name + std::to_string(i);
+        std::string robotsName = "Robot";
         BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
         v_BlackBoard.push_back(memory);
         receiver->addRobot(v_BlackBoard.at(i));
@@ -40,7 +41,7 @@ int main(){
         DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
         v_DefaultRobot.push_back(robot);
         
-        robotsName = name + std::to_string(2);
+        robotsName = "CStation";
         memory = new BlackBoard(robotsName, enum_RobotCategory::null);
         v_BlackBoard.push_back(memory);
         receiver->addRobot(v_BlackBoard.at(1));
@@ -75,7 +76,7 @@ int main(){
         mission.goal.yaw = 0.3;
         mission.executionTime = 300;
         
-        memcpy(message.buffer,"Robo0",10);
+        memcpy(message.buffer,"CStation",10);
         *((Operation*)(message.buffer + 10)) = operation;
         *((int*)(message.buffer + 14)) = sizeof(mission);
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
@@ -95,7 +96,7 @@ int main(){
         mission.goal.yaw = 0.3;
         mission.executionTime = 300;
         
-        memcpy(message.buffer,"Robo0",10);
+        memcpy(message.buffer,"CStation",10);
         *((Operation*)(message.buffer + 10)) = operation;
         *((int*)(message.buffer + 14)) = sizeof(mission);
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
@@ -115,7 +116,7 @@ int main(){
         mission.goal.yaw = 0.3;
         mission.executionTime = 300;
         
-        memcpy(message.buffer,"Robo0",10);
+        memcpy(message.buffer,"CStation",10);
         *((Operation*)(message.buffer + 10)) = operation;
         *((int*)(message.buffer + 14)) = sizeof(mission);
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));

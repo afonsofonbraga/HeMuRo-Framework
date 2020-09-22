@@ -18,6 +18,9 @@ MavrosRobot::MavrosRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decen
     sender = new UDPSender(monitor);
     missionManager = new MissionManager(monitor);
     alive = new Alive(monitor, vNode);
+    
+    strcpy(mode,"Robot");
+    batteryManager = new BatteryManager(monitor,mode);
 }
 
 MavrosRobot::~MavrosRobot()
@@ -28,4 +31,5 @@ MavrosRobot::~MavrosRobot()
     delete this->sender;
     delete this->missionManager;
     delete this->alive;
+    delete this->batteryManager;
 }

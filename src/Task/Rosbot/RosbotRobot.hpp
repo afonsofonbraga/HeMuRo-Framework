@@ -25,6 +25,8 @@
 
 #include "MissionManager.hpp"
 
+#include "BatteryManager.hpp"
+
 class RosbotRobot
 {
 protected:
@@ -34,6 +36,9 @@ protected:
     UDPSender* sender;
     MissionManager* missionManager;
     Alive* alive;
+    
+    BatteryManager* batteryManager;
+    char mode[16];
 public:
     RosbotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized); // SEND ARGS
     ~RosbotRobot();
