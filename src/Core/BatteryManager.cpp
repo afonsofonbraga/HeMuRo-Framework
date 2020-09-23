@@ -18,20 +18,20 @@ BatteryManager::BatteryManager(BlackBoard* monitor, char vMode[]) : Module(monit
         s_pose position;
         this->monitor->getPosition(position);
         ChargingSpot spot;
-        position.x = position.x;
+        position.x = position.x+3;
         position.y = position.y;
         spot.setSpotPosition(position);
         spot.setChargerCompatibility(enum_RobotCategory::ugv);
         this->chargingSpotList["Spot1"] = spot;
         
-        position.x = position.x + 0.1;
-        position.y = position.y + 0.1;
+        position.x = position.x + 1;
+        position.y = position.y + 1;
         spot.setSpotPosition(position);
         spot.setChargerCompatibility(enum_RobotCategory::ugv);
         this->chargingSpotList["Spot2"] = spot;
         
-        position.x = position.x - 0.2;
-        position.y = position.y - 0.2;
+        position.x = position.x - 2;
+        position.y = position.y - 2;
         spot.setSpotPosition(position);
         spot.setChargerCompatibility(enum_RobotCategory::ugv);
         this->chargingSpotList["Spot3"] = spot;
@@ -299,9 +299,9 @@ void BatteryManager::winningBid(std::unique_ptr<s_BatteryMessage> vBatteryMessag
         
         for (auto n : this->chargingSpotList)
         {
-            if (n.second.isAvailable() == true && vBatteryMessage->robotCat == n.second.getChargerCompatibility())
+            if (this->chargingSpotList[n.first].isAvailable() == true && vBatteryMessage->robotCat == n.second.getChargerCompatibility())
             {
-                if (n.second.assignChargingRequest(chargingRequestList[vBatteryMessage->requestID]) == true)
+                if (this->chargingSpotList[n.first].assignChargingRequest(chargingRequestList[vBatteryMessage->requestID]) == true)
                 {
                     std::cout << "[CS " << this->agentName << "] Charging spot reserved for " << vBatteryMessage->senderName << "!"<< std::endl;
                     
@@ -313,7 +313,7 @@ void BatteryManager::winningBid(std::unique_ptr<s_BatteryMessage> vBatteryMessag
                     this->monitor->getRobotsIP(*message.senderAddress);
                     message.operation = enum_ChargingOperation::acceptRequest;
                     strcpy(message.spotID,n.first.c_str());
-                    n.second.getSpotPosition(message.position); // NOW SENDIG THE SPOT LOCATION
+                    this->chargingSpotList[n.first].getSpotPosition(message.position); // NOW SENDIG THE SPOT LOCATION
                     
                     // Now the informations regarding the Charging Request belongs to the charging spot. Maybe this will be difficult to access
                     sendUDPMessage(message, *vBatteryMessage->senderAddress, *vBatteryMessage->senderName);
@@ -378,6 +378,7 @@ void BatteryManager::acceptRequest(std::unique_ptr<s_BatteryMessage> vBatteryMes
     strcpy(this->chargingStationWinner.spotID, vBatteryMessage->spotID);
     this->chargingStationWinner.spotPosition = vBatteryMessage->position;
     this->batteryStatus = enum_ChargingRequest::goingToLocation;
+    std::cout << "Spot ID: " << vBatteryMessage->spotID << " Global Position -> X: " << vBatteryMessage->position.x << " y: " << vBatteryMessage->position.y << std::endl;
     conditional_batteryCheck.notify_one();
     
 }

@@ -368,7 +368,7 @@ void MissionManager::emergencyCall(std::unique_ptr<s_MissionMessage> vMissionMes
         strcpy(vMission->senderAddress,vMissionMessage->senderAddress);
         strcpy(vMission->senderName,vMissionMessage->senderName);
         vMission->mission = vMissionMessage->taskToBeDecomposed;
-        
+        vMission->goal = vMissionMessage->goal;
         //addAtomicTask(*vMission);
         
         addAtomicTask2(monitor, *vMission);

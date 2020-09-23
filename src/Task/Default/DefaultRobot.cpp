@@ -18,7 +18,7 @@ DefaultRobot::DefaultRobot(BlackBoard* monitor, bool decentralized)
         receiver = new UDPReceiver(monitor);
     sender = new UDPSender(monitor);
     missionManager = new MissionManager(monitor);
-    //batteryManager = new BatteryManager(monitor,mode);
+    batteryManager = new BatteryManager(monitor,mode);
 }
 
 DefaultRobot::~DefaultRobot()
@@ -28,5 +28,5 @@ DefaultRobot::~DefaultRobot()
         delete this->receiver;
     delete this->sender;
     delete this->missionManager;
-    //	delete this->batteryManager;
+    	delete this->batteryManager;
 }

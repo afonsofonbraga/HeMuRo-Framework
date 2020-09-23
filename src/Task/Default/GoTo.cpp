@@ -23,8 +23,9 @@ void GoTo::run()
             break;
             
         case enum_AtomicTaskStatus::waiting:
-            std::cout << "Going to the location."<< std::endl;
+            std::cout << "Going to the location -> x: " << this->endPosition.x << " Y: " << this->endPosition.y << std::endl;
             this->status = enum_AtomicTaskStatus::running;
+            
             break;
             
         case enum_AtomicTaskStatus::running:

@@ -40,12 +40,13 @@ int main(){
         bool decentralizedCommunication = false;
         DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
         v_DefaultRobot.push_back(robot);
+
         
         robotsName = "CStation";
         memory = new BlackBoard(robotsName, enum_RobotCategory::null);
         v_BlackBoard.push_back(memory);
-        receiver->addRobot(v_BlackBoard.at(1));
-        ChargingStation* station = new ChargingStation(v_BlackBoard.at(1), decentralizedCommunication);
+        receiver->addRobot(v_BlackBoard.at(2));
+        ChargingStation* station = new ChargingStation(v_BlackBoard.at(2), decentralizedCommunication);
         v_ChargingStation.push_back(station);
     }
     
