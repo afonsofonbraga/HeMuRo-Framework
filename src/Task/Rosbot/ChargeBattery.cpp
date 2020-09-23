@@ -38,7 +38,7 @@ void ChargeBattery::run()
             bool chargeStatus = true;
             s_ROSBridgeMessage msg;
             strcpy(msg.topicName,"ChargeBattery");
-            memmove(teste.buffer,(char*)&chargeStatus,sizeof(chargeStatus));
+            memmove(msg.buffer,(char*)&chargeStatus,sizeof(chargeStatus));
             this->monitor->addROSBridgeMessage(msg);
             
             break;
@@ -58,7 +58,7 @@ void ChargeBattery::run()
                 bool chargeStatus = false;
                 s_ROSBridgeMessage msg;
                 strcpy(msg.topicName,"ChargeBattery");
-                memmove(teste.buffer,(char*)&chargeStatus,sizeof(chargeStatus));
+                memmove(msg.buffer,(char*)&chargeStatus,sizeof(chargeStatus));
                 this->monitor->addROSBridgeMessage(msg);
                 
                 //Send a interrupt to inform that the charging is complete!"

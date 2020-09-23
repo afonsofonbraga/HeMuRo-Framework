@@ -6,6 +6,7 @@
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
+
 #include "GoTo.hpp"
 #include <map>
 
@@ -28,6 +29,7 @@ void GoTo::run()
             std::cout << "Going to the location."<< std::endl;
             this->status = enum_AtomicTaskStatus::running;
             t0 = std::chrono::system_clock::now();
+            std::cout << "x: " << this->endPosition.x << " Y: " << this->endPosition.y << std::endl;
             break;
         }
             
@@ -42,8 +44,10 @@ void GoTo::run()
                 
                 deltaError.x = this->endPosition.x - p.x;
                 deltaError.y = this->endPosition.y - p.y;
-                deltaError.yaw = this->endPosition.yaw - p.yaw;
+                deltaError.yaw = adjustAngle(this->endPosition.yaw - p.yaw);
                 s_cmdvel vCmdvel;
+                
+                std::cout << "Erro: X: " << deltaError.x << " Y: "<< deltaError.y << " total: "<< sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2))<<std::endl;
                 
                 if(sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2)) <= 0.1)
                 {
@@ -53,25 +57,22 @@ void GoTo::run()
                 } else
                 {
                     float ro = sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2));
-                    alpha_t_old = alpha_t;
-                    alpha_t = atan2(deltaError.y, deltaError.x) - p.yaw;
-                    if(alpha_t > M_PI)
-                        alpha_t = alpha_t - 2*M_PI ;
-                    if (alpha_t < -M_PI)
-                        alpha_t = alpha_t + 2*M_PI ;
+                    float gama = atan2(deltaError.y, deltaError.x);
+                    alpha_t = adjustAngle(gama - p.yaw);
+                    float beta = adjustAngle(this->endPosition.yaw - gama);
                     
-                    v = fmin(ro, 0.5);
-                    sum_Alpha_t += alpha_t;
-                    omega = kp * alpha_t + ki * sum_Alpha_t + kd * (alpha_t - alpha_t_old);
+                    v = fmin(kp*ro, 0.5);
                     
-                    // Limitando a atuação
-                    if (omega > M_PI)
-                        omega = M_PI;
-                    else if (omega < - M_PI)
-                        omega = - M_PI;
+                    if((alpha_t > - M_PI && alpha_t < -M_PI/2) || (alpha_t > M_PI/2 && alpha_t >= M_PI))
+                    {
+                        // I2
+                        v = -v;
+                        alpha_t = adjustAngle(alpha_t + M_PI);
+                        beta = adjustAngle(beta + M_PI);
+                    }
                     
                     vCmdvel.x = v;
-                    vCmdvel.theta = omega;
+                    vCmdvel.theta = ka*alpha_t + kb*beta;
                     
                 }
                 
@@ -95,3 +96,10 @@ void GoTo::calculateCost()
     this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costMeter;
 }
 
+float GoTo::adjustAngle(float angle)
+{
+    angle = fmod(angle,2*M_PI);
+    if (angle > M_PI)
+        angle -= 2*M_PI;
+    return angle;
+}
