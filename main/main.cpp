@@ -76,11 +76,11 @@ int main( int argc, char *argv[ ] )
     v_BlackBoard.push_back(memory);
     receiver->addRobot(v_BlackBoard.at(0));
     bool decentralizedCommunication = false;
-    DefaultRobot* logger = new DefaultRobot(v_BlackBoard.at(0), decentralizedCommunication);
+     RosbotRobot* logger = new RosbotRobot(v_BlackBoard.at(0), n, decentralizedCommunication);
 
     for (int i = 1; i < argc; i++)
     {
-        robotsName = argv[i+1];
+        robotsName = argv[i];
         BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
         v_BlackBoard.push_back(memory);
         receiver->addRobot(v_BlackBoard.at(i));
@@ -104,7 +104,7 @@ int main( int argc, char *argv[ ] )
     }
     while (std::getchar() != 'c'){}
     
-    delete logger;
+    //delete logger;
     return 0;
 }
 

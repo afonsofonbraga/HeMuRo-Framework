@@ -43,10 +43,15 @@ int main(){
     v_BlackBoard.push_back(memory);
     receiver->addRobot(v_BlackBoard.at(1));
     ChargingStation* station = new ChargingStation(v_BlackBoard.at(1), decentralizedCommunication);
+    s_pose position;
+    position.x = 0;
+    position.y = 10;
+    position.z = 0;
+    v_BlackBoard.at(1)->setPosition(position);
     v_ChargingStation.push_back(station);
     
     
-    
+    /*
     
     for (int i=2; i-2< numberOfRobots; i++)
     {
@@ -59,11 +64,11 @@ int main(){
         v_DefaultRobot.push_back(robot);
         
     }
-    
+    */
     char vIP[MAX_IP];
     
     
-    /*
+    
      std::cout << "Time to send a Mission!!!!!"<< std::endl;
      
      s_MissionMessage mission;
@@ -135,7 +140,7 @@ int main(){
      message.messageSize = sizeof(message.buffer);
      
      v_BlackBoard.at(0)->addUDPMessage(message);
-     }*/
+     }
     
     while (std::getchar() != 'c'){}
     return 0;

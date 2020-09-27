@@ -101,7 +101,7 @@ void BlackBoard::setRobotIP()
     strncpy(this->broadcastIP, this->robotIP, sizeof(robotIP));
     char* lastDot = strrchr(this->broadcastIP,'.');
     strcpy(lastDot + 1, "255");
-    strncpy(this->broadcastIP, "127.0.0.1", sizeof(robotIP));
+    //strncpy(this->broadcastIP, "127.0.0.1", sizeof(robotIP));
 }
 
 void BlackBoard::getRobotsIP(char& vIP)
