@@ -38,7 +38,7 @@
 int main( int argc, char *argv[ ] )
 {
     
-    if (argc <= 2)
+    if (argc < 2)
     {
         std::cerr << "Please, inform the robot's name:";
         return 0;
@@ -71,13 +71,20 @@ int main( int argc, char *argv[ ] )
     spinner.start();
 #endif
     
-    for (int i = 0; i < argc - 1; i++)
+    std::string robotsName = "Logger";
+    BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
+    v_BlackBoard.push_back(memory);
+    receiver->addRobot(v_BlackBoard.at(0));
+    bool decentralizedCommunication = false;
+    DefaultRobot* logger = new DefaultRobot(v_BlackBoard.at(0), decentralizedCommunication);
+
+    for (int i = 1; i < argc; i++)
     {
-        std::string robotsName = argv[i+1];
+        robotsName = argv[i+1];
         BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
         v_BlackBoard.push_back(memory);
         receiver->addRobot(v_BlackBoard.at(i));
-        bool decentralizedCommunication = false;
+        decentralizedCommunication = false;
 #ifdef DEFAULT
         DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
 #endif
@@ -96,6 +103,8 @@ int main( int argc, char *argv[ ] )
         v_Robot.push_back(robot);
     }
     while (std::getchar() != 'c'){}
+    
+    delete logger;
     return 0;
 }
 

@@ -23,7 +23,8 @@ void GoTo::run()
             break;
             
         case enum_AtomicTaskStatus::waiting:
-            std::cout << "Going to the location -> x: " << this->endPosition.x << " Y: " << this->endPosition.y << std::endl;
+            this->monitor->print("Going to the location -> x: " + std::to_string(this->endPosition.x) + " Y: " + std::to_string(this->endPosition.y));
+            //std::cout << "Going to the location -> x: " << this->endPosition.x << " Y: " << this->endPosition.y << std::endl;
             this->status = enum_AtomicTaskStatus::running;
             
             break;
@@ -34,7 +35,8 @@ void GoTo::run()
             this->monitor->getPosition(p);
             if(p.x == this->endPosition.x && p.y== this->endPosition.y && p.roll == this->endPosition.roll)
             {
-                std::cout << "Arrived at the destination!"<< std::endl;
+                this->monitor->print("Arrived at the destination!");
+                //std::cout << "Arrived at the destination!"<< std::endl;
                 this->status = enum_AtomicTaskStatus::completed;
             } else
             {
@@ -42,7 +44,8 @@ void GoTo::run()
                 p.y = this->endPosition.y;
                 p.roll = this->endPosition.roll;
                 this->monitor->setPosition(p);
-                std::cout << "COST: " << this->cost << std::endl;
+                this->monitor->print("COST: " + std::to_string(this->cost));
+                //std::cout << "COST: " << this->cost << std::endl;
                 this->monitor->consumeBattery(this->cost);
             }
         }

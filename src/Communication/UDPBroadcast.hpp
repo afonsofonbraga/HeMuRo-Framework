@@ -32,7 +32,7 @@ protected:
     int rc;
     char i= '0';
     int port = 1500;
-    char broadcastIP[16] = "null";
+    char broadcastIP[MAX_IP] = "null";
     //std::string broadcastIP{"10.0.0.255"};
     char buffer[500];
     struct sockaddr_in cliAddr;

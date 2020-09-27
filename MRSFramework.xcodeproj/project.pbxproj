@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		231AD3F0251E434D00C88B27 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 231AD3EE251E434D00C88B27 /* Logger.cpp */; };
 		2335B7F724FD71BF00661D4C /* DecomposableTasks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2335B7F524FD71BF00661D4C /* DecomposableTasks.cpp */; };
 		23494C9124CF130200697ABA /* TakePicture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23494C8F24CF130200697ABA /* TakePicture.cpp */; };
 		235CC3EB2493F0200012376D /* Mission.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235CC3E92493F0200012376D /* Mission.cpp */; };
@@ -44,6 +45,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		231AD3EE251E434D00C88B27 /* Logger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
+		231AD3EF251E434D00C88B27 /* Logger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Logger.hpp; sourceTree = "<group>"; };
 		2324E2D124F815E90033C523 /* GoTo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
 		2335B7F524FD71BF00661D4C /* DecomposableTasks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecomposableTasks.cpp; sourceTree = "<group>"; };
 		2335B7F624FD71BF00661D4C /* DecomposableTasks.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DecomposableTasks.hpp; sourceTree = "<group>"; };
@@ -274,6 +277,8 @@
 				23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */,
 				23EDB51F245CBBA9003D13A3 /* ModulePeriodic.hpp */,
 				23805D3A2460BF1E0061F4A0 /* dataTypes.hpp */,
+				231AD3EE251E434D00C88B27 /* Logger.cpp */,
+				231AD3EF251E434D00C88B27 /* Logger.hpp */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -486,6 +491,7 @@
 				23789A9524AB9694001372E5 /* MissionExecution.cpp in Sources */,
 				23C6E551246EF4F100D99185 /* TurnOn.cpp in Sources */,
 				2335B7F724FD71BF00661D4C /* DecomposableTasks.cpp in Sources */,
+				231AD3F0251E434D00C88B27 /* Logger.cpp in Sources */,
 				2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */,
 				23D20B51245C71560013F98A /* main.cpp in Sources */,
 				23F3A21D25006C7E00561375 /* DefaultRobot.cpp in Sources */,

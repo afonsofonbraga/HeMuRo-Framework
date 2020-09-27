@@ -26,10 +26,10 @@ void GoTo::run()
             
         case enum_AtomicTaskStatus::waiting:
         {
-            std::cout << "Going to the location."<< std::endl;
+            this->monitor->print("Going to the location -> x: " + std::to_string(this->endPosition.x) + " Y: " + std::to_string(this->endPosition.y));
             this->status = enum_AtomicTaskStatus::running;
             t0 = std::chrono::system_clock::now();
-            std::cout << "x: " << this->endPosition.x << " Y: " << this->endPosition.y << std::endl;
+            //std::cout << "x: " << this->endPosition.x << " Y: " << this->endPosition.y << std::endl;
             break;
         }
             
@@ -47,7 +47,7 @@ void GoTo::run()
                 deltaError.yaw = adjustAngle(this->endPosition.yaw - p.yaw);
                 s_cmdvel vCmdvel;
                 
-                std::cout << "Erro: X: " << deltaError.x << " Y: "<< deltaError.y << " total: "<< sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2))<<std::endl;
+                //std::cout << "Erro: X: " << deltaError.x << " Y: "<< deltaError.y << " total: "<< sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2))<<std::endl;
                 
                 if(sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2)) <= 0.1)
                 {
@@ -86,7 +86,7 @@ void GoTo::run()
         }
             break;
         case enum_AtomicTaskStatus::completed:
-            std::cout << "Arrived at the destination!"<< std::endl;
+            this->monitor->print("Arrived at the destination!");
             break;
     }
 }

@@ -63,10 +63,10 @@ void UDPReceiver::error(const char *msg){
 void UDPReceiver::dataTreatment(char *mensagem)
 {
     //int operation = mensagem[0];
-    char name[10];
-    memcpy(name, mensagem, 10);
+    char name[MAX_ROBOT_ID];
+    memcpy(name, mensagem, MAX_ROBOT_ID);
     
-    char *temp = mensagem + 10;
+    char *temp = mensagem + MAX_ROBOT_ID;
     Operation operation = ((Operation*) temp)[0];
     int dataSize;
     temp = temp + sizeof(operation);

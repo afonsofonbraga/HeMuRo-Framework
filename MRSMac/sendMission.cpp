@@ -62,7 +62,7 @@ int main(){
     //v_TaskManager.push_back(taskManager);
     v_MissionManager.push_back(missionManager);
     
-    char vIP[16];
+    char vIP[MAX_IP];
     
     
     std::cout << "Time to send a Mission!!!!!"<< std::endl;

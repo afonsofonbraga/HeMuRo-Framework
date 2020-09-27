@@ -18,6 +18,12 @@
 #include "dataTask.hpp"
 #endif
 
+#define MAX_ROBOT_ID 10
+#define MAX_ID 10
+#define MAX_IP 16
+
+
+
 template<typename T>
 std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type& stream, const T& e)
 {
@@ -25,7 +31,7 @@ std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::os
 }
 
 
-enum class Operation{null, setRobotsPosition, missionMessage, batteryMessage};
+enum class Operation{null, setRobotsPosition, missionMessage, batteryMessage, loggerMessage};
 enum class enum_RobotCategory{null, uav, ugv, usv};
 
 
@@ -38,6 +44,7 @@ enum class enum_ChargingRequest{null, ok, chargingRequest, notfyingWinner, going
 enum class enum_ChargingService{null, waitingRequest, bid, waitingForArrival, charging, chargingComplete};
 enum class enum_ChargingOperation{null, chargingRequest, bid, winningBid, acceptRequest, arrivedAtStation, startCharging, chargingComplete, atomicTaskInterrupt};
 
+enum class enum_LoggerOperation{null, print, save, printAndSave};
 
 struct s_pose
 {
@@ -52,23 +59,23 @@ struct s_pose
 
 struct s_robotsPose
 {
-    char robotName[10] = "null";
+    char robotName[MAX_ROBOT_ID] = "null";
     s_pose position;
 };
 
 struct s_UDPMessage
 {
-    char address[16] = "null";
-    char name[10] = "null";
+    char address[MAX_IP] = "null";
+    char name[MAX_ROBOT_ID] = "null";
     char buffer[500] = "null";
     int messageSize = 0;
 };
 
 struct s_MissionMessage
 {
-    char missionCode[10] = "null";
-    char senderAddress[16] = "null";
-    char senderName[10] = "null";
+    char missionCode[MAX_ID] = "null";
+    char senderAddress[MAX_IP] = "null";
+    char senderName[MAX_ROBOT_ID] = "null";
     enum_MissionOperation operation = enum_MissionOperation::null;
     enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
     float Cost = 0;
@@ -81,10 +88,10 @@ struct s_MissionMessage
 
 struct s_BatteryMessage
 {
-    char requestID[10] = "null";
-    char spotID[10] = "null";
-    char senderAddress[16] = "null";
-    char senderName[10] = "null";
+    char requestID[MAX_ID] = "null";
+    char spotID[MAX_ROBOT_ID] = "null";
+    char senderAddress[MAX_IP] = "null";
+    char senderName[MAX_ROBOT_ID] = "null";
     enum_ChargingOperation operation = enum_ChargingOperation::null;
     float Cost = 0;
     //char buffer[500] = "null";
@@ -93,6 +100,14 @@ struct s_BatteryMessage
     int executionTime;
     
 };
+
+struct s_LoggerMessage
+{
+    char robotName[MAX_ROBOT_ID] = "null";
+    char buffer[400] = "null";
+    enum_LoggerOperation operation = enum_LoggerOperation::null;
+};
+
 
 struct s_ROSBridgeMessage
 {

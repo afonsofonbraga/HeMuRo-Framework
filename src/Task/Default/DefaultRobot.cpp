@@ -12,13 +12,14 @@ DefaultRobot::DefaultRobot(BlackBoard* monitor, bool decentralized)
 {
     strcpy(mode,"Robot");
     this->decentralized = decentralized;
-    monitor->setRobotCategory(enum_RobotCategory::null);
+    monitor->setRobotCategory(enum_RobotCategory::ugv);
     broadcast = new UDPBroadcast(monitor);
     if (this->decentralized == true)
         receiver = new UDPReceiver(monitor);
     sender = new UDPSender(monitor);
     missionManager = new MissionManager(monitor);
     batteryManager = new BatteryManager(monitor,mode);
+    logger = new Logger(monitor);
 }
 
 DefaultRobot::~DefaultRobot()
@@ -28,5 +29,6 @@ DefaultRobot::~DefaultRobot()
         delete this->receiver;
     delete this->sender;
     delete this->missionManager;
-    	delete this->batteryManager;
+    delete this->batteryManager;
+    delete this->logger;
 }

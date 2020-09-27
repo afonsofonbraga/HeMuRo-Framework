@@ -26,17 +26,17 @@
 
 struct ChargingBid
 {
-    char bidderIP[15];
-    char bidderName[10];
+    char bidderIP[MAX_IP];
+    char bidderName[MAX_ROBOT_ID];
     float price;
 };
 
 struct ChargingStationWinner
 {
-    char requestID[10] = "null";
-    char chargingIP[15] = "null";
-    char chargingID[10] = "null";
-    char spotID[10] = "null";
+    char requestID[MAX_ID] = "null";
+    char chargingIP[MAX_IP] = "null";
+    char chargingID[MAX_ROBOT_ID] = "null";
+    char spotID[MAX_ROBOT_ID] = "null";
     float price;
     s_pose spotPosition;
 };
@@ -44,9 +44,11 @@ struct ChargingStationWinner
 class BatteryManager: public Module
 {
 private:
-    char broadcastIP[16]="null";
-    char agentName[10] = "null";
+    char broadcastIP[MAX_IP]="null";
+    char agentName[MAX_ROBOT_ID] = "null";
     char mode[16];
+    int countID = 0;
+    char requestID[MAX_IP] = "null";
     std::vector<ChargingBid> vectorBids;
     ChargingStationWinner chargingStationWinner;
     

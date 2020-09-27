@@ -14,6 +14,7 @@
 // Core Modules
 #include "BlackBoard.hpp"
 #include "dataTypes.hpp"
+#include "Logger.hpp"
 
 // Communication Modules
 #include "UDPBroadcast.hpp"
@@ -29,6 +30,7 @@ class ChargingStation
 protected:
     
     bool decentralized;
+    Logger* logger;
     UDPBroadcast* broadcast;
     UDPReceiver* receiver;
     UDPSender* sender;

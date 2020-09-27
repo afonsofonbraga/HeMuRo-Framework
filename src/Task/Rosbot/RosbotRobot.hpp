@@ -13,6 +13,7 @@
 
 // Core Modules
 #include "BlackBoard.hpp"
+#include "Logger.hpp"
 #include "dataTypes.hpp"
 
 // Communication Modules
@@ -31,6 +32,7 @@ class RosbotRobot
 {
 protected:
     bool decentralized;
+    Logger* logger;
     UDPBroadcast* broadcast;
     UDPReceiver* receiver;
     UDPSender* sender;
@@ -38,7 +40,7 @@ protected:
     Alive* alive;
     
     BatteryManager* batteryManager;
-    char mode[16];
+    char mode[MAX_IP];
 public:
     RosbotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized); // SEND ARGS
     ~RosbotRobot();

@@ -21,6 +21,7 @@ RosbotRobot::RosbotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decen
     
     strcpy(mode,"Robot");
     batteryManager = new BatteryManager(monitor,mode);
+    logger = new Logger(monitor);
 }
 
 RosbotRobot::~RosbotRobot()
@@ -32,4 +33,5 @@ RosbotRobot::~RosbotRobot()
     delete this->missionManager;
     delete this->alive;
     delete this->batteryManager;
+    delete this->logger;
 }

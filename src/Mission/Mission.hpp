@@ -17,8 +17,8 @@
 
 struct Bid
 {
-    char bidderIP[15];
-    char bidderName[10];
+    char bidderIP[MAX_IP];
+    char bidderName[MAX_ROBOT_ID];
     float price;
 };
 
@@ -28,11 +28,11 @@ public:
     Mission();
     ~Mission();
     // Common Variables
-    char missionCode[10];
-    char senderAddress[15];
-    char senderName[10];
-    char winnerAddress[15];
-    char winnerName[10];
+    char missionCode[MAX_ID];
+    char senderAddress[MAX_IP];
+    char senderName[MAX_ROBOT_ID];
+    char winnerAddress[MAX_IP];
+    char winnerName[MAX_ROBOT_ID];
     enum_DecomposableTask mission = enum_DecomposableTask::null;
     enum_RobotCategory robotCategory;
     int executionTime = 30;

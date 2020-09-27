@@ -13,11 +13,11 @@
 
 struct s_ChargingRequest
 {
-    char requestID[10]= "null";
+    char requestID[MAX_ID]= "null";
     enum_ChargingOperation operation = enum_ChargingOperation::null;
     enum_RobotCategory robotCat;
     s_pose robotsPosition;
-    char robotsAddress[16] = "null";
-    char robotsName[10] = "null";
+    char robotsAddress[MAX_IP] = "null";
+    char robotsName[MAX_ROBOT_ID] = "null";
 };
 #endif /* ChargingRequest_hpp */

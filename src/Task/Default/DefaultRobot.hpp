@@ -13,6 +13,7 @@
 
 // Core Modules
 #include "BlackBoard.hpp"
+#include "Logger.hpp"
 #include "dataTypes.hpp"
 
 // Communication Modules
@@ -28,12 +29,13 @@ class DefaultRobot
 {
 protected:
     bool decentralized;
+    Logger* logger;
     UDPBroadcast* broadcast;
     UDPReceiver* receiver;
     UDPSender* sender;
     MissionManager* missionManager;
     BatteryManager* batteryManager;
-    char mode[16];
+    char mode[MAX_IP];
 public:
     DefaultRobot(BlackBoard* monitor, bool decentralized); // SEND ARGS
     ~DefaultRobot();

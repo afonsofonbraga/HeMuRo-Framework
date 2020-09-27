@@ -27,7 +27,8 @@ void TakePicture::run()
             break;
             
         case enum_AtomicTaskStatus::running:
-            std::cout << "Taking a Picture."<< std::endl;
+            this->monitor->print("Taking a Picture.");
+            //std::cout << "Taking a Picture."<< std::endl;
             this->status = enum_AtomicTaskStatus::completed;
             break;
         case enum_AtomicTaskStatus::completed:

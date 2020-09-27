@@ -33,8 +33,8 @@ protected:
     
     //Robots Description
     std::string robotName;
-    char robotIP[16];
-    char broadcastIP[16];
+    char robotIP[MAX_IP];
+    char broadcastIP[MAX_IP];
     enum_RobotCategory robotCategory= enum_RobotCategory::null;
     
     void setRobotIP();
@@ -86,13 +86,17 @@ protected:
     // ROSBridge
     std::vector<s_ROSBridgeMessage> ROSBridgeMessageList;
     std::mutex mutex_ROSBridgeMessageList;
-
     
+    // Logger Messages
+    std::vector<s_LoggerMessage> loggerMessageList;
+    std::mutex mutex_loggerMessageList;
+
 public:
     std::condition_variable conditional_UDPMessageList;
     std::condition_variable conditional_MissionMessageList;
     std::condition_variable conditional_BatteryMessageList;
     std::condition_variable conditional_ROSBridgeMessageList;
+    std::condition_variable conditional_LoggerMessageList;
     
     BlackBoard(std::string& name, enum_RobotCategory cat);                          // Constructor
     ~BlackBoard();                                          // Destructor
@@ -158,6 +162,12 @@ public:
     bool isROSBridgeMessageListEmpty();
     void addROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage);
     void getROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage);
+    
+    // Logger and Printing Messages
+    bool isLoggerMessageListEmpty();
+    void addLoggerMessage(s_LoggerMessage& vLoggerMessage);
+    void getLoggerMessage(s_LoggerMessage& vLoggerMessage);
+    void print(std::string vText);
     
     //NOT USED YET
     

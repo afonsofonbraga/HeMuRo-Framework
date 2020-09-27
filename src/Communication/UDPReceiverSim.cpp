@@ -101,10 +101,10 @@ void UDPReceiverSim::addRobot(BlackBoard *monitor)
 
 void UDPReceiverSim::dataTreatment(char *mensagem)
 {
-    char name[10];
-    memcpy(name, mensagem, 10);
+    char name[MAX_ROBOT_ID];
+    memcpy(name, mensagem, MAX_ROBOT_ID);
     
-    char *temp = mensagem + 10;
+    char *temp = mensagem + MAX_ROBOT_ID;
     Operation operation = ((Operation*) temp)[0];
     int dataSize;
     temp = temp + sizeof(operation);
@@ -160,6 +160,15 @@ void UDPReceiverSim::switchoperation(Operation operation, char* temp, const char
             this->robotsList[name]->addBatteryMessage(batteryMessage);
             break;
         }
+        case Operation::loggerMessage:
+        {
+            s_LoggerMessage loggerMessage;// = ((s_LoggerMessage*) temp[0]);
+            
+            memcpy(&loggerMessage,temp,sizeof(s_LoggerMessage));
+            this->robotsList[name]->addLoggerMessage(loggerMessage);
+            break;
+        }
+
     }
 }
 

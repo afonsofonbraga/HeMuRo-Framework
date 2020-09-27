@@ -23,7 +23,7 @@ void MissionExecution::run()
     if(this->atomicTaskIndex == this->atomicTaskList.size() && this->atomicTaskList.size() != 0)
     {
         this->enum_execution = enum_MissionExecution::missionComplete;
-        std::cout <<"Mission Complete!"<< std::endl;
+        //std::cout <<"Mission Complete!"<< std::endl;
     }
     
     if(this->enum_execution == enum_MissionExecution::executing)

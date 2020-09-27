@@ -19,7 +19,8 @@ TurnOn::~TurnOn(){}
 void TurnOn::run()
 {
     this->status = enum_AtomicTaskStatus::running;
-    std::cout << "Ligando."<< std::endl;
+    this->monitor->print("Turning on");
+    //std::cout << "Ligando."<< std::endl;
     this->monitor->consumeBattery(this->cost);
     this->status = enum_AtomicTaskStatus::completed;
 }

@@ -16,7 +16,7 @@ class ChargeBattery: public AtomicTask
 {
 protected:
     float costMeter = 2.0;
-    std::chrono::milliseconds tick = std::chrono::milliseconds(1000); // 0.1s
+    std::chrono::milliseconds tick = std::chrono::milliseconds(100); // 0.1s
     std::chrono::system_clock::time_point t0;
 public:
     ChargeBattery(BlackBoard* vMonitor, s_pose& start, s_pose& end);

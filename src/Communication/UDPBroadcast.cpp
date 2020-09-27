@@ -80,21 +80,21 @@ UDPBroadcast& UDPBroadcast::operator =(const UDPBroadcast& other)
 
 
 void UDPBroadcast::run(){
-    char broadcast[10] = "Broadcast";
-    memcpy(buffer,broadcast,10);
+    char broadcast[MAX_ROBOT_ID] = "Broadcast";
+    memcpy(buffer,broadcast,MAX_ROBOT_ID);
     
     Operation operation = Operation::setRobotsPosition;
-    *((Operation*)(buffer + 10)) = operation;
+    *((Operation*)(buffer + MAX_ROBOT_ID)) = operation;
     s_robotsPose robo;
     monitor->getPosition(robo.position);
     std::string lala;
     monitor->getRobotsName(lala);
     strcpy(robo.robotName, lala.c_str());
-    *((int*)(buffer + 14)) = sizeof(robo);
+    *((int*)(buffer + MAX_ROBOT_ID + 4)) = sizeof(robo);
     
-    memmove(buffer+18,(const unsigned char*)&robo,sizeof(robo));
+    memmove(buffer + MAX_ROBOT_ID + 8,(const unsigned char*)&robo,sizeof(robo));
     
-    rc = (int) sendto(this->vSocket,buffer, 18 + sizeof(robo), 0, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
+    rc = (int) sendto(this->vSocket,buffer, MAX_ROBOT_ID + 8 + sizeof(robo), 0, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
 }
 
 void UDPBroadcast::error(const char *msg){

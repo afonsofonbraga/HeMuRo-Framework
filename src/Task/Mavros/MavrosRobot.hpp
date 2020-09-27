@@ -38,7 +38,7 @@ protected:
     Alive* alive;
     
     BatteryManager* batteryManager;
-    char mode[16];
+    char mode[MAX_IP];
 public:
     MavrosRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized); // SEND ARGS
     ~MavrosRobot();

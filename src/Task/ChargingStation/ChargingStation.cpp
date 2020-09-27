@@ -19,6 +19,7 @@ ChargingStation::ChargingStation(BlackBoard* monitor, bool decentralized)
     missionManager = new MissionManager(monitor);
     char mode[] = "ChargingStation";
     batteryManager = new BatteryManager(monitor,mode);
+    logger = new Logger(monitor);
 }
 
 ChargingStation::~ChargingStation()
@@ -29,4 +30,5 @@ ChargingStation::~ChargingStation()
     delete this->sender;
     delete this->missionManager;
     delete this->batteryManager;
+    delete this->logger;
 }

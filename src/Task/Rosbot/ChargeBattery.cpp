@@ -26,7 +26,7 @@ void ChargeBattery::run()
             
         case enum_AtomicTaskStatus::waiting:
         {
-            std::cout << "Carregando Bateria."<< std::endl;
+            this->monitor->print("Start charging!");
             
             //Send a interrupt to inform that the robot has arrived at the station.
             s_BatteryMessage message;
@@ -53,7 +53,7 @@ void ChargeBattery::run()
                 
             } else
             {
-                std::cout << "Bateria Carregada!"<< std::endl;
+                this->monitor->print("Battery Charged!");
                 
                 bool chargeStatus = false;
                 s_ROSBridgeMessage msg;

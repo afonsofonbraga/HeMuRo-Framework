@@ -28,8 +28,8 @@
 class MissionManager: public Module
 {
 private:
-    char broadcastIP[16]="null";
-    char robotName[10] = "null";
+    char broadcastIP[MAX_IP]="null";
+    char robotName[MAX_ROBOT_ID] = "null";
     std::map<std::string, MissionExecution> MissionList;
     std::unordered_map<std::string, MissionRequest> missionOwnerList;
     

@@ -8,7 +8,7 @@ BlackBoard::BlackBoard(std::string& name, enum_RobotCategory cat)
     this->position.roll = 0;
     this->position.pitch = 0;
     this->position.yaw = 0;
-    this->batteryLevel = 22;
+    this->batteryLevel = 20;
     setRobotsName(name);
     setRobotCategory(cat);
     this->setRobotIP();
@@ -101,6 +101,7 @@ void BlackBoard::setRobotIP()
     strncpy(this->broadcastIP, this->robotIP, sizeof(robotIP));
     char* lastDot = strrchr(this->broadcastIP,'.');
     strcpy(lastDot + 1, "255");
+    strncpy(this->broadcastIP, "127.0.0.1", sizeof(robotIP));
 }
 
 void BlackBoard::getRobotsIP(char& vIP)
@@ -547,3 +548,66 @@ void BlackBoard::getBatteryMessage(s_BatteryMessage& vBatteryMessage)
     }
 }
 
+//****************************************************
+//*          LoggerMessage Related Functions         *
+//****************************************************
+
+bool BlackBoard::isLoggerMessageListEmpty()
+{
+    bool status;
+    std::unique_lock<std::mutex> lk(mutex_loggerMessageList);
+    status = this->loggerMessageList.empty();
+    lk.unlock();
+    return status;
+}
+
+void BlackBoard::addLoggerMessage(s_LoggerMessage &vLoggerMessage)
+{
+    std::unique_lock<std::mutex> lk(mutex_loggerMessageList);
+    this->loggerMessageList.push_back(vLoggerMessage);
+    lk.unlock();
+    this->conditional_LoggerMessageList.notify_one();
+}
+
+void BlackBoard::getLoggerMessage(s_LoggerMessage &vLoggerMessage)
+{
+    std::unique_lock<std::mutex> lk(mutex_loggerMessageList);
+    
+    if (this->loggerMessageList.empty() == false){
+        vLoggerMessage = this->loggerMessageList.front();
+        this->loggerMessageList.erase(loggerMessageList.begin());
+        lk.unlock();
+    }else
+    {
+        this->conditional_LoggerMessageList.wait(lk);
+        
+        if (this->loggerMessageList.empty() == false){
+            vLoggerMessage = this->loggerMessageList.front();
+            this->loggerMessageList.erase(loggerMessageList.begin());
+            lk.unlock();
+        }
+    }
+}
+
+void BlackBoard::print(std::string vText)
+{
+    s_LoggerMessage message;
+    this->getRobotsName(*message.robotName);
+    message.operation = enum_LoggerOperation::print;
+    
+    strncpy(message.buffer,vText.c_str(),sizeof(message.buffer)-1);
+    message.buffer[sizeof(message.buffer)-1]='\0';
+    
+    s_UDPMessage UDPMessage;
+   
+    strcpy(UDPMessage.address, this->broadcastIP);
+    strcpy(UDPMessage.name, "Logger");
+    memcpy(UDPMessage.buffer, "Logger",MAX_ROBOT_ID);
+    
+    Operation operation = Operation::loggerMessage;
+    *((Operation*)(UDPMessage.buffer + MAX_ROBOT_ID)) = operation;
+    *((int*)(UDPMessage.buffer + MAX_ROBOT_ID + 4)) = sizeof(message);
+    memmove(UDPMessage.buffer + MAX_ROBOT_ID + 8,(const unsigned char*)&message,sizeof(message));
+    UDPMessage.messageSize = sizeof(UDPMessage.buffer);
+    this->addUDPMessage(UDPMessage);
+}
