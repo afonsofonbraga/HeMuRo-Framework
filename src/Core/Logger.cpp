@@ -34,7 +34,7 @@ Logger::Logger(BlackBoard* monitor): Module(monitor)
         s.close();
     }
     path = getenv("HOME") + std::string("/Github/MRSFramework/logs/Logger") + std::to_string(n);
-    std::filesystem::create_directory(path);
+    fs::create_directory(path);
     std::string name;
     this->monitor->getRobotsName(name);
     path = path + "/" + name + ".txt";

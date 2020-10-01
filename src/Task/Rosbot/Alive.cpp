@@ -28,7 +28,7 @@ Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(
     topic = vName + "/battery/recharge";
     publishersList["battery/recharge"] = node.advertise<std_msgs::Bool>(topic, 10);
     
-    topic = vName + "move_base/goal"
+    topic = vName + "move_base/goal";
     publishersList["move_base/goal"] = node.advertise<move_base_msgs::MoveBaseAction>(topic, 10);
 }
 
@@ -108,14 +108,14 @@ void Alive::run()
         {
             s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
             
-            move_base_msgs::MoveBaseGoal goal;
-            goal.target_pose.header.frame_id = "base_link";
-            goal.target_pose.header.stamp = ros::Time::now();
+            move_base_msgs::MoveBaseGoal msg;
+            msg.target_pose.header.frame_id = "base_link";
+            msg.target_pose.header.stamp = ros::Time::now();
             
-            goal.target_pose.pose.position.x = vPose.x;
-            goal.target_pose.pose.position.y = vPose.y;
-            goal.target_pose.pose.position.z = vPose.z;
-            goal.target_pose.pose.orientation.w = vPose.yaw;
+            msg.target_pose.pose.position.x = vPose.x;
+            msg.target_pose.pose.position.y = vPose.y;
+            msg.target_pose.pose.position.z = vPose.z;
+            msg.target_pose.pose.orientation.w = vPose.yaw;
             
             this->publishersList["move_base/goal"].publish(msg);
         }
