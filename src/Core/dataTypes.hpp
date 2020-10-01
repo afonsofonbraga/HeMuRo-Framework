@@ -19,7 +19,7 @@
 #endif
 
 #define MAX_ROBOT_ID 10
-#define MAX_ID 10
+#define MAX_ID 13
 #define MAX_IP 16
 
 

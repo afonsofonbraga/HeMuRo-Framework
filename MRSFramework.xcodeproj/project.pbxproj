@@ -11,6 +11,7 @@
 		2335B7F724FD71BF00661D4C /* DecomposableTasks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2335B7F524FD71BF00661D4C /* DecomposableTasks.cpp */; };
 		23494C9124CF130200697ABA /* TakePicture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23494C8F24CF130200697ABA /* TakePicture.cpp */; };
 		235CC3EB2493F0200012376D /* Mission.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235CC3E92493F0200012376D /* Mission.cpp */; };
+		236244F125211498007B5319 /* LoggerAgent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 236244EF25211498007B5319 /* LoggerAgent.cpp */; };
 		23789A9224AB95D1001372E5 /* MissionRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23789A9024AB95D1001372E5 /* MissionRequest.cpp */; };
 		23789A9524AB9694001372E5 /* MissionExecution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23789A9324AB9694001372E5 /* MissionExecution.cpp */; };
 		2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */; };
@@ -26,6 +27,7 @@
 		23C6E551246EF4F100D99185 /* TurnOn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54F246EF4F100D99185 /* TurnOn.cpp */; };
 		23D20B51245C71560013F98A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B50245C71560013F98A /* main.cpp */; };
 		23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B45245C705C0013F98A /* BlackBoard.cpp */; };
+		23E9710925263C470021D3B6 /* MoveBaseGoal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23E9710725263C470021D3B6 /* MoveBaseGoal.cpp */; };
 		23ECC3C9248E99AC0025CBC7 /* MissionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23ECC3C7248E99AC0025CBC7 /* MissionManager.cpp */; };
 		23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51B245CA8B9003D13A3 /* Module.cpp */; };
 		23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */; };
@@ -86,6 +88,8 @@
 		234FD6982490263D00F586DE /* original.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = original.cpp; sourceTree = "<group>"; };
 		235CC3E92493F0200012376D /* Mission.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mission.cpp; sourceTree = "<group>"; };
 		235CC3EA2493F0200012376D /* Mission.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mission.hpp; sourceTree = "<group>"; };
+		236244EF25211498007B5319 /* LoggerAgent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LoggerAgent.cpp; sourceTree = "<group>"; };
+		236244F025211498007B5319 /* LoggerAgent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LoggerAgent.hpp; sourceTree = "<group>"; };
 		2376200C24F54B81000C1B23 /* Alive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Alive.hpp; sourceTree = "<group>"; };
 		2376200D24F54B81000C1B23 /* Alive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Alive.cpp; sourceTree = "<group>"; };
 		2376200E24F54B87000C1B23 /* Alive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Alive.cpp; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 		23D20B4D245C71560013F98A /* MRSMac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MRSMac; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D20B50245C71560013F98A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		23E66CAE250278C20002A91B /* ChargingRequest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargingRequest.hpp; sourceTree = "<group>"; };
+		23E9710725263C470021D3B6 /* MoveBaseGoal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MoveBaseGoal.cpp; sourceTree = "<group>"; };
+		23E9710825263C470021D3B6 /* MoveBaseGoal.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MoveBaseGoal.hpp; sourceTree = "<group>"; };
 		23ECC3C7248E99AC0025CBC7 /* MissionManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MissionManager.cpp; sourceTree = "<group>"; };
 		23ECC3C8248E99AC0025CBC7 /* MissionManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MissionManager.hpp; sourceTree = "<group>"; };
 		23ED54D724CE179100239D05 /* package.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = package.xml; sourceTree = "<group>"; };
@@ -169,6 +175,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		232E13D32523BD0A008A90F3 /* logs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = logs;
+			sourceTree = "<group>";
+		};
 		2345667124CF262400B28F87 /* Turtlebot */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +200,15 @@
 				23F3A223250074CC00561375 /* TurtlebotRobot.hpp */,
 			);
 			path = Turtlebot;
+			sourceTree = "<group>";
+		};
+		236244EE2521147F007B5319 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				236244EF25211498007B5319 /* LoggerAgent.cpp */,
+				236244F025211498007B5319 /* LoggerAgent.hpp */,
+			);
+			path = Logger;
 			sourceTree = "<group>";
 		};
 		237E6C6124A3DB05009F5B02 /* Default */ = {
@@ -212,6 +234,7 @@
 		23805D362460BC730061F4A0 /* Task */ = {
 			isa = PBXGroup;
 			children = (
+				236244EE2521147F007B5319 /* Logger */,
 				23F00C8324634A2F00EC7860 /* AtomicTask.cpp */,
 				23F00C8424634A2F00EC7860 /* AtomicTask.hpp */,
 				23965EA825012CF700F6E7A5 /* ChargingStation */,
@@ -380,6 +403,8 @@
 				2335B80524FD878800661D4C /* TakePicture.hpp */,
 				2335B80724FD878800661D4C /* TurnOn.cpp */,
 				2335B80824FD878900661D4C /* TurnOn.hpp */,
+				23E9710725263C470021D3B6 /* MoveBaseGoal.cpp */,
+				23E9710825263C470021D3B6 /* MoveBaseGoal.hpp */,
 			);
 			path = Rosbot;
 			sourceTree = "<group>";
@@ -387,6 +412,7 @@
 		23F9DFE3245C6FDB008506C4 = {
 			isa = PBXGroup;
 			children = (
+				232E13D32523BD0A008A90F3 /* logs */,
 				23D20B41245C705C0013F98A /* build */,
 				23D20B48245C705C0013F98A /* CMakeLists.txt */,
 				23D20B3E245C705C0013F98A /* main */,
@@ -489,12 +515,14 @@
 				235CC3EB2493F0200012376D /* Mission.cpp in Sources */,
 				23C6E54A246EE01A00D99185 /* GoTo.cpp in Sources */,
 				23789A9524AB9694001372E5 /* MissionExecution.cpp in Sources */,
+				23E9710925263C470021D3B6 /* MoveBaseGoal.cpp in Sources */,
 				23C6E551246EF4F100D99185 /* TurnOn.cpp in Sources */,
 				2335B7F724FD71BF00661D4C /* DecomposableTasks.cpp in Sources */,
 				231AD3F0251E434D00C88B27 /* Logger.cpp in Sources */,
 				2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */,
 				23D20B51245C71560013F98A /* main.cpp in Sources */,
 				23F3A21D25006C7E00561375 /* DefaultRobot.cpp in Sources */,
+				236244F125211498007B5319 /* LoggerAgent.cpp in Sources */,
 				23965EB225013E8300F6E7A5 /* ChargingSpot.cpp in Sources */,
 				2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */,
 				23789A9224AB95D1001372E5 /* MissionRequest.cpp in Sources */,

@@ -18,6 +18,7 @@
 #include "ChargeBattery.hpp"
 #include "TurnOn.hpp"
 #include "TakePicture.hpp"
+#include "MoveBaseGoal.hpp"
 
 void decomposableTaskList(BlackBoard* monitor);
 void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable);

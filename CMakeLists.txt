@@ -12,8 +12,8 @@ endif()
 
 if(ROSBOT)
 add_definitions(-DROSBOT=1)
-find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs nav_msgs )
-catkin_package( CATKIN_DEPENDS roscpp rospy std_msgs nav_msgs )
+find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs nav_msgs move_base_msgs actionlib)
+catkin_package( CATKIN_DEPENDS roscpp rospy std_msgs nav_msgs move_base_msgs actionlib)
 endif()
 
 if(TURTLESIM)
@@ -29,7 +29,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   #INCLUDE_DIRS include
   #LIBRARIES beginner_tutorials
-  CATKIN_DEPENDS roscpp rospy std_msgs
+  CATKIN_DEPENDS roscpp rospy std_msgs 
 #  DEPENDS system_lib
 )
 endif()

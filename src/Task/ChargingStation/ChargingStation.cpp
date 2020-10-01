@@ -14,21 +14,29 @@ ChargingStation::ChargingStation(BlackBoard* monitor, bool decentralized)
     monitor->setRobotCategory(enum_RobotCategory::null);
     broadcast = new UDPBroadcast(monitor);
     if (this->decentralized == true)
+    {
         receiver = new UDPReceiver(monitor);
+        logger = new Logger(monitor);
+    }
+    
     sender = new UDPSender(monitor);
     missionManager = new MissionManager(monitor);
     char mode[] = "ChargingStation";
     batteryManager = new BatteryManager(monitor,mode);
-    logger = new Logger(monitor);
+    
 }
 
 ChargingStation::~ChargingStation()
 {
     delete this->broadcast;
     if (this->decentralized == true)
+    {
         delete this->receiver;
+        delete this->logger;
+    }
+    
     delete this->sender;
     delete this->missionManager;
     delete this->batteryManager;
-    delete this->logger;
+    
 }

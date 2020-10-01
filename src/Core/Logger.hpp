@@ -10,6 +10,12 @@
 #define Logger_hpp
 
 #include <stdio.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <filesystem>
+#include <chrono>
+
 #include "Module.hpp"
 #include "BlackBoard.hpp"
 #include "dataTypes.hpp"
@@ -19,8 +25,10 @@ class Logger: public Module
 
 private:
 protected:
+    std::string path;
     s_LoggerMessage* vLoggerMessage;
     void printcmd(s_LoggerMessage& vMessage);
+    std::chrono::time_point<std::chrono::steady_clock> start;
     virtual void run();        
 public:
     Logger(BlackBoard* monitor);
@@ -28,3 +36,7 @@ public:
 };
 
 #endif /* Logger_hpp */
+
+
+
+ 

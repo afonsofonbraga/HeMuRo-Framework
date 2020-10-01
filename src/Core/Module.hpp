@@ -21,6 +21,7 @@
 #include <thread>
 #include <chrono>
 #include "BlackBoard.hpp"
+#include <unistd.h>
 
 
 class Module{

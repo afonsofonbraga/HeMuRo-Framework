@@ -10,7 +10,44 @@
 
 Logger::Logger(BlackBoard* monitor): Module(monitor)
 {
+    path = getenv("HOME") + std::string("/Github/MRSFramework/logs/PathController.txt");
+    int n;
+    std::fstream s(path, s.in | s.out);
+    if (!s.is_open()) {
+        std::fstream s(path, s.trunc | s.in | s.out);
+        n = 1;
+        s << "Simulation " << n;
+        
+    } else {
+        
+        std::string str;
+        if (s >> str >> n)
+        {
+            s.seekg(0);
+            s << "Simulation " << n+1;
+        }else
+        {
+            n = 1;
+            s.seekg(0);
+            s << "Simulation " << n;
+        }
+        s.close();
+    }
+    path = getenv("HOME") + std::string("/Github/MRSFramework/logs/Logger") + std::to_string(n);
+    std::filesystem::create_directory(path);
+    std::string name;
+    this->monitor->getRobotsName(name);
+    path = path + "/" + name + ".txt";
     
+    s.open(path, s.in | s.out | s.trunc);
+    if (s.is_open())
+    {
+        this->start = std::chrono::steady_clock::now();
+        auto now = std::chrono::system_clock::now();
+        auto in_time_t = std::chrono::system_clock::to_time_t(now);
+        s << "[SYSTEM] Log started at: " << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X") << "\n";
+        s.close();
+    }
 }
 
 Logger::~Logger()
@@ -54,4 +91,13 @@ void Logger::run()
 void Logger::printcmd(s_LoggerMessage &vMessage)
 {
     std::cout << "[" << vMessage.robotName << "] " << vMessage.buffer << std::endl;
+    std::fstream s(path, s.ate | s.in | s.out );
+    if (s.is_open())
+    {
+        auto end = std::chrono::steady_clock::now();
+        std::chrono::duration<double> diff = end-start;
+        s << "[" << std::setprecision(2) << diff.count() << " s][" << vMessage.robotName << "] " << vMessage.buffer <<" \n" ;
+        s.close();
+    }
+    
 }

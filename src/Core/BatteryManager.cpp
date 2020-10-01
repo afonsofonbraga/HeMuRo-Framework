@@ -18,20 +18,20 @@ BatteryManager::BatteryManager(BlackBoard* monitor, char vMode[]) : Module(monit
         s_pose position;
         this->monitor->getPosition(position);
         ChargingSpot spot;
-        position.x = position.x+3;
+        position.x = position.x;
         position.y = position.y;
         spot.setSpotPosition(position);
         spot.setChargerCompatibility(enum_RobotCategory::ugv);
         this->chargingSpotList["Spot1"] = spot;
         
         position.x = position.x + 1;
-        position.y = position.y + 1;
+        position.y = position.y;
         spot.setSpotPosition(position);
         spot.setChargerCompatibility(enum_RobotCategory::ugv);
         this->chargingSpotList["Spot2"] = spot;
         
         position.x = position.x - 2;
-        position.y = position.y - 2;
+        position.y = position.y;
         spot.setSpotPosition(position);
         spot.setChargerCompatibility(enum_RobotCategory::ugv);
         this->chargingSpotList["Spot3"] = spot;

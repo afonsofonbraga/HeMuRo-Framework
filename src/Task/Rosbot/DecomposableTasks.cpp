@@ -12,7 +12,7 @@ void decomposableTaskList(BlackBoard* monitor)
 {
 
     std::vector<enum_AtomicTask> teste;
-    teste.push_back(enum_AtomicTask::goTo);
+    teste.push_back(enum_AtomicTask::MoveBaseGoal);
     enum_DecomposableTask lala = enum_DecomposableTask::checkPosition;
     monitor->addDecomposableTaskList(lala, teste);
     
@@ -42,6 +42,10 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
                     break;
                 case enum_AtomicTask::goTo :
                     vAtomicTaskitem = std::make_shared<GoTo>(monitor, currentPosition,vMissionDecomposable.goal);
+                    currentPosition = vMissionDecomposable.goal;
+                    break;
+                case enum_AtomicTask::MoveBaseGoal:
+                    vAtomicTaskitem = std::make_shared<MoveBaseGoal>(monitor, currentPosition,vMissionDecomposable.goal);
                     currentPosition = vMissionDecomposable.goal;
                     break;
                 case enum_AtomicTask::turnOn :

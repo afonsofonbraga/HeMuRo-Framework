@@ -51,6 +51,6 @@ add_library(alive ${catkin_LIBRARIES} Core/BlackBoard.cpp Task/Turtlebot/Alive.c
 endif()
 
 if(ROSBOT)
-add_library(task Task/Rosbot/RosbotRobot.cpp Core/BlackBoard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Mission/MissionManager.cpp Mission/Mission.cpp Mission/MissionRequest.cpp Mission/MissionExecution.cpp Task/AtomicTask.cpp Task/Rosbot/DecomposableTasks.cpp Task/Rosbot/GoTo.cpp Task/Rosbot/ChargeBattery.cpp Task/Default/TurnOn.cpp Task/Default/TakePicture.cpp)
+add_library(task Task/Rosbot/RosbotRobot.cpp Core/BlackBoard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Mission/MissionManager.cpp Mission/Mission.cpp Mission/MissionRequest.cpp Mission/MissionExecution.cpp Task/AtomicTask.cpp Task/Rosbot/DecomposableTasks.cpp Task/Rosbot/GoTo.cpp Task/Rosbot/MoveBaseGoal.cpp Task/Rosbot/ChargeBattery.cpp Task/Default/TurnOn.cpp Task/Default/TakePicture.cpp)
 add_library(alive ${catkin_LIBRARIES} Core/BlackBoard.cpp Task/Rosbot/Alive.cpp)
 endif()
