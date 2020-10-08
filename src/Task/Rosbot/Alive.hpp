@@ -32,13 +32,15 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Twist.h>
 #include <move_base_msgs/MoveBaseAction.h>
-//#include <actionlib/client/simple_action_client.h>
+#include <actionlib/client/simple_action_client.h>
 
+typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
 class Alive: public Module
 {
 protected:
     s_ROSBridgeMessage* vROSBridgeMessage;
+    MoveBaseClient* ac;
     void callbackOdometry(const nav_msgs::Odometry::ConstPtr& msg);
     void callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg);
     virtual void run() override;

@@ -3,11 +3,14 @@
 //  MRSFramework
 //
 //  Created by Afonso Braga on 26/08/20.
-//  Copyright � 2020 Afonso Braga. All rights reserved.
+//  Copyright ? 2020 Afonso Braga. All rights reserved.
 //
 
 #include "Alive.hpp"
 #include <map>
+
+
+
 
 
 Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
@@ -28,8 +31,13 @@ Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(
     topic = vName + "/battery/recharge";
     publishersList["battery/recharge"] = node.advertise<std_msgs::Bool>(topic, 10);
     
-    topic = vName + "move_base/goal";
-    publishersList["move_base/goal"] = node.advertise<move_base_msgs::MoveBaseAction>(topic, 10);
+    topic = vName + "/move_base";
+    ac = new MoveBaseClient(topic.c_str(),true);
+    //wait for the action server to come up
+    while(!ac->waitForServer(ros::Duration(5.0))){
+        ROS_INFO("Waiting for the move_base action server to come up");
+    }
+    
 }
 
 Alive::~Alive()
@@ -104,22 +112,39 @@ void Alive::run()
             std::cout << "Sending ROS command! " << msg.data << std::endl;
             this->publishersList["battery/recharge"].publish(msg);
         }
-        if(strcmp(vROSBridgeMessage->topicName, "move_base/goal") == 0)
+        if(strcmp(vROSBridgeMessage->topicName, "Move_base/Goal") == 0)
         {
             s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
             
             move_base_msgs::MoveBaseGoal msg;
-            msg.target_pose.header.frame_id = "base_link";
+            
+            msg.target_pose.header.frame_id = "map";
             msg.target_pose.header.stamp = ros::Time::now();
             
             msg.target_pose.pose.position.x = vPose.x;
             msg.target_pose.pose.position.y = vPose.y;
             msg.target_pose.pose.position.z = vPose.z;
-            msg.target_pose.pose.orientation.w = vPose.yaw;
+            msg.target_pose.pose.orientation.w = 1.0;
             
-            this->publishersList["move_base/goal"].publish(msg);
+            ROS_INFO("Sending goal");
+            this->ac->sendGoal(msg);
+            
+            /*
+             this->ac->waitForResult();
+             if(ac->getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+             ROS_INFO("Hooray, the base moved 1 meter forward");
+             else
+             ROS_INFO("The base failed to move forward 1 meter for some reason");
+             */
+        }
+        if(strcmp(vROSBridgeMessage->topicName, "Move_base/Cancel") == 0)
+        {
+            ROS_INFO("Canceling goal");
+            this->ac->cancelGoal();
         }
     }
 }
+
+
 
 

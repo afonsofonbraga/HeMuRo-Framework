@@ -23,7 +23,7 @@
 int main(){
     
     std::string name{"Robo"};
-    int numberOfRobots =5;
+    int numberOfRobots =0;
     
     std::vector<BlackBoard* > v_BlackBoard; // = new std::vector<BlackBoard>;
     std::vector<DefaultRobot* > v_DefaultRobot;
@@ -43,8 +43,8 @@ int main(){
     memory = new BlackBoard(robotsName, enum_RobotCategory::null);
     v_BlackBoard.push_back(memory);
     s_pose position;
-    position.x = 0;
-    position.y = 10;
+    position.x = 7;
+    position.y = 16.5;
     position.z = 0;
     v_BlackBoard.at(1)->setPosition(position);
     ChargingStation* station = new ChargingStation(v_BlackBoard.at(1), decentralizedCommunication);
@@ -88,8 +88,8 @@ int main(){
      mission.operation = enum_MissionOperation::createMission;
      mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
      mission.robotCat = enum_RobotCategory::ugv;
-     mission.goal.x = 5.0;
-     mission.goal.y = 10.0;
+     mission.goal.x = 1.5;
+     mission.goal.y = 0.0;
      mission.goal.z = 0.0;
      mission.goal.yaw = 0.3;
      mission.executionTime = 300;
@@ -109,7 +109,7 @@ int main(){
      mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
      mission.robotCat = enum_RobotCategory::ugv;
          mission.goal.x = -1.5;
-     mission.goal.y = 17.0;
+     mission.goal.y = 1.0;
      mission.goal.z = 0.0;
      mission.goal.yaw = 0.3;
      mission.executionTime = 300;
@@ -128,8 +128,8 @@ int main(){
      mission.operation = enum_MissionOperation::createMission;
      mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
      mission.robotCat = enum_RobotCategory::ugv;
-     mission.goal.x = -7.0;
-     mission.goal.y = 10.0;
+     mission.goal.x = 0.0;
+     mission.goal.y = -1.5;
      mission.goal.z = 0.0;
      mission.goal.yaw = 0.3;
      mission.executionTime = 300;
@@ -141,8 +141,8 @@ int main(){
      message.messageSize = sizeof(message.buffer);
      
      v_BlackBoard.at(0)->addUDPMessage(message);
-     }
-    */
+     }*/
+    
     while (std::getchar() != 'c'){}
     return 0;
     

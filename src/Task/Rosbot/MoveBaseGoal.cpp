@@ -29,7 +29,7 @@ void MoveBaseGoal::run()
             this->status = enum_AtomicTaskStatus::running;
             
             s_ROSBridgeMessage teste;
-            strcpy(teste.topicName,"move_base/goal");
+            strcpy(teste.topicName,"Move_base/Goal");
             memmove(teste.buffer,(char*)&this->endPosition,sizeof(s_pose));
             this->monitor->addROSBridgeMessage(teste);
             
@@ -52,6 +52,9 @@ void MoveBaseGoal::run()
                 
                 if(sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2)) <= 0.1)
                 {
+                    s_ROSBridgeMessage teste;
+                    strcpy(teste.topicName,"Move_base/Cancel");
+                    this->monitor->addROSBridgeMessage(teste);
                     this->status = enum_AtomicTaskStatus::completed;
                 }
             }
