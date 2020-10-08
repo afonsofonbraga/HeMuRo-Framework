@@ -72,21 +72,21 @@ int main( int argc, char *argv[ ] )
 #endif
     
     std::string robotsName = "Logger";
-    BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
-    v_BlackBoard.push_back(memory);
-    receiver->addRobot(v_BlackBoard.at(0));
+   // BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
+   // v_BlackBoard.push_back(memory);
+   // receiver->addRobot(v_BlackBoard.at(0));
     bool decentralizedCommunication = false;
-     RosbotRobot* logger = new RosbotRobot(v_BlackBoard.at(0), n, decentralizedCommunication);
+    // RosbotRobot* logger = new RosbotRobot(v_BlackBoard.at(0), n, decentralizedCommunication);
 
     for (int i = 1; i < argc; i++)
     {
         robotsName = argv[i];
         BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
         v_BlackBoard.push_back(memory);
-        receiver->addRobot(v_BlackBoard.at(i));
+        receiver->addRobot(v_BlackBoard.at(i-1));
         decentralizedCommunication = false;
 #ifdef DEFAULT
-        DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
+        DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i-1), decentralizedCommunication);
 #endif
         
 #ifdef MAVROS
@@ -94,7 +94,7 @@ int main( int argc, char *argv[ ] )
 #endif
         
 #ifdef ROSBOT
-        RosbotRobot* robot = new RosbotRobot(v_BlackBoard.at(i), n, decentralizedCommunication);
+        RosbotRobot* robot = new RosbotRobot(v_BlackBoard.at(i-1), n, decentralizedCommunication);
 #endif
         
 #ifdef TRUTLEBOT
