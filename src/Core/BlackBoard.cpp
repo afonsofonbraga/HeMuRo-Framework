@@ -339,7 +339,8 @@ bool BlackBoard::isRobotAvailable()
     std::unique_lock<std::mutex> lk(mutex_mission);
     //if (this->selectedMission.enum_execution == enum_MissionExecution::missionComplete || this->selectedMission.enum_execution == enum_MissionExecution::null)
     //    status = true;
-    status = this->executingMission;
+    //status = this->executingMission;
+    this->executingMission ? status = false:status = true;
     lk.unlock();
     return status;
 }

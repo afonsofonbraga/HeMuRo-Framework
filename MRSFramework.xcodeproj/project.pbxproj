@@ -88,7 +88,6 @@
 		234FD6982490263D00F586DE /* original.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = original.cpp; sourceTree = "<group>"; };
 		235CC3E92493F0200012376D /* Mission.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mission.cpp; sourceTree = "<group>"; };
 		235CC3EA2493F0200012376D /* Mission.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mission.hpp; sourceTree = "<group>"; };
-		235DACD22537300100DFF104 /* HospitalPositions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HospitalPositions.cpp; sourceTree = "<group>"; };
 		236244EF25211498007B5319 /* LoggerAgent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LoggerAgent.cpp; sourceTree = "<group>"; };
 		236244F025211498007B5319 /* LoggerAgent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LoggerAgent.hpp; sourceTree = "<group>"; };
 		2376200C24F54B81000C1B23 /* Alive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Alive.hpp; sourceTree = "<group>"; };
@@ -322,7 +321,6 @@
 				234FD6972490156300F586DE /* sendMission.cpp */,
 				234FD6982490263D00F586DE /* original.cpp */,
 				23F3A21E25006F1700561375 /* te.cpp */,
-				235DACD22537300100DFF104 /* HospitalPositions.cpp */,
 			);
 			path = MRSMac;
 			sourceTree = "<group>";
