@@ -20,7 +20,94 @@
 #include "ChargingStation.hpp"
 #include "LoggerAgent.hpp"
 
+
+
 int main(){
+
+    s_pose sala_A01;
+    {
+        sala_A01.x = 10.5;
+        sala_A01.y = 5.5;
+        sala_A01.z = 0.0;
+    }
+    s_pose sala_A02;
+    {
+        sala_A02.x = 10.5;
+        sala_A02.y = 10.5;
+        sala_A02.z = 0.0;
+    }
+    s_pose sala_A03;
+    {
+        sala_A03.x = -10.5;
+        sala_A03.y = 5.5;
+        sala_A03.z = 0.0;
+    }
+    s_pose sala_A04;
+    {
+        sala_A04.x = -10.5;
+        sala_A04.y = 10.5;
+        sala_A04.z = 0.0;
+    }
+    s_pose deposito_01;
+    {
+        deposito_01.x = 8.0;
+        deposito_01.y = 14.0;
+        deposito_01.z = 0.0;
+    }
+    s_pose deposito_02;
+    {
+        deposito_01.x = -8.0;
+        deposito_01.y = 14.0;
+        deposito_01.z = 0.0;
+    }
+    s_pose chargingStation_01;
+    {
+        chargingStation_01.x = 9.0;
+        chargingStation_01.y = 14.0;
+        chargingStation_01.z = 0.0;
+    }
+    s_pose chargingStation_02;
+    {
+        chargingStation_02.x = -9.0;
+        chargingStation_02.y = 14.0;
+        chargingStation_02.z = 0.0;
+    }
+    s_pose escada_01;
+    {
+        escada_01.x = 5.0;
+        escada_01.y = 18.0;
+        escada_01.z = 0.0;
+    }
+    s_pose escada_02;
+    {
+        escada_01.x = -5.0;
+        escada_01.y = 18.0;
+        escada_01.z = 0.0;
+    }
+    s_pose salao_01;
+    {
+        salao_01.x = 3.0;
+        salao_01.y = 12.0;
+        salao_01.z = 0.0;
+    }
+    s_pose salao_02;
+    {
+        salao_02.x = 0.0;
+        salao_02.y = 14.0;
+        salao_02.z = 0.0;
+    }
+    s_pose salao_03;
+    {
+        salao_03.x = -3.0;
+        salao_03.y = 12.0;
+        salao_03.z = 0.0;
+    }
+    s_pose recepcao;
+    {
+        recepcao.x = 0.0;
+        recepcao.y = 2.0;
+        recepcao.z = 0.0;
+    }
     
     std::string name{"Robo"};
     int numberOfRobots =0;
@@ -42,106 +129,105 @@ int main(){
     robotsName = "CStation";
     memory = new BlackBoard(robotsName, enum_RobotCategory::null);
     v_BlackBoard.push_back(memory);
-    s_pose position;
-    position.x = 7;
-    position.y = 16.5;
-    position.z = 0;
-    v_BlackBoard.at(1)->setPosition(position);
+    v_BlackBoard.at(1)->setPosition(chargingStation_01);
     ChargingStation* station = new ChargingStation(v_BlackBoard.at(1), decentralizedCommunication);
     receiver->addRobot(v_BlackBoard.at(1));
     v_ChargingStation.push_back(station);
     
     
-    
-    
-    for (int i=2; i-2< numberOfRobots; i++)
-    {
-        std::string robotsName = name + std::to_string(i-2);
-        BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
-        v_BlackBoard.push_back(memory);
-        bool decentralizedCommunication = false;
-        DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
-        receiver->addRobot(v_BlackBoard.at(i));
-        v_DefaultRobot.push_back(robot);
-        
-    }
     /*
+     
+     for (int i=2; i-2< numberOfRobots; i++)
+     {
+     std::string robotsName = name + std::to_string(i-2);
+     BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
+     v_BlackBoard.push_back(memory);
+     bool decentralizedCommunication = false;
+     DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
+     receiver->addRobot(v_BlackBoard.at(i));
+     v_DefaultRobot.push_back(robot);
+     
+     }*/
+    
     char vIP[MAX_IP];
     
     
     
-     std::cout << "Time to send a Mission!!!!!"<< std::endl;
-     
-     s_MissionMessage mission;
-     v_BlackBoard.at(0)->getRobotsIP(*vIP);
-     v_BlackBoard.at(0)->getRobotsName(*mission.senderName);
-     strcpy(mission.senderAddress , vIP);
-     mission.operation = enum_MissionOperation::createMission;
-     
-     s_UDPMessage message;
-     strcpy(message.address , vIP);
-     Operation operation = Operation::missionMessage;
-     v_BlackBoard.at(0)->getRobotsName(*message.name);
-     
-     {
-     strcpy(mission.missionCode, "Task2");
-     mission.operation = enum_MissionOperation::createMission;
-     mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
-     mission.robotCat = enum_RobotCategory::ugv;
-     mission.goal.x = 1.5;
-     mission.goal.y = 0.0;
-     mission.goal.z = 0.0;
-     mission.goal.yaw = 0.3;
-     mission.executionTime = 300;
-     
-     memcpy(message.buffer,"CStation",10);
-     *((Operation*)(message.buffer + 10)) = operation;
-     *((int*)(message.buffer + 14)) = sizeof(mission);
-     memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
-     message.messageSize = sizeof(message.buffer);
-     
-     v_BlackBoard.at(0)->addUDPMessage(message);
-     }
-     
-     {
-     strcpy(mission.missionCode, "Task3");
-     mission.operation = enum_MissionOperation::createMission;
-     mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
-     mission.robotCat = enum_RobotCategory::ugv;
-         mission.goal.x = -1.5;
-     mission.goal.y = 1.0;
-     mission.goal.z = 0.0;
-     mission.goal.yaw = 0.3;
-     mission.executionTime = 300;
-     
-     memcpy(message.buffer,"CStation",10);
-     *((Operation*)(message.buffer + 10)) = operation;
-     *((int*)(message.buffer + 14)) = sizeof(mission);
-     memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
-     message.messageSize = sizeof(message.buffer);
-     
-     v_BlackBoard.at(0)->addUDPMessage(message);
-     }
-     
-     {
-     strcpy(mission.missionCode, "Task4");
-     mission.operation = enum_MissionOperation::createMission;
-     mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
-     mission.robotCat = enum_RobotCategory::ugv;
-     mission.goal.x = 0.0;
-     mission.goal.y = -1.5;
-     mission.goal.z = 0.0;
-     mission.goal.yaw = 0.3;
-     mission.executionTime = 300;
-     
-     memcpy(message.buffer,"CStation",10);
-     *((Operation*)(message.buffer + 10)) = operation;
-     *((int*)(message.buffer + 14)) = sizeof(mission);
-     memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
-     message.messageSize = sizeof(message.buffer);
-     
-     v_BlackBoard.at(0)->addUDPMessage(message);
-     }*/
+    std::cout << "Time to send a Mission!!!!!"<< std::endl;
+    
+    s_MissionMessage mission;
+    v_BlackBoard.at(1)->getRobotsIP(*vIP);
+    v_BlackBoard.at(1)->getRobotsName(*mission.senderName);
+    strcpy(mission.senderAddress , vIP);
+    mission.operation = enum_MissionOperation::createMission;
+    
+    s_UDPMessage message;
+    strcpy(message.address , vIP);
+    Operation operation = Operation::missionMessage;
+    v_BlackBoard.at(1)->getRobotsName(*message.name);
+    
+    {
+        strcpy(mission.missionCode, "Task2");
+        mission.operation = enum_MissionOperation::createMission;
+        mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
+        mission.robotCat = enum_RobotCategory::ugv;
+        //mission.goal.x = 10.5;
+        //mission.goal.y = 5.5;
+        //mission.goal.z = 0.0;
+        //mission.goal.yaw = 0.3;
+        mission.goal = sala_A01;
+        mission.executionTime = 300;
+        
+        memcpy(message.buffer,"CStation",10);
+        *((Operation*)(message.buffer + 10)) = operation;
+        *((int*)(message.buffer + 14)) = sizeof(mission);
+        memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
+        message.messageSize = sizeof(message.buffer);
+        
+        v_BlackBoard.at(1)->addUDPMessage(message);
+    }
+    
+    {
+        strcpy(mission.missionCode, "Task3");
+        mission.operation = enum_MissionOperation::createMission;
+        mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
+        mission.robotCat = enum_RobotCategory::ugv;
+        //mission.goal.x = 0;
+        //mission.goal.y = 14.0;
+        //mission.goal.z = 0.0;
+        //mission.goal.yaw = 0.3;
+        mission.goal = deposito_01;
+        mission.executionTime = 300;
+        
+        memcpy(message.buffer,"CStation",10);
+        *((Operation*)(message.buffer + 10)) = operation;
+        *((int*)(message.buffer + 14)) = sizeof(mission);
+        memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
+        message.messageSize = sizeof(message.buffer);
+        
+        v_BlackBoard.at(1)->addUDPMessage(message);
+    }
+    
+    {
+        strcpy(mission.missionCode, "Task4");
+        mission.operation = enum_MissionOperation::createMission;
+        mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
+        mission.robotCat = enum_RobotCategory::ugv;
+        //mission.goal.x = -8.0;
+        //mission.goal.y = 14;
+        //mission.goal.z = 0.0;
+        //mission.goal.yaw = 0.3;
+        mission.goal = escada_02;
+        mission.executionTime = 300;
+        
+        memcpy(message.buffer,"CStation",10);
+        *((Operation*)(message.buffer + 10)) = operation;
+        *((int*)(message.buffer + 14)) = sizeof(mission);
+        memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
+        message.messageSize = sizeof(message.buffer);
+        
+        v_BlackBoard.at(1)->addUDPMessage(message);
+    }
     
     while (std::getchar() != 'c'){}
     return 0;

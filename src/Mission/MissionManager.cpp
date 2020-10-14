@@ -216,15 +216,17 @@ void MissionManager::startMissionToExecute()
 void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     //std::cout << "[" << this->robotName << "] Received "<< vMissionMessage->missionCode <<"!" <<std::endl;
-    this->monitor->print("Received " + std::string(vMissionMessage->missionCode) + "!");
+    //this->monitor->print("Received " + std::string(vMissionMessage->missionCode) + "!");
+    
     //MissionExecution* vMission = new MissionExecution;
     auto vMission = std::make_unique<MissionExecution>();
     
     //bool status = this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector); // Checking if it is decomposable
     
-    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory())
+    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory() && this->monitor->isRobotAvailable()==true)
     {
         //std::cout << "[" << this->robotName << "] "<< vMissionMessage->missionCode <<" is decomposable." <<std::endl;
+        this->monitor->print("Received " + std::string(vMissionMessage->missionCode) + "!");
         this->monitor->print(std::string(vMissionMessage->missionCode) + " is decomposable.");
         
         strcpy(this->MissionList[vMissionMessage->missionCode].missionCode,vMissionMessage->missionCode);

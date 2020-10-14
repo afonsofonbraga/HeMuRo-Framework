@@ -20,7 +20,7 @@ class ModulePeriodic: public Module {
 protected:
     //BlackBoard* monitor;
     void mainThread() override;                                          // Thread object
-    virtual void run() override ;                                                 // Thread Implementation
+    	void run() override ;                                                 // Thread Implementation
     std::chrono::milliseconds tick = std::chrono::milliseconds(1000);   // Threads period
 public:
     ModulePeriodic(BlackBoard* monitor);                                // Constructor with a Default Period

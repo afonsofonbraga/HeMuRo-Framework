@@ -28,11 +28,6 @@ void MoveBaseGoal::run()
             this->monitor->print("Going to the location -> x: " + std::to_string(this->endPosition.x) + " Y: " + std::to_string(this->endPosition.y));
             this->status = enum_AtomicTaskStatus::running;
             
-            s_ROSBridgeMessage teste;
-            strcpy(teste.topicName,"Move_base/Goal");
-            memmove(teste.buffer,(char*)&this->endPosition,sizeof(s_pose));
-            this->monitor->addROSBridgeMessage(teste);
-            
             t0 = std::chrono::system_clock::now();
             break;
         }
@@ -56,6 +51,12 @@ void MoveBaseGoal::run()
                     strcpy(teste.topicName,"Move_base/Cancel");
                     this->monitor->addROSBridgeMessage(teste);
                     this->status = enum_AtomicTaskStatus::completed;
+                }else
+                {
+                    s_ROSBridgeMessage teste;
+                    strcpy(teste.topicName,"Move_base/Goal");
+                    memmove(teste.buffer,(char*)&this->endPosition,sizeof(s_pose));
+                    this->monitor->addROSBridgeMessage(teste);
                 }
             }
             
