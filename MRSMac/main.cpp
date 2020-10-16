@@ -136,7 +136,7 @@ int main(){
     
     
     
-     
+     /*
      for (int i=2; i-2< numberOfRobots; i++)
      {
      std::string robotsName = name + std::to_string(i-2);
@@ -147,7 +147,7 @@ int main(){
      receiver->addRobot(v_BlackBoard.at(i));
      v_DefaultRobot.push_back(robot);
     
-     }
+     }*/
     
     char vIP[MAX_IP];
     

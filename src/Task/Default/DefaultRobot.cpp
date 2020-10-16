@@ -12,7 +12,7 @@ DefaultRobot::DefaultRobot(BlackBoard* monitor, bool decentralized)
 {
     strcpy(mode,"Robot");
     this->decentralized = decentralized;
-    monitor->setRobotCategory(enum_RobotCategory::ugv);
+    monitor->setRobotCategory(enum_RobotCategory::null);
     broadcast = new UDPBroadcast(monitor);
     if (this->decentralized == true)
     {
