@@ -9,6 +9,9 @@
 #ifndef dataTypes_h
 #define dataTypes_h
 #include <iostream>
+#include <list>
+#include <queue>
+
 
 #ifdef DEFAULT
 #include "../Task/Default/dataTask.hpp"
@@ -80,7 +83,7 @@ struct s_MissionMessage
     enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
     float Cost = 0;
     //char buffer[500] = "null";
-    s_pose goal;
+    std::queue<s_pose> goal;
     enum_RobotCategory robotCat;
     int executionTime;
     

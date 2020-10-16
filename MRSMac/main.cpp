@@ -110,7 +110,7 @@ int main(){
     }
     
     std::string name{"Robo"};
-    int numberOfRobots =0;
+    int numberOfRobots =3;
     
     std::vector<BlackBoard* > v_BlackBoard; // = new std::vector<BlackBoard>;
     std::vector<DefaultRobot* > v_DefaultRobot;
@@ -135,7 +135,7 @@ int main(){
     v_ChargingStation.push_back(station);
     
     
-    /*
+    
      
      for (int i=2; i-2< numberOfRobots; i++)
      {
@@ -146,8 +146,8 @@ int main(){
      DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
      receiver->addRobot(v_BlackBoard.at(i));
      v_DefaultRobot.push_back(robot);
-     
-     }*/
+    
+     }
     
     char vIP[MAX_IP];
     
@@ -175,7 +175,9 @@ int main(){
         //mission.goal.y = 5.5;
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
-        mission.goal = sala_A01;
+
+        //mission.goal.pop();
+        mission.goal.push(sala_A01);
         mission.executionTime = 300;
         
         memcpy(message.buffer,"CStation",10);
@@ -185,6 +187,31 @@ int main(){
         message.messageSize = sizeof(message.buffer);
         
         v_BlackBoard.at(1)->addUDPMessage(message);
+        mission.goal.pop();
+    }
+    
+    {
+        strcpy(mission.missionCode, "Deliver");
+        mission.operation = enum_MissionOperation::createMission;
+        mission.taskToBeDecomposed = enum_DecomposableTask::deliverPicture;
+        mission.robotCat = enum_RobotCategory::ugv;
+        //mission.goal.x = 10.5;
+        //mission.goal.y = 5.5;
+        //mission.goal.z = 0.0;
+        //mission.goal.yaw = 0.3;
+        mission.goal.push(sala_A01);
+        mission.goal.push(recepcao);
+        mission.executionTime = 300;
+        
+        memcpy(message.buffer,"CStation",10);
+        *((Operation*)(message.buffer + 10)) = operation;
+        *((int*)(message.buffer + 14)) = sizeof(mission);
+        memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
+        message.messageSize = sizeof(message.buffer);
+        
+        v_BlackBoard.at(1)->addUDPMessage(message);
+        mission.goal.pop();
+        mission.goal.pop();
     }
     
     {
@@ -196,7 +223,7 @@ int main(){
         //mission.goal.y = 14.0;
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
-        mission.goal = deposito_01;
+        mission.goal.push(deposito_01);
         mission.executionTime = 300;
         
         memcpy(message.buffer,"CStation",10);
@@ -206,6 +233,7 @@ int main(){
         message.messageSize = sizeof(message.buffer);
         
         v_BlackBoard.at(1)->addUDPMessage(message);
+        mission.goal.pop();
     }
     
     {
@@ -217,7 +245,8 @@ int main(){
         //mission.goal.y = 14;
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
-        mission.goal = escada_02;
+
+        mission.goal.push(escada_02);
         mission.executionTime = 300;
         
         memcpy(message.buffer,"CStation",10);
@@ -227,6 +256,7 @@ int main(){
         message.messageSize = sizeof(message.buffer);
         
         v_BlackBoard.at(1)->addUDPMessage(message);
+        mission.goal.pop();
     }
     
     while (std::getchar() != 'c'){}

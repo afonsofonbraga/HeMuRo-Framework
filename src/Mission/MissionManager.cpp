@@ -216,7 +216,7 @@ void MissionManager::startMissionToExecute()
 void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     //std::cout << "[" << this->robotName << "] Received "<< vMissionMessage->missionCode <<"!" <<std::endl;
-    //this->monitor->print("Received " + std::string(vMissionMessage->missionCode) + "!");
+    this->monitor->print("Received " + std::string(vMissionMessage->missionCode) + "!");
     
     //MissionExecution* vMission = new MissionExecution;
     auto vMission = std::make_unique<MissionExecution>();

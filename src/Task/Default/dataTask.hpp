@@ -10,6 +10,6 @@
 #define dataTask_hpp
 
 enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo, takePicture};
-enum class enum_DecomposableTask{null, checkPosition, lowBattery, takePicture, flightTest}; //Trocar por DecomposableMission
+enum class enum_DecomposableTask{null, checkPosition, lowBattery, takePicture, flightTest, deliverPicture}; //Trocar por DecomposableMission
 
 #endif /* dataTask_h */

@@ -9,7 +9,7 @@
 #ifndef Mission_hpp
 #define Mission_hpp
 
-#include <vector>
+#include <queue>
 #include <thread>
 #include <chrono>
 #include <condition_variable>
@@ -36,7 +36,7 @@ public:
     enum_DecomposableTask mission = enum_DecomposableTask::null;
     enum_RobotCategory robotCategory;
     int executionTime = 30;
-    s_pose goal;
+    std::queue<s_pose> goal;
 };
 
 #endif /* Mission_hpp */
