@@ -115,7 +115,7 @@ void UDPReceiverSim::dataTreatment(char *mensagem)
     {
         for (auto n : robotsList)
         {
-            switchoperation(operation, temp, n.first.c_str());
+            switchoperation(operation, temp, n.first.c_str(), dataSize);
             
         }
         
@@ -124,7 +124,7 @@ void UDPReceiverSim::dataTreatment(char *mensagem)
         auto search = this->robotsList.find(name);
         if (search != this->robotsList.end())
         {
-            switchoperation(operation, temp, name);
+            switchoperation(operation, temp, name, dataSize);
         }
         else
         {
@@ -134,7 +134,7 @@ void UDPReceiverSim::dataTreatment(char *mensagem)
     
 }
 
-void UDPReceiverSim::switchoperation(Operation operation, char* temp, const char* name)
+void UDPReceiverSim::switchoperation(Operation operation, char* temp, const char* name, int size)
 {
     switch(operation){
         case Operation::null:
@@ -150,7 +150,40 @@ void UDPReceiverSim::switchoperation(Operation operation, char* temp, const char
             
         case Operation::missionMessage:
         {
-            s_MissionMessage missionMessage = ((s_MissionMessage*) temp)[0];
+            //            char missionCode[MAX_ID] = "null";
+            //            char senderAddress[MAX_IP] = "null";
+            //            char senderName[MAX_ROBOT_ID] = "null";
+            //            enum_MissionOperation operation = enum_MissionOperation::null;
+            //            enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
+            //            float Cost = 0;
+            //            //char buffer[500] = "null";
+            //            enum_RobotCategory robotCat = enum_RobotCategory::null;
+            //            int executionTime = 0;
+            //            int numberOfGoals = 0;
+            //            std::queue<s_pose> goal;
+            
+            s_MissionMessage missionMessage;// = ((s_MissionMessage*) temp)[0];
+            memcpy(&missionMessage,temp,size - 18);
+            /*
+            s_MissionMessage missionMessage;
+            memcpy(missionMessage.missionCode, temp, MAX_ID);
+            temp = temp + MAX_ID;
+            memcpy(missionMessage.senderAddress, temp, MAX_IP);
+            temp = temp + MAX_IP;
+            memcpy(missionMessage.senderName, temp, MAX_ROBOT_ID);
+            temp = temp + MAX_ROBOT_ID;
+            missionMessage.operation = ((enum_MissionOperation*) temp)[0];
+            temp = temp + 4;
+            missionMessage.taskToBeDecomposed = ((enum_DecomposableTask*) temp)[0];
+            temp = temp + 4;
+            missionMessage.Cost = ((float*) temp)[0];
+            temp = temp + 4;
+            missionMessage.robotCat = ((enum_RobotCategory*) temp)[0];
+            temp = temp + 4;
+            missionMessage.executionTime = ((int*) temp)[0];
+            temp = temp + 4;
+            missionMessage.numberOfGoals = ((float*) temp)[0];
+            temp = temp + 4; */
             this->robotsList[name]->addMissionMessage(missionMessage);
             break;
         }

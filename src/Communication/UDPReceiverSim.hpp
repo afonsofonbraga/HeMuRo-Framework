@@ -40,7 +40,7 @@ protected:
     struct sockaddr_in servAddr;
     struct sockaddr_in cliAddr;
     void dataTreatment(char* mensagem);             // Treat data according to its type
-    void switchoperation(Operation operation, char* temp, const char* name);
+    void switchoperation(Operation operation, char* temp, const char* name, int size);
     
     std::thread t_main;         // Thread object
     bool isRunning;

@@ -134,9 +134,7 @@ int main(){
     receiver->addRobot(v_BlackBoard.at(1));
     v_ChargingStation.push_back(station);
     
-    
-    
-     /*
+    /*
      for (int i=2; i-2< numberOfRobots; i++)
      {
      std::string robotsName = name + std::to_string(i-2);

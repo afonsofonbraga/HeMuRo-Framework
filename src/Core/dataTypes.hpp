@@ -83,10 +83,10 @@ struct s_MissionMessage
     enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
     float Cost = 0;
     //char buffer[500] = "null";
+    enum_RobotCategory robotCat = enum_RobotCategory::null;
+    int executionTime = 0;
+    int numberOfGoals = 0;
     std::queue<s_pose> goal;
-    enum_RobotCategory robotCat;
-    int executionTime;
-    
 };
 
 struct s_BatteryMessage
