@@ -22,7 +22,7 @@ class MoveBaseGoal : public AtomicTask
 {
 protected:
     std::chrono::system_clock::time_point t0;
-    std::chrono::milliseconds tick = std::chrono::milliseconds(1000); // 1s
+    std::chrono::milliseconds tick = std::chrono::milliseconds(4000); // 1s
     float costMeter = 2.0;
     
     float kp = 3, ka = 8, kb = -0.5;

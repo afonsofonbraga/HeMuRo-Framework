@@ -36,7 +36,7 @@ public:
     enum_DecomposableTask mission = enum_DecomposableTask::null;
     enum_RobotCategory robotCategory;
     int executionTime = 30;
-    std::queue<s_pose> goal;
+    s_pose goal;
 };
 
 #endif /* Mission_hpp */

@@ -86,7 +86,7 @@ struct s_MissionMessage
     enum_RobotCategory robotCat = enum_RobotCategory::null;
     int executionTime = 0;
     int numberOfGoals = 0;
-    std::queue<s_pose> goal;
+    s_pose goal;
 };
 
 struct s_BatteryMessage

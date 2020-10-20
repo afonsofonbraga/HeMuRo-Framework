@@ -202,7 +202,7 @@ void BatteryManager::batteryCheckLoop()
                 strcpy(missionMessage.missionCode, chargingStationWinner.requestID);
                 missionMessage.operation = enum_MissionOperation::emergency;
                 missionMessage.taskToBeDecomposed = enum_DecomposableTask::lowBattery;
-                missionMessage.goal.push(chargingStationWinner.spotPosition);
+                missionMessage.goal = chargingStationWinner.spotPosition;
                 this->monitor->addMissionMessage(missionMessage);
                 
                 //auto t0 = std::chrono::high_resolution_clock::now();

@@ -161,9 +161,10 @@ void UDPReceiverSim::switchoperation(Operation operation, char* temp, const char
             //            int executionTime = 0;
             //            int numberOfGoals = 0;
             //            std::queue<s_pose> goal;
-            
-            s_MissionMessage missionMessage;// = ((s_MissionMessage*) temp)[0];
-            memcpy(&missionMessage,temp,size - 18);
+            //std::cout << "teste 1"<< std::endl;
+            s_MissionMessage missionMessage = ((s_MissionMessage*) temp)[0];
+            //std::cout << "teste 2"<< std::endl;
+            //memcpy(&missionMessage,temp,size;
             /*
             s_MissionMessage missionMessage;
             memcpy(missionMessage.missionCode, temp, MAX_ID);
@@ -185,6 +186,7 @@ void UDPReceiverSim::switchoperation(Operation operation, char* temp, const char
             missionMessage.numberOfGoals = ((float*) temp)[0];
             temp = temp + 4; */
             this->robotsList[name]->addMissionMessage(missionMessage);
+            //std::cout << "teste 3"<< std::endl;
             break;
         }
         case Operation::batteryMessage:

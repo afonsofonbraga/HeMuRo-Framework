@@ -42,21 +42,21 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
     std::shared_ptr<AtomicTask> vAtomicTaskitem = nullptr;
     s_pose currentPosition;
     monitor->getPosition(currentPosition);
-    std::queue<s_pose> goal = vMissionDecomposable.goal; // When working with the UDPReceiverSim this is necessary
+    //std::queue<s_pose> goal = vMissionDecomposable.goal; // When working with the UDPReceiverSim this is necessary
     
     for (auto n : vMissionDecomposable.vAtomicTaskVector){
         switch(n){
             case enum_AtomicTask::null :
                 break;
             case enum_AtomicTask::goTo :
-                vAtomicTaskitem = std::make_shared<GoTo>(monitor, currentPosition,goal.front());
-                currentPosition = goal.front();
-                goal.pop();
+                vAtomicTaskitem = std::make_shared<GoTo>(monitor, currentPosition,vMissionDecomposable.goal);
+                currentPosition = vMissionDecomposable.goal;
+                //goal.pop();
                 break;
             case enum_AtomicTask::MoveBaseGoal:
-                vAtomicTaskitem = std::make_shared<MoveBaseGoal>(monitor, currentPosition,goal.front());
-                currentPosition = goal.front();
-                goal.pop();
+                vAtomicTaskitem = std::make_shared<MoveBaseGoal>(monitor, currentPosition,vMissionDecomposable.goal);
+                currentPosition = vMissionDecomposable.goal;
+                //goal.pop();
                 break;
             case enum_AtomicTask::turnOn :
                 vAtomicTaskitem = std::make_shared<TurnOn>(monitor, currentPosition,currentPosition);
