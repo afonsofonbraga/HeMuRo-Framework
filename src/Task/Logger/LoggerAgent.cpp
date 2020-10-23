@@ -14,9 +14,15 @@ LoggerAgent::LoggerAgent(BlackBoard* monitor, bool decentralized)
     monitor->setRobotCategory(enum_RobotCategory::null);
     //broadcast = new UDPBroadcast(monitor);
     if (this->decentralized == true)
+    {
         receiver = new UDPReceiver(monitor);
+        receiver->start();
+    }
+        
     //sender = new UDPSender(monitor);
     logger = new Logger(monitor);
+    logger->Module::start();
+    
 }
 
 LoggerAgent::~LoggerAgent()

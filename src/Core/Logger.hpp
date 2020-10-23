@@ -38,8 +38,6 @@
 
 class Logger: public Module
 {
-
-private:
 protected:
     std::string path;
     s_LoggerMessage* vLoggerMessage;

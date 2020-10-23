@@ -534,7 +534,7 @@ void MissionManager::notifyingWinner(char* missionID)
         if(this->missionOwnerList[missionID].missionAccepted == false)
         {
             //std::cout << "[" << this->robotName << "] Not accepted. Notifying the next bid." << std::endl;
-            this->monitor->print(std::string(this->robotName) + "] Not accepted. Notifying the next bid.");
+            this->monitor->print("Not accepted. Notifying the next bid.");
             this->missionOwnerList[missionID].enum_request = enum_MissionRequest::notifyingWinner;
         }else
             this->missionOwnerList[missionID].enum_request = enum_MissionRequest::executingMission;

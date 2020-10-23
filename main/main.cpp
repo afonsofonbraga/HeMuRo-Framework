@@ -72,11 +72,11 @@ int main( int argc, char *argv[ ] )
 #endif
     
     std::string robotsName = "Logger";
-   // BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
-   // v_BlackBoard.push_back(memory);
-   // receiver->addRobot(v_BlackBoard.at(0));
+    BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
+    v_BlackBoard.push_back(memory);
+    receiver->addRobot(v_BlackBoard.at(0));
     bool decentralizedCommunication = false;
-    // RosbotRobot* logger = new RosbotRobot(v_BlackBoard.at(0), n, decentralizedCommunication);
+    LoggerAgent* logger = new LoggerAgent(v_BlackBoard.at(0), decentralizedCommunication);
 
     for (int i = 1; i < argc; i++)
     {

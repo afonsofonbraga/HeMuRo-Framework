@@ -12,16 +12,26 @@ RosbotRobot::RosbotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decen
 {
     this->decentralized = decentralized;
     monitor->setRobotCategory(enum_RobotCategory::ugv);
-    broadcast = new UDPBroadcast(monitor);
     if (this->decentralized == true)
+    {
         receiver = new UDPReceiver(monitor);
-    sender = new UDPSender(monitor);
-    missionManager = new MissionManager(monitor);
-    alive = new Alive(monitor, vNode);
+        receiver->start();
+    }
     
+    logger = new Logger(monitor);
+    sender = new UDPSender(monitor);
+    broadcast = new UDPBroadcast(monitor);
+    alive = new Alive(monitor, vNode);
     strcpy(mode,"Robot");
     batteryManager = new BatteryManager(monitor,mode);
-    logger = new Logger(monitor);
+    missionManager = new MissionManager(monitor);
+    
+    logger->Module::start();
+    sender->start();
+    broadcast->start();
+    alive->start();
+    batteryManager->start();
+    missionManager->start();
 }
 
 RosbotRobot::~RosbotRobot()
