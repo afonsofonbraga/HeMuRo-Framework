@@ -17,6 +17,7 @@
 #include "dataTypes.hpp"
 #include "BlackBoard.hpp"
 #include "UDPReceiverSim.hpp"
+#include "LoggerAgent.hpp"
 
 
 #ifdef DEFAULT
@@ -83,10 +84,10 @@ int main( int argc, char *argv[ ] )
         robotsName = argv[i];
         BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
         v_BlackBoard.push_back(memory);
-        receiver->addRobot(v_BlackBoard.at(i-1));
+        receiver->addRobot(v_BlackBoard.at(i));
         decentralizedCommunication = false;
 #ifdef DEFAULT
-        DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i-1), decentralizedCommunication);
+        DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
 #endif
         
 #ifdef MAVROS
@@ -94,7 +95,7 @@ int main( int argc, char *argv[ ] )
 #endif
         
 #ifdef ROSBOT
-        RosbotRobot* robot = new RosbotRobot(v_BlackBoard.at(i-1), n, decentralizedCommunication);
+        RosbotRobot* robot = new RosbotRobot(v_BlackBoard.at(i), n, decentralizedCommunication);
 #endif
         
 #ifdef TRUTLEBOT
