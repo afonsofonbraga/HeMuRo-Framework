@@ -14,7 +14,7 @@
 #include <vector>
 #include <map>
 #include <string>
-
+#include <math.h>
 #include "BlackBoard.hpp"
 #include "Module.hpp"
 #include "dataTypes.hpp"
