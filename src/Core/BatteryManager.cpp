@@ -387,7 +387,13 @@ void BatteryManager::bid(std::unique_ptr<s_BatteryMessage> vBatteryMessage)
     this->monitor->print("I received a bid from " + std::string(vBatteryMessage->senderName) + " !");
     
     ChargingBid bid;
-    bid.price = vBatteryMessage->Cost;
+    s_pose robotsPosition;
+    
+    this->monitor->getPosition(robotsPosition);
+    float distance = sqrtf(pow(vBatteryMessage->position.x - robotsPosition.x, 2) + pow(vBatteryMessage->position.y - robotsPosition.y, 2));
+    
+    //Prices bid is the charging cost and euclidian distance sum.
+    bid.price = vBatteryMessage->Cost + distance;
     strcpy(bid.bidderIP, vBatteryMessage->senderAddress);
     strcpy(bid.bidderName, vBatteryMessage->senderName);
     

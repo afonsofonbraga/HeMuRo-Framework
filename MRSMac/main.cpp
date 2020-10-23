@@ -56,9 +56,9 @@ int main(){
     }
     s_pose deposito_02;
     {
-        deposito_01.x = -8.0;
-        deposito_01.y = 14.0;
-        deposito_01.z = 0.0;
+        deposito_02.x = -8.0;
+        deposito_02.y = 14.0;
+        deposito_02.z = 0.0;
     }
     s_pose chargingStation_01;
     {
@@ -80,9 +80,9 @@ int main(){
     }
     s_pose escada_02;
     {
-        escada_01.x = -5.0;
-        escada_01.y = 18.0;
-        escada_01.z = 0.0;
+        escada_02.x = -5.0;
+        escada_02.y = 18.0;
+        escada_02.z = 0.0;
     }
     s_pose salao_01;
     {
@@ -110,7 +110,7 @@ int main(){
     }
     
     std::string name{"Robo"};
-    int numberOfRobots =3;
+    int numberOfRobots =0;
     
     std::vector<BlackBoard* > v_BlackBoard; // = new std::vector<BlackBoard>;
     std::vector<DefaultRobot* > v_DefaultRobot;
@@ -126,7 +126,7 @@ int main(){
     receiver->addRobot(v_BlackBoard.at(0));
     
     
-    robotsName = "CStation";
+    robotsName = "CStation1";
     memory = new BlackBoard(robotsName, enum_RobotCategory::null);
     v_BlackBoard.push_back(memory);
     v_BlackBoard.at(1)->setPosition(chargingStation_01);
@@ -134,10 +134,19 @@ int main(){
     receiver->addRobot(v_BlackBoard.at(1));
     v_ChargingStation.push_back(station);
     
-    /*
-     for (int i=2; i-2< numberOfRobots; i++)
+    
+    robotsName = "CStation2";
+    memory = new BlackBoard(robotsName, enum_RobotCategory::null);
+    v_BlackBoard.push_back(memory);
+    v_BlackBoard.at(2)->setPosition(chargingStation_02);
+    station = new ChargingStation(v_BlackBoard.at(2), decentralizedCommunication);
+    receiver->addRobot(v_BlackBoard.at(2));
+    v_ChargingStation.push_back(station);
+    
+
+     for (int i=3; i-3< numberOfRobots; i++)
      {
-     std::string robotsName = name + std::to_string(i-2);
+     std::string robotsName = name + std::to_string(i-3);
      BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
      v_BlackBoard.push_back(memory);
      bool decentralizedCommunication = false;
@@ -145,7 +154,7 @@ int main(){
      receiver->addRobot(v_BlackBoard.at(i));
      v_DefaultRobot.push_back(robot);
     
-     }*/
+     }
     
     char vIP[MAX_IP];
     
@@ -175,17 +184,16 @@ int main(){
         //mission.goal.yaw = 0.3;
 
         //mission.goal.pop();
-        mission.goal.push(sala_A01);
-        mission.executionTime = 300;
+        mission.goal = sala_A01;
+        mission.executionTime = 30;
         
-        memcpy(message.buffer,"CStation",10);
+        memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
         *((int*)(message.buffer + 14)) = sizeof(mission);
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
         message.messageSize = sizeof(message.buffer);
         
         v_BlackBoard.at(1)->addUDPMessage(message);
-        mission.goal.pop();
     }
     
     {
@@ -197,19 +205,16 @@ int main(){
         //mission.goal.y = 5.5;
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
-        mission.goal.push(sala_A01);
-        mission.goal.push(recepcao);
-        mission.executionTime = 300;
+        mission.goal = recepcao;
+        mission.executionTime = 30;
         
-        memcpy(message.buffer,"CStation",10);
+        memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
         *((int*)(message.buffer + 14)) = sizeof(mission);
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
         message.messageSize = sizeof(message.buffer);
         
         v_BlackBoard.at(1)->addUDPMessage(message);
-        mission.goal.pop();
-        mission.goal.pop();
     }
     
     {
@@ -221,17 +226,16 @@ int main(){
         //mission.goal.y = 14.0;
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
-        mission.goal.push(deposito_01);
-        mission.executionTime = 300;
+        mission.goal = deposito_01;
+        mission.executionTime = 30;
         
-        memcpy(message.buffer,"CStation",10);
+        memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
         *((int*)(message.buffer + 14)) = sizeof(mission);
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
         message.messageSize = sizeof(message.buffer);
         
         v_BlackBoard.at(1)->addUDPMessage(message);
-        mission.goal.pop();
     }
     
     {
@@ -244,17 +248,16 @@ int main(){
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
 
-        mission.goal.push(escada_02);
-        mission.executionTime = 300;
+        mission.goal = escada_02;
+        mission.executionTime = 30;
         
-        memcpy(message.buffer,"CStation",10);
+        memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
         *((int*)(message.buffer + 14)) = sizeof(mission);
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
         message.messageSize = sizeof(message.buffer);
         
         v_BlackBoard.at(1)->addUDPMessage(message);
-        mission.goal.pop();
     }
     
     while (std::getchar() != 'c'){}
