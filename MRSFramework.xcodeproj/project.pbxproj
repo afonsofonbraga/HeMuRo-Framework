@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23103C752552356D0075C543 /* WebApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23103C732552356D0075C543 /* WebApp.cpp */; };
 		231AD3F0251E434D00C88B27 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 231AD3EE251E434D00C88B27 /* Logger.cpp */; };
 		2335B7F724FD71BF00661D4C /* DecomposableTasks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2335B7F524FD71BF00661D4C /* DecomposableTasks.cpp */; };
 		23494C9124CF130200697ABA /* TakePicture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23494C8F24CF130200697ABA /* TakePicture.cpp */; };
@@ -22,6 +23,7 @@
 		23965EAE2501312000F6E7A5 /* BatteryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23965EAC2501312000F6E7A5 /* BatteryManager.cpp */; };
 		23965EB225013E8300F6E7A5 /* ChargingSpot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23965EB025013E8300F6E7A5 /* ChargingSpot.cpp */; };
 		239C81DD248FBED900B58BAD /* AtomicTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8324634A2F00EC7860 /* AtomicTask.cpp */; };
+		23B17FAC2549CAC0003267ED /* WebModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23B17FAA2549CAC0003267ED /* WebModule.cpp */; };
 		23C6E54A246EE01A00D99185 /* GoTo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8624634DDF00EC7860 /* GoTo.cpp */; };
 		23C6E54E246EF4C500D99185 /* ChargeBattery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */; };
 		23C6E551246EF4F100D99185 /* TurnOn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54F246EF4F100D99185 /* TurnOn.cpp */; };
@@ -29,6 +31,8 @@
 		23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B45245C705C0013F98A /* BlackBoard.cpp */; };
 		23E9710925263C470021D3B6 /* MoveBaseGoal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23E9710725263C470021D3B6 /* MoveBaseGoal.cpp */; };
 		23ECC3C9248E99AC0025CBC7 /* MissionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23ECC3C7248E99AC0025CBC7 /* MissionManager.cpp */; };
+		23EDAF1225491C81002845E5 /* libwt.4.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C912A82548C31F00818B4D /* libwt.4.4.0.dylib */; };
+		23EDAF1325491C81002845E5 /* libwthttp.4.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C912AB2548C36D00818B4D /* libwthttp.4.4.0.dylib */; };
 		23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51B245CA8B9003D13A3 /* Module.cpp */; };
 		23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */; };
 		23F3A21D25006C7E00561375 /* DefaultRobot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F3A21B25006C7E00561375 /* DefaultRobot.cpp */; };
@@ -47,9 +51,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		23103C732552356D0075C543 /* WebApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WebApp.cpp; sourceTree = "<group>"; };
+		23103C742552356D0075C543 /* WebApp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WebApp.hpp; sourceTree = "<group>"; };
 		231AD3EE251E434D00C88B27 /* Logger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
 		231AD3EF251E434D00C88B27 /* Logger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Logger.hpp; sourceTree = "<group>"; };
 		2324E2D124F815E90033C523 /* GoTo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
+		23287F93254C6836009396B1 /* MRSstyle.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = MRSstyle.css; sourceTree = "<group>"; };
 		2335B7F524FD71BF00661D4C /* DecomposableTasks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecomposableTasks.cpp; sourceTree = "<group>"; };
 		2335B7F624FD71BF00661D4C /* DecomposableTasks.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DecomposableTasks.hpp; sourceTree = "<group>"; };
 		2335B7F824FD7A8A00661D4C /* dataTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dataTask.hpp; sourceTree = "<group>"; };
@@ -119,10 +126,378 @@
 		23965EAD2501312000F6E7A5 /* BatteryManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BatteryManager.hpp; sourceTree = "<group>"; };
 		23965EB025013E8300F6E7A5 /* ChargingSpot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargingSpot.cpp; sourceTree = "<group>"; };
 		23965EB125013E8300F6E7A5 /* ChargingSpot.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargingSpot.hpp; sourceTree = "<group>"; };
+		23B17FA72549B5A5003267ED /* hello.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hello.cpp; sourceTree = "<group>"; };
+		23B17FAA2549CAC0003267ED /* WebModule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WebModule.cpp; sourceTree = "<group>"; };
+		23B17FAB2549CAC0003267ED /* WebModule.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WebModule.hpp; sourceTree = "<group>"; };
 		23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargeBattery.cpp; sourceTree = "<group>"; };
 		23C6E54D246EF4C500D99185 /* ChargeBattery.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargeBattery.hpp; sourceTree = "<group>"; };
 		23C6E54F246EF4F100D99185 /* TurnOn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TurnOn.cpp; sourceTree = "<group>"; };
 		23C6E550246EF4F100D99185 /* TurnOn.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TurnOn.hpp; sourceTree = "<group>"; };
+		23C9112F2548C16800818B4D /* WInteractWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WInteractWidget.h; sourceTree = "<group>"; };
+		23C911302548C16800818B4D /* WIdentityProxyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIdentityProxyModel.h; sourceTree = "<group>"; };
+		23C911312548C16800818B4D /* WValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WValidator.h; sourceTree = "<group>"; };
+		23C911322548C16800818B4D /* WPointF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPointF.h; sourceTree = "<group>"; };
+		23C911332548C16800818B4D /* WAbstractItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractItemModel.h; sourceTree = "<group>"; };
+		23C911342548C16800818B4D /* WDateValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDateValidator.h; sourceTree = "<group>"; };
+		23C911352548C16800818B4D /* WSvgImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSvgImage.h; sourceTree = "<group>"; };
+		23C911362548C16800818B4D /* WJavaScriptPreamble.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJavaScriptPreamble.h; sourceTree = "<group>"; };
+		23C911372548C16800818B4D /* WRectArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WRectArea.h; sourceTree = "<group>"; };
+		23C911382548C16800818B4D /* WSelectionBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSelectionBox.h; sourceTree = "<group>"; };
+		23C911392548C16800818B4D /* WTimeEdit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTimeEdit.h; sourceTree = "<group>"; };
+		23C9113A2548C16800818B4D /* WGroupBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGroupBox.h; sourceTree = "<group>"; };
+		23C9113B2548C16800818B4D /* WObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WObject.h; sourceTree = "<group>"; };
+		23C9113C2548C16800818B4D /* WStatelessSlot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WStatelessSlot.h; sourceTree = "<group>"; };
+		23C9113D2548C16800818B4D /* WShadow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WShadow.h; sourceTree = "<group>"; };
+		23C9113E2548C16800818B4D /* WLength.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLength.h; sourceTree = "<group>"; };
+		23C9113F2548C16800818B4D /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		23C911402548C16800818B4D /* WVectorImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WVectorImage.h; sourceTree = "<group>"; };
+		23C911412548C16800818B4D /* WClientGLWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WClientGLWidget.h; sourceTree = "<group>"; };
+		23C911422548C16800818B4D /* WTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTableCell.h; sourceTree = "<group>"; };
+		23C911432548C16800818B4D /* DomElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomElement.h; sourceTree = "<group>"; };
+		23C911442548C16800818B4D /* WBrush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBrush.h; sourceTree = "<group>"; };
+		23C911452548C16800818B4D /* WTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTime.h; sourceTree = "<group>"; };
+		23C911462548C16800818B4D /* WSuggestionPopup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSuggestionPopup.h; sourceTree = "<group>"; };
+		23C911472548C16800818B4D /* WApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WApplication.h; sourceTree = "<group>"; };
+		23C911482548C16800818B4D /* WPaintDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPaintDevice.h; sourceTree = "<group>"; };
+		23C911492548C16800818B4D /* WLinkedCssStyleSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLinkedCssStyleSheet.h; sourceTree = "<group>"; };
+		23C9114A2548C16800818B4D /* WImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WImage.h; sourceTree = "<group>"; };
+		23C9114B2548C16800818B4D /* WMessageResourceBundle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMessageResourceBundle.h; sourceTree = "<group>"; };
+		23C9114C2548C16800818B4D /* EscapeOStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EscapeOStream.h; sourceTree = "<group>"; };
+		23C9114D2548C16800818B4D /* WLayoutImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLayoutImpl.h; sourceTree = "<group>"; };
+		23C9114E2548C16800818B4D /* WTimeValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTimeValidator.h; sourceTree = "<group>"; };
+		23C9114F2548C16800818B4D /* WEnvironment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WEnvironment.h; sourceTree = "<group>"; };
+		23C911502548C16800818B4D /* WMessageResources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMessageResources.h; sourceTree = "<group>"; };
+		23C911512548C16800818B4D /* WSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSlider.h; sourceTree = "<group>"; };
+		23C911532548C16800818B4D /* observing_ptr.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = observing_ptr.hpp; sourceTree = "<group>"; };
+		23C911542548C16800818B4D /* observing_ptr_impl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = observing_ptr_impl.hpp; sourceTree = "<group>"; };
+		23C911552548C16800818B4D /* observable_impl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = observable_impl.hpp; sourceTree = "<group>"; };
+		23C911562548C16800818B4D /* observable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = observable.hpp; sourceTree = "<group>"; };
+		23C911572548C16800818B4D /* WAbstractProxyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractProxyModel.h; sourceTree = "<group>"; };
+		23C911582548C16800818B4D /* WTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTableView.h; sourceTree = "<group>"; };
+		23C911592548C16800818B4D /* WBorderLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBorderLayout.h; sourceTree = "<group>"; };
+		23C9115A2548C16800818B4D /* WStringUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WStringUtil.h; sourceTree = "<group>"; };
+		23C9115C2548C16800818B4D /* WTestEnvironment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTestEnvironment.h; sourceTree = "<group>"; };
+		23C9115D2548C16800818B4D /* WAbstractSpinBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractSpinBox.h; sourceTree = "<group>"; };
+		23C9115E2548C16800818B4D /* WSocketNotifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSocketNotifier.h; sourceTree = "<group>"; };
+		23C9115F2548C16800818B4D /* WBatchEditProxyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBatchEditProxyModel.h; sourceTree = "<group>"; };
+		23C911602548C16800818B4D /* WSpinBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSpinBox.h; sourceTree = "<group>"; };
+		23C911612548C16800818B4D /* WLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLayout.h; sourceTree = "<group>"; };
+		23C911622548C16800818B4D /* WSplitButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSplitButton.h; sourceTree = "<group>"; };
+		23C911632548C16800818B4D /* WBreak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBreak.h; sourceTree = "<group>"; };
+		23C911652548C16800818B4D /* system_error.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = system_error.hpp; sourceTree = "<group>"; };
+		23C911662548C16800818B4D /* steady_timer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = steady_timer.hpp; sourceTree = "<group>"; };
+		23C911672548C16800818B4D /* strand.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = strand.hpp; sourceTree = "<group>"; };
+		23C911682548C16800818B4D /* ssl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ssl.hpp; sourceTree = "<group>"; };
+		23C911692548C16800818B4D /* io_service.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = io_service.hpp; sourceTree = "<group>"; };
+		23C9116A2548C16800818B4D /* namespace.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = namespace.hpp; sourceTree = "<group>"; };
+		23C9116B2548C16800818B4D /* asio.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = asio.hpp; sourceTree = "<group>"; };
+		23C9116E2548C16800818B4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		23C9116F2548C16800818B4D /* LICENSE_1_0.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE_1_0.txt; sourceTree = "<group>"; };
+		23C911702548C16800818B4D /* any.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = any.hpp; sourceTree = "<group>"; };
+		23C911712548C16800818B4D /* any.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = any.hpp; sourceTree = "<group>"; };
+		23C911722548C16800818B4D /* WIOService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIOService.h; sourceTree = "<group>"; };
+		23C911732548C16800818B4D /* WText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WText.h; sourceTree = "<group>"; };
+		23C911742548C16800818B4D /* WPaintedWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPaintedWidget.h; sourceTree = "<group>"; };
+		23C911752548C16800818B4D /* WSslInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSslInfo.h; sourceTree = "<group>"; };
+		23C911772548C16800818B4D /* UpdatePasswordWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdatePasswordWidget.h; sourceTree = "<group>"; };
+		23C911782548C16800818B4D /* PasswordHash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordHash.h; sourceTree = "<group>"; };
+		23C911792548C16800818B4D /* OAuthWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAuthWidget.h; sourceTree = "<group>"; };
+		23C9117A2548C16800818B4D /* AbstractPasswordService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AbstractPasswordService.h; sourceTree = "<group>"; };
+		23C9117B2548C16800818B4D /* OAuthAuthorizationEndpointProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAuthAuthorizationEndpointProcess.h; sourceTree = "<group>"; };
+		23C9117C2548C16800818B4D /* OidcUserInfoEndpoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OidcUserInfoEndpoint.h; sourceTree = "<group>"; };
+		23C9117D2548C16800818B4D /* OAuthClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAuthClient.h; sourceTree = "<group>"; };
+		23C9117E2548C16800818B4D /* AuthModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthModel.h; sourceTree = "<group>"; };
+		23C9117F2548C16800818B4D /* PasswordPromptDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordPromptDialog.h; sourceTree = "<group>"; };
+		23C911802548C16800818B4D /* RegistrationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegistrationModel.h; sourceTree = "<group>"; };
+		23C911822548C16800818B4D /* UserDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDatabase.h; sourceTree = "<group>"; };
+		23C911832548C16800818B4D /* AuthInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthInfo.h; sourceTree = "<group>"; };
+		23C911842548C16800818B4D /* PasswordService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordService.h; sourceTree = "<group>"; };
+		23C911852548C16800818B4D /* GoogleService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoogleService.h; sourceTree = "<group>"; };
+		23C911862548C16800818B4D /* AbstractUserDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AbstractUserDatabase.h; sourceTree = "<group>"; };
+		23C911872548C16800818B4D /* FormBaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormBaseModel.h; sourceTree = "<group>"; };
+		23C911882548C16800818B4D /* PasswordStrengthValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordStrengthValidator.h; sourceTree = "<group>"; };
+		23C911892548C16800818B4D /* LostPasswordWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LostPasswordWidget.h; sourceTree = "<group>"; };
+		23C9118A2548C16800818B4D /* HashFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HashFunction.h; sourceTree = "<group>"; };
+		23C9118B2548C16800818B4D /* RegistrationWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegistrationWidget.h; sourceTree = "<group>"; };
+		23C9118C2548C16800818B4D /* AuthUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthUtils.h; sourceTree = "<group>"; };
+		23C9118D2548C16800818B4D /* WAuthGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAuthGlobal.h; sourceTree = "<group>"; };
+		23C9118E2548C16800818B4D /* Identity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Identity.h; sourceTree = "<group>"; };
+		23C9118F2548C16800818B4D /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		23C911902548C16800818B4D /* AuthService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthService.h; sourceTree = "<group>"; };
+		23C911912548C16800818B4D /* AuthWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthWidget.h; sourceTree = "<group>"; };
+		23C911922548C16800818B4D /* Token.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
+		23C911932548C16800818B4D /* OAuthTokenEndpoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAuthTokenEndpoint.h; sourceTree = "<group>"; };
+		23C911942548C16800818B4D /* IssuedToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssuedToken.h; sourceTree = "<group>"; };
+		23C911952548C16800818B4D /* OAuthService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAuthService.h; sourceTree = "<group>"; };
+		23C911962548C16800818B4D /* OidcService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OidcService.h; sourceTree = "<group>"; };
+		23C911972548C16800818B4D /* FacebookService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FacebookService.h; sourceTree = "<group>"; };
+		23C911982548C16800818B4D /* Login.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
+		23C911992548C16800818B4D /* PasswordVerifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordVerifier.h; sourceTree = "<group>"; };
+		23C9119A2548C16800818B4D /* WCheckBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCheckBox.h; sourceTree = "<group>"; };
+		23C9119B2548C16800818B4D /* WBorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBorder.h; sourceTree = "<group>"; };
+		23C9119C2548C16800818B4D /* WSubMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSubMenuItem.h; sourceTree = "<group>"; };
+		23C9119D2548C16800818B4D /* WRandom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WRandom.h; sourceTree = "<group>"; };
+		23C9119E2548C16800818B4D /* WDateEdit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDateEdit.h; sourceTree = "<group>"; };
+		23C9119F2548C16800818B4D /* WVBoxLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WVBoxLayout.h; sourceTree = "<group>"; };
+		23C911A02548C16800818B4D /* WTreeTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTreeTable.h; sourceTree = "<group>"; };
+		23C911A22548C16800818B4D /* Client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
+		23C911A32548C16800818B4D /* Message.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		23C911A42548C16800818B4D /* Mailbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mailbox.h; sourceTree = "<group>"; };
+		23C911A52548C16800818B4D /* WPen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPen.h; sourceTree = "<group>"; };
+		23C911A62548C16800818B4D /* WDate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDate.h; sourceTree = "<group>"; };
+		23C911A72548C16800818B4D /* WHBoxLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WHBoxLayout.h; sourceTree = "<group>"; };
+		23C911A82548C16800818B4D /* WString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WString.h; sourceTree = "<group>"; };
+		23C911A92548C16800818B4D /* WProgressBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WProgressBar.h; sourceTree = "<group>"; };
+		23C911AA2548C16800818B4D /* WNavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WNavigationBar.h; sourceTree = "<group>"; };
+		23C911AC2548C16800818B4D /* collection_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = collection_impl.h; sourceTree = "<group>"; };
+		23C911AD2548C16800818B4D /* WtSqlTraits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WtSqlTraits.h; sourceTree = "<group>"; };
+		23C911AE2548C16800818B4D /* SqlConnectionPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SqlConnectionPool.h; sourceTree = "<group>"; };
+		23C911AF2548C16800818B4D /* DbAction_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DbAction_impl.h; sourceTree = "<group>"; };
+		23C911B02548C16800818B4D /* StdSqlTraits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StdSqlTraits.h; sourceTree = "<group>"; };
+		23C911B12548C16800818B4D /* EscapeOStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EscapeOStream.h; sourceTree = "<group>"; };
+		23C911B22548C16800818B4D /* QueryColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryColumn.h; sourceTree = "<group>"; };
+		23C911B32548C16800818B4D /* Session_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Session_impl.h; sourceTree = "<group>"; };
+		23C911B42548C16800818B4D /* weak_ptr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = weak_ptr.h; sourceTree = "<group>"; };
+		23C911B52548C16800818B4D /* Query.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Query.h; sourceTree = "<group>"; };
+		23C911B62548C16800818B4D /* WDboDllDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDboDllDefs.h; sourceTree = "<group>"; };
+		23C911B72548C16800818B4D /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		23C911B82548C16800818B4D /* Field.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Field.h; sourceTree = "<group>"; };
+		23C911B92548C16800818B4D /* QueryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryModel.h; sourceTree = "<group>"; };
+		23C911BA2548C16800818B4D /* SqlTraits_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SqlTraits_impl.h; sourceTree = "<group>"; };
+		23C911BB2548C16800818B4D /* Field_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Field_impl.h; sourceTree = "<group>"; };
+		23C911BC2548C16800818B4D /* Dbo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dbo.h; sourceTree = "<group>"; };
+		23C911BE2548C16800818B4D /* WDboSqlite3DllDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDboSqlite3DllDefs.h; sourceTree = "<group>"; };
+		23C911BF2548C16800818B4D /* Sqlite3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sqlite3.h; sourceTree = "<group>"; };
+		23C911C02548C16800818B4D /* Call.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Call.h; sourceTree = "<group>"; };
+		23C911C12548C16800818B4D /* FixedSqlConnectionPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FixedSqlConnectionPool.h; sourceTree = "<group>"; };
+		23C911C22548C16800818B4D /* Call_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Call_impl.h; sourceTree = "<group>"; };
+		23C911C32548C16800818B4D /* ptr_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ptr_impl.h; sourceTree = "<group>"; };
+		23C911C42548C16800818B4D /* Session.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		23C911C52548C16800818B4D /* SqlStatement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SqlStatement.h; sourceTree = "<group>"; };
+		23C911C62548C16800818B4D /* DbAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DbAction.h; sourceTree = "<group>"; };
+		23C911C72548C16800818B4D /* Json.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Json.h; sourceTree = "<group>"; };
+		23C911C82548C16800818B4D /* StringStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringStream.h; sourceTree = "<group>"; };
+		23C911C92548C16800818B4D /* weak_ptr_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = weak_ptr_impl.h; sourceTree = "<group>"; };
+		23C911CA2548C16800818B4D /* QueryModel_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryModel_impl.h; sourceTree = "<group>"; };
+		23C911CB2548C16800818B4D /* ptr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ptr.h; sourceTree = "<group>"; };
+		23C911CC2548C16800818B4D /* collection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = collection.h; sourceTree = "<group>"; };
+		23C911CD2548C16800818B4D /* Logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
+		23C911CE2548C16800818B4D /* Impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Impl.h; sourceTree = "<group>"; };
+		23C911CF2548C16800818B4D /* Exception.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
+		23C911D02548C16800818B4D /* ptr_tuple.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ptr_tuple.h; sourceTree = "<group>"; };
+		23C911D12548C16800818B4D /* Transaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
+		23C911D22548C16800818B4D /* Query_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Query_impl.h; sourceTree = "<group>"; };
+		23C911D32548C16800818B4D /* SqlConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SqlConnection.h; sourceTree = "<group>"; };
+		23C911D42548C16800818B4D /* SqlTraits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SqlTraits.h; sourceTree = "<group>"; };
+		23C911D52548C16800818B4D /* WMeasurePaintDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMeasurePaintDevice.h; sourceTree = "<group>"; };
+		23C911D62548C16800818B4D /* WTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTable.h; sourceTree = "<group>"; };
+		23C911D82548C16800818B4D /* Money.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Money.h; sourceTree = "<group>"; };
+		23C911D92548C16800818B4D /* Address.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
+		23C911DA2548C16800818B4D /* Result.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Result.h; sourceTree = "<group>"; };
+		23C911DB2548C16800818B4D /* OrderItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = "<group>"; };
+		23C911DC2548C16800818B4D /* PayPal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayPal.h; sourceTree = "<group>"; };
+		23C911DD2548C16800818B4D /* Order.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		23C911DE2548C16800818B4D /* Customer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Customer.h; sourceTree = "<group>"; };
+		23C911DF2548C16800818B4D /* WPushButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPushButton.h; sourceTree = "<group>"; };
+		23C911E02548C16800818B4D /* WItemSelectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WItemSelectionModel.h; sourceTree = "<group>"; };
+		23C911E12548C16800818B4D /* WDefaultLoadingIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDefaultLoadingIndicator.h; sourceTree = "<group>"; };
+		23C911E22548C16800818B4D /* WDoubleValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDoubleValidator.h; sourceTree = "<group>"; };
+		23C911E32548C16800818B4D /* WAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAnimation.h; sourceTree = "<group>"; };
+		23C911E42548C16800818B4D /* WDllDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDllDefs.h; sourceTree = "<group>"; };
+		23C911E52548C16800818B4D /* WCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCalendar.h; sourceTree = "<group>"; };
+		23C911E72548C16800818B4D /* signals.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = signals.hpp; sourceTree = "<group>"; };
+		23C911E82548C16800818B4D /* WServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WServer.h; sourceTree = "<group>"; };
+		23C911E92548C16800818B4D /* WItemDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WItemDelegate.h; sourceTree = "<group>"; };
+		23C911EA2548C16800818B4D /* WIcon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIcon.h; sourceTree = "<group>"; };
+		23C911EC2548C16800818B4D /* WAbstractChart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractChart.h; sourceTree = "<group>"; };
+		23C911ED2548C16800818B4D /* WCartesian3DChart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCartesian3DChart.h; sourceTree = "<group>"; };
+		23C911EE2548C16800818B4D /* WAxis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAxis.h; sourceTree = "<group>"; };
+		23C911EF2548C16800818B4D /* WAbstractColorMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractColorMap.h; sourceTree = "<group>"; };
+		23C911F02548C16800818B4D /* WAxisSliderWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAxisSliderWidget.h; sourceTree = "<group>"; };
+		23C911F12548C16800818B4D /* WAbstractDataSeries3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractDataSeries3D.h; sourceTree = "<group>"; };
+		23C911F22548C16800818B4D /* WAbstractGridData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractGridData.h; sourceTree = "<group>"; };
+		23C911F32548C16800818B4D /* WDataSeries.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDataSeries.h; sourceTree = "<group>"; };
+		23C911F42548C16800818B4D /* WStandardChartProxyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WStandardChartProxyModel.h; sourceTree = "<group>"; };
+		23C911F52548C16800818B4D /* WStandardColorMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WStandardColorMap.h; sourceTree = "<group>"; };
+		23C911F62548C16800818B4D /* WPieChart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPieChart.h; sourceTree = "<group>"; };
+		23C911F72548C16800818B4D /* WLegend3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLegend3D.h; sourceTree = "<group>"; };
+		23C911F82548C16800818B4D /* WScatterData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WScatterData.h; sourceTree = "<group>"; };
+		23C911F92548C16800818B4D /* WChartPalette.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WChartPalette.h; sourceTree = "<group>"; };
+		23C911FA2548C16800818B4D /* WAbstractChartImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractChartImplementation.h; sourceTree = "<group>"; };
+		23C911FB2548C16800818B4D /* WChartGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WChartGlobal.h; sourceTree = "<group>"; };
+		23C911FC2548C16800818B4D /* WChart3DImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WChart3DImplementation.h; sourceTree = "<group>"; };
+		23C911FD2548C16800818B4D /* WSelection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSelection.h; sourceTree = "<group>"; };
+		23C911FE2548C16800818B4D /* WGridData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGridData.h; sourceTree = "<group>"; };
+		23C911FF2548C16800818B4D /* WStandardPalette.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WStandardPalette.h; sourceTree = "<group>"; };
+		23C912002548C16800818B4D /* WAbstractChartModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractChartModel.h; sourceTree = "<group>"; };
+		23C912012548C16800818B4D /* WCartesianChart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCartesianChart.h; sourceTree = "<group>"; };
+		23C912022548C16800818B4D /* WEquidistantGridData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WEquidistantGridData.h; sourceTree = "<group>"; };
+		23C912032548C16800818B4D /* WChart2DImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WChart2DImplementation.h; sourceTree = "<group>"; };
+		23C912042548C16800818B4D /* WLegend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLegend.h; sourceTree = "<group>"; };
+		23C912082548C16800818B4D /* tz_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tz_private.h; sourceTree = "<group>"; };
+		23C912092548C16800818B4D /* ios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ios.h; sourceTree = "<group>"; };
+		23C9120A2548C16800818B4D /* ptz.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ptz.h; sourceTree = "<group>"; };
+		23C9120B2548C16800818B4D /* date.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = date.h; sourceTree = "<group>"; };
+		23C9120C2548C16800818B4D /* julian.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = julian.h; sourceTree = "<group>"; };
+		23C9120D2548C16800818B4D /* chrono_io.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chrono_io.h; sourceTree = "<group>"; };
+		23C9120E2548C16800818B4D /* iso_week.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iso_week.h; sourceTree = "<group>"; };
+		23C9120F2548C16800818B4D /* tz.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tz.h; sourceTree = "<group>"; };
+		23C912102548C16800818B4D /* islamic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = islamic.h; sourceTree = "<group>"; };
+		23C912112548C16800818B4D /* date.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = date.h; sourceTree = "<group>"; };
+		23C912122548C16800818B4D /* tz.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tz.h; sourceTree = "<group>"; };
+		23C912132548C16800818B4D /* WColorPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WColorPicker.h; sourceTree = "<group>"; };
+		23C912142548C16800818B4D /* WJavaScriptObjectStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJavaScriptObjectStorage.h; sourceTree = "<group>"; };
+		23C912152548C16800818B4D /* WMessageBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMessageBox.h; sourceTree = "<group>"; };
+		23C912162548C16800818B4D /* WSslCertificate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSslCertificate.h; sourceTree = "<group>"; };
+		23C912172548C16800818B4D /* WDateTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDateTime.h; sourceTree = "<group>"; };
+		23C912182548C16800818B4D /* WSortFilterProxyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSortFilterProxyModel.h; sourceTree = "<group>"; };
+		23C912192548C16800818B4D /* WVideo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WVideo.h; sourceTree = "<group>"; };
+		23C9121A2548C16800818B4D /* WAbstractArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractArea.h; sourceTree = "<group>"; };
+		23C9121B2548C16800818B4D /* WOverlayLoadingIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOverlayLoadingIndicator.h; sourceTree = "<group>"; };
+		23C9121C2548C16800818B4D /* WStreamResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WStreamResource.h; sourceTree = "<group>"; };
+		23C9121D2548C16800818B4D /* WJavaScriptHandle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJavaScriptHandle.h; sourceTree = "<group>"; };
+		23C9121E2548C16800818B4D /* WViewWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WViewWidget.h; sourceTree = "<group>"; };
+		23C912202548C16800818B4D /* WPdfRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPdfRenderer.h; sourceTree = "<group>"; };
+		23C912212548C16800818B4D /* WTextRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTextRenderer.h; sourceTree = "<group>"; };
+		23C912222548C16800818B4D /* WTreeTableNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTreeTableNode.h; sourceTree = "<group>"; };
+		23C912232548C16800818B4D /* WAbstractMedia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractMedia.h; sourceTree = "<group>"; };
+		23C912242548C16800818B4D /* WGoogleMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGoogleMap.h; sourceTree = "<group>"; };
+		23C912252548C16800818B4D /* WTableColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTableColumn.h; sourceTree = "<group>"; };
+		23C912262548C16800818B4D /* WWidgetItemImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WWidgetItemImpl.h; sourceTree = "<group>"; };
+		23C912272548C16800818B4D /* WPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPanel.h; sourceTree = "<group>"; };
+		23C912282548C16800818B4D /* WLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLogger.h; sourceTree = "<group>"; };
+		23C912292548C16800818B4D /* WLengthValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLengthValidator.h; sourceTree = "<group>"; };
+		23C9122A2548C16800818B4D /* WMatrix4x4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMatrix4x4.h; sourceTree = "<group>"; };
+		23C9122B2548C16800818B4D /* WMediaPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMediaPlayer.h; sourceTree = "<group>"; };
+		23C9122C2548C16800818B4D /* WTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTree.h; sourceTree = "<group>"; };
+		23C9122D2548C16800818B4D /* WGradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGradient.h; sourceTree = "<group>"; };
+		23C9122E2548C16800818B4D /* WTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTimer.h; sourceTree = "<group>"; };
+		23C9122F2548C16800818B4D /* WFileUpload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFileUpload.h; sourceTree = "<group>"; };
+		23C912302548C16800818B4D /* WFontMetrics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFontMetrics.h; sourceTree = "<group>"; };
+		23C912312548C16800818B4D /* WPopupMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPopupMenu.h; sourceTree = "<group>"; };
+		23C912322548C16800818B4D /* WComboBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WComboBox.h; sourceTree = "<group>"; };
+		23C912332548C16800818B4D /* WFileDropWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFileDropWidget.h; sourceTree = "<group>"; };
+		23C912342548C16800818B4D /* WConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WConfig.h; sourceTree = "<group>"; };
+		23C912352548C16800818B4D /* WPopupWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPopupWidget.h; sourceTree = "<group>"; };
+		23C912362548C16800818B4D /* WTreeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTreeView.h; sourceTree = "<group>"; };
+		23C912372548C16800818B4D /* WDatePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDatePicker.h; sourceTree = "<group>"; };
+		23C912382548C16800818B4D /* WLocale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLocale.h; sourceTree = "<group>"; };
+		23C912392548C16800818B4D /* WTemplateFormView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTemplateFormView.h; sourceTree = "<group>"; };
+		23C9123A2548C16800818B4D /* WWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WWidget.h; sourceTree = "<group>"; };
+		23C9123B2548C16900818B4D /* WGridLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGridLayout.h; sourceTree = "<group>"; };
+		23C9123C2548C16900818B4D /* WAbstractToggleButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractToggleButton.h; sourceTree = "<group>"; };
+		23C9123D2548C16900818B4D /* WAbstractGLImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractGLImplementation.h; sourceTree = "<group>"; };
+		23C9123E2548C16900818B4D /* WResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WResource.h; sourceTree = "<group>"; };
+		23C9123F2548C16900818B4D /* WModelIndex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WModelIndex.h; sourceTree = "<group>"; };
+		23C912402548C16900818B4D /* WLayoutItemImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLayoutItemImpl.h; sourceTree = "<group>"; };
+		23C912412548C16900818B4D /* WAbstractItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractItemView.h; sourceTree = "<group>"; };
+		23C912422548C16900818B4D /* WStringListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WStringListModel.h; sourceTree = "<group>"; };
+		23C912432548C16900818B4D /* WColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WColor.h; sourceTree = "<group>"; };
+		23C912442548C16900818B4D /* WTableRow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTableRow.h; sourceTree = "<group>"; };
+		23C912452548C16900818B4D /* WPolygonArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPolygonArea.h; sourceTree = "<group>"; };
+		23C912472548C16900818B4D /* Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
+		23C912482548C16900818B4D /* Value.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Value.h; sourceTree = "<group>"; };
+		23C912492548C16900818B4D /* Serializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Serializer.h; sourceTree = "<group>"; };
+		23C9124A2548C16900818B4D /* Array.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Array.h; sourceTree = "<group>"; };
+		23C9124B2548C16900818B4D /* Object.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
+		23C9124C2548C16900818B4D /* WFitLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFitLayout.h; sourceTree = "<group>"; };
+		23C9124D2548C16900818B4D /* WGenericMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGenericMatrix.h; sourceTree = "<group>"; };
+		23C9124E2548C16900818B4D /* WDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDialog.h; sourceTree = "<group>"; };
+		23C9124F2548C16900818B4D /* WJavaScriptExposableObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJavaScriptExposableObject.h; sourceTree = "<group>"; };
+		23C912502548C16900818B4D /* WLineF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLineF.h; sourceTree = "<group>"; };
+		23C912512548C16900818B4D /* WLocalizedStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLocalizedStrings.h; sourceTree = "<group>"; };
+		23C912522548C16900818B4D /* WCircleArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCircleArea.h; sourceTree = "<group>"; };
+		23C912532548C16900818B4D /* WLeafletMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLeafletMap.h; sourceTree = "<group>"; };
+		23C912542548C16900818B4D /* WTreeNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTreeNode.h; sourceTree = "<group>"; };
+		23C912552548C16900818B4D /* WAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAudio.h; sourceTree = "<group>"; };
+		23C912562548C16900818B4D /* WContainerWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WContainerWidget.h; sourceTree = "<group>"; };
+		23C912572548C16900818B4D /* WVmlImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WVmlImage.h; sourceTree = "<group>"; };
+		23C912582548C16900818B4D /* WException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WException.h; sourceTree = "<group>"; };
+		23C912592548C16900818B4D /* WFormWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFormWidget.h; sourceTree = "<group>"; };
+		23C9125A2548C16900818B4D /* WAnchor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAnchor.h; sourceTree = "<group>"; };
+		23C9125B2548C16900818B4D /* WDoubleSpinBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WDoubleSpinBox.h; sourceTree = "<group>"; };
+		23C9125D2548C16900818B4D /* Client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
+		23C9125E2548C16900818B4D /* Response.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Response.h; sourceTree = "<group>"; };
+		23C9125F2548C16900818B4D /* ResponseContinuation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResponseContinuation.h; sourceTree = "<group>"; };
+		23C912602548C16900818B4D /* Method.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Method.h; sourceTree = "<group>"; };
+		23C912612548C16900818B4D /* Message.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		23C912622548C16900818B4D /* Request.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
+		23C912632548C16900818B4D /* WtClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WtClient.h; sourceTree = "<group>"; };
+		23C912642548C16900818B4D /* WFlags.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFlags.h; sourceTree = "<group>"; };
+		23C912652548C16900818B4D /* WStandardItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WStandardItemModel.h; sourceTree = "<group>"; };
+		23C912662548C16900818B4D /* WRasterImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WRasterImage.h; sourceTree = "<group>"; };
+		23C912672548C16900818B4D /* WStackedWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WStackedWidget.h; sourceTree = "<group>"; };
+		23C912682548C16900818B4D /* WRegExpValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WRegExpValidator.h; sourceTree = "<group>"; };
+		23C912692548C16900818B4D /* WAbstractListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractListModel.h; sourceTree = "<group>"; };
+		23C9126A2548C16900818B4D /* WFormModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFormModel.h; sourceTree = "<group>"; };
+		23C9126B2548C16900818B4D /* WWebWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WWebWidget.h; sourceTree = "<group>"; };
+		23C9126C2548C16900818B4D /* WCssDecorationStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCssDecorationStyle.h; sourceTree = "<group>"; };
+		23C9126D2548C16900818B4D /* WVirtualImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WVirtualImage.h; sourceTree = "<group>"; };
+		23C9126E2548C16900818B4D /* WRadioButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WRadioButton.h; sourceTree = "<group>"; };
+		23C9126F2548C16900818B4D /* WTextEdit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTextEdit.h; sourceTree = "<group>"; };
+		23C912702548C16900818B4D /* WInPlaceEdit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WInPlaceEdit.h; sourceTree = "<group>"; };
+		23C912712548C16900818B4D /* WButtonGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WButtonGroup.h; sourceTree = "<group>"; };
+		23C912722548C16900818B4D /* WTimerWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTimerWidget.h; sourceTree = "<group>"; };
+		23C912732548C16900818B4D /* WLayoutItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLayoutItem.h; sourceTree = "<group>"; };
+		23C912742548C16900818B4D /* WVector4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WVector4.h; sourceTree = "<group>"; };
+		23C912752548C16900818B4D /* WWidgetItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WWidgetItem.h; sourceTree = "<group>"; };
+		23C912762548C16900818B4D /* WTabWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTabWidget.h; sourceTree = "<group>"; };
+		23C912772548C16900818B4D /* WPdfImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPdfImage.h; sourceTree = "<group>"; };
+		23C912782548C16900818B4D /* WBoxLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBoxLayout.h; sourceTree = "<group>"; };
+		23C912792548C16900818B4D /* WAbstractTableModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractTableModel.h; sourceTree = "<group>"; };
+		23C9127A2548C16900818B4D /* WCombinedLocalizedStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCombinedLocalizedStrings.h; sourceTree = "<group>"; };
+		23C9127B2548C16900818B4D /* WMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMenu.h; sourceTree = "<group>"; };
+		23C9127C2548C16900818B4D /* WAbstractItemDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAbstractItemDelegate.h; sourceTree = "<group>"; };
+		23C9127D2548C16900818B4D /* WAggregateProxyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAggregateProxyModel.h; sourceTree = "<group>"; };
+		23C9127E2548C16900818B4D /* WRectF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WRectF.h; sourceTree = "<group>"; };
+		23C9127F2548C16900818B4D /* WTextArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTextArea.h; sourceTree = "<group>"; };
+		23C912802548C16900818B4D /* WPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPoint.h; sourceTree = "<group>"; };
+		23C912812548C16900818B4D /* WTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTemplate.h; sourceTree = "<group>"; };
+		23C912822548C16900818B4D /* WEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WEvent.h; sourceTree = "<group>"; };
+		23C912832548C16900818B4D /* WFileResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFileResource.h; sourceTree = "<group>"; };
+		23C912842548C16900818B4D /* WLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLink.h; sourceTree = "<group>"; };
+		23C912852548C16900818B4D /* WMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMenuItem.h; sourceTree = "<group>"; };
+		23C912862548C16900818B4D /* WJavaScript.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJavaScript.h; sourceTree = "<group>"; };
+		23C912872548C16900818B4D /* WPainter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPainter.h; sourceTree = "<group>"; };
+		23C912882548C16900818B4D /* WGLWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGLWidget.h; sourceTree = "<group>"; };
+		23C912892548C16900818B4D /* WStandardItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WStandardItem.h; sourceTree = "<group>"; };
+		23C9128A2548C16900818B4D /* WLoadingIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLoadingIndicator.h; sourceTree = "<group>"; };
+		23C9128B2548C16900818B4D /* WFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFont.h; sourceTree = "<group>"; };
+		23C9128C2548C16900818B4D /* WBootstrapTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBootstrapTheme.h; sourceTree = "<group>"; };
+		23C9128D2548C16900818B4D /* WMemoryResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMemoryResource.h; sourceTree = "<group>"; };
+		23C9128E2548C16900818B4D /* WIconPair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIconPair.h; sourceTree = "<group>"; };
+		23C9128F2548C16900818B4D /* WIntValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIntValidator.h; sourceTree = "<group>"; };
+		23C912902548C16900818B4D /* WTimePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTimePicker.h; sourceTree = "<group>"; };
+		23C912912548C16900818B4D /* WPopupMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPopupMenuItem.h; sourceTree = "<group>"; };
+		23C912922548C16900818B4D /* WReadOnlyProxyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WReadOnlyProxyModel.h; sourceTree = "<group>"; };
+		23C912932548C16900818B4D /* WPainterPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPainterPath.h; sourceTree = "<group>"; };
+		23C912942548C16900818B4D /* WToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WToolBar.h; sourceTree = "<group>"; };
+		23C912952548C16900818B4D /* WLogSink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLogSink.h; sourceTree = "<group>"; };
+		23C912962548C16900818B4D /* WTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTheme.h; sourceTree = "<group>"; };
+		23C912972548C16900818B4D /* WServerGLWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WServerGLWidget.h; sourceTree = "<group>"; };
+		23C912982548C16900818B4D /* WFlashObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFlashObject.h; sourceTree = "<group>"; };
+		23C912992548C16900818B4D /* WCssStyleSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCssStyleSheet.h; sourceTree = "<group>"; };
+		23C9129A2548C16900818B4D /* WVector3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WVector3.h; sourceTree = "<group>"; };
+		23C9129B2548C16900818B4D /* WSignal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSignal.h; sourceTree = "<group>"; };
+		23C9129C2548C16900818B4D /* WStringStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WStringStream.h; sourceTree = "<group>"; };
+		23C9129D2548C16900818B4D /* WLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLabel.h; sourceTree = "<group>"; };
+		23C9129E2548C16900818B4D /* WCompositeWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCompositeWidget.h; sourceTree = "<group>"; };
+		23C9129F2548C16900818B4D /* WLocalDateTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLocalDateTime.h; sourceTree = "<group>"; };
+		23C912A02548C16900818B4D /* WAny.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WAny.h; sourceTree = "<group>"; };
+		23C912A12548C16900818B4D /* WTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTransform.h; sourceTree = "<group>"; };
+		23C912A22548C16900818B4D /* WGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGlobal.h; sourceTree = "<group>"; };
+		23C912A32548C16900818B4D /* WCssTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCssTheme.h; sourceTree = "<group>"; };
+		23C912A42548C16900818B4D /* WSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSound.h; sourceTree = "<group>"; };
+		23C912A52548C16900818B4D /* WJavaScriptSlot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJavaScriptSlot.h; sourceTree = "<group>"; };
+		23C912A62548C16900818B4D /* WCanvasPaintDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCanvasPaintDevice.h; sourceTree = "<group>"; };
+		23C912A72548C16900818B4D /* WLineEdit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLineEdit.h; sourceTree = "<group>"; };
+		23C912A82548C31F00818B4D /* libwt.4.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwt.4.4.0.dylib; path = ../../../../usr/local/lib/libwt.4.4.0.dylib; sourceTree = "<group>"; };
+		23C912AA2548C36D00818B4D /* libwtdbo.4.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwtdbo.4.4.0.dylib; path = ../../../../usr/local/lib/libwtdbo.4.4.0.dylib; sourceTree = "<group>"; };
+		23C912AB2548C36D00818B4D /* libwthttp.4.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwthttp.4.4.0.dylib; path = ../../../../usr/local/lib/libwthttp.4.4.0.dylib; sourceTree = "<group>"; };
+		23C912AC2548C36D00818B4D /* libwttest.4.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwttest.4.4.0.dylib; path = ../../../../usr/local/lib/libwttest.4.4.0.dylib; sourceTree = "<group>"; };
+		23C912AD2548C36D00818B4D /* libwtdbosqlite3.4.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwtdbosqlite3.4.4.0.dylib; path = ../../../../usr/local/lib/libwtdbosqlite3.4.4.0.dylib; sourceTree = "<group>"; };
+		23C912B22549101500818B4D /* libwttest.4.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwttest.4.4.0.dylib; path = ../wt/build/src/libwttest.4.4.0.dylib; sourceTree = "<group>"; };
+		23C912B32549101500818B4D /* libwt.4.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwt.4.4.0.dylib; path = ../wt/build/src/libwt.4.4.0.dylib; sourceTree = "<group>"; };
 		23D20B3D245C705C0013F98A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		23D20B3F245C705C0013F98A /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		23D20B40245C705C0013F98A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -169,6 +544,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23EDAF1225491C81002845E5 /* libwt.4.4.0.dylib in Frameworks */,
+				23EDAF1325491C81002845E5 /* libwthttp.4.4.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +635,551 @@
 			path = ChargingStation;
 			sourceTree = "<group>";
 		};
+		23B17FA92549C24D003267ED /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				23287F93254C6836009396B1 /* MRSstyle.css */,
+				23B17FAA2549CAC0003267ED /* WebModule.cpp */,
+				23B17FAB2549CAC0003267ED /* WebModule.hpp */,
+				23103C732552356D0075C543 /* WebApp.cpp */,
+				23103C742552356D0075C543 /* WebApp.hpp */,
+			);
+			path = Web;
+			sourceTree = "<group>";
+		};
+		23C9112D2548C16800818B4D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23C912B32549101500818B4D /* libwt.4.4.0.dylib */,
+				23C912B22549101500818B4D /* libwttest.4.4.0.dylib */,
+				23C912AA2548C36D00818B4D /* libwtdbo.4.4.0.dylib */,
+				23C912AD2548C36D00818B4D /* libwtdbosqlite3.4.4.0.dylib */,
+				23C912AB2548C36D00818B4D /* libwthttp.4.4.0.dylib */,
+				23C912AC2548C36D00818B4D /* libwttest.4.4.0.dylib */,
+				23C912A82548C31F00818B4D /* libwt.4.4.0.dylib */,
+				23C9112E2548C16800818B4D /* Wt */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		23C9112E2548C16800818B4D /* Wt */ = {
+			isa = PBXGroup;
+			children = (
+				23C9112F2548C16800818B4D /* WInteractWidget.h */,
+				23C911302548C16800818B4D /* WIdentityProxyModel.h */,
+				23C911312548C16800818B4D /* WValidator.h */,
+				23C911322548C16800818B4D /* WPointF.h */,
+				23C911332548C16800818B4D /* WAbstractItemModel.h */,
+				23C911342548C16800818B4D /* WDateValidator.h */,
+				23C911352548C16800818B4D /* WSvgImage.h */,
+				23C911362548C16800818B4D /* WJavaScriptPreamble.h */,
+				23C911372548C16800818B4D /* WRectArea.h */,
+				23C911382548C16800818B4D /* WSelectionBox.h */,
+				23C911392548C16800818B4D /* WTimeEdit.h */,
+				23C9113A2548C16800818B4D /* WGroupBox.h */,
+				23C9113B2548C16800818B4D /* WObject.h */,
+				23C9113C2548C16800818B4D /* WStatelessSlot.h */,
+				23C9113D2548C16800818B4D /* WShadow.h */,
+				23C9113E2548C16800818B4D /* WLength.h */,
+				23C9113F2548C16800818B4D /* Utils.h */,
+				23C911402548C16800818B4D /* WVectorImage.h */,
+				23C911412548C16800818B4D /* WClientGLWidget.h */,
+				23C911422548C16800818B4D /* WTableCell.h */,
+				23C911432548C16800818B4D /* DomElement.h */,
+				23C911442548C16800818B4D /* WBrush.h */,
+				23C911452548C16800818B4D /* WTime.h */,
+				23C911462548C16800818B4D /* WSuggestionPopup.h */,
+				23C911472548C16800818B4D /* WApplication.h */,
+				23C911482548C16800818B4D /* WPaintDevice.h */,
+				23C911492548C16800818B4D /* WLinkedCssStyleSheet.h */,
+				23C9114A2548C16800818B4D /* WImage.h */,
+				23C9114B2548C16800818B4D /* WMessageResourceBundle.h */,
+				23C9114C2548C16800818B4D /* EscapeOStream.h */,
+				23C9114D2548C16800818B4D /* WLayoutImpl.h */,
+				23C9114E2548C16800818B4D /* WTimeValidator.h */,
+				23C9114F2548C16800818B4D /* WEnvironment.h */,
+				23C911502548C16800818B4D /* WMessageResources.h */,
+				23C911512548C16800818B4D /* WSlider.h */,
+				23C911522548C16800818B4D /* Core */,
+				23C911572548C16800818B4D /* WAbstractProxyModel.h */,
+				23C911582548C16800818B4D /* WTableView.h */,
+				23C911592548C16800818B4D /* WBorderLayout.h */,
+				23C9115A2548C16800818B4D /* WStringUtil.h */,
+				23C9115B2548C16800818B4D /* Test */,
+				23C9115D2548C16800818B4D /* WAbstractSpinBox.h */,
+				23C9115E2548C16800818B4D /* WSocketNotifier.h */,
+				23C9115F2548C16800818B4D /* WBatchEditProxyModel.h */,
+				23C911602548C16800818B4D /* WSpinBox.h */,
+				23C911612548C16800818B4D /* WLayout.h */,
+				23C911622548C16800818B4D /* WSplitButton.h */,
+				23C911632548C16800818B4D /* WBreak.h */,
+				23C911642548C16800818B4D /* AsioWrapper */,
+				23C9116C2548C16800818B4D /* cpp17 */,
+				23C911722548C16800818B4D /* WIOService.h */,
+				23C911732548C16800818B4D /* WText.h */,
+				23C911742548C16800818B4D /* WPaintedWidget.h */,
+				23C911752548C16800818B4D /* WSslInfo.h */,
+				23C911762548C16800818B4D /* Auth */,
+				23C9119A2548C16800818B4D /* WCheckBox.h */,
+				23C9119B2548C16800818B4D /* WBorder.h */,
+				23C9119C2548C16800818B4D /* WSubMenuItem.h */,
+				23C9119D2548C16800818B4D /* WRandom.h */,
+				23C9119E2548C16800818B4D /* WDateEdit.h */,
+				23C9119F2548C16800818B4D /* WVBoxLayout.h */,
+				23C911A02548C16800818B4D /* WTreeTable.h */,
+				23C911A12548C16800818B4D /* Mail */,
+				23C911A52548C16800818B4D /* WPen.h */,
+				23C911A62548C16800818B4D /* WDate.h */,
+				23C911A72548C16800818B4D /* WHBoxLayout.h */,
+				23C911A82548C16800818B4D /* WString.h */,
+				23C911A92548C16800818B4D /* WProgressBar.h */,
+				23C911AA2548C16800818B4D /* WNavigationBar.h */,
+				23C911AB2548C16800818B4D /* Dbo */,
+				23C911D52548C16800818B4D /* WMeasurePaintDevice.h */,
+				23C911D62548C16800818B4D /* WTable.h */,
+				23C911D72548C16800818B4D /* Payment */,
+				23C911DF2548C16800818B4D /* WPushButton.h */,
+				23C911E02548C16800818B4D /* WItemSelectionModel.h */,
+				23C911E12548C16800818B4D /* WDefaultLoadingIndicator.h */,
+				23C911E22548C16800818B4D /* WDoubleValidator.h */,
+				23C911E32548C16800818B4D /* WAnimation.h */,
+				23C911E42548C16800818B4D /* WDllDefs.h */,
+				23C911E52548C16800818B4D /* WCalendar.h */,
+				23C911E62548C16800818B4D /* Signals */,
+				23C911E82548C16800818B4D /* WServer.h */,
+				23C911E92548C16800818B4D /* WItemDelegate.h */,
+				23C911EA2548C16800818B4D /* WIcon.h */,
+				23C911EB2548C16800818B4D /* Chart */,
+				23C912052548C16800818B4D /* Date */,
+				23C912132548C16800818B4D /* WColorPicker.h */,
+				23C912142548C16800818B4D /* WJavaScriptObjectStorage.h */,
+				23C912152548C16800818B4D /* WMessageBox.h */,
+				23C912162548C16800818B4D /* WSslCertificate.h */,
+				23C912172548C16800818B4D /* WDateTime.h */,
+				23C912182548C16800818B4D /* WSortFilterProxyModel.h */,
+				23C912192548C16800818B4D /* WVideo.h */,
+				23C9121A2548C16800818B4D /* WAbstractArea.h */,
+				23C9121B2548C16800818B4D /* WOverlayLoadingIndicator.h */,
+				23C9121C2548C16800818B4D /* WStreamResource.h */,
+				23C9121D2548C16800818B4D /* WJavaScriptHandle.h */,
+				23C9121E2548C16800818B4D /* WViewWidget.h */,
+				23C9121F2548C16800818B4D /* Render */,
+				23C912222548C16800818B4D /* WTreeTableNode.h */,
+				23C912232548C16800818B4D /* WAbstractMedia.h */,
+				23C912242548C16800818B4D /* WGoogleMap.h */,
+				23C912252548C16800818B4D /* WTableColumn.h */,
+				23C912262548C16800818B4D /* WWidgetItemImpl.h */,
+				23C912272548C16800818B4D /* WPanel.h */,
+				23C912282548C16800818B4D /* WLogger.h */,
+				23C912292548C16800818B4D /* WLengthValidator.h */,
+				23C9122A2548C16800818B4D /* WMatrix4x4.h */,
+				23C9122B2548C16800818B4D /* WMediaPlayer.h */,
+				23C9122C2548C16800818B4D /* WTree.h */,
+				23C9122D2548C16800818B4D /* WGradient.h */,
+				23C9122E2548C16800818B4D /* WTimer.h */,
+				23C9122F2548C16800818B4D /* WFileUpload.h */,
+				23C912302548C16800818B4D /* WFontMetrics.h */,
+				23C912312548C16800818B4D /* WPopupMenu.h */,
+				23C912322548C16800818B4D /* WComboBox.h */,
+				23C912332548C16800818B4D /* WFileDropWidget.h */,
+				23C912342548C16800818B4D /* WConfig.h */,
+				23C912352548C16800818B4D /* WPopupWidget.h */,
+				23C912362548C16800818B4D /* WTreeView.h */,
+				23C912372548C16800818B4D /* WDatePicker.h */,
+				23C912382548C16800818B4D /* WLocale.h */,
+				23C912392548C16800818B4D /* WTemplateFormView.h */,
+				23C9123A2548C16800818B4D /* WWidget.h */,
+				23C9123B2548C16900818B4D /* WGridLayout.h */,
+				23C9123C2548C16900818B4D /* WAbstractToggleButton.h */,
+				23C9123D2548C16900818B4D /* WAbstractGLImplementation.h */,
+				23C9123E2548C16900818B4D /* WResource.h */,
+				23C9123F2548C16900818B4D /* WModelIndex.h */,
+				23C912402548C16900818B4D /* WLayoutItemImpl.h */,
+				23C912412548C16900818B4D /* WAbstractItemView.h */,
+				23C912422548C16900818B4D /* WStringListModel.h */,
+				23C912432548C16900818B4D /* WColor.h */,
+				23C912442548C16900818B4D /* WTableRow.h */,
+				23C912452548C16900818B4D /* WPolygonArea.h */,
+				23C912462548C16900818B4D /* Json */,
+				23C9124C2548C16900818B4D /* WFitLayout.h */,
+				23C9124D2548C16900818B4D /* WGenericMatrix.h */,
+				23C9124E2548C16900818B4D /* WDialog.h */,
+				23C9124F2548C16900818B4D /* WJavaScriptExposableObject.h */,
+				23C912502548C16900818B4D /* WLineF.h */,
+				23C912512548C16900818B4D /* WLocalizedStrings.h */,
+				23C912522548C16900818B4D /* WCircleArea.h */,
+				23C912532548C16900818B4D /* WLeafletMap.h */,
+				23C912542548C16900818B4D /* WTreeNode.h */,
+				23C912552548C16900818B4D /* WAudio.h */,
+				23C912562548C16900818B4D /* WContainerWidget.h */,
+				23C912572548C16900818B4D /* WVmlImage.h */,
+				23C912582548C16900818B4D /* WException.h */,
+				23C912592548C16900818B4D /* WFormWidget.h */,
+				23C9125A2548C16900818B4D /* WAnchor.h */,
+				23C9125B2548C16900818B4D /* WDoubleSpinBox.h */,
+				23C9125C2548C16900818B4D /* Http */,
+				23C912642548C16900818B4D /* WFlags.h */,
+				23C912652548C16900818B4D /* WStandardItemModel.h */,
+				23C912662548C16900818B4D /* WRasterImage.h */,
+				23C912672548C16900818B4D /* WStackedWidget.h */,
+				23C912682548C16900818B4D /* WRegExpValidator.h */,
+				23C912692548C16900818B4D /* WAbstractListModel.h */,
+				23C9126A2548C16900818B4D /* WFormModel.h */,
+				23C9126B2548C16900818B4D /* WWebWidget.h */,
+				23C9126C2548C16900818B4D /* WCssDecorationStyle.h */,
+				23C9126D2548C16900818B4D /* WVirtualImage.h */,
+				23C9126E2548C16900818B4D /* WRadioButton.h */,
+				23C9126F2548C16900818B4D /* WTextEdit.h */,
+				23C912702548C16900818B4D /* WInPlaceEdit.h */,
+				23C912712548C16900818B4D /* WButtonGroup.h */,
+				23C912722548C16900818B4D /* WTimerWidget.h */,
+				23C912732548C16900818B4D /* WLayoutItem.h */,
+				23C912742548C16900818B4D /* WVector4.h */,
+				23C912752548C16900818B4D /* WWidgetItem.h */,
+				23C912762548C16900818B4D /* WTabWidget.h */,
+				23C912772548C16900818B4D /* WPdfImage.h */,
+				23C912782548C16900818B4D /* WBoxLayout.h */,
+				23C912792548C16900818B4D /* WAbstractTableModel.h */,
+				23C9127A2548C16900818B4D /* WCombinedLocalizedStrings.h */,
+				23C9127B2548C16900818B4D /* WMenu.h */,
+				23C9127C2548C16900818B4D /* WAbstractItemDelegate.h */,
+				23C9127D2548C16900818B4D /* WAggregateProxyModel.h */,
+				23C9127E2548C16900818B4D /* WRectF.h */,
+				23C9127F2548C16900818B4D /* WTextArea.h */,
+				23C912802548C16900818B4D /* WPoint.h */,
+				23C912812548C16900818B4D /* WTemplate.h */,
+				23C912822548C16900818B4D /* WEvent.h */,
+				23C912832548C16900818B4D /* WFileResource.h */,
+				23C912842548C16900818B4D /* WLink.h */,
+				23C912852548C16900818B4D /* WMenuItem.h */,
+				23C912862548C16900818B4D /* WJavaScript.h */,
+				23C912872548C16900818B4D /* WPainter.h */,
+				23C912882548C16900818B4D /* WGLWidget.h */,
+				23C912892548C16900818B4D /* WStandardItem.h */,
+				23C9128A2548C16900818B4D /* WLoadingIndicator.h */,
+				23C9128B2548C16900818B4D /* WFont.h */,
+				23C9128C2548C16900818B4D /* WBootstrapTheme.h */,
+				23C9128D2548C16900818B4D /* WMemoryResource.h */,
+				23C9128E2548C16900818B4D /* WIconPair.h */,
+				23C9128F2548C16900818B4D /* WIntValidator.h */,
+				23C912902548C16900818B4D /* WTimePicker.h */,
+				23C912912548C16900818B4D /* WPopupMenuItem.h */,
+				23C912922548C16900818B4D /* WReadOnlyProxyModel.h */,
+				23C912932548C16900818B4D /* WPainterPath.h */,
+				23C912942548C16900818B4D /* WToolBar.h */,
+				23C912952548C16900818B4D /* WLogSink.h */,
+				23C912962548C16900818B4D /* WTheme.h */,
+				23C912972548C16900818B4D /* WServerGLWidget.h */,
+				23C912982548C16900818B4D /* WFlashObject.h */,
+				23C912992548C16900818B4D /* WCssStyleSheet.h */,
+				23C9129A2548C16900818B4D /* WVector3.h */,
+				23C9129B2548C16900818B4D /* WSignal.h */,
+				23C9129C2548C16900818B4D /* WStringStream.h */,
+				23C9129D2548C16900818B4D /* WLabel.h */,
+				23C9129E2548C16900818B4D /* WCompositeWidget.h */,
+				23C9129F2548C16900818B4D /* WLocalDateTime.h */,
+				23C912A02548C16900818B4D /* WAny.h */,
+				23C912A12548C16900818B4D /* WTransform.h */,
+				23C912A22548C16900818B4D /* WGlobal.h */,
+				23C912A32548C16900818B4D /* WCssTheme.h */,
+				23C912A42548C16900818B4D /* WSound.h */,
+				23C912A52548C16900818B4D /* WJavaScriptSlot.h */,
+				23C912A62548C16900818B4D /* WCanvasPaintDevice.h */,
+				23C912A72548C16900818B4D /* WLineEdit.h */,
+			);
+			name = Wt;
+			path = ../../../../usr/local/include/Wt;
+			sourceTree = "<group>";
+		};
+		23C911522548C16800818B4D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				23C911532548C16800818B4D /* observing_ptr.hpp */,
+				23C911542548C16800818B4D /* observing_ptr_impl.hpp */,
+				23C911552548C16800818B4D /* observable_impl.hpp */,
+				23C911562548C16800818B4D /* observable.hpp */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		23C9115B2548C16800818B4D /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				23C9115C2548C16800818B4D /* WTestEnvironment.h */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		23C911642548C16800818B4D /* AsioWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				23C911652548C16800818B4D /* system_error.hpp */,
+				23C911662548C16800818B4D /* steady_timer.hpp */,
+				23C911672548C16800818B4D /* strand.hpp */,
+				23C911682548C16800818B4D /* ssl.hpp */,
+				23C911692548C16800818B4D /* io_service.hpp */,
+				23C9116A2548C16800818B4D /* namespace.hpp */,
+				23C9116B2548C16800818B4D /* asio.hpp */,
+			);
+			path = AsioWrapper;
+			sourceTree = "<group>";
+		};
+		23C9116C2548C16800818B4D /* cpp17 */ = {
+			isa = PBXGroup;
+			children = (
+				23C9116D2548C16800818B4D /* any */,
+				23C911712548C16800818B4D /* any.hpp */,
+			);
+			path = cpp17;
+			sourceTree = "<group>";
+		};
+		23C9116D2548C16800818B4D /* any */ = {
+			isa = PBXGroup;
+			children = (
+				23C9116E2548C16800818B4D /* README.md */,
+				23C9116F2548C16800818B4D /* LICENSE_1_0.txt */,
+				23C911702548C16800818B4D /* any.hpp */,
+			);
+			path = any;
+			sourceTree = "<group>";
+		};
+		23C911762548C16800818B4D /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				23C911772548C16800818B4D /* UpdatePasswordWidget.h */,
+				23C911782548C16800818B4D /* PasswordHash.h */,
+				23C911792548C16800818B4D /* OAuthWidget.h */,
+				23C9117A2548C16800818B4D /* AbstractPasswordService.h */,
+				23C9117B2548C16800818B4D /* OAuthAuthorizationEndpointProcess.h */,
+				23C9117C2548C16800818B4D /* OidcUserInfoEndpoint.h */,
+				23C9117D2548C16800818B4D /* OAuthClient.h */,
+				23C9117E2548C16800818B4D /* AuthModel.h */,
+				23C9117F2548C16800818B4D /* PasswordPromptDialog.h */,
+				23C911802548C16800818B4D /* RegistrationModel.h */,
+				23C911812548C16800818B4D /* Dbo */,
+				23C911842548C16800818B4D /* PasswordService.h */,
+				23C911852548C16800818B4D /* GoogleService.h */,
+				23C911862548C16800818B4D /* AbstractUserDatabase.h */,
+				23C911872548C16800818B4D /* FormBaseModel.h */,
+				23C911882548C16800818B4D /* PasswordStrengthValidator.h */,
+				23C911892548C16800818B4D /* LostPasswordWidget.h */,
+				23C9118A2548C16800818B4D /* HashFunction.h */,
+				23C9118B2548C16800818B4D /* RegistrationWidget.h */,
+				23C9118C2548C16800818B4D /* AuthUtils.h */,
+				23C9118D2548C16800818B4D /* WAuthGlobal.h */,
+				23C9118E2548C16800818B4D /* Identity.h */,
+				23C9118F2548C16800818B4D /* User.h */,
+				23C911902548C16800818B4D /* AuthService.h */,
+				23C911912548C16800818B4D /* AuthWidget.h */,
+				23C911922548C16800818B4D /* Token.h */,
+				23C911932548C16800818B4D /* OAuthTokenEndpoint.h */,
+				23C911942548C16800818B4D /* IssuedToken.h */,
+				23C911952548C16800818B4D /* OAuthService.h */,
+				23C911962548C16800818B4D /* OidcService.h */,
+				23C911972548C16800818B4D /* FacebookService.h */,
+				23C911982548C16800818B4D /* Login.h */,
+				23C911992548C16800818B4D /* PasswordVerifier.h */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		23C911812548C16800818B4D /* Dbo */ = {
+			isa = PBXGroup;
+			children = (
+				23C911822548C16800818B4D /* UserDatabase.h */,
+				23C911832548C16800818B4D /* AuthInfo.h */,
+			);
+			path = Dbo;
+			sourceTree = "<group>";
+		};
+		23C911A12548C16800818B4D /* Mail */ = {
+			isa = PBXGroup;
+			children = (
+				23C911A22548C16800818B4D /* Client.h */,
+				23C911A32548C16800818B4D /* Message.h */,
+				23C911A42548C16800818B4D /* Mailbox.h */,
+			);
+			path = Mail;
+			sourceTree = "<group>";
+		};
+		23C911AB2548C16800818B4D /* Dbo */ = {
+			isa = PBXGroup;
+			children = (
+				23C911AC2548C16800818B4D /* collection_impl.h */,
+				23C911AD2548C16800818B4D /* WtSqlTraits.h */,
+				23C911AE2548C16800818B4D /* SqlConnectionPool.h */,
+				23C911AF2548C16800818B4D /* DbAction_impl.h */,
+				23C911B02548C16800818B4D /* StdSqlTraits.h */,
+				23C911B12548C16800818B4D /* EscapeOStream.h */,
+				23C911B22548C16800818B4D /* QueryColumn.h */,
+				23C911B32548C16800818B4D /* Session_impl.h */,
+				23C911B42548C16800818B4D /* weak_ptr.h */,
+				23C911B52548C16800818B4D /* Query.h */,
+				23C911B62548C16800818B4D /* WDboDllDefs.h */,
+				23C911B72548C16800818B4D /* Types.h */,
+				23C911B82548C16800818B4D /* Field.h */,
+				23C911B92548C16800818B4D /* QueryModel.h */,
+				23C911BA2548C16800818B4D /* SqlTraits_impl.h */,
+				23C911BB2548C16800818B4D /* Field_impl.h */,
+				23C911BC2548C16800818B4D /* Dbo.h */,
+				23C911BD2548C16800818B4D /* backend */,
+				23C911C02548C16800818B4D /* Call.h */,
+				23C911C12548C16800818B4D /* FixedSqlConnectionPool.h */,
+				23C911C22548C16800818B4D /* Call_impl.h */,
+				23C911C32548C16800818B4D /* ptr_impl.h */,
+				23C911C42548C16800818B4D /* Session.h */,
+				23C911C52548C16800818B4D /* SqlStatement.h */,
+				23C911C62548C16800818B4D /* DbAction.h */,
+				23C911C72548C16800818B4D /* Json.h */,
+				23C911C82548C16800818B4D /* StringStream.h */,
+				23C911C92548C16800818B4D /* weak_ptr_impl.h */,
+				23C911CA2548C16800818B4D /* QueryModel_impl.h */,
+				23C911CB2548C16800818B4D /* ptr.h */,
+				23C911CC2548C16800818B4D /* collection.h */,
+				23C911CD2548C16800818B4D /* Logger.h */,
+				23C911CE2548C16800818B4D /* Impl.h */,
+				23C911CF2548C16800818B4D /* Exception.h */,
+				23C911D02548C16800818B4D /* ptr_tuple.h */,
+				23C911D12548C16800818B4D /* Transaction.h */,
+				23C911D22548C16800818B4D /* Query_impl.h */,
+				23C911D32548C16800818B4D /* SqlConnection.h */,
+				23C911D42548C16800818B4D /* SqlTraits.h */,
+			);
+			path = Dbo;
+			sourceTree = "<group>";
+		};
+		23C911BD2548C16800818B4D /* backend */ = {
+			isa = PBXGroup;
+			children = (
+				23C911BE2548C16800818B4D /* WDboSqlite3DllDefs.h */,
+				23C911BF2548C16800818B4D /* Sqlite3.h */,
+			);
+			path = backend;
+			sourceTree = "<group>";
+		};
+		23C911D72548C16800818B4D /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				23C911D82548C16800818B4D /* Money.h */,
+				23C911D92548C16800818B4D /* Address.h */,
+				23C911DA2548C16800818B4D /* Result.h */,
+				23C911DB2548C16800818B4D /* OrderItem.h */,
+				23C911DC2548C16800818B4D /* PayPal.h */,
+				23C911DD2548C16800818B4D /* Order.h */,
+				23C911DE2548C16800818B4D /* Customer.h */,
+			);
+			path = Payment;
+			sourceTree = "<group>";
+		};
+		23C911E62548C16800818B4D /* Signals */ = {
+			isa = PBXGroup;
+			children = (
+				23C911E72548C16800818B4D /* signals.hpp */,
+			);
+			path = Signals;
+			sourceTree = "<group>";
+		};
+		23C911EB2548C16800818B4D /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				23C911EC2548C16800818B4D /* WAbstractChart.h */,
+				23C911ED2548C16800818B4D /* WCartesian3DChart.h */,
+				23C911EE2548C16800818B4D /* WAxis.h */,
+				23C911EF2548C16800818B4D /* WAbstractColorMap.h */,
+				23C911F02548C16800818B4D /* WAxisSliderWidget.h */,
+				23C911F12548C16800818B4D /* WAbstractDataSeries3D.h */,
+				23C911F22548C16800818B4D /* WAbstractGridData.h */,
+				23C911F32548C16800818B4D /* WDataSeries.h */,
+				23C911F42548C16800818B4D /* WStandardChartProxyModel.h */,
+				23C911F52548C16800818B4D /* WStandardColorMap.h */,
+				23C911F62548C16800818B4D /* WPieChart.h */,
+				23C911F72548C16800818B4D /* WLegend3D.h */,
+				23C911F82548C16800818B4D /* WScatterData.h */,
+				23C911F92548C16800818B4D /* WChartPalette.h */,
+				23C911FA2548C16800818B4D /* WAbstractChartImplementation.h */,
+				23C911FB2548C16800818B4D /* WChartGlobal.h */,
+				23C911FC2548C16800818B4D /* WChart3DImplementation.h */,
+				23C911FD2548C16800818B4D /* WSelection.h */,
+				23C911FE2548C16800818B4D /* WGridData.h */,
+				23C911FF2548C16800818B4D /* WStandardPalette.h */,
+				23C912002548C16800818B4D /* WAbstractChartModel.h */,
+				23C912012548C16800818B4D /* WCartesianChart.h */,
+				23C912022548C16800818B4D /* WEquidistantGridData.h */,
+				23C912032548C16800818B4D /* WChart2DImplementation.h */,
+				23C912042548C16800818B4D /* WLegend.h */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		23C912052548C16800818B4D /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				23C912062548C16800818B4D /* include */,
+				23C912112548C16800818B4D /* date.h */,
+				23C912122548C16800818B4D /* tz.h */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
+		23C912062548C16800818B4D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				23C912072548C16800818B4D /* date */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		23C912072548C16800818B4D /* date */ = {
+			isa = PBXGroup;
+			children = (
+				23C912082548C16800818B4D /* tz_private.h */,
+				23C912092548C16800818B4D /* ios.h */,
+				23C9120A2548C16800818B4D /* ptz.h */,
+				23C9120B2548C16800818B4D /* date.h */,
+				23C9120C2548C16800818B4D /* julian.h */,
+				23C9120D2548C16800818B4D /* chrono_io.h */,
+				23C9120E2548C16800818B4D /* iso_week.h */,
+				23C9120F2548C16800818B4D /* tz.h */,
+				23C912102548C16800818B4D /* islamic.h */,
+			);
+			path = date;
+			sourceTree = "<group>";
+		};
+		23C9121F2548C16800818B4D /* Render */ = {
+			isa = PBXGroup;
+			children = (
+				23C912202548C16800818B4D /* WPdfRenderer.h */,
+				23C912212548C16800818B4D /* WTextRenderer.h */,
+			);
+			path = Render;
+			sourceTree = "<group>";
+		};
+		23C912462548C16900818B4D /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				23C912472548C16900818B4D /* Parser.h */,
+				23C912482548C16900818B4D /* Value.h */,
+				23C912492548C16900818B4D /* Serializer.h */,
+				23C9124A2548C16900818B4D /* Array.h */,
+				23C9124B2548C16900818B4D /* Object.h */,
+			);
+			path = Json;
+			sourceTree = "<group>";
+		};
+		23C9125C2548C16900818B4D /* Http */ = {
+			isa = PBXGroup;
+			children = (
+				23C9125D2548C16900818B4D /* Client.h */,
+				23C9125E2548C16900818B4D /* Response.h */,
+				23C9125F2548C16900818B4D /* ResponseContinuation.h */,
+				23C912602548C16900818B4D /* Method.h */,
+				23C912612548C16900818B4D /* Message.h */,
+				23C912622548C16900818B4D /* Request.h */,
+				23C912632548C16900818B4D /* WtClient.h */,
+			);
+			path = Http;
+			sourceTree = "<group>";
+		};
 		23D20B3E245C705C0013F98A /* main */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +1199,7 @@
 		23D20B42245C705C0013F98A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				23B17FA92549C24D003267ED /* Web */,
 				23D20B43245C705C0013F98A /* CMakeLists.txt */,
 				23EDB521245CC72F003D13A3 /* Communication */,
 				23D20B44245C705C0013F98A /* Core */,
@@ -321,6 +1244,7 @@
 				234FD6972490156300F586DE /* sendMission.cpp */,
 				234FD6982490263D00F586DE /* original.cpp */,
 				23F3A21E25006F1700561375 /* te.cpp */,
+				23B17FA72549B5A5003267ED /* hello.cpp */,
 			);
 			path = MRSMac;
 			sourceTree = "<group>";
@@ -421,6 +1345,7 @@
 				23D20B4E245C71560013F98A /* Products */,
 				23D20B3D245C705C0013F98A /* README.md */,
 				23D20B42245C705C0013F98A /* src */,
+				23C9112D2548C16800818B4D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -508,6 +1433,7 @@
 				23494C9124CF130200697ABA /* TakePicture.cpp in Sources */,
 				23ECC3C9248E99AC0025CBC7 /* MissionManager.cpp in Sources */,
 				23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */,
+				23103C752552356D0075C543 /* WebApp.cpp in Sources */,
 				239C81DD248FBED900B58BAD /* AtomicTask.cpp in Sources */,
 				23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */,
 				2386344024FEBD0800049ED1 /* UDPReceiverSim.cpp in Sources */,
@@ -518,6 +1444,7 @@
 				23E9710925263C470021D3B6 /* MoveBaseGoal.cpp in Sources */,
 				23C6E551246EF4F100D99185 /* TurnOn.cpp in Sources */,
 				2335B7F724FD71BF00661D4C /* DecomposableTasks.cpp in Sources */,
+				23B17FAC2549CAC0003267ED /* WebModule.cpp in Sources */,
 				231AD3F0251E434D00C88B27 /* Logger.cpp in Sources */,
 				2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */,
 				23D20B51245C71560013F98A /* main.cpp in Sources */,
@@ -542,7 +1469,16 @@
 					"$(inherited)",
 					"DEFAULT=1",
 				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				"OTHER_CPLUSPLUSFLAGS[arch=*]" = (
+					"$(OTHER_CFLAGS)",
+					"-lwthttp",
+					"-lwt",
+					"-I/usr/local/include",
+					"-L/usr/local/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -553,6 +1489,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -564,7 +1501,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -608,9 +1545,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 			};
 			name = Debug;
 		};
@@ -620,7 +1559,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -660,6 +1599,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 			};
 			name = Release;
 		};

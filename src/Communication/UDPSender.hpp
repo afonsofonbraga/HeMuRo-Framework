@@ -37,7 +37,7 @@ protected:
     char buffer[500];
     struct sockaddr_in cliAddr;
     struct hostent *h;
-    virtual void run();                                     // Implementation
+    void run() override;                                     // Implementation
     
 public:
     UDPSender(BlackBoard* monitor);

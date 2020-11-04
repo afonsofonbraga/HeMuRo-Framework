@@ -38,12 +38,17 @@
 
 class Logger: public Module
 {
+private:
+    void constructor();
+    
 protected:
     std::string path;
     s_LoggerMessage* vLoggerMessage;
     void printcmd(s_LoggerMessage& vMessage);
     std::chrono::time_point<std::chrono::steady_clock> start;
-    virtual void run();        
+
+    
+    void run() override;
 public:
     Logger(BlackBoard* monitor);
     ~Logger();

@@ -1,8 +1,14 @@
-/*
- * Copyright (C) 2008 Emweb bv, Herent, Belgium.
- *
- * See the LICENSE file for terms of use.
- */
+//
+//  main.cpp
+//  MRSMac
+//
+//  Created by Afonso Braga on 01/05/20.
+//  Copyright © 2020 Afonso Braga. All rights reserved.
+//
+
+
+
+
 #include <chrono>
 #include <thread>
 #include <vector>
@@ -17,10 +23,7 @@
 #include "ChargingStation.hpp"
 #include "LoggerAgent.hpp"
 
-
-
-
-int main(int argc, char **argv){
+int main(){
     s_pose sala_A01;
     {
         sala_A01.x = 10.5;
@@ -107,8 +110,7 @@ int main(int argc, char **argv){
     }
     
     std::string name{"Robo"};
-    int numberOfRobots =2; // Number of robots that will be executing the tasks
-    int defaultAgents = 0; // Number of Agents including Logger and Charging Stations
+    int numberOfRobots =1;
     
     std::vector<BlackBoard* > v_BlackBoard; // = new std::vector<BlackBoard>;
     std::vector<DefaultRobot* > v_DefaultRobot;
@@ -120,41 +122,38 @@ int main(int argc, char **argv){
     BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
     v_BlackBoard.push_back(memory);
     bool decentralizedCommunication = false;
-    logger = new LoggerAgent(v_BlackBoard.at(defaultAgents), decentralizedCommunication, argc, argv);
-    receiver->addRobot(v_BlackBoard.at(defaultAgents));
-    defaultAgents++;
+    logger = new LoggerAgent(v_BlackBoard.at(0), decentralizedCommunication);
+    receiver->addRobot(v_BlackBoard.at(0));
+    
     
     robotsName = "CStation1";
     memory = new BlackBoard(robotsName, enum_RobotCategory::null);
     v_BlackBoard.push_back(memory);
-    v_BlackBoard.at(defaultAgents)->setPosition(chargingStation_01);
-    ChargingStation* station = new ChargingStation(v_BlackBoard.at(defaultAgents), decentralizedCommunication);
-    receiver->addRobot(v_BlackBoard.at(defaultAgents));
+    v_BlackBoard.at(1)->setPosition(chargingStation_01);
+    ChargingStation* station = new ChargingStation(v_BlackBoard.at(1), decentralizedCommunication);
+    receiver->addRobot(v_BlackBoard.at(1));
     v_ChargingStation.push_back(station);
-    defaultAgents++;
     
     
     robotsName = "CStation2";
     memory = new BlackBoard(robotsName, enum_RobotCategory::null);
     v_BlackBoard.push_back(memory);
-    v_BlackBoard.at(defaultAgents)->setPosition(chargingStation_02);
+    v_BlackBoard.at(2)->setPosition(chargingStation_02);
+    station = new ChargingStation(v_BlackBoard.at(2), decentralizedCommunication);
+    receiver->addRobot(v_BlackBoard.at(2));
     v_ChargingStation.push_back(station);
-    station = new ChargingStation(v_BlackBoard.at(defaultAgents), decentralizedCommunication);
-    receiver->addRobot(v_BlackBoard.at(defaultAgents));
-    v_ChargingStation.push_back(station);
-    defaultAgents++;
     
-    
-     for (int i=defaultAgents; i-defaultAgents< numberOfRobots; i++)
+
+     for (int i=3; i-3< numberOfRobots; i++)
      {
-     std::string robotsName = name + std::to_string(i-defaultAgents);
+     std::string robotsName = name + std::to_string(i-3);
      BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
      v_BlackBoard.push_back(memory);
      bool decentralizedCommunication = false;
      DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
      receiver->addRobot(v_BlackBoard.at(i));
      v_DefaultRobot.push_back(robot);
-     usleep(1000);
+    
      }
     
     char vIP[MAX_IP];
@@ -260,8 +259,10 @@ int main(int argc, char **argv){
         
         v_BlackBoard.at(1)->addUDPMessage(message);
     }
+    
     while (std::getchar() != 'c'){}
     return 0;
     
     
 }
+

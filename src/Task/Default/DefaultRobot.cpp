@@ -18,6 +18,7 @@ DefaultRobot::DefaultRobot(BlackBoard* monitor, bool decentralized)
     missionManager = new MissionManager(monitor);
     batteryManager = new BatteryManager(monitor,mode);
     
+    //usleep(10000);
     if (this->decentralized == true)
     {
         receiver = new UDPReceiver(monitor);

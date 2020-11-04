@@ -47,6 +47,7 @@ void GoTo::run()
                 this->monitor->print("COST: " + std::to_string(this->cost));
                 //std::cout << "COST: " << this->cost << std::endl;
                 this->monitor->consumeBattery(this->cost);
+                usleep(1000000);
             }
         }
             break;

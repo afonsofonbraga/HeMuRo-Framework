@@ -79,8 +79,10 @@ void UDPReceiver::dataTreatment(char *mensagem)
             
         case Operation::setRobotsPosition:
         {
-            s_robotsPose robotPosition = ((s_robotsPose*) temp)[0];
-            this->monitor->setAllRobotsPosition(robotPosition);
+//            s_robotsPose robotPosition = ((s_robotsPose*) temp)[0];
+//            this->monitor->setAllRobotsPosition(robotPosition);
+            s_BroadcastMessage broadcastMessage = ((s_BroadcastMessage*) temp)[0];
+            this->monitor->setAllRobotsPosition(broadcastMessage);
             break;
         }
             

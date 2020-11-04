@@ -299,7 +299,7 @@ void MissionManager::winningBid(std::unique_ptr<s_MissionMessage> vMissionMessag
         this->monitor->print("I win!");
         
         // First check if the robot is still available to execute the mission, if so, lock it up!
-        if (this->monitor->lockRobot() == true)
+        if (this->monitor->lockRobot(enum_RobotStatus::executing) == true)
         {
             //std::cout << "[" << this->robotName << "] I'm available to execute "<< vMissionMessage->missionCode <<"!"<<std::endl;
             this->monitor->print("I'm available to execute " + std::string(vMissionMessage->missionCode) + "!");
@@ -393,11 +393,9 @@ void MissionManager::emergencyCall(std::unique_ptr<s_MissionMessage> vMissionMes
         addAtomicTask2(monitor, *vMission);
         calculateMissionCost(*vMission);
         
-        this->monitor->lockRobot();
+        this->monitor->lockRobot(enum_RobotStatus::emergency);
         addMissionEmergency(*vMission);
     }
-    //std::cout << "Deleting vMission Emergency" <<std::endl;
-    //delete vMission;
 }
 
 void MissionManager::notifyingMissionComplete()

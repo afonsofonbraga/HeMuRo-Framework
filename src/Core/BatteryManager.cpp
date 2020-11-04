@@ -123,8 +123,9 @@ void BatteryManager::batteryCheckLoop()
                 //std::cout << "BatteryLevel: " << batteryLevel << std::endl;
                 //this->monitor->print("BatteryLevel: " + std::to_string(batteryLevel));
                 
-                if(batteryLevel >= 30)
+                if(batteryLifeTime() == false)
                 {
+                    this->monitor->getRobotStatus() == enum_RobotStatus::lowBattery ? this->monitor->unlockRobot() : false;
                     auto t0 = std::chrono::high_resolution_clock::now();
                     conditional_batteryCheck.wait_until(lock1, t0 + std::chrono::seconds(5));
                 } else
@@ -134,8 +135,10 @@ void BatteryManager::batteryCheckLoop()
             }
             case enum_ChargingRequest::chargingRequest:
             {
-                if(batteryLevel < 30) //Remember to modify this line in case of modyfing the conditions for the charging request
+                if(batteryLifeTime()) //Remember to modify this line in case of modyfing the conditions for the charging request
                 {
+                    this->monitor->lockRobot(enum_RobotStatus::lowBattery);
+                    
                     s_BatteryMessage message;
                     this->monitor->getRobotsName(*message.senderName);
                     std::string id = message.senderName + std::to_string(this->countID); // The countID will be increased when the charging is fully completed
@@ -426,6 +429,38 @@ void BatteryManager::startCharging(std::unique_ptr<s_BatteryMessage> vBatteryMes
 }
 
 
+float BatteryManager::minimumDistance()
+{
+    std::unordered_map<std::string, s_BroadcastMessage> list;
+    s_pose robotsPosition;
+    float dist = 0;
+    
+    this->monitor->getAllRobotsPosition(list);
+    this->monitor->getPosition(robotsPosition);
+    for (auto n : list)
+    {
+        if (n.second.robotCategory == enum_RobotCategory::chargingStation && n.second.robotStatus == enum_RobotStatus::available)
+        {
+            float vDist = sqrtf(pow(n.second.robotsPosition.x - robotsPosition.x, 2) + pow(n.second.robotsPosition.y - robotsPosition.y, 2));
+            if (dist == 0 || dist > vDist)
+            {
+                dist = vDist;
+            }
+        }
+    }
+    return dist;
+}
+
+bool BatteryManager::batteryLifeTime()
+{
+    bool status = false;
+    float batteryLevel = this->monitor->getBatteryLevel();
+    
+    batteryLevel <= 30 ? status = true : false;
+    (minimumDistance() * 1 > batteryLevel) ? status = true : false; //inventei
+
+    return status;
+}
 
 //**************************************
 //*          Common Functions          *

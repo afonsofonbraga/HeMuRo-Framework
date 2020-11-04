@@ -12,7 +12,7 @@ Module::Module(BlackBoard *monitor)
 {
     this->monitor = monitor;
     this->isRunning = false;
-    usleep(100000);
+    //usleep(100000);
     //this->start();
 }
 

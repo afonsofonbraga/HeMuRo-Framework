@@ -85,16 +85,21 @@ void UDPBroadcast::run(){
     
     Operation operation = Operation::setRobotsPosition;
     *((Operation*)(buffer + MAX_ROBOT_ID)) = operation;
-    s_robotsPose robo;
-    monitor->getPosition(robo.position);
-    std::string lala;
-    monitor->getRobotsName(lala);
-    strcpy(robo.robotName, lala.c_str());
-    *((int*)(buffer + MAX_ROBOT_ID + 4)) = sizeof(robo);
     
-    memmove(buffer + MAX_ROBOT_ID + 8,(const unsigned char*)&robo,sizeof(robo));
+    s_BroadcastMessage broadcastMessage;
     
-    rc = (int) sendto(this->vSocket,buffer, MAX_ROBOT_ID + 8 + sizeof(robo), 0, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
+    monitor->getRobotsName(*broadcastMessage.robotName);
+    broadcastMessage.robotCategory = monitor->getRobotsCategory();
+    broadcastMessage.robotStatus = monitor->getRobotStatus();
+    broadcastMessage.batteryLevel = monitor->getBatteryLevel();
+    monitor->getPosition(broadcastMessage.robotsPosition);
+    
+    
+    *((int*)(buffer + MAX_ROBOT_ID + 4)) = sizeof(broadcastMessage);
+    
+    memmove(buffer + MAX_ROBOT_ID + 8,(const unsigned char*)&broadcastMessage,sizeof(broadcastMessage));
+    
+    rc = (int) sendto(this->vSocket,buffer, MAX_ROBOT_ID + 8 + sizeof(broadcastMessage), 0, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
 }
 
 void UDPBroadcast::error(const char *msg){

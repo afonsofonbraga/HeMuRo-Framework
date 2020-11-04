@@ -12,6 +12,7 @@ BlackBoard::BlackBoard(std::string& name, enum_RobotCategory cat)
     setRobotsName(name);
     setRobotCategory(cat);
     this->setRobotIP();
+    this->robotStatus = enum_RobotStatus::available;
     
 }
 
@@ -31,6 +32,7 @@ BlackBoard::BlackBoard(const BlackBoard& other)
     this->setRobotIP();
     this->setRobotsName(other.robotName);
     this->setRobotCategory(other.robotCategory);
+    this->robotStatus = enum_RobotStatus::available;
 }
 
 BlackBoard& BlackBoard::operator=(const BlackBoard& other)
@@ -47,6 +49,7 @@ BlackBoard& BlackBoard::operator=(const BlackBoard& other)
         this->setRobotIP();
         this->setRobotsName(other.robotName);
         this->setRobotCategory(other.robotCategory);
+        this->robotStatus = enum_RobotStatus::available;
     }
     return *this;
 }
@@ -78,7 +81,7 @@ void BlackBoard::setRobotCategory(enum_RobotCategory cat)
 
 enum_RobotCategory BlackBoard::getRobotsCategory()
 {
-   return this->robotCategory;
+    return this->robotCategory;
 }
 
 
@@ -90,7 +93,7 @@ void BlackBoard::setRobotIP()
     struct sockaddr_in *sa;
     getifaddrs (&ifap);
     for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
-
+        
         if (ifa->ifa_addr && ifa->ifa_addr->sa_family==AF_INET && strstr(ifa->ifa_name,"lo")==nullptr) {
             sa = (struct sockaddr_in *) ifa->ifa_addr;
             strcpy(this->robotIP, inet_ntoa(sa->sin_addr));
@@ -118,14 +121,14 @@ void BlackBoard::getBroadcastIP(char& vBroadcast)
 void BlackBoard::chargeBattery(float energy)
 {
     std::unique_lock<std::mutex> lk(mutex_battery);
-        this->batteryLevel + energy < 100.0 ? this->batteryLevel += energy : this->batteryLevel = 100.0;
+    this->batteryLevel + energy < 100.0 ? this->batteryLevel += energy : this->batteryLevel = 100.0;
     lk.unlock();
 }
 
 void BlackBoard::consumeBattery(float energy)
 {
     std::unique_lock<std::mutex> lk(mutex_battery);
-        this->batteryLevel - energy > 0.0 ? this->batteryLevel -= energy : this->batteryLevel = 0;
+    this->batteryLevel - energy > 0.0 ? this->batteryLevel -= energy : this->batteryLevel = 0;
     lk.unlock();
 }
 
@@ -133,7 +136,7 @@ float BlackBoard::getBatteryLevel()
 {
     float vBattery;
     std::unique_lock<std::mutex> lk(mutex_battery);
-        vBattery = this->batteryLevel;
+    vBattery = this->batteryLevel;
     lk.unlock();
     return vBattery;
 }
@@ -141,7 +144,7 @@ float BlackBoard::getBatteryLevel()
 void BlackBoard::setBatteryLevel(float energy)
 {
     std::unique_lock<std::mutex> lk(mutex_battery);
-        this->batteryLevel = energy;
+    this->batteryLevel = energy;
     lk.unlock();
 }
 
@@ -154,51 +157,55 @@ void BlackBoard::setBatteryLevel(float energy)
 void BlackBoard::getPosition(s_pose& p)
 {
     std::unique_lock<std::mutex> lk(mutex_position);
-            //start = std::chrono::high_resolution_clock::now();
-        memcpy(&p, &position, sizeof(position));
-            //end = std::chrono::high_resolution_clock::now();
-            //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
-            //std::cout << "getPositionMemcpy time: " << duration << std::endl;
+    //start = std::chrono::high_resolution_clock::now();
+    memcpy(&p, &position, sizeof(position));
+    //end = std::chrono::high_resolution_clock::now();
+    //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
+    //std::cout << "getPositionMemcpy time: " << duration << std::endl;
     lk.unlock();
 }
 
 void BlackBoard::setPosition(s_pose& p)
 {
     std::unique_lock<std::mutex> lk(mutex_position);
-        memcpy(&this->position, &p, sizeof(p));
+    memcpy(&this->position, &p, sizeof(p));
     lk.unlock();
 }
 
-void BlackBoard::setAllRobotsPosition(s_robotsPose &p)
+void BlackBoard::setAllRobotsPosition(s_BroadcastMessage &p)
 {
     std::unique_lock<std::mutex> lk(mutex_mapRobotsPosition);
-            //start = std::chrono::high_resolution_clock::now();
-        this->mapRobotsPosition.insert_or_assign(p.robotName, p.position);
-            //end = std::chrono::high_resolution_clock::now();
-            //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
-            //std::cout << "set " << p.robotName << " time: " << duration << std::endl;
+    //start = std::chrono::high_resolution_clock::now();
+    this->mapRobotsPosition.insert_or_assign(p.robotName, p);
+    //end = std::chrono::high_resolution_clock::now();
+    //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
+    //std::cout << "set " << p.robotName << " time: " << duration << std::endl;
     lk.unlock();
 }
 
-void BlackBoard::removeAllRobotsPosition(s_robotsPose &p)
+void BlackBoard::removeAllRobotsPosition(s_BroadcastMessage &p)
 {
     std::unique_lock<std::mutex> lk(mutex_mapRobotsPosition);
-            //start = std::chrono::high_resolution_clock::now();
-        this->mapRobotsPosition.erase(p.robotName);
-            //end = std::chrono::high_resolution_clock::now();
-            //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
-            //std::cout << "Remove " << p.robotName << " time: " << duration << std::endl;
+    //start = std::chrono::high_resolution_clock::now();
+    this->mapRobotsPosition.erase(p.robotName);
+    //end = std::chrono::high_resolution_clock::now();
+    //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
+    //std::cout << "Remove " << p.robotName << " time: " << duration << std::endl;
     lk.unlock();
 }
 
-void BlackBoard::getAllRobotsPosition(std::unordered_map<std::string, s_pose> &p)
+void BlackBoard::getAllRobotsPosition(std::unordered_map<std::string, s_BroadcastMessage> &p)
 {
     std::unique_lock<std::mutex> lk(mutex_mapRobotsPosition);
-            //start = std::chrono::high_resolution_clock::now();
-        memcpy(&p, &this->mapRobotsPosition, sizeof(mapRobotsPosition));
-            //end = std::chrono::high_resolution_clock::now();
-            //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
-            //std::cout << "getAllRobotsPosition time: " << duration << std::endl;
+    //start = std::chrono::high_resolution_clock::now();
+    //memcpy(&p, &this->mapRobotsPosition, sizeof(mapRobotsPosition));
+    //end = std::chrono::high_resolution_clock::now();
+    //duration = std::chrono::duration_cast<std::chrono::nanoseconds> (end - start).count();
+    //std::cout << "getAllRobotsPosition time: " << duration << std::endl;
+    for (auto n : mapRobotsPosition)
+    {
+        p[n.first] = n.second;
+    }
     lk.unlock();
 }
 
@@ -211,7 +218,7 @@ void BlackBoard::setMapCoodinates(std::array<float,2>& coord)
 {
     //this->mutex_map.lock();
     std::unique_lock<std::mutex> lk(mutex_map);
-        this->mapSize = coord;
+    this->mapSize = coord;
     //this->mutex_map.unlock();
     lk.unlock();
 }
@@ -220,7 +227,7 @@ void BlackBoard::getMapCoodinates(std::array<float,2>& coord)
 {
     this->mutex_map.lock();
     std::unique_lock<std::mutex> lk(mutex_map);
-        coord = this->mapSize;
+    coord = this->mapSize;
     //this->mutex_map.unlock();
     lk.unlock();
 }
@@ -234,7 +241,7 @@ void BlackBoard::getMapCoodinates(std::array<float,2>& coord)
 void BlackBoard::addDecomposableTaskList(enum_DecomposableTask vTaskToBeDecomposed, std::vector<enum_AtomicTask> vAtomicTask)
 {
     std::unique_lock<std::mutex> lk(mutex_decomposableTask);
-        this->decomposableTaskAvaliable.insert_or_assign(vTaskToBeDecomposed, vAtomicTask);
+    this->decomposableTaskAvaliable.insert_or_assign(vTaskToBeDecomposed, vAtomicTask);
     lk.unlock();
 }
 
@@ -242,15 +249,15 @@ bool BlackBoard::getDecomposableTask(enum_DecomposableTask vTaskToBeDecomposed, 
 {
     bool status = false;
     std::unique_lock<std::mutex> lk(mutex_decomposableTask);
-        auto search = this->decomposableTaskAvaliable.find(vTaskToBeDecomposed);
-        if(search != this->decomposableTaskAvaliable.end())
+    auto search = this->decomposableTaskAvaliable.find(vTaskToBeDecomposed);
+    if(search != this->decomposableTaskAvaliable.end())
+    {
+        for(auto n : search->second)
         {
-            for(auto n : search->second)
-            {
-                vAtomicTask.push_back(n);
-            }
-            status = true;
+            vAtomicTask.push_back(n);
         }
+        status = true;
+    }
     lk.unlock();
     return status;
 }
@@ -260,7 +267,7 @@ bool BlackBoard::isDecomposable(enum_DecomposableTask vTaskToBeDecomposed)
     bool status= false;
     
     std::unique_lock<std::mutex> lk(mutex_decomposableTask);
-        auto search = this->decomposableTaskAvaliable.find(vTaskToBeDecomposed);
+    auto search = this->decomposableTaskAvaliable.find(vTaskToBeDecomposed);
     lk.unlock();
     
     if (search != this->decomposableTaskAvaliable.end())
@@ -268,17 +275,17 @@ bool BlackBoard::isDecomposable(enum_DecomposableTask vTaskToBeDecomposed)
     return status;
 }
 /*
-float BlackBoard::getDecomposableTaskCost(enum_DecomposableTask vTaskToBeDecomposed)
-{
-    return 0.0;
-}
-
-void BlackBoard::acceptDecomposableTask(enum_DecomposableTask vDecomposableTask)
-{
-    std::unique_lock<std::mutex> lk(mutex_decomposableTask);
-        
-    lk.unlock();
-}*/
+ float BlackBoard::getDecomposableTaskCost(enum_DecomposableTask vTaskToBeDecomposed)
+ {
+ return 0.0;
+ }
+ 
+ void BlackBoard::acceptDecomposableTask(enum_DecomposableTask vDecomposableTask)
+ {
+ std::unique_lock<std::mutex> lk(mutex_decomposableTask);
+ 
+ lk.unlock();
+ }*/
 
 //****************************************************
 //*         MissionMessage Related Functions         *
@@ -296,7 +303,7 @@ bool BlackBoard::isMissionMessageListEmpty()
 void BlackBoard::addMissionMessage(s_MissionMessage& vMissionMessage)
 {
     std::unique_lock<std::mutex> lk(mutex_missionList);
-        this->missionMessageList.push_back(vMissionMessage);
+    this->missionMessageList.push_back(vMissionMessage);
     lk.unlock();
     this->conditional_MissionMessageList.notify_one();
 }
@@ -306,7 +313,7 @@ void BlackBoard::getMissionMessage(s_MissionMessage& vMissionMessage)
     std::unique_lock<std::mutex> lk(mutex_missionList);
     
     if (this->missionMessageList.empty() == false){
-            vMissionMessage = this->missionMessageList.front();
+        vMissionMessage = this->missionMessageList.front();
         this->missionMessageList.erase(missionMessageList.begin());
         lk.unlock();
     }else
@@ -337,24 +344,58 @@ bool BlackBoard::isRobotAvailable()
 {
     bool status;
     std::unique_lock<std::mutex> lk(mutex_mission);
-    //if (this->selectedMission.enum_execution == enum_MissionExecution::missionComplete || this->selectedMission.enum_execution == enum_MissionExecution::null)
-    //    status = true;
-    //status = this->executingMission;
-    this->executingMission ? status = false:status = true;
+    //this->executingMission ? status = false:status = true;
+    this->robotStatus == enum_RobotStatus::available ? status = true : status = false;
     lk.unlock();
     return status;
 }
 
-bool BlackBoard::lockRobot()
+bool BlackBoard::lockRobot(enum_RobotStatus statusRequest)
 {
     bool status = false;
     std::unique_lock<std::mutex> lk(mutex_mission);
-    if (this->executingMission == false)
+    /*
+    if (this->robotStatus == enum_RobotStatus::available && statusRequest == enum_RobotStatus::executing)
     {
         status = true;
-        this->executingMission= true;
+        this->robotStatus = enum_RobotStatus::executing;
+    } else if ((this->robotStatus == enum_RobotStatus::available || this->robotStatus == enum_RobotStatus::executing) && statusRequest == enum_RobotStatus::emergency)
+    {
+        status = true;
+        this->robotStatus = enum_RobotStatus::emergency;
     } else
-        status = false;
+        status = false;*/
+    
+    switch(statusRequest)
+    {
+        case enum_RobotStatus::executing:
+            if(this->robotStatus == enum_RobotStatus::available)
+            {
+                status = true;
+                this->robotStatus = enum_RobotStatus::executing;
+            } else
+                status = false;
+            break;
+        case enum_RobotStatus::emergency:
+            if(this->robotStatus != enum_RobotStatus::failure)
+            {
+                status = true;
+                this->robotStatus = enum_RobotStatus::emergency;
+            } else
+                status = false;
+            break;
+        case enum_RobotStatus::lowBattery:
+            if(this->robotStatus != enum_RobotStatus::failure)
+            {
+                status = true;
+                this->robotStatus = enum_RobotStatus::lowBattery;
+            } else
+                status = false;
+            break;
+        default:
+            status = false;
+            break;
+    }
     lk.unlock();
     return status;
 }
@@ -363,66 +404,83 @@ bool BlackBoard::unlockRobot()
 {
     bool status = false;
     std::unique_lock<std::mutex> lk(mutex_mission);
-        if (this->executingMission == true)
-        {
-            status= true;
-            this->executingMission= false;
-        } else
-            status = false;
+    
+    if(this->robotStatus == enum_RobotStatus::executing || this->robotStatus == enum_RobotStatus::emergency)
+    {
+        status = true;
+        this->robotStatus = enum_RobotStatus::available;
+    } else
+        status = false;
+    /*
+     if (this->executingMission == true)
+     {
+     status= true;
+     this->executingMission= false;
+     } else
+     status = false;
+     */
+    lk.unlock();
+    return status;
+}
+
+enum_RobotStatus BlackBoard::getRobotStatus()
+{
+    std::unique_lock<std::mutex> lk(mutex_mission);
+    enum_RobotStatus status = this->robotStatus;
     lk.unlock();
     return status;
 }
 
 // Deprecated
 /*
-void BlackBoard::addMissionToExecute(MissionExecution& vMission)
-{
-    std::unique_lock<std::mutex> lk(mutex_mission);
-    if (this->selectedMission.enum_execution == enum_MissionExecution::missionComplete || this->selectedMission.enum_execution == enum_MissionExecution::null) // Is necessary to check if the previous mission is already completed.
-    {
-        this->selectedMission = vMission;
-        this->selectedMission.atomicTaskIndex = 0;
-        this->selectedMission.enum_execution = enum_MissionExecution::waitingStart;
-        std::cout << "Tamanho da mensagem "<< sizeof(this->selectedMission) << std::endl;
-        //this->conditional_missionTask.notify_one();
-    }
-    lk.unlock();
-}
-
-std::shared_ptr<AtomicTask> BlackBoard::getTaskFromMission()
-{
-    std::unique_lock<std::mutex> lk(mutex_mission);
-    
-    std::shared_ptr<AtomicTask> vtask = nullptr;
-    if (this->selectedMission.enum_execution == enum_MissionExecution::executing)
-    {
-        vtask = this->selectedMission.selectNextAction();
-    } else
-    {
-        this->conditional_missionTask.wait(lk);
-        vtask = this->selectedMission.selectNextAction();
-    }
-    lk.unlock();
-    return vtask;
-}
-
-void BlackBoard::startMissionExecution()
-{
-    std::unique_lock<std::mutex> lk(mutex_mission);
-    if(this->selectedMission.enum_execution == enum_MissionExecution::waitingStart)
-    {
-        this->selectedMission.enum_execution = enum_MissionExecution::executing;
-        this->conditional_missionTask.notify_one();
-    }
-    lk.unlock();
-}
-
-void BlackBoard::cancelMission()
-{
-    std::unique_lock<std::mutex> lk(mutex_mission);
-        this->selectedMission.enum_execution = enum_MissionExecution::null;
-    lk.unlock();
-}
+ void BlackBoard::addMissionToExecute(MissionExecution& vMission)
+ {
+ std::unique_lock<std::mutex> lk(mutex_mission);
+ if (this->selectedMission.enum_execution == enum_MissionExecution::missionComplete || this->selectedMission.enum_execution == enum_MissionExecution::null) // Is necessary to check if the previous mission is already completed.
+ {
+ this->selectedMission = vMission;
+ this->selectedMission.atomicTaskIndex = 0;
+ this->selectedMission.enum_execution = enum_MissionExecution::waitingStart;
+ std::cout << "Tamanho da mensagem "<< sizeof(this->selectedMission) << std::endl;
+ //this->conditional_missionTask.notify_one();
+ }
+ lk.unlock();
+ }
+ 
+ std::shared_ptr<AtomicTask> BlackBoard::getTaskFromMission()
+ {
+ std::unique_lock<std::mutex> lk(mutex_mission);
+ 
+ std::shared_ptr<AtomicTask> vtask = nullptr;
+ if (this->selectedMission.enum_execution == enum_MissionExecution::executing)
+ {
+ vtask = this->selectedMission.selectNextAction();
+ } else
+ {
+ this->conditional_missionTask.wait(lk);
+ vtask = this->selectedMission.selectNextAction();
+ }
+ lk.unlock();
+ return vtask;
+ }
+ 
+ void BlackBoard::startMissionExecution()
+ {
+ std::unique_lock<std::mutex> lk(mutex_mission);
+ if(this->selectedMission.enum_execution == enum_MissionExecution::waitingStart)
+ {
+ this->selectedMission.enum_execution = enum_MissionExecution::executing;
+ this->conditional_missionTask.notify_one();
+ }
+ lk.unlock();
+ }
+ 
+ void BlackBoard::cancelMission()
+ {
+ std::unique_lock<std::mutex> lk(mutex_mission);
+ this->selectedMission.enum_execution = enum_MissionExecution::null;
+ lk.unlock();
+ }
  */
 
 
@@ -442,7 +500,7 @@ bool BlackBoard::isUDPMessageListEmpty()
 void BlackBoard::addUDPMessage(s_UDPMessage& vUDPMessage)
 {
     std::unique_lock<std::mutex> lk(mutex_UDPMessageList);
-        this->UDPMessageList.push_back(vUDPMessage);
+    this->UDPMessageList.push_back(vUDPMessage);
     lk.unlock();
     this->conditional_UDPMessageList.notify_one();
 }
@@ -452,7 +510,7 @@ void BlackBoard::getUDPMessage(s_UDPMessage& vUDPMessage)
     std::unique_lock<std::mutex> lk(mutex_UDPMessageList);
     
     if (this->UDPMessageList.empty() == false){
-            vUDPMessage = this->UDPMessageList.front();
+        vUDPMessage = this->UDPMessageList.front();
         this->UDPMessageList.erase(UDPMessageList.begin());
         lk.unlock();
     }else
@@ -483,7 +541,7 @@ bool BlackBoard::isROSBridgeMessageListEmpty()
 void BlackBoard::addROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage)
 {
     std::unique_lock<std::mutex> lk(mutex_ROSBridgeMessageList);
-        this->ROSBridgeMessageList.push_back(vROSBridgeMessage);
+    this->ROSBridgeMessageList.push_back(vROSBridgeMessage);
     lk.unlock();
     this->conditional_ROSBridgeMessageList.notify_one();
 }
@@ -493,7 +551,7 @@ void BlackBoard::getROSBridgeMessage(s_ROSBridgeMessage& vROSBridgeMessage)
     std::unique_lock<std::mutex> lk(mutex_ROSBridgeMessageList);
     
     if (this->ROSBridgeMessageList.empty() == false){
-            vROSBridgeMessage = this->ROSBridgeMessageList.front();
+        vROSBridgeMessage = this->ROSBridgeMessageList.front();
         this->ROSBridgeMessageList.erase(ROSBridgeMessageList.begin());
         lk.unlock();
     }else
@@ -600,7 +658,7 @@ void BlackBoard::print(std::string vText)
     message.buffer[sizeof(message.buffer)-1]='\0';
     
     s_UDPMessage UDPMessage;
-   
+    
     strcpy(UDPMessage.address, this->broadcastIP);
     strcpy(UDPMessage.name, "Logger");
     memcpy(UDPMessage.buffer, "Logger",MAX_ROBOT_ID);

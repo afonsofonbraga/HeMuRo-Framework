@@ -35,7 +35,7 @@ std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::os
 
 
 enum class Operation{null, setRobotsPosition, missionMessage, batteryMessage, loggerMessage};
-enum class enum_RobotCategory{null, uav, ugv, usv};
+enum class enum_RobotCategory{null, uav, ugv, usv, chargingStation};
 
 
 enum class enum_AtomicTaskStatus{null, waiting, running, completed};
@@ -48,6 +48,9 @@ enum class enum_ChargingService{null, waitingRequest, bid, waitingForArrival, ch
 enum class enum_ChargingOperation{null, chargingRequest, bid, winningBid, acceptRequest, arrivedAtStation, startCharging, chargingComplete, atomicTaskInterrupt};
 
 enum class enum_LoggerOperation{null, print, save, printAndSave};
+
+
+enum class enum_RobotStatus{null, available, executing, failure, lowBattery, emergency};
 
 struct s_pose
 {
@@ -72,6 +75,15 @@ struct s_UDPMessage
     char name[MAX_ROBOT_ID] = "null";
     char buffer[500] = "null";
     int messageSize = 0;
+};
+
+struct s_BroadcastMessage
+{
+    char robotName[MAX_ROBOT_ID] = "null";
+    enum_RobotCategory robotCategory = enum_RobotCategory::null;
+    enum_RobotStatus robotStatus = enum_RobotStatus::null;
+    s_pose robotsPosition;
+    float batteryLevel = 0;
 };
 
 struct s_MissionMessage

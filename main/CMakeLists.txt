@@ -8,6 +8,7 @@ include_directories(${framework_SOURCE_DIR}/src/Task)
 include_directories(${framework_SOURCE_DIR}/src/Task/Default)
 include_directories(${framework_SOURCE_DIR}/src/Mission)
 include_directories(${framework_SOURCE_DIR}/src/Task/ChargingStation)
+include_directories(${framework_SOURCE_DIR}/src/Task/Logger)
 
 link_directories(${framework_SOURCE_DIR}/src/Core)
 link_directories(${framework_SOURCE_DIR}/src/Communication)
@@ -15,6 +16,7 @@ link_directories(${framework_SOURCE_DIR}/src/Task)
 link_directories(${framework_SOURCE_DIR}/src/Task/Default)
 link_directories(${framework_SOURCE_DIR}/src/Mission)
 link_directories(${framework_SOURCE_DIR}/src/Task/ChargingStation)
+link_directories(${framework_SOURCE_DIR}/src/Task/Logger)
 
 
 if(DEFAULT)

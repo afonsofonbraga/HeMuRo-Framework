@@ -21,6 +21,10 @@
 #include "UDPReceiver.hpp"
 #include "UDPSender.hpp"
 
+#ifdef DEFAULT
+    #include "WebModule.hpp"
+#endif
+
 
 class LoggerAgent
 {
@@ -29,9 +33,14 @@ protected:
     Logger* logger;
     //UDPBroadcast* broadcast;
     UDPReceiver* receiver;
+    #ifdef DEFAULT
+            WebModule* webmodule;
+    #endif
+
     //UDPSender* sender;
 public:
     LoggerAgent(BlackBoard* monitor, bool decentralized); // SEND ARGS
+    LoggerAgent(BlackBoard* monitor, bool decentralized, int argc, char** argv); // SEND ARGS
     ~LoggerAgent();
 };
 

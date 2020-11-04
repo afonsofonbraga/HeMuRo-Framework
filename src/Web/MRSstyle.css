@@ -1,0 +1,37 @@
+.background-box {
+    background-color: #ffffb4;
+    border: 1px solid black;
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+}
+
+.sidebar-box {
+    background-color: #d3e0ed;
+    min-height: 400px;
+    min-width: 150px;
+    text-align: center;
+    padding: 3px;
+}
+
+.table-box {
+    min-width: 200px;
+    min-height: 400px;
+    overflow:scroll;
+    background-color: #d3e0ed;
+    text-align: center;
+    padding: 3px;
+}
+.terminal-box {
+    background-color: #d3e0ed;
+    min-height: 250px;
+    padding: 3px;
+    line-height: normal;
+    text-align: center;
+}
+
+.title-box {
+    background-color: #d3e0ed;
+    min-height: 70px;
+    text-align: center;
+    padding: 3px;
+}

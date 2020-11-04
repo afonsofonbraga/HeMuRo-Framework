@@ -11,7 +11,7 @@
 ChargingStation::ChargingStation(BlackBoard* monitor, bool decentralized)
 {
     this->decentralized = decentralized;
-    monitor->setRobotCategory(enum_RobotCategory::null);
+    monitor->setRobotCategory(enum_RobotCategory::chargingStation);
 
     sender = new UDPSender(monitor);
     broadcast = new UDPBroadcast(monitor);

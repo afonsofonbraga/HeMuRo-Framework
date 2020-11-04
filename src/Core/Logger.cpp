@@ -7,8 +7,21 @@
 //
 
 #include "Logger.hpp"
+/*
+Logger::Logger(BlackBoard* monitor, int argc, char **argv) : Module(monitor)
+{
+    this->constructor();
+    
+    webmodule = new WebModule(monitor,argc, argv);
+    webmodule->Module::start();
+}*/
 
 Logger::Logger(BlackBoard* monitor): Module(monitor)
+{
+    this->constructor();
+}
+
+void Logger::constructor()
 {
     path = getenv("HOME") + std::string("/Github/MRSFramework/logs/PathController.txt");
     int n;
@@ -23,8 +36,9 @@ Logger::Logger(BlackBoard* monitor): Module(monitor)
         std::string str;
         if (s >> str >> n)
         {
+            n++;
             s.seekg(0);
-            s << "Simulation " << n+1;
+            s << "Simulation " << n;
         }else
         {
             n = 1;
@@ -91,6 +105,7 @@ void Logger::run()
 void Logger::printcmd(s_LoggerMessage &vMessage)
 {
     std::cout << "[" << vMessage.robotName << "] " << vMessage.buffer << std::endl;
+    //webmodule ? webmodule->
     std::fstream s(path, s.ate | s.in | s.out );
     if (s.is_open())
     {
