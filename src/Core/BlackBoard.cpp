@@ -405,7 +405,7 @@ bool BlackBoard::unlockRobot()
     bool status = false;
     std::unique_lock<std::mutex> lk(mutex_mission);
     
-    if(this->robotStatus == enum_RobotStatus::executing || this->robotStatus == enum_RobotStatus::emergency)
+    if(this->robotStatus == enum_RobotStatus::executing || this->robotStatus == enum_RobotStatus::emergency || this->robotStatus == enum_RobotStatus::lowBattery)
     {
         status = true;
         this->robotStatus = enum_RobotStatus::available;
