@@ -29,6 +29,7 @@ public:
     ~AtomicTask();
     
     virtual void run();
+    virtual void stop();
     enum_AtomicTaskStatus getStatus();
     virtual void calculateCost();
     float getCost();

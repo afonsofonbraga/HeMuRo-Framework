@@ -42,6 +42,7 @@ public:
     MoveBaseGoal(BlackBoard* vMonitor, s_pose& start, s_pose& end);
     ~MoveBaseGoal();
     void run() override;
+    void stop() override;
     void calculateCost() override;
 
 };

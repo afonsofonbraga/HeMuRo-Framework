@@ -42,6 +42,11 @@ void AtomicTask::run() {
     this->status = enum_AtomicTaskStatus::completed;
 }
 
+void AtomicTask::stop()
+{
+    this->status = enum_AtomicTaskStatus::null;
+}
+
 void AtomicTask::calculateCost() { this->cost = 0; }
 
 float AtomicTask::getCost(){ return this->cost; }

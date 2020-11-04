@@ -44,3 +44,8 @@ void MissionExecution::run()
         }
     }
 }
+
+void MissionExecution::stop()
+{
+    this->atomicTaskList.at(atomicTaskIndex)->stop();
+}

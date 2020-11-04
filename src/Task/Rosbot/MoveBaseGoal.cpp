@@ -69,6 +69,14 @@ void MoveBaseGoal::run()
     }
 }
 
+void MoveBaseGoal::stop()
+{
+    s_ROSBridgeMessage teste;
+    strcpy(teste.topicName,"Move_base/Cancel");
+    this->monitor->addROSBridgeMessage(teste);
+    this->status = enum_AtomicTaskStatus::null;
+}
+
 void MoveBaseGoal::calculateCost()
 {
     this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costMeter;

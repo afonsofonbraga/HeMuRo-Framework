@@ -164,6 +164,7 @@ void MissionManager::startMissionToExecute()
                         //std::cout << "[" << this->robotName << "] TIMEOUT!!! Redirecting Misssion "<< this->missionToExecute.missionCode <<"!"<<std::endl;
                         this->monitor->print("TIMEOUT!!! Redirecting Misssion " + std::string(this->missionToExecute.missionCode) + "!");
                         this->missionToExecute.enum_execution = enum_MissionExecution::null;
+                        //this->missionToExecute.stop();
                         redirectMission(this->missionToExecute);
                         this->monitor->unlockRobot();
                     }
@@ -464,7 +465,7 @@ void MissionManager::waitingForBids(char* missionID)
     {
         // If there is no available robots, start again.
         //std::cout << "[" << this->robotName << "] No Bids received. Trying again." << std::endl;
-        this->monitor->print("No Bids received. Trying again.");
+        this->monitor->print("No Bids received for "+ std::string(missionID) +". Trying again.");
     } else
     {
         // If there is at least a bid, proceed.
