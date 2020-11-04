@@ -164,7 +164,7 @@ void MissionManager::startMissionToExecute()
                         //std::cout << "[" << this->robotName << "] TIMEOUT!!! Redirecting Misssion "<< this->missionToExecute.missionCode <<"!"<<std::endl;
                         this->monitor->print("TIMEOUT!!! Redirecting Misssion " + std::string(this->missionToExecute.missionCode) + "!");
                         this->missionToExecute.enum_execution = enum_MissionExecution::null;
-                        //this->missionToExecute.stop();
+                        this->missionToExecute.stop();
                         redirectMission(this->missionToExecute);
                         this->monitor->unlockRobot();
                     }
