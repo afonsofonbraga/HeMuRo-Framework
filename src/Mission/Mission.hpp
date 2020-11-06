@@ -37,6 +37,8 @@ public:
     enum_RobotCategory robotCategory;
     int executionTime = 30;
     s_pose goal;
+    int numberOfAttributes = 0;
+    char attributesBuffer[500] = "null";
 };
 
 #endif /* Mission_hpp */

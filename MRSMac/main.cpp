@@ -107,7 +107,7 @@ int main(int argc, char **argv){
     }
     
     std::string name{"Robo"};
-    int numberOfRobots =0; // Number of robots that will be executing the tasks
+    int numberOfRobots = 1; // Number of robots that will be executing the tasks
     int defaultAgents = 0; // Number of Agents including Logger and Charging Stations
     
     std::vector<BlackBoard* > v_BlackBoard; // = new std::vector<BlackBoard>;
@@ -186,6 +186,12 @@ int main(int argc, char **argv){
 
         //mission.goal.pop();
         mission.goal = sala_A01;
+        
+        mission.numberOfAttributes = 1;
+        *((int*) (mission.attributesBuffer + 4)) = sizeof(sala_A01);
+        memcpy(mission.attributesBuffer + 8, &sala_A01, sizeof(sala_A01));
+        *((int*) (mission.attributesBuffer)) = sizeof(sala_A01) + 8;
+          
         mission.executionTime = 30;
         
         memcpy(message.buffer,"CStation1",10);
@@ -207,6 +213,18 @@ int main(int argc, char **argv){
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
         mission.goal = recepcao;
+        mission.numberOfAttributes = 2;
+        int total = 4;
+        *((int*) (mission.attributesBuffer + total)) = sizeof(s_pose);
+        total += 4;
+        memcpy(mission.attributesBuffer + total, &escada_01, sizeof(s_pose));
+        total += sizeof(s_pose);
+        *((int*) (mission.attributesBuffer + total)) = sizeof(s_pose);
+        total += 4;
+        memcpy(mission.attributesBuffer + total, &recepcao, sizeof(s_pose));
+        total += sizeof(s_pose);
+        *((int*) (mission.attributesBuffer)) = total;
+        
         mission.executionTime = 30;
         
         memcpy(message.buffer,"CStation1",10);
@@ -228,6 +246,11 @@ int main(int argc, char **argv){
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
         mission.goal = deposito_01;
+        mission.numberOfAttributes = 1;
+        *((int*) (mission.attributesBuffer + 4)) = sizeof(s_pose);
+        memcpy(mission.attributesBuffer + 8, &deposito_01, sizeof(s_pose));
+        *((int*) (mission.attributesBuffer)) = sizeof(s_pose) + 8;
+        
         mission.executionTime = 30;
         
         memcpy(message.buffer,"CStation1",10);
@@ -250,6 +273,11 @@ int main(int argc, char **argv){
         //mission.goal.yaw = 0.3;
 
         mission.goal = escada_02;
+        mission.numberOfAttributes = 1;
+        *((int*) (mission.attributesBuffer + 4)) = sizeof(s_pose);
+        memcpy(mission.attributesBuffer + 8, &escada_02, sizeof(s_pose));
+        *((int*) (mission.attributesBuffer)) = sizeof(s_pose) + 8;
+        
         mission.executionTime = 30;
         
         memcpy(message.buffer,"CStation1",10);

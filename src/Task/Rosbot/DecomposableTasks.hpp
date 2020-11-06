@@ -22,4 +22,6 @@
 
 void decomposableTaskList(BlackBoard* monitor);
 void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable);
+bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable);
+
 #endif /* DecomposableTasks_hpp */

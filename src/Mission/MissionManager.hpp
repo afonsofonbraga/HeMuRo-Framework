@@ -75,7 +75,7 @@ protected:
     void redirectMission(MissionExecution& vMissionExecute);
     void emergencyCall(std::unique_ptr<s_MissionMessage> vMissionMessage);
     void missionAborted(std::unique_ptr<s_MissionMessage> vMissionMessage);
-    void addAtomicTask(MissionExecution& mission);
+    //void addAtomicTask(MissionExecution& mission);
     void calculateMissionCost(MissionExecution& mission);
     void sendMissionCost(MissionExecution& mission);
     void sendUDPMessage(s_MissionMessage& vMissionMessage, char& targetAddress, char& targetName);

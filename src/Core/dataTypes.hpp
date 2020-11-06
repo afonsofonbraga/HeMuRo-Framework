@@ -73,7 +73,7 @@ struct s_UDPMessage
 {
     char address[MAX_IP] = "null";
     char name[MAX_ROBOT_ID] = "null";
-    char buffer[500] = "null";
+    char buffer[600] = "null";
     int messageSize = 0;
 };
 
@@ -97,7 +97,8 @@ struct s_MissionMessage
     //char buffer[500] = "null";
     enum_RobotCategory robotCat = enum_RobotCategory::null;
     int executionTime = 0;
-    int numberOfGoals = 0;
+    int numberOfAttributes = 0;
+    char attributesBuffer[500] = "null";
     s_pose goal;
 };
 

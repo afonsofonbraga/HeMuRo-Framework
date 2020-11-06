@@ -72,3 +72,57 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
         }
     }
 }
+
+bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
+{
+    vMissionDecomposable.atomicTaskList.clear();
+    std::shared_ptr<AtomicTask> vAtomicTaskitem = nullptr;
+    s_pose currentPosition;
+    monitor->getPosition(currentPosition);
+    //std::queue<s_pose> goal = vMissionDecomposable.goal; // When working with the UDPReceiverSim this is necessary
+    
+    char* temp = vMissionDecomposable.attributesBuffer;
+    int vAttribuites = 0;
+    int partialSize = 0;
+    int totalSize = ((int*) temp)[0];
+    partialSize += 4;
+    temp += 4;
+    
+    for (auto n : vMissionDecomposable.vAtomicTaskVector){
+        switch(n){
+            case enum_AtomicTask::null :
+                break;
+            case enum_AtomicTask::goTo :
+            {
+                int vSize = ((int*) temp)[0];
+                partialSize += 4;
+                temp += 4;
+                vAttribuites++;
+                s_pose goal = ((s_pose*) temp)[0];
+                vAtomicTaskitem = std::make_shared<GoTo>(monitor, currentPosition, goal);
+                currentPosition = goal;
+                partialSize += vSize;
+                temp += vSize;
+                break;
+            }
+
+            case enum_AtomicTask::turnOn :
+                vAtomicTaskitem = std::make_shared<TurnOn>(monitor, currentPosition,currentPosition);
+                break;
+            case enum_AtomicTask::chargeBattery :
+                vAtomicTaskitem = std::make_shared<ChargeBattery>(monitor, currentPosition,currentPosition);
+                break;
+            case enum_AtomicTask::takePicture :
+                vAtomicTaskitem = std::make_shared<TakePicture>(monitor, currentPosition,currentPosition);
+                break;
+        }
+        if (vAtomicTaskitem != nullptr)
+        {
+            vMissionDecomposable.atomicTaskList.push_back(std::move(vAtomicTaskitem));
+            //delete vAtomicTaskitem;
+        } else {
+            std::cout << "Not found\n";
+        }
+    }
+    return (totalSize == partialSize && vAttribuites == vMissionDecomposable.numberOfAttributes) ? true : false;
+}

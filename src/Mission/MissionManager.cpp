@@ -235,20 +235,26 @@ void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissi
         strcpy(this->MissionList[vMissionMessage->missionCode].senderName,vMissionMessage->senderName);
         this->MissionList[vMissionMessage->missionCode].enum_execution = enum_MissionExecution::waitingAuction;
         this->MissionList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
+        
         this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
+        this->MissionList[vMissionMessage->missionCode].numberOfAttributes = vMissionMessage->numberOfAttributes;
+        int totalSize = ((int*) vMissionMessage->attributesBuffer)[0];
+        memcpy(this->MissionList[vMissionMessage->missionCode].attributesBuffer,&vMissionMessage->attributesBuffer, totalSize);
+        
         this->MissionList[vMissionMessage->missionCode].vAtomicTaskVector = std::move(vMission->vAtomicTaskVector);
         this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
         this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
         
         //addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
-        addAtomicTask2(monitor, this->MissionList[vMissionMessage->missionCode]);
+        //addAtomicTask2(monitor, this->MissionList[vMissionMessage->missionCode]);
+        bool status = addAtomicTask(monitor, this->MissionList[vMissionMessage->missionCode]);
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
         //CHECK IF THERE IS ENOUGH BATTERY OR IF THE PATH IS FEASABLE
         //this->MissionList.insert_or_assign(vMission->missionCode, *vMission);
         //std::cout << "Mission "<< vMissionMessage->missionCode << " costs: " << this->MissionList[vMissionMessage->missionCode].missionCost << " BL: " << this->monitor->getBatteryLevel() << std::endl;
         this->monitor->print("Mission " + std::string(vMissionMessage->missionCode) + " costs: " + std::to_string(this->MissionList[vMissionMessage->missionCode].missionCost) + " BL: " + std::to_string(this->monitor->getBatteryLevel()));
         
-        if(this->MissionList[vMissionMessage->missionCode].missionCost <= this->monitor->getBatteryLevel())
+        if(this->MissionList[vMissionMessage->missionCode].missionCost <= this->monitor->getBatteryLevel() && status == true)
             sendMissionCost(this->MissionList[vMissionMessage->missionCode]); // Send back the proposal
     }
     //std::cout << "Deleting vMission" <<std::endl;
@@ -275,13 +281,20 @@ void MissionManager::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> v
         strcpy(this->MissionList[vMissionMessage->missionCode].senderName,vMissionMessage->senderName);
         this->MissionList[vMissionMessage->missionCode].enum_execution = enum_MissionExecution::waitingAuction;
         this->MissionList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
+        
         this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
+        this->MissionList[vMissionMessage->missionCode].numberOfAttributes = vMissionMessage->numberOfAttributes;
+        int totalSize = ((int*) vMissionMessage->attributesBuffer)[0];
+        memcpy(this->MissionList[vMissionMessage->missionCode].attributesBuffer,&vMissionMessage->attributesBuffer, totalSize);
+        
+        
         this->MissionList[vMissionMessage->missionCode].vAtomicTaskVector = std::move(vMission->vAtomicTaskVector);
         this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
         this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
         
         //addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
-        addAtomicTask2(monitor, this->MissionList[vMissionMessage->missionCode]);
+        //addAtomicTask2(monitor, this->MissionList[vMissionMessage->missionCode]);
+        bool status = addAtomicTask(monitor, this->MissionList[vMissionMessage->missionCode]);
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
         // This one doesn't send back
     }
@@ -321,7 +334,7 @@ void MissionManager::winningBid(std::unique_ptr<s_MissionMessage> vMissionMessag
         }
         else
             //std::cout << "[" << this->robotName << "] I'm unavailable to execute " << vMissionMessage->missionCode <<"!"<<std::endl;
-        this->monitor->print("I'm unavailable to execute " + std::string(vMissionMessage->missionCode) + "!");
+            this->monitor->print("I'm unavailable to execute " + std::string(vMissionMessage->missionCode) + "!");
     }
 }
 
@@ -336,7 +349,14 @@ void MissionManager::addMissionToExecute(MissionExecution& vMissionExecute)
     strcpy(missionToExecute.senderAddress,vMissionExecute.senderAddress);
     strcpy(missionToExecute.senderName,vMissionExecute.senderName);
     missionToExecute.mission = vMissionExecute.mission;
+    
     missionToExecute.goal = vMissionExecute.goal;
+    missionToExecute.numberOfAttributes = vMissionExecute.numberOfAttributes;
+    strcpy(missionToExecute.attributesBuffer,vMissionExecute.attributesBuffer);
+    int totalSize = ((int*) vMissionExecute.attributesBuffer)[0];
+    memcpy(missionToExecute.attributesBuffer,vMissionExecute.attributesBuffer, totalSize);
+    
+    
     missionToExecute.vAtomicTaskVector = std::move(vMissionExecute.vAtomicTaskVector);
     missionToExecute.atomicTaskList = std::move(vMissionExecute.atomicTaskList);
     missionToExecute.atomicTaskIndex = vMissionExecute.atomicTaskIndex;
@@ -388,14 +408,25 @@ void MissionManager::emergencyCall(std::unique_ptr<s_MissionMessage> vMissionMes
         strcpy(vMission->senderAddress,vMissionMessage->senderAddress);
         strcpy(vMission->senderName,vMissionMessage->senderName);
         vMission->mission = vMissionMessage->taskToBeDecomposed;
+        
         vMission->goal = vMissionMessage->goal;
+        vMission->numberOfAttributes = vMissionMessage->numberOfAttributes;
+        int totalSize = ((int*) vMissionMessage->attributesBuffer)[0];
+        memcpy(vMission->attributesBuffer,&vMissionMessage->attributesBuffer, totalSize);
+        //strcpy(vMission->attributesBuffer,vMissionMessage->attributesBuffer);
+        
         //addAtomicTask(*vMission);
         
-        addAtomicTask2(monitor, *vMission);
-        calculateMissionCost(*vMission);
+        //addAtomicTask2(monitor, *vMission);
+        bool status = addAtomicTask(monitor, *vMission);
+        if (status == true)
+        {
+            calculateMissionCost(*vMission);
+            
+            this->monitor->lockRobot(enum_RobotStatus::emergency);
+            addMissionEmergency(*vMission);
+        }
         
-        this->monitor->lockRobot(enum_RobotStatus::emergency);
-        addMissionEmergency(*vMission);
     }
 }
 
@@ -427,7 +458,13 @@ void MissionManager::createMission(std::unique_ptr<s_MissionMessage> vMissionMes
     
     this->missionOwnerList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
     this->missionOwnerList[vMissionMessage->missionCode].enum_request = enum_MissionRequest::waitingBids;
+    
     this->missionOwnerList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
+    this->missionOwnerList[vMissionMessage->missionCode].numberOfAttributes = vMissionMessage->numberOfAttributes;
+    int totalSize = ((int*) vMissionMessage->attributesBuffer)[0];
+    memcpy(this->missionOwnerList[vMissionMessage->missionCode].attributesBuffer,vMissionMessage->attributesBuffer, totalSize);
+    
+    
     this->missionOwnerList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
     this->missionOwnerList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
     
@@ -452,7 +489,14 @@ void MissionManager::waitingForBids(char* missionID)
     this->monitor->getRobotsName(*missionMessage.senderName);
     missionMessage.operation = enum_MissionOperation::addMission;
     missionMessage.taskToBeDecomposed = this->missionOwnerList[missionID].mission;
+    
+    
     missionMessage.goal = this->missionOwnerList[missionID].goal;
+    missionMessage.numberOfAttributes = this->missionOwnerList[missionID].numberOfAttributes;
+    int totalSize = ((int*) this->missionOwnerList[missionID].attributesBuffer)[0];
+    memcpy(missionMessage.attributesBuffer,this->missionOwnerList[missionID].attributesBuffer, totalSize);
+    
+    
     missionMessage.robotCat = this->missionOwnerList[missionID].robotCategory;
     missionMessage.executionTime = this->missionOwnerList[missionID].executionTime;
     char broadcast[MAX_ROBOT_ID] = "Broadcast";
@@ -460,7 +504,7 @@ void MissionManager::waitingForBids(char* missionID)
     
     // Lock and wait intil the time is passed by
     this->missionOwnerList[missionID].cv->wait_until(lk, now + std::chrono::seconds(this->missionOwnerList[missionID].biddingTime));
-
+    
     if(this->missionOwnerList[missionID].vectorBids.empty())
     {
         // If there is no available robots, start again.

@@ -205,7 +205,14 @@ void BatteryManager::batteryCheckLoop()
                 strcpy(missionMessage.missionCode, chargingStationWinner.requestID);
                 missionMessage.operation = enum_MissionOperation::emergency;
                 missionMessage.taskToBeDecomposed = enum_DecomposableTask::lowBattery;
+                
                 missionMessage.goal = chargingStationWinner.spotPosition;
+                
+                missionMessage.numberOfAttributes = 1;
+                *((int*) (missionMessage.attributesBuffer + 4)) = sizeof(chargingStationWinner.spotPosition);
+                memcpy(missionMessage.attributesBuffer + 8, &chargingStationWinner.spotPosition, sizeof(chargingStationWinner.spotPosition));
+                *((int*) (missionMessage.attributesBuffer)) = sizeof(chargingStationWinner.spotPosition) + 8;
+                  
                 this->monitor->addMissionMessage(missionMessage);
                 
                 //auto t0 = std::chrono::high_resolution_clock::now();
