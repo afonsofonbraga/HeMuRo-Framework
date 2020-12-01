@@ -26,10 +26,10 @@ class WebModule: public Module
 protected:
     BlackBoard*    monitor;
     WebApp* webapp;
+    Wt::WServer* server;
     int argc;
     char** argv;
     void run() override;
-    //void stop() override;
 public:
     WebModule(BlackBoard* monitor, int argc, char **argv);
     ~WebModule();

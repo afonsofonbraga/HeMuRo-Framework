@@ -11,6 +11,8 @@
 		231AD3F0251E434D00C88B27 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 231AD3EE251E434D00C88B27 /* Logger.cpp */; };
 		2335B7F724FD71BF00661D4C /* DecomposableTasks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2335B7F524FD71BF00661D4C /* DecomposableTasks.cpp */; };
 		23494C9124CF130200697ABA /* TakePicture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23494C8F24CF130200697ABA /* TakePicture.cpp */; };
+		235944C425752EA0009DA982 /* Auction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235944C225752EA0009DA982 /* Auction.cpp */; };
+		235944C7257537EE009DA982 /* TaskModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235944C5257537EE009DA982 /* TaskModule.cpp */; };
 		235CC3EB2493F0200012376D /* Mission.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235CC3E92493F0200012376D /* Mission.cpp */; };
 		236244F125211498007B5319 /* LoggerAgent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 236244EF25211498007B5319 /* LoggerAgent.cpp */; };
 		23789A9224AB95D1001372E5 /* MissionRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23789A9024AB95D1001372E5 /* MissionRequest.cpp */; };
@@ -93,6 +95,10 @@
 		234EDEBC24AFAE7800385914 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		234FD6972490156300F586DE /* sendMission.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sendMission.cpp; sourceTree = "<group>"; };
 		234FD6982490263D00F586DE /* original.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = original.cpp; sourceTree = "<group>"; };
+		235944C225752EA0009DA982 /* Auction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Auction.cpp; sourceTree = "<group>"; };
+		235944C325752EA0009DA982 /* Auction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Auction.hpp; sourceTree = "<group>"; };
+		235944C5257537EE009DA982 /* TaskModule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TaskModule.cpp; sourceTree = "<group>"; };
+		235944C6257537EE009DA982 /* TaskModule.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TaskModule.hpp; sourceTree = "<group>"; };
 		235CC3E92493F0200012376D /* Mission.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mission.cpp; sourceTree = "<group>"; };
 		235CC3EA2493F0200012376D /* Mission.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mission.hpp; sourceTree = "<group>"; };
 		236244EF25211498007B5319 /* LoggerAgent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LoggerAgent.cpp; sourceTree = "<group>"; };
@@ -1199,12 +1205,12 @@
 		23D20B42245C705C0013F98A /* src */ = {
 			isa = PBXGroup;
 			children = (
-				23B17FA92549C24D003267ED /* Web */,
 				23D20B43245C705C0013F98A /* CMakeLists.txt */,
 				23EDB521245CC72F003D13A3 /* Communication */,
 				23D20B44245C705C0013F98A /* Core */,
 				23ECC3C6248E99940025CBC7 /* Mission */,
 				23805D362460BC730061F4A0 /* Task */,
+				23B17FA92549C24D003267ED /* Web */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -1261,6 +1267,10 @@
 				23789A9324AB9694001372E5 /* MissionExecution.cpp */,
 				23789A9424AB9694001372E5 /* MissionExecution.hpp */,
 				234EDEBC24AFAE7800385914 /* CMakeLists.txt */,
+				235944C225752EA0009DA982 /* Auction.cpp */,
+				235944C325752EA0009DA982 /* Auction.hpp */,
+				235944C5257537EE009DA982 /* TaskModule.cpp */,
+				235944C6257537EE009DA982 /* TaskModule.hpp */,
 			);
 			path = Mission;
 			sourceTree = "<group>";
@@ -1336,16 +1346,16 @@
 		23F9DFE3245C6FDB008506C4 = {
 			isa = PBXGroup;
 			children = (
-				232E13D32523BD0A008A90F3 /* logs */,
 				23D20B41245C705C0013F98A /* build */,
 				23D20B48245C705C0013F98A /* CMakeLists.txt */,
+				23C9112D2548C16800818B4D /* Frameworks */,
+				232E13D32523BD0A008A90F3 /* logs */,
 				23D20B3E245C705C0013F98A /* main */,
 				23D20B4F245C71560013F98A /* MRSMac */,
 				23ED54D724CE179100239D05 /* package.xml */,
 				23D20B4E245C71560013F98A /* Products */,
 				23D20B3D245C705C0013F98A /* README.md */,
 				23D20B42245C705C0013F98A /* src */,
-				23C9112D2548C16800818B4D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1428,6 +1438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23872A1B248049B200EC738C /* UDPSender.cpp in Sources */,
+				235944C7257537EE009DA982 /* TaskModule.cpp in Sources */,
 				23965EAE2501312000F6E7A5 /* BatteryManager.cpp in Sources */,
 				23965EAB25012DB900F6E7A5 /* ChargingStation.cpp in Sources */,
 				23494C9124CF130200697ABA /* TakePicture.cpp in Sources */,
@@ -1450,6 +1461,7 @@
 				23D20B51245C71560013F98A /* main.cpp in Sources */,
 				23F3A21D25006C7E00561375 /* DefaultRobot.cpp in Sources */,
 				236244F125211498007B5319 /* LoggerAgent.cpp in Sources */,
+				235944C425752EA0009DA982 /* Auction.cpp in Sources */,
 				23965EB225013E8300F6E7A5 /* ChargingSpot.cpp in Sources */,
 				2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */,
 				23789A9224AB95D1001372E5 /* MissionRequest.cpp in Sources */,

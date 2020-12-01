@@ -49,3 +49,17 @@ void MissionExecution::stop()
 {
     this->atomicTaskList.at(atomicTaskIndex)->stop();
 }
+
+void MissionExecution::clear()
+{
+    this->vAtomicTaskVector.clear();
+    this->atomicTaskList.clear();
+    missionCost = 0;
+    enum_execution = enum_MissionExecution::null;
+    atomicTaskIndex = 0;
+    
+    mission = enum_DecomposableTask::null;
+    robotCategory = enum_RobotCategory::null;
+    executionTime = 0;
+    numberOfAttributes = 0;
+}

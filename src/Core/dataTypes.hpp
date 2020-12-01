@@ -39,9 +39,14 @@ enum class enum_RobotCategory{null, uav, ugv, usv, chargingStation};
 
 
 enum class enum_AtomicTaskStatus{null, waiting, running, completed};
+enum class enum_TaskMessage{null, requestCost, addTask, executeTask, addAndExecute, redirect, addEmergency};
+
+
+
 enum class enum_MissionRequest{null, waitingBids, notifyingWinner, executingMission, missionComplete};
 enum class enum_MissionExecution{null, waitingAuction, waitingStart, executing, missionComplete};
-enum class enum_MissionOperation{null, createMission, addMission, addAndRequestCost, Bid, abortMission, winningBid, acceptMission , startMission, emergency, missionComplete};
+enum class enum_MissionOperation{null, createMission, addMission, addAndRequestCost, Bid, redirectRequest, abortMission, winningBid, lockingComplete, acceptMission , startMission, emergency, notifyMissionComplete, missionComplete};
+
 
 enum class enum_ChargingRequest{null, ok, chargingRequest, notfyingWinner, goingToLocation, charging, chargingComplete};
 enum class enum_ChargingService{null, waitingRequest, bid, waitingForArrival, charging, chargingComplete};
@@ -96,6 +101,21 @@ struct s_MissionMessage
     float Cost = 0;
     //char buffer[500] = "null";
     enum_RobotCategory robotCat = enum_RobotCategory::null;
+    int executionTime = 0;
+    int numberOfAttributes = 0;
+    char attributesBuffer[500] = "null";
+    s_pose goal;
+};
+
+struct s_TaskMessage
+{
+    char missionCode[MAX_ID] = "null";
+    char senderAddress[MAX_IP] = "null";
+    char senderName[MAX_ROBOT_ID] = "null";
+    enum_TaskMessage operation = enum_TaskMessage::null;
+    enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
+    enum_RobotCategory robotCat = enum_RobotCategory::null;
+    float Cost = 0;
     int executionTime = 0;
     int numberOfAttributes = 0;
     char attributesBuffer[500] = "null";

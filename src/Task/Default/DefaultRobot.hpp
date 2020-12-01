@@ -25,6 +25,9 @@
 
 #include "BatteryManager.hpp"
 
+#include "Auction.hpp"
+#include "TaskModule.hpp"
+
 class DefaultRobot
 {
 protected:
@@ -34,6 +37,10 @@ protected:
     UDPReceiver* receiver;
     UDPSender* sender;
     MissionManager* missionManager;
+    
+    Auction* auction;
+    TaskModule* taskModule;
+    
     BatteryManager* batteryManager;
     char mode[MAX_IP];
 public:

@@ -19,6 +19,9 @@ ChargingStation::ChargingStation(BlackBoard* monitor, bool decentralized)
     batteryManager = new BatteryManager(monitor,mode);
     missionManager = new MissionManager(monitor);
     
+    auction = new Auction(monitor);
+    taskModule = new TaskModule(monitor);
+    
     if (this->decentralized == true)
     {
         receiver = new UDPReceiver(monitor);
@@ -31,8 +34,9 @@ ChargingStation::ChargingStation(BlackBoard* monitor, bool decentralized)
     sender->start();
     broadcast->start();
     batteryManager->start();
-    missionManager->start();
-    
+    //missionManager->start();
+    taskModule->start();
+    auction->start();
 }
 
 ChargingStation::~ChargingStation()

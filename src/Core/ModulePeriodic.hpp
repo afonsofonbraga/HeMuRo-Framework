@@ -6,6 +6,18 @@
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
+/*! \class ModulePeriodic
+*  \author Afonso Braga
+*  \date 2020
+* \brief This class implements a Periodic Module.
+ *
+* This class implements a Periodic Module.
+ *
+* It will be executed the \run method every tick.
+ *
+* \warning Do not create a loop inside run()
+*/
+
 #ifndef ModulePeriodic_hpp
 #define ModulePeriodic_hpp
 
@@ -18,14 +30,13 @@
 
 class ModulePeriodic: public Module {
 protected:
-    //BlackBoard* monitor;
-    void mainThread() override;                                          // Thread object
-    	void run() override ;                                                 // Thread Implementation
-    std::chrono::milliseconds tick = std::chrono::milliseconds(1000);   // Threads period
+    void mainThread() override;                                          /*!< Thread object */
+    void run() override ;                                                /*!< Thread Implementation */
+    std::chrono::milliseconds tick = std::chrono::milliseconds(1000);    /*!< Threads period */
 public:
-    ModulePeriodic(BlackBoard* monitor);                                // Constructor with a Default Period
-    ModulePeriodic(BlackBoard* monitor, int vTick);                     // Ordnary Constructor
-    ~ModulePeriodic();
+    ModulePeriodic(BlackBoard* monitor);                                 /*!< Constructor with a Default Period */
+    ModulePeriodic(BlackBoard* monitor, int vTick);                      /*!< Ordnary Constructor */
+    ~ModulePeriodic();                                                   /*!< Destructor */
 };
 
 #endif /* ModulePeriodic_hpp */

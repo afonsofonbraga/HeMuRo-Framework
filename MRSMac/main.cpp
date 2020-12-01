@@ -192,7 +192,7 @@ int main(int argc, char **argv){
         memcpy(mission.attributesBuffer + 8, &sala_A01, sizeof(sala_A01));
         *((int*) (mission.attributesBuffer)) = sizeof(sala_A01) + 8;
           
-        mission.executionTime = 30;
+        mission.executionTime = 60;
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
@@ -225,7 +225,7 @@ int main(int argc, char **argv){
         total += sizeof(s_pose);
         *((int*) (mission.attributesBuffer)) = total;
         
-        mission.executionTime = 30;
+        mission.executionTime = 120;
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
@@ -251,7 +251,7 @@ int main(int argc, char **argv){
         memcpy(mission.attributesBuffer + 8, &deposito_01, sizeof(s_pose));
         *((int*) (mission.attributesBuffer)) = sizeof(s_pose) + 8;
         
-        mission.executionTime = 30;
+        mission.executionTime = 60;
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
@@ -278,7 +278,7 @@ int main(int argc, char **argv){
         memcpy(mission.attributesBuffer + 8, &escada_02, sizeof(s_pose));
         *((int*) (mission.attributesBuffer)) = sizeof(s_pose) + 8;
         
-        mission.executionTime = 30;
+        mission.executionTime = 60;
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;

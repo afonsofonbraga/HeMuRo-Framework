@@ -16,6 +16,10 @@ DefaultRobot::DefaultRobot(BlackBoard* monitor, bool decentralized)
     broadcast = new UDPBroadcast(monitor);
     sender = new UDPSender(monitor);
     missionManager = new MissionManager(monitor);
+    
+    auction = new Auction(monitor);
+    taskModule = new TaskModule(monitor);
+    
     batteryManager = new BatteryManager(monitor,mode);
     
     //usleep(10000);
@@ -31,7 +35,9 @@ DefaultRobot::DefaultRobot(BlackBoard* monitor, bool decentralized)
     sender->start();
     broadcast->start();
     batteryManager->start();
-    missionManager->start();
+    //missionManager->start();
+    auction->start();
+    taskModule->start();
 }
 
 DefaultRobot::~DefaultRobot()

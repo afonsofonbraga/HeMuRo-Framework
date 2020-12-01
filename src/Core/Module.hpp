@@ -13,6 +13,19 @@
 // or mutexes to control its execution.
 // If you want a periodic module, use ModulePeriodic instead.
 
+/*! \class Module
+*  \author Afonso Braga
+*  \date 2020
+* \brief This class implements a thread module.
+ *
+* This class implements a thread module.
+ *
+* In this case, there is no time constraints, this means that if you don't add a sleeping function, for example, it will be running indefinitely.
+ *
+* This class is recommendended for non periodic tasks using semaphore or mutexes to control its execution.
+ *
+* If you want a periodic module, use ModulePeriodic instead.
+*/
 
 #ifndef Module_hpp
 #define Module_hpp
@@ -26,19 +39,21 @@
 
 class Module{
 protected:
-    std::thread t_main;         // Thread object
-    bool isRunning;
-    BlackBoard *monitor;
-    virtual void mainThread();  // Configure the Tick
-    virtual void run();         // Implementation
+    std::thread t_main;          /*!< Thread object */
+    bool isRunning;              /*!< Boolean status */
+    BlackBoard *monitor;         /*!< Blackboard monitor*/
+    virtual void mainThread();   /*!< Configure the Tick*/
+    virtual void run();          /*!< Implementation*/
     
 public:
-    Module(BlackBoard *monitor);
-    ~Module();
+    Module(BlackBoard *monitor); /*!<  Constructor */
+    ~Module();                   /*!< Destructor */
     
-    bool getRunningStatus();    // Return isRunning variable
-    void start();               // Start Thread
-    virtual void stop();        // Pause Running Thread
+    bool getRunningStatus();     /*!< \brief Return true if Module is running.
+                                  *
+                                  * Return isRunning variable */
+    void start();                /*!< Start Thread*/
+    virtual void stop();         /*!< Stop Thread*/
     
 };
 #endif /* Module_hpp */

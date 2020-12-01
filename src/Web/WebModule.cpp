@@ -29,9 +29,9 @@ void WebModule::run()
      });*/
     
     try {
-        Wt::WServer server(argc, argv, WTHTTP_CONFIGURATION);
+        server = new Wt::WServer(argc, argv, WTHTTP_CONFIGURATION);
         
-        server.addEntryPoint(Wt::EntryPointType::Application, [monitor2](const Wt::WEnvironment &env) {
+        server->addEntryPoint(Wt::EntryPointType::Application, [monitor2](const Wt::WEnvironment &env) {
             
             auto app = std::make_unique<Wt::WApplication>(env);
             
@@ -50,7 +50,7 @@ void WebModule::run()
         
         //Session::configureAuth();
         
-        server.run();
+        server->run();
     } catch (Wt::WServer::Exception& e) {
         std::cerr << e.what() << std::endl;
     } catch (std::exception &e) {
@@ -58,8 +58,4 @@ void WebModule::run()
     }
     
 }
-/*
- void WebModule::Module::stop()
- {
- //Wt::stop();
- }*/
+

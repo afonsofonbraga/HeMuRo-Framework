@@ -25,6 +25,7 @@
 #include <ros/duration.h>
 #include <tf/tf.h>
 #include <nav_msgs/Odometry.h>
+#include <nav_msgs/GetPlan.h>
 #include "std_msgs/Float64.h"
 #include "std_msgs/Int32.h"
 #include "std_msgs/Bool.h"
@@ -41,6 +42,7 @@ class Alive: public Module
 protected:
     s_ROSBridgeMessage* vROSBridgeMessage;
     MoveBaseClient* ac;
+    ros::ServiceClient* check_path;
     void callbackOdometry(const nav_msgs::Odometry::ConstPtr& msg);
     void callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg);
     virtual void run() override;

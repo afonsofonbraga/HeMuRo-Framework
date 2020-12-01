@@ -31,17 +31,17 @@ WebApp::WebApp(BlackBoard* monitor): WContainerWidget()
     
     container = Wt::cpp14::make_unique<Wt::WContainerWidget>();
     
-    auto item = container->addWidget(Wt::cpp14::make_unique<Wt::WText>("MRS Framework"));
+    auto item = container->addWidget(Wt::cpp14::make_unique<Wt::WText>("<h1>HeMuRo Framework</h1>"));
     container->setStyleClass("title-box");
     layout->addWidget(std::move(container), Wt::LayoutPosition::North);
     
     container = Wt::cpp14::make_unique<Wt::WContainerWidget>();
-    item = container->addWidget(Wt::cpp14::make_unique<Wt::WText>("Menu"));
+    item = container->addWidget(Wt::cpp14::make_unique<Wt::WText>("<h3>Menu</h3>"));
     container->setStyleClass("sidebar-box");
     layout->addWidget(std::move(container), Wt::LayoutPosition::West);
     
     container = Wt::cpp14::make_unique<Wt::WContainerWidget>();
-    item = container->addWidget(Wt::cpp14::make_unique<Wt::WText>("Information"));
+    item = container->addWidget(Wt::cpp14::make_unique<Wt::WText>("<h3>Information</h3> Here you can find all the <br /> information regarding <br />agents' status.<br />More information will be <br /> available in the future!<br /> Keep in touch!"));
     container->setStyleClass("sidebar-box");
     layout->addWidget(std::move(container), Wt::LayoutPosition::East);
     

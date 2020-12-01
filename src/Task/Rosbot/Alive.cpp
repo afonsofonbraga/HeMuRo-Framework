@@ -38,6 +38,8 @@ Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(
         ROS_INFO("Waiting for the move_base action server to come up");
     }
     
+    topic = vName + "/move_base/make_plan";
+    check_path = new ros::ServiceClient(node.serviceClient<nav_msgs::GetPlan>(topic));
 }
 
 Alive::~Alive()
@@ -141,40 +143,60 @@ void Alive::run()
         {
             ROS_INFO("Canceling goal");
             this->ac->cancelGoal();
-        }
+        }/*
+        if(strcmp(vROSBridgeMessage->topicName, "Move_base/Cost") == 0)
+        {
+            s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
+            s_pose robotPosition;
+            this->monitor->getPosition(robotPosition);
+            
+            geometry_msgs::PoseStamped Start;
+            Start.header.seq = 0;
+            Start.header.stamp = ros::Time::now();
+            Start.header.frame_id = "map";
+            Start.pose.position.x = robotPosition.x;
+            Start.pose.position.y = robotPosition.y;
+            Start.pose.position.z = robotPosition.z;
+            Start.pose.orientation.x = robotPosition.roll;
+            Start.pose.orientation.y = robotPosition.pitch;
+            Start.pose.orientation.w = robotPosition.yaw;
+            
+            geometry_msgs::PoseStamped Goal;
+            Goal.header.seq = 0;
+            Goal.header.stamp = ros::Time::now();
+            Goal.header.frame_id = "map";
+            Goal.pose.position.x = vPose.x;
+            Goal.pose.position.y = vPose.y;
+            Goal.pose.position.z = vPose.z;
+            Goal.pose.orientation.x = vPose.roll;
+            Goal.pose.orientation.y = vPose.pitch;
+            Goal.pose.orientation.w = vPose.yaw;
+            
+            
+            nav_msgs::GetPlan srv;
+            srv.request.start = Start;
+            srv.request.goal = Goal;
+            srv.request.tolerance = 1.5;
+            
+            //ROS_INFO("Make plan: %d", (check_path->call(srv) ? 1 : 0));
+            //ROS_INFO("Plan size: %d", srv.response.plan.poses.size());
+            
+            float distance = 0;
+            for(int i = 1; i< srv.response.plan.poses.size(); i++)
+            {
+                float diffX = (srv.response.plan.poses[i].pose.position.x - srv.response.plan.poses[i-1].pose.position.x);
+                float diffY = (srv.response.plan.poses[i].pose.position.y - srv.response.plan.poses[i-1].pose.position.y);
+                float diffZ = (srv.response.plan.poses[i].pose.position.z - srv.response.plan.poses[i-1].pose.position.z);
+                distance += sqrtf(diffX*diffX + diffY*diffY + diffZ*diffZ);
+            }
+            //ROS_INFO("Plan Costs: %f", distance);
+            this->monitor->print("Plan costs: " + std::to_string(distance));
+            float* cost;
+            memcpy(&cost, vROSBridgeMessage->buffer + sizeof(s_pose), sizeof(float *));
+            cost = distance;
+        }*/
     }
 }
 
 
 
-//
-//geometry_msgs::PoseStamped Start;
-//    Start.header.seq = 0;
-//    Start.header.stamp = Time(0);
-//    Start.header.frame_id = "map";
-//    Start.pose.position.x = x1;
-//    Start.pose.position.y = y1;
-//    Start.pose.position.z = 0.0;
-//    Start.pose.orientation.x = 0.0;
-//    Start.pose.orientation.y = 0.0;
-//    Start.pose.orientation.w = 1.0;
-//
-//geometry_msgs::PoseStamped Goal;
-//    Goal.header.seq = 0;
-//    Goal.header.stamp = Time(0);
-//    Goal.header.frame_id = "map";
-//    Goal.pose.position.x = x2;
-//    Goal.pose.position.y = y2;
-//    Goal.pose.position.z = 0.0;
-//    Goal.pose.orientation.x = 0.0;
-//    Goal.pose.orientation.y = 0.0;
-//    Goal.pose.orientation.w = 1.0;
-//
-//ServiceClient check_path = nh_.serviceClient<nav_msgs::GetPlan>("make_plan");
-//    nav_msgs::GetPlan srv;
-//    srv.request.start = Start;
-//    srv.request.goal = Goal;
-//    srv.request.tolerance = 1.5;
-//
-//    ROS_INFO("Make plan: %d", (check_path.call(srv) ? 1 : 0));
-//    ROS_INFO("Plan size: %d", srv.response.plan.poses.size());

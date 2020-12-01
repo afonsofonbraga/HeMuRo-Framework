@@ -200,20 +200,35 @@ void BatteryManager::batteryCheckLoop()
             }
             case enum_ChargingRequest::goingToLocation:
             {
-                s_MissionMessage missionMessage;
+//                s_MissionMessage missionMessage;
+//
+//                strcpy(missionMessage.missionCode, chargingStationWinner.requestID);
+//                missionMessage.operation = enum_MissionOperation::emergency;
+//                missionMessage.taskToBeDecomposed = enum_DecomposableTask::lowBattery;
+//
+//                missionMessage.goal = chargingStationWinner.spotPosition;
+//
+//                missionMessage.numberOfAttributes = 1;
+//                *((int*) (missionMessage.attributesBuffer + 4)) = sizeof(chargingStationWinner.spotPosition);
+//                memcpy(missionMessage.attributesBuffer + 8, &chargingStationWinner.spotPosition, sizeof(chargingStationWinner.spotPosition));
+//                *((int*) (missionMessage.attributesBuffer)) = sizeof(chargingStationWinner.spotPosition) + 8;
+//
+//                this->monitor->addMissionMessage(missionMessage);
                 
-                strcpy(missionMessage.missionCode, chargingStationWinner.requestID);
-                missionMessage.operation = enum_MissionOperation::emergency;
-                missionMessage.taskToBeDecomposed = enum_DecomposableTask::lowBattery;
+                s_TaskMessage vTaskMessage;
                 
-                missionMessage.goal = chargingStationWinner.spotPosition;
+                strcpy(vTaskMessage.missionCode, chargingStationWinner.requestID);
+                vTaskMessage.operation = enum_TaskMessage::addEmergency;
+                vTaskMessage.taskToBeDecomposed = enum_DecomposableTask::lowBattery;
                 
-                missionMessage.numberOfAttributes = 1;
-                *((int*) (missionMessage.attributesBuffer + 4)) = sizeof(chargingStationWinner.spotPosition);
-                memcpy(missionMessage.attributesBuffer + 8, &chargingStationWinner.spotPosition, sizeof(chargingStationWinner.spotPosition));
-                *((int*) (missionMessage.attributesBuffer)) = sizeof(chargingStationWinner.spotPosition) + 8;
+                vTaskMessage.goal = chargingStationWinner.spotPosition;
+                
+                vTaskMessage.numberOfAttributes = 1;
+                *((int*) (vTaskMessage.attributesBuffer + 4)) = sizeof(chargingStationWinner.spotPosition);
+                memcpy(vTaskMessage.attributesBuffer + 8, &chargingStationWinner.spotPosition, sizeof(chargingStationWinner.spotPosition));
+                *((int*) (vTaskMessage.attributesBuffer)) = sizeof(chargingStationWinner.spotPosition) + 8;
                   
-                this->monitor->addMissionMessage(missionMessage);
+                this->monitor->addTaskMessage(vTaskMessage);
                 
                 //auto t0 = std::chrono::high_resolution_clock::now();
                 //if(conditional_batteryCheck.wait_until(lock1, t0 + std::chrono::seconds(15)) == std::cv_status::no_timeout)

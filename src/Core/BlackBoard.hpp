@@ -65,6 +65,10 @@ protected:
     std::mutex                      mutex_decomposableTask;
     std::unordered_map<enum_DecomposableTask, std::vector<enum_AtomicTask> > decomposableTaskAvaliable;
     
+    // Task Messages
+    std::mutex                      mutex_taskList;
+    std::vector<s_TaskMessage>      taskMessageList;
+    
     // Mission Messages
     // Mission List: Available Missions
     std::mutex                      mutex_missionList;
@@ -94,6 +98,7 @@ protected:
 
 public:
     std::condition_variable         conditional_UDPMessageList;
+    std::condition_variable         conditional_TaskMessageList;
     std::condition_variable         conditional_MissionMessageList;
     std::condition_variable         conditional_BatteryMessageList;
     std::condition_variable         conditional_ROSBridgeMessageList;
@@ -145,7 +150,12 @@ public:
     bool                            setRobotStatus(enum_RobotStatus statusRequest);
     bool                            freeRobotStatus(enum_RobotStatus statusRequest);
 
-
+    // Task Messages
+    bool                            isTaskMessageListEmpty();
+    void                            addTaskMessage(s_TaskMessage& vTaskMessage);
+    void                            getTaskMessage(s_TaskMessage& vTaskMessage);
+    
+    
     // Mission Messages
     bool                            isMissionMessageListEmpty();
     void                            addMissionMessage(s_MissionMessage& vMissionMessage);

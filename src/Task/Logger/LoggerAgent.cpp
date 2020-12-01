@@ -48,7 +48,6 @@ LoggerAgent::LoggerAgent(BlackBoard* monitor, bool decentralized , int argc, cha
     #ifdef DEFAULT
     webmodule->Module::start();
     #endif
-
 }
 
 LoggerAgent::~LoggerAgent()

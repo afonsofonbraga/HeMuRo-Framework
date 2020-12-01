@@ -25,6 +25,9 @@
 
 #include "BatteryManager.hpp"
 
+#include "Auction.hpp"
+#include "TaskModule.hpp"
+
 class ChargingStation
 {
 protected:
@@ -35,6 +38,10 @@ protected:
     UDPReceiver* receiver;
     UDPSender* sender;
     MissionManager* missionManager;
+    
+    Auction* auction;
+    TaskModule* taskModule;
+    
     BatteryManager* batteryManager;
     
 public:

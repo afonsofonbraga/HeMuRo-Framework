@@ -288,6 +288,48 @@ bool BlackBoard::isDecomposable(enum_DecomposableTask vTaskToBeDecomposed)
  }*/
 
 //****************************************************
+//*         TaskMessage Related Functions         *
+//****************************************************
+
+bool BlackBoard::isTaskMessageListEmpty()
+{
+    bool status;
+    std::unique_lock<std::mutex> lk(mutex_taskList);
+    status = this->taskMessageList.empty();
+    lk.unlock();
+    return status;
+}
+
+void BlackBoard::addTaskMessage(s_TaskMessage& vTaskMessage)
+{
+    std::unique_lock<std::mutex> lk(mutex_taskList);
+    this->taskMessageList.push_back(vTaskMessage);
+    lk.unlock();
+    this->conditional_TaskMessageList.notify_one();
+}
+
+void BlackBoard::getTaskMessage(s_TaskMessage& vTaskMessage)
+{
+    std::unique_lock<std::mutex> lk(mutex_taskList);
+    
+    if (this->taskMessageList.empty() == false){
+        vTaskMessage = this->taskMessageList.front();
+        this->taskMessageList.erase(taskMessageList.begin());
+        lk.unlock();
+    }else
+    {
+        this->conditional_TaskMessageList.wait(lk);
+        
+        if (this->taskMessageList.empty() == false){
+            vTaskMessage = this->taskMessageList.front();
+            this->taskMessageList.erase(taskMessageList.begin());
+            lk.unlock();
+        }
+    }
+}
+
+
+//****************************************************
 //*         MissionMessage Related Functions         *
 //****************************************************
 

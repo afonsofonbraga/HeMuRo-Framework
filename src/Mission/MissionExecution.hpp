@@ -32,6 +32,7 @@ public:
     ~MissionExecution();
     void run();
     void stop();
+    void clear();
 };
 #endif /* MissionExecution_hpp */
 
