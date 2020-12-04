@@ -30,9 +30,6 @@ class TaskModule: public Module
 private:
     char broadcastIP[MAX_IP]="null";
     char robotName[MAX_ROBOT_ID] = "null";
-    //std::map<std::string, MissionExecution> MissionList;
-    //std::unordered_map<std::string, MissionRequest> missionOwnerList;
-    
     std::thread* executeMission;
     MissionExecution missionToExecute;
     std::condition_variable conditional_executeMission;
@@ -48,20 +45,8 @@ protected:
     virtual void run() override;
     virtual void mainThread() override;
     
-    // Starting to incorporate TaskManagerModule
-//    void createMission(std::unique_ptr<s_MissionMessage> vMissionMessage);
     void addTaskReceived(std::unique_ptr<s_TaskMessage> vTaskMessage);
-//    void addMissionCalculateCost(std::unique_ptr<s_MissionMessage> vMissionMessage);
-//    void addBidReceived(std::unique_ptr<s_MissionMessage> vMissionMessage);
-//    void winningBid(std::unique_ptr<s_MissionMessage> vMissionMessage);
-//    void missionAccepted(std::unique_ptr<s_MissionMessage> vMissionMessage);
     void startCommand(std::unique_ptr<s_TaskMessage> vTaskMessage);
-//    void missionComplete(std::unique_ptr<s_MissionMessage> vMissionMessage);
-//    void waitingForBids(char* missionID);
-//    void notifyingWinner(char* missionID);
-//    void notifyingToExecute(char* missionID);
-//    void notifyingMissionComplete();
-    
     void addMissionToExecute(MissionExecution& vMissionExecute);
     void startMissionToExecute();
     
@@ -73,13 +58,8 @@ protected:
     bool cleanEmergecy();
     void redirectMission(MissionExecution& vMissionExecute);
     void emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage);
-    //void missionAborted(std::unique_ptr<s_MissionMessage> vMissionMessage);
-    //void addAtomicTask(MissionExecution& mission);
-    
+
     void calculateMissionCost(MissionExecution& mission);
-    
-    //void sendMissionCost(MissionExecution& mission);
-    //void sendUDPMessage(s_MissionMessage& vMissionMessage, char& targetAddress, char& targetName);
     void missionRequestController(char* missionID);
     
 public:
