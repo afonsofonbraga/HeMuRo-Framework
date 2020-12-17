@@ -29,6 +29,9 @@
 #include <Wt/WTextArea.h>
 #include <Wt/WTimer.h>
 
+#include <Wt/WImage.h>
+#include <Wt/WLink.h>
+
 #include <Wt/WProgressBar.h>
 
 

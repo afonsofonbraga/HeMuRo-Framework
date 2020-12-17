@@ -104,6 +104,7 @@ void TaskModule::startMissionToExecute()
                         this->missionToExecute.enum_execution = enum_MissionExecution::null;
                         this->missionToExecute.stop();
                         redirectMission(this->missionToExecute);
+                        this->monitor->clearCostToExecute();
                         this->monitor->unlockRobot();
                     }
                     break;
@@ -183,6 +184,7 @@ void TaskModule::addTaskReceived(std::unique_ptr<s_TaskMessage> vTaskMessage)
         
         bool status = addAtomicTask(monitor, this->missionToExecute);
         calculateMissionCost(this->missionToExecute);
+        this->monitor->setCostToExecute(this->missionToExecute.missionCost);
         
         //this->monitor->print("Mission " + std::string(vTaskMessage->missionCode) + " costs: " + std::to_string(this->missionToExecute.missionCost) + " BL: " + std::to_string(this->monitor->getBatteryLevel()));
         
@@ -195,6 +197,10 @@ void TaskModule::addTaskReceived(std::unique_ptr<s_TaskMessage> vTaskMessage)
             strcpy(missionMessage.senderAddress,missionToExecute.senderAddress);
             missionMessage.operation = enum_MissionOperation::lockingComplete;
             this->monitor->addMissionMessage(missionMessage);
+        }else
+        {
+            // If the robot doesn't have enough battery to execute the mission it will be freed to bid again.
+            this->monitor->unlockRobot();
         }
 
         // Aqui temos que testar ainda o que o STATUS VAI FAZER

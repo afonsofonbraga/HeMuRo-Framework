@@ -479,7 +479,7 @@ bool BatteryManager::batteryLifeTime()
     float batteryLevel = this->monitor->getBatteryLevel();
     
     batteryLevel <= 30 ? status = true : false;
-    (minimumDistance() * 1 > batteryLevel) ? status = true : false; //inventei
+    (minimumDistance() * 1 + this->monitor->getCostToExecute() > batteryLevel) ? status = true : false; //inventei
 
     return status;
 }

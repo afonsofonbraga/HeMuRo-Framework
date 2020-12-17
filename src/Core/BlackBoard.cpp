@@ -392,12 +392,6 @@ bool BlackBoard::isRobotAvailable()
     return status;
 }
 
-/*! \fn bool BlackBoard::lockRobot(enum_RobotStatus statusRequest)
- *  \brief A function that return the status of the robot.
- *  \param statusRequest as the state the user wants to be.
- *  \return true when the locking is successfull or false otherwise.
- */
-
 bool BlackBoard::lockRobot(enum_RobotStatus statusRequest)
 {
     bool status = false;
@@ -477,6 +471,28 @@ enum_RobotStatus BlackBoard::getRobotStatus()
     enum_RobotStatus status = this->agentStatus;
     lk.unlock();
     return status;
+}
+
+float BlackBoard::getCostToExecute()
+{
+    std::unique_lock<std::mutex> lk(mutex_mission);
+    float cost = this->costToExecute;
+    lk.unlock();
+    return cost;
+}
+
+void BlackBoard::setCostToExecute(float cost)
+{
+    std::unique_lock<std::mutex> lk(mutex_mission);
+    this->costToExecute = cost;
+    lk.unlock();
+}
+
+void BlackBoard::clearCostToExecute()
+{
+    std::unique_lock<std::mutex> lk(mutex_mission);
+    this->costToExecute = 0;
+    lk.unlock();
 }
 
 // Deprecated

@@ -95,7 +95,8 @@ protected:
     // Mission: Selected Mission to execute
     std::mutex                      mutex_mission;                                  /*!< Mutex from  agentStatus and executingMission.*/
     bool                            executingMission = false;                       /*!< True when robot is executing a mission, false otherwise.*/
-    enum_RobotStatus                agentStatus = enum_RobotStatus::null;           /*!< Agent Status*/
+    enum_RobotStatus                agentStatus = enum_RobotStatus::null;           /*!< Agent Status */
+    float                           costToExecute = 0;                              /*!< Total Cost to execute mission */
     //MissionExecution selectedMission;
     
     // UDP Messages
@@ -218,6 +219,14 @@ public:
     bool                            setRobotStatus(enum_RobotStatus statusRequest);    /*!< \brief A function that return the status of the robot.
                                                                                         *  \param statusRequest as the state the user wants to be.
                                                                                         *  \return true when the locking is successfull, false otherwise.
+                                                                                        */
+    float                           getCostToExecute();                                /*!< \brief A function that return the total cost to execute a Task
+                                                                                        * \return a float with the total cost.
+                                                                                        */
+    void                            setCostToExecute(float cost);                      /*!< \brief A method that set the total cost to execute a Task
+                                                                                        *\param cost a float for the total cost.
+                                                                                        */
+    void                            clearCostToExecute();                              /*!<\brief A method that clear the total cost to execute.
                                                                                         */
     //bool                            freeRobotStatus(enum_RobotStatus statusRequest);
 

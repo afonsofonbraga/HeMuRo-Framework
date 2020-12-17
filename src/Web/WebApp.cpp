@@ -94,6 +94,7 @@ void WebApp::updateAgentList()
     this->monitor->getAllRobotsPosition(robots);
     //for (auto n : this->v_BlackBoard.at(0)->mapRobotsPosition)
     std::string category;
+    std::string img;
     std::string status;
     
     for (auto n : robots)
@@ -103,21 +104,27 @@ void WebApp::updateAgentList()
         {
             case enum_RobotCategory::null:
                 category = "null";
+                img = "001-vr-glasses.png";
                 break;
             case enum_RobotCategory::uav:
                 category = "UAV";
+                img = "023-drone-2.png";
                 break;
             case enum_RobotCategory::ugv:
                 category = "UGV";
+                img = "007-robot.png";
                 break;
             case enum_RobotCategory::usv:
                 category = "USV";
+                img = "submarine.png";
                 break;
             case enum_RobotCategory::chargingStation:
                 category = "Charging Station";
+                img = "charging-station.png";
                 break;
             default:
                 category = "null";
+                img = "question-mark.png";
                 break;
         }
         switch(n.second.robotStatus)
@@ -145,16 +152,22 @@ void WebApp::updateAgentList()
         }
         auto container = Wt::cpp14::make_unique<Wt::WContainerWidget>();
         Wt::WProgressBar *bar = container->addNew<Wt::WProgressBar>();
-
+        container->setContentAlignment(Wt::AlignmentFlag::Center);
+        
+        auto container2 = Wt::cpp14::make_unique<Wt::WContainerWidget>();
+        Wt::WImage *image = container2->addNew<Wt::WImage>(Wt::WLink(img));
+        container2->setContentAlignment(Wt::AlignmentFlag::Center);
+        image->setAlternateText(category);
+        image->resize(25,25);
+        
         bar->setRange(0, 100);
         bar->setValue(n.second.batteryLevel);
-
         table->elementAt(row, 0)
         ->addNew<Wt::WText>(Wt::WString("{1}").arg(row));
         table->elementAt(row, 1)
         ->addNew<Wt::WText>(n.first);
         table->elementAt(row, 2)
-        ->addNew<Wt::WText>(category);
+        ->addWidget(std::move(container2));
         table->elementAt(row, 3)
         ->addNew<Wt::WText>(Wt::WString("("+std::to_string(n.second.robotsPosition.x)+","+ std::to_string(n.second.robotsPosition.y)+ "," + std::to_string(n.second.robotsPosition.z) +")"));
         table->elementAt(row, 4)
@@ -164,7 +177,7 @@ void WebApp::updateAgentList()
     }
 }
 
-
+// <Wt::WText>(category);
 
 void WebApp::insertTerminalLine()
 {
