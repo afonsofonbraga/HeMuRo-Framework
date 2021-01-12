@@ -206,6 +206,8 @@ void UDPReceiverSim::switchoperation(Operation operation, char* temp, const char
             this->robotsList[name]->addLoggerMessage(loggerMessage);
             break;
         }
+        default:
+            break;
 
     }
 }

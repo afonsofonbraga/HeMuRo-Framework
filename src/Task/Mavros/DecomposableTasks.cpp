@@ -87,6 +87,9 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
                 }
                     
                     break;
+                
+                default:
+                    break;
                     
             }
             if (vAtomicTaskitem != nullptr)

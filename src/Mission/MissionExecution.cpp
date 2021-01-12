@@ -41,6 +41,8 @@ void MissionExecution::run()
             case enum_AtomicTaskStatus::completed:
                 atomicTaskIndex++;
                 break;
+            default:
+                break;
         }
     }
 }

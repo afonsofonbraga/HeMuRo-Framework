@@ -98,5 +98,7 @@ void UDPReceiver::dataTreatment(char *mensagem)
             this->monitor->addBatteryMessage(batteryMessage);
             break;
         }
+        default:
+            break;
     }
 }

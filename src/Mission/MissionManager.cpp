@@ -129,6 +129,8 @@ void MissionManager::missionRequestController(char* missionID)
                 this->monitor->print("Mission " + std::string(missionID) + " Complete!");
                 this->missionOwnerList[missionID].endMission = true;
                 break;
+            default:
+                break;
         }
     }
     //std::cout << "Deleting Mutexes" <<std::endl;
@@ -181,6 +183,8 @@ void MissionManager::startMissionToExecute()
                     this->monitor->unlockRobot();
                     this->conditional_executeMission.wait(lk);
                     break;
+                default:
+                    break;
             }
         } else
         {
@@ -208,6 +212,8 @@ void MissionManager::startMissionToExecute()
                     cleanEmergecy();
                     this->monitor->unlockRobot();
                     this->conditional_executeMission.wait(lk);
+                    break;
+                default:
                     break;
             }
         }

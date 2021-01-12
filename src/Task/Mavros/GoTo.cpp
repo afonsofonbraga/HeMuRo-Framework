@@ -88,6 +88,8 @@ void GoTo::run()
             std::cout << "Arrived at the destination!"<< std::endl;
             break;
         }
+        default:
+            break;
     }
 }
 void GoTo::calculateCost()

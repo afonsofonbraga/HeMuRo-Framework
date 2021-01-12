@@ -57,6 +57,8 @@ void TakeOff::run()
         case enum_AtomicTaskStatus::completed:
             std::cout << "Arrived at the destination!"<< std::endl;
             break;
+        default:
+            break;
         }
     }
 }

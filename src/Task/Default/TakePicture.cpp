@@ -33,6 +33,8 @@ void TakePicture::run()
             break;
         case enum_AtomicTaskStatus::completed:
             break;
+        default:
+            break;
     }
 }
 

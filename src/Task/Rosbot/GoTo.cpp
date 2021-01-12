@@ -88,6 +88,8 @@ void GoTo::run()
         case enum_AtomicTaskStatus::completed:
             this->monitor->print("Arrived at the destination!");
             break;
+        default:
+            break;
     }
 }
 

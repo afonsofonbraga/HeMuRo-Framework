@@ -95,6 +95,8 @@ void BatteryManager::run()
                     conditional_batteryCheck.notify_one();
                     break;
                 }
+                default:
+                    break;
                     
             }
         }
@@ -281,6 +283,9 @@ void BatteryManager::batteryCheckLoop()
                 lock1.unlock();
                 break;
             }
+            default:
+                break;
+            
         }
     }
 }

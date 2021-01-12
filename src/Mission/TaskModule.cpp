@@ -66,6 +66,8 @@ void TaskModule::run()
                 case enum_TaskMessage::addEmergency:
                     emergencyCall(std::move(vTaskMessage));
                     break;
+                default:
+                    break;
             }
         }
     }
@@ -111,6 +113,7 @@ void TaskModule::startMissionToExecute()
                 }
                     
                 case enum_MissionExecution::missionComplete:
+                {
                     this->monitor->print("Mission Complete!");
                     
                     s_MissionMessage missionMessage;
@@ -122,6 +125,10 @@ void TaskModule::startMissionToExecute()
                     
                     this->monitor->unlockRobot();
                     this->conditional_executeMission.wait(lk);
+                    break;
+                }
+                    
+                default:
                     break;
             }
         } else
@@ -152,6 +159,9 @@ void TaskModule::startMissionToExecute()
                     cleanEmergecy();
                     this->monitor->unlockRobot();
                     //this->conditional_executeMission.wait(lk);
+                    break;
+                
+                default:
                     break;
             }
         }

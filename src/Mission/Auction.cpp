@@ -89,6 +89,8 @@ void Auction::run()
                 case enum_MissionOperation::notifyMissionComplete:
                     notifyingMissionComplete(std::move(vMissionMessage));
                     break;
+                default:
+                    break;
             }
         }
     }
@@ -123,6 +125,8 @@ void Auction::missionRequestController(char* missionID)
             case enum_MissionRequest::missionComplete:
                 this->monitor->print("Mission " + std::string(missionID) + " Complete!");
                 this->missionOwnerList[missionID].endMission = true;
+                break;
+            default:
                 break;
         }
     }

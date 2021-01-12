@@ -62,6 +62,8 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
             case enum_AtomicTask::takePicture :
                 vAtomicTaskitem = std::make_shared<TakePicture>(monitor, currentPosition,currentPosition);
                 break;
+            default:
+                break;
         }
         if (vAtomicTaskitem != nullptr)
         {
@@ -114,6 +116,8 @@ bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
                 break;
             case enum_AtomicTask::takePicture :
                 vAtomicTaskitem = std::make_shared<TakePicture>(monitor, currentPosition,currentPosition);
+                break;
+            default:
                 break;
         }
         if (vAtomicTaskitem != nullptr)

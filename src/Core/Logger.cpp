@@ -98,6 +98,8 @@ void Logger::run()
             {
                 break;
             }
+            default:
+                break;
         }
     }
 }

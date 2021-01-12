@@ -44,7 +44,9 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
                     break;
                 case enum_AtomicTask::chargeBattery :
                     vAtomicTaskitem = std::make_shared<ChargeBattery>(monitor, currentPosition,currentPosition);
-                    break;        
+                    break;
+                default:
+                    break;
             }
             if (vAtomicTaskitem != nullptr)
             {

@@ -40,6 +40,8 @@ void Arm::run()
             
         case enum_AtomicTaskStatus::completed:
             break;
+        default:
+            break;
     }
 }
 
