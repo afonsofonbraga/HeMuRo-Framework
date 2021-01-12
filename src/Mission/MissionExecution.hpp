@@ -21,8 +21,8 @@
 class MissionExecution: public Mission{
 public:
     enum_MissionExecution enum_execution = enum_MissionExecution::null;
-    std::vector<enum_AtomicTask> vAtomicTaskVector;
-    std::vector<std::shared_ptr<AtomicTask>> atomicTaskList;
+    std::vector<enum_AtomicTask> atomicTaskEnumerator;
+    std::vector<std::shared_ptr<AtomicTask>> atomicTaskSequence;
     int atomicTaskIndex = 0;
     float missionCost = 0;
     std::chrono::time_point<std::chrono::system_clock> startTime;

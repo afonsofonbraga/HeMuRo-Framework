@@ -20,7 +20,7 @@ MissionExecution::~MissionExecution()
 
 void MissionExecution::run()
 {
-    if(this->atomicTaskIndex == this->atomicTaskList.size() && this->atomicTaskList.size() != 0)
+    if(this->atomicTaskIndex == this->atomicTaskSequence.size() && this->atomicTaskSequence.size() != 0)
     {
         this->enum_execution = enum_MissionExecution::missionComplete;
         //std::cout <<"Mission Complete!"<< std::endl;
@@ -28,15 +28,15 @@ void MissionExecution::run()
     
     if(this->enum_execution == enum_MissionExecution::executing)
     {
-        switch(this->atomicTaskList.at(atomicTaskIndex)->getStatus())
+        switch(this->atomicTaskSequence.at(atomicTaskIndex)->getStatus())
         {
             case enum_AtomicTaskStatus::null:
                 break;
             case enum_AtomicTaskStatus::waiting:
-               this->atomicTaskList.at(atomicTaskIndex)->run();
+               this->atomicTaskSequence.at(atomicTaskIndex)->run();
                 break;
             case enum_AtomicTaskStatus::running:
-               this->atomicTaskList.at(atomicTaskIndex)->run();
+               this->atomicTaskSequence.at(atomicTaskIndex)->run();
                 break;
             case enum_AtomicTaskStatus::completed:
                 atomicTaskIndex++;
@@ -47,13 +47,13 @@ void MissionExecution::run()
 
 void MissionExecution::stop()
 {
-    this->atomicTaskList.at(atomicTaskIndex)->stop();
+    this->atomicTaskSequence.at(atomicTaskIndex)->stop();
 }
 
 void MissionExecution::clear()
 {
-    this->vAtomicTaskVector.clear();
-    this->atomicTaskList.clear();
+    this->atomicTaskEnumerator.clear();
+    this->atomicTaskSequence.clear();
     missionCost = 0;
     enum_execution = enum_MissionExecution::null;
     atomicTaskIndex = 0;

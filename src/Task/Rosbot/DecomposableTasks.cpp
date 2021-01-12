@@ -38,13 +38,13 @@ void decomposableTaskList(BlackBoard* monitor)
 
 void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
 {
-    vMissionDecomposable.atomicTaskList.clear();
+    vMissionDecomposable.atomicTaskSequence.clear();
     std::shared_ptr<AtomicTask> vAtomicTaskitem = nullptr;
     s_pose currentPosition;
     monitor->getPosition(currentPosition);
     //std::queue<s_pose> goal = vMissionDecomposable.goal; // When working with the UDPReceiverSim this is necessary
     
-    for (auto n : vMissionDecomposable.vAtomicTaskVector){
+    for (auto n : vMissionDecomposable.atomicTaskEnumerator){
         switch(n){
             case enum_AtomicTask::null :
                 break;
@@ -71,7 +71,7 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
         }
         if (vAtomicTaskitem != nullptr)
         {
-            vMissionDecomposable.atomicTaskList.push_back(std::move(vAtomicTaskitem));
+            vMissionDecomposable.atomicTaskSequence.push_back(std::move(vAtomicTaskitem));
             //delete vAtomicTaskitem;
         } else {
             std::cout << "Not found\n";
@@ -81,7 +81,7 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
 
 bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
 {
-    vMissionDecomposable.atomicTaskList.clear();
+    vMissionDecomposable.atomicTaskSequence.clear();
     std::shared_ptr<AtomicTask> vAtomicTaskitem = nullptr;
     s_pose currentPosition;
     monitor->getPosition(currentPosition);
@@ -93,7 +93,7 @@ bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
     partialSize += 4;
     temp += 4;
     
-    for (auto n : vMissionDecomposable.vAtomicTaskVector){
+    for (auto n : vMissionDecomposable.atomicTaskEnumerator){
         switch(n){
             case enum_AtomicTask::null :
                 break;
@@ -137,7 +137,7 @@ bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
         }
         if (vAtomicTaskitem != nullptr)
         {
-            vMissionDecomposable.atomicTaskList.push_back(std::move(vAtomicTaskitem));
+            vMissionDecomposable.atomicTaskSequence.push_back(std::move(vAtomicTaskitem));
             //delete vAtomicTaskitem;
         } else {
             std::cout << "Not found\n";

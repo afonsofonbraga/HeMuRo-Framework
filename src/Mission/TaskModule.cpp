@@ -162,7 +162,7 @@ void TaskModule::addTaskReceived(std::unique_ptr<s_TaskMessage> vTaskMessage)
 {
     auto vMission = std::make_unique<MissionExecution>();
     
-    if(this->monitor->getDecomposableTask(vTaskMessage->taskToBeDecomposed, vMission->vAtomicTaskVector) == true && vTaskMessage->robotCat == this->monitor->getRobotsCategory() && this->monitor->lockRobot(enum_RobotStatus::executing) == true)
+    if(this->monitor->getDecomposableTask(vTaskMessage->taskToBeDecomposed, vMission->atomicTaskEnumerator) == true && vTaskMessage->robotCat == this->monitor->getRobotsCategory() && this->monitor->lockRobot(enum_RobotStatus::executing) == true)
     {
         missionToExecute.clear();
         std::unique_lock<std::mutex> lk(mutex_mission);
@@ -172,7 +172,7 @@ void TaskModule::addTaskReceived(std::unique_ptr<s_TaskMessage> vTaskMessage)
         this->missionToExecute.enum_execution = enum_MissionExecution::waitingStart;
         this->missionToExecute.mission = vTaskMessage->taskToBeDecomposed;
         
-        this->missionToExecute.vAtomicTaskVector = std::move(vMission->vAtomicTaskVector);
+        this->missionToExecute.atomicTaskEnumerator = std::move(vMission->atomicTaskEnumerator);
         this->missionToExecute.goal = vTaskMessage->goal;
         this->missionToExecute.numberOfAttributes = vTaskMessage->numberOfAttributes;
         int totalSize = ((int*) vTaskMessage->attributesBuffer)[0];
@@ -212,7 +212,7 @@ void TaskModule::addTaskReceived(std::unique_ptr<s_TaskMessage> vTaskMessage)
 void TaskModule::calculateMissionCost(MissionExecution& mission)
 {
     mission.missionCost = 0;
-    for (auto n: mission.atomicTaskList)
+    for (auto n: mission.atomicTaskSequence)
     {
         mission.missionCost += n->getCost();
     }
@@ -239,7 +239,7 @@ void TaskModule::emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage)
     this->monitor->print("EMERGENCY ALLERT!!!!");
     auto vMission = std::make_unique<MissionExecution>();
     
-    if(this->monitor->getDecomposableTask(vTaskMessage->taskToBeDecomposed, vMission->vAtomicTaskVector))
+    if(this->monitor->getDecomposableTask(vTaskMessage->taskToBeDecomposed, vMission->atomicTaskEnumerator))
     {
         // Checar se robô está executando alguma missão, se sim, redirecionar. Se não, não é necessario.
         std::unique_lock<std::mutex> lk(mutex_mission);

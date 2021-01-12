@@ -140,7 +140,7 @@ void Auction::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessa
 {
     auto vMission = std::make_unique<MissionExecution>();
     
-    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory() && this->monitor->isRobotAvailable()==true)
+    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->atomicTaskEnumerator) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory() && this->monitor->isRobotAvailable()==true)
     {
         this->monitor->print("Received " + std::string(vMissionMessage->missionCode) + "!");
         this->monitor->print(std::string(vMissionMessage->missionCode) + " is decomposable.");
@@ -156,7 +156,7 @@ void Auction::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessa
         int totalSize = ((int*) vMissionMessage->attributesBuffer)[0];
         memcpy(this->MissionList[vMissionMessage->missionCode].attributesBuffer,&vMissionMessage->attributesBuffer, totalSize);
         
-        this->MissionList[vMissionMessage->missionCode].vAtomicTaskVector = std::move(vMission->vAtomicTaskVector);
+        this->MissionList[vMissionMessage->missionCode].atomicTaskEnumerator = std::move(vMission->atomicTaskEnumerator);
         this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
         this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
         
@@ -177,7 +177,7 @@ void Auction::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> vMission
     
     auto vMission = std::make_unique<MissionExecution>();
     
-    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory())
+    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->atomicTaskEnumerator) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory())
     {
         
         this->monitor->print(std::string(vMissionMessage->missionCode) + " is decomposable.");
@@ -195,7 +195,7 @@ void Auction::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> vMission
         memcpy(this->MissionList[vMissionMessage->missionCode].attributesBuffer,&vMissionMessage->attributesBuffer, totalSize);
         
         
-        this->MissionList[vMissionMessage->missionCode].vAtomicTaskVector = std::move(vMission->vAtomicTaskVector);
+        this->MissionList[vMissionMessage->missionCode].atomicTaskEnumerator = std::move(vMission->atomicTaskEnumerator);
         this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
         this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
         
@@ -245,8 +245,8 @@ void Auction::addMissionToExecute(MissionExecution& vMissionExecute)
     memcpy(vTaskMessage.attributesBuffer,vMissionExecute.attributesBuffer, totalSize);
     
     
-    //missionToExecute.vAtomicTaskVector = std::move(vMissionExecute.vAtomicTaskVector);
-    //missionToExecute.atomicTaskList = std::move(vMissionExecute.atomicTaskList);
+    //missionToExecute.atomicTaskEnumerator = std::move(vMissionExecute.atomicTaskEnumerator);
+    //missionToExecute.atomicTaskSequence = std::move(vMissionExecute.atomicTaskSequence);
     //missionToExecute.atomicTaskIndex = vMissionExecute.atomicTaskIndex;
     //missionToExecute.missionCost = vMissionExecute.missionCost;
     
@@ -520,7 +520,7 @@ void Auction::missionComplete(std::unique_ptr<s_MissionMessage> vMissionMessage)
 void Auction::calculateMissionCost(MissionExecution& mission)
 {
     mission.missionCost = 0;
-    for (auto n: mission.atomicTaskList)
+    for (auto n: mission.atomicTaskSequence)
     {
         mission.missionCost += n->getCost();
     }

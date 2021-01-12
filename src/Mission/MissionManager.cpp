@@ -226,9 +226,9 @@ void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissi
     //MissionExecution* vMission = new MissionExecution;
     auto vMission = std::make_unique<MissionExecution>();
     
-    //bool status = this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector); // Checking if it is decomposable
+    //bool status = this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->atomicTaskEnumerator); // Checking if it is decomposable
     
-    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory() && this->monitor->isRobotAvailable()==true)
+    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->atomicTaskEnumerator) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory() && this->monitor->isRobotAvailable()==true)
     {
         //std::cout << "[" << this->robotName << "] "<< vMissionMessage->missionCode <<" is decomposable." <<std::endl;
         this->monitor->print("Received " + std::string(vMissionMessage->missionCode) + "!");
@@ -245,7 +245,7 @@ void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissi
         int totalSize = ((int*) vMissionMessage->attributesBuffer)[0];
         memcpy(this->MissionList[vMissionMessage->missionCode].attributesBuffer,&vMissionMessage->attributesBuffer, totalSize);
         
-        this->MissionList[vMissionMessage->missionCode].vAtomicTaskVector = std::move(vMission->vAtomicTaskVector);
+        this->MissionList[vMissionMessage->missionCode].atomicTaskEnumerator = std::move(vMission->atomicTaskEnumerator);
         this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
         this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
         
@@ -273,7 +273,7 @@ void MissionManager::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> v
     //MissionExecution* vMission = new MissionExecution;
     auto vMission = std::make_unique<MissionExecution>();
     
-    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory())
+    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->atomicTaskEnumerator) == true && vMissionMessage->robotCat == this->monitor->getRobotsCategory())
     {
         //std::cout << "[" << this->robotName << "] "<< vMissionMessage->missionCode <<" is decomposable." <<std::endl;
         this->monitor->print(std::string(vMissionMessage->missionCode) + " is decomposable.");
@@ -292,7 +292,7 @@ void MissionManager::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> v
         memcpy(this->MissionList[vMissionMessage->missionCode].attributesBuffer,&vMissionMessage->attributesBuffer, totalSize);
         
         
-        this->MissionList[vMissionMessage->missionCode].vAtomicTaskVector = std::move(vMission->vAtomicTaskVector);
+        this->MissionList[vMissionMessage->missionCode].atomicTaskEnumerator = std::move(vMission->atomicTaskEnumerator);
         this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
         this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
         
@@ -345,7 +345,7 @@ void MissionManager::winningBid(std::unique_ptr<s_MissionMessage> vMissionMessag
 
 void MissionManager::addMissionToExecute(MissionExecution& vMissionExecute)
 {
-    // The pointers from atomictasklist are not created they just point to the variables
+    // The pointers from atomicTaskSequence are not created they just point to the variables
     // Solved using shared_ptr
     std::unique_lock<std::mutex> lk(mutex_mission);
     //missionToExecute = vMissionExecute;
@@ -361,8 +361,8 @@ void MissionManager::addMissionToExecute(MissionExecution& vMissionExecute)
     memcpy(missionToExecute.attributesBuffer,vMissionExecute.attributesBuffer, totalSize);
     
     
-    missionToExecute.vAtomicTaskVector = std::move(vMissionExecute.vAtomicTaskVector);
-    missionToExecute.atomicTaskList = std::move(vMissionExecute.atomicTaskList);
+    missionToExecute.atomicTaskEnumerator = std::move(vMissionExecute.atomicTaskEnumerator);
+    missionToExecute.atomicTaskSequence = std::move(vMissionExecute.atomicTaskSequence);
     missionToExecute.atomicTaskIndex = vMissionExecute.atomicTaskIndex;
     missionToExecute.missionCost = vMissionExecute.missionCost;
     
@@ -396,7 +396,7 @@ void MissionManager::emergencyCall(std::unique_ptr<s_MissionMessage> vMissionMes
     //MissionExecution* vMission = new MissionExecution;
     auto vMission = std::make_unique<MissionExecution>();
     
-    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->vAtomicTaskVector))
+    if(this->monitor->getDecomposableTask(vMissionMessage->taskToBeDecomposed, vMission->atomicTaskEnumerator))
     {
         // Checar se robô está executando alguma missão, se sim, redirecionar. Se não, não é necessario.
         if(this->missionToExecute.enum_execution == enum_MissionExecution::waitingStart || this->missionToExecute.enum_execution == enum_MissionExecution::executing)
@@ -653,7 +653,7 @@ void MissionManager::missionComplete(std::unique_ptr<s_MissionMessage> vMissionM
 void MissionManager::calculateMissionCost(MissionExecution& mission)
 {
     mission.missionCost = 0;
-    for (auto n: mission.atomicTaskList)
+    for (auto n: mission.atomicTaskSequence)
     {
         mission.missionCost += n->getCost();
     }
