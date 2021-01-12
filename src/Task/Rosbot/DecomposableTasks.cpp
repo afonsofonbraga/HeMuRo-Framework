@@ -11,29 +11,29 @@
 void decomposableTaskList(BlackBoard* monitor)
 {
     
-    std::vector<enum_AtomicTask> teste;
-    teste.push_back(enum_AtomicTask::MoveBaseGoal);
-    enum_DecomposableTask lala = enum_DecomposableTask::checkPosition;
-    monitor->addDecomposableTaskList(lala, teste);
+    std::vector<enum_AtomicTask> atomicTaskVector;
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    enum_DecomposableTask dTask = enum_DecomposableTask::checkPosition;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
     
-    teste.clear();
-    teste.push_back(enum_AtomicTask::MoveBaseGoal);
-    teste.push_back(enum_AtomicTask::takePicture);
-    teste.push_back(enum_AtomicTask::MoveBaseGoal);
-    lala = enum_DecomposableTask::deliverPicture;
-    monitor->addDecomposableTaskList(lala, teste);
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    dTask = enum_DecomposableTask::deliverPicture;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
     
-    teste.clear();
-    teste.push_back(enum_AtomicTask::goTo);
-    teste.push_back(enum_AtomicTask::takePicture);
-    lala = enum_DecomposableTask::takePicture;
-    monitor->addDecomposableTaskList(lala, teste);
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
+    dTask = enum_DecomposableTask::takePicture;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
     
-    teste.clear();
-    teste.push_back(enum_AtomicTask::MoveBaseGoal);
-    teste.push_back(enum_AtomicTask::chargeBattery);
-    lala = enum_DecomposableTask::lowBattery;
-    monitor->addDecomposableTaskList(lala, teste);
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    atomicTaskVector.push_back(enum_AtomicTask::chargeBattery);
+    dTask = enum_DecomposableTask::lowBattery;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
 }
 
 void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
@@ -53,8 +53,8 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
                 currentPosition = vMissionDecomposable.goal;
                 //goal.pop();
                 break;
-            case enum_AtomicTask::MoveBaseGoal:
-                vAtomicTaskitem = std::make_shared<MoveBaseGoal>(monitor, currentPosition,vMissionDecomposable.goal);
+            case enum_AtomicTask::moveBaseGoal:
+                vAtomicTaskitem = std::make_shared<moveBaseGoal>(monitor, currentPosition,vMissionDecomposable.goal);
                 currentPosition = vMissionDecomposable.goal;
                 //goal.pop();
                 break;
@@ -111,14 +111,14 @@ bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
                  break;
             }
  
-            case enum_AtomicTask::MoveBaseGoal:
+            case enum_AtomicTask::moveBaseGoal:
             {
                 int vSize = ((int*) temp)[0];
                 partialSize += 4;
                 temp += 4;
                 vAttribuites++;
                 s_pose goal = ((s_pose*) temp)[0];
-                vAtomicTaskitem = std::make_shared<MoveBaseGoal>(monitor, currentPosition, goal);
+                vAtomicTaskitem = std::make_shared<moveBaseGoal>(monitor, currentPosition, goal);
                 currentPosition = goal;
                 partialSize += vSize;
                 temp += vSize;

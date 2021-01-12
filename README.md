@@ -20,6 +20,19 @@ To run the benchmark program it is necessary to install the code dependencies, c
 In order to execute the Web Application the [Webtoolkit](https://www.webtoolkit.eu/wt) must be installed. 
 Please follow the [Webtoolkit Installation](https://redmine.webtoolkit.eu/projects/wt/wiki/Wt_Installation) for your Operational System.
 
+```
+git clone https://github.com/emweb/wt.git
+
+cd wt-x.x.x
+mkdir build
+cd build
+cmake ../
+
+make
+make install
+
+```
+
 ### ROS Simulation
 
 In case of Gazebo simulation, ROS also needs to be installed. 
