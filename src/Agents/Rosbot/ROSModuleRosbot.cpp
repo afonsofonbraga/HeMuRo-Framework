@@ -143,7 +143,7 @@ void ROSModuleRosbot::run()
         {
             ROS_INFO("Canceling goal");
             this->ac->cancelGoal();
-        }/*
+        }
         if(strcmp(vROSBridgeMessage->topicName, "Move_base/Cost") == 0)
         {
             s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
@@ -178,8 +178,8 @@ void ROSModuleRosbot::run()
             srv.request.goal = Goal;
             srv.request.tolerance = 1.5;
             
-            //ROS_INFO("Make plan: %d", (check_path->call(srv) ? 1 : 0));
-            //ROS_INFO("Plan size: %d", srv.response.plan.poses.size());
+            ROS_INFO("Make plan: %d", (check_path->call(srv) ? 1 : 0));
+            ROS_INFO("Plan size: %d", srv.response.plan.poses.size());
             
             float distance = 0;
             for(int i = 1; i< srv.response.plan.poses.size(); i++)
@@ -191,10 +191,10 @@ void ROSModuleRosbot::run()
             }
             //ROS_INFO("Plan Costs: %f", distance);
             this->monitor->print("Plan costs: " + std::to_string(distance));
-            float* cost;
-            memcpy(&cost, vROSBridgeMessage->buffer + sizeof(s_pose), sizeof(float *));
-            cost = distance;
-        }*/
+            //float* cost;
+            //memcpy(&cost, vROSBridgeMessage->buffer + sizeof(s_pose), sizeof(float *));
+            //*cost = distance;
+        }
     }
 }
 
