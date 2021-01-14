@@ -1,5 +1,5 @@
 //
-//  GoTo.cpp
+//  GoToROS.cpp
 //  MRSFramework
 //
 //  Created by Afonso Braga on 26/08/20.
@@ -7,17 +7,18 @@
 //
 
 
-#include "GoTo.hpp"
+#include "GoToROS.hpp"
 #include <map>
 
-GoTo::GoTo(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+GoToROS::GoToROS(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
+    costFactor = factor * (battery_discharge /(robots_max_speed*3600))/battery_capacity;
     calculateCost();
 }
 
-GoTo::~GoTo(){}
+GoToROS::~GoToROS(){}
 
-void GoTo::run()
+void GoToROS::run()
 {
     switch(this->status)
     {
@@ -93,12 +94,12 @@ void GoTo::run()
     }
 }
 
-void GoTo::calculateCost()
+void GoToROS::calculateCost()
 {
-    this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costMeter;
+    this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costFactor;
 }
 
-float GoTo::adjustAngle(float angle)
+float GoToROS::adjustAngle(float angle)
 {
     angle = fmod(angle,2*M_PI);
     if (angle > M_PI)

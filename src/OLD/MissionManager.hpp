@@ -23,7 +23,8 @@
 #include "MissionRequest.hpp"
 #include "MissionExecution.hpp"
 
-#include "DecomposableTasks.hpp"
+//#include "DecomposableTasks.hpp"
+#include "Agent.hpp"
 
 class MissionManager: public Module
 {
@@ -40,7 +41,8 @@ private:
     bool emergency = false;
     std::mutex mutex_emergency;
     MissionExecution missionEmergency;
-    
+
+    Agent* agent;
     
 protected:
     // Here is the deal, we will create an ordened map, with the first argument the mission code that will be based on the name of the robot+3NUMBERS (ex. Thor001). This code will be also inside the Mission object. The second argument will be the Mission Object. It will be easier to locate the misison, I dont know if it is the most efficient way to programm it. Don`t care at the moment. Later will be a good thing to accept multiple missions to be executed.
@@ -83,6 +85,7 @@ protected:
     
 public:
     MissionManager(BlackBoard* monitor);
+    MissionManager(BlackBoard* monitor, Agent* a);
     ~MissionManager();
 };
 

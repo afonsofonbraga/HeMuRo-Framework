@@ -1,28 +1,26 @@
 //
-//  TakeOff.hpp
+//  LandMavROS.hpp
 //  MRSFramework
 //
 //  Created by Afonso Braga on 25/08/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#ifndef TakeOff_hpp
-#define TakeOff_hpp
+#ifndef LandMavROS_hpp
+#define LandMavROS_hpp
 
 #include <stdio.h>
 #include "AtomicTask.hpp"
-#include <math.h>
-#include <unistd.h>
 
-class TakeOff: public AtomicTask
+class LandMavROS: public AtomicTask
 {
 protected:
     float costMeter = 1.0;
 public:
-    TakeOff(BlackBoard* vMonitor, s_pose& start, s_pose& end);
-    ~TakeOff();
+    LandMavROS(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    ~LandMavROS();
     void run() override;
     void calculateCost() override;
 };
 
-#endif /* TakePicture_hpp */
+#endif /* LandMavROS_hpp */

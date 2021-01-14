@@ -37,7 +37,7 @@ void decomposableTaskList(BlackBoard* monitor)
     monitor->addDecomposableTaskList(lala, teste);
 }
 
-
+/*
 void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
 {
     vMissionDecomposable.atomicTaskSequence.clear();
@@ -50,17 +50,17 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
             case enum_AtomicTask::null :
                 break;
             case enum_AtomicTask::goTo :
-                vAtomicTaskitem = std::make_shared<GoTo>(monitor, currentPosition,vMissionDecomposable.goal);
+                vAtomicTaskitem = std::make_shared<GoToSim>(monitor, currentPosition,vMissionDecomposable.goal);
                 currentPosition = vMissionDecomposable.goal;
                 break;
             case enum_AtomicTask::turnOn :
-                vAtomicTaskitem = std::make_shared<TurnOn>(monitor, currentPosition,currentPosition);
+                vAtomicTaskitem = std::make_shared<TurnOnSim>(monitor, currentPosition,currentPosition);
                 break;
             case enum_AtomicTask::chargeBattery :
-                vAtomicTaskitem = std::make_shared<ChargeBattery>(monitor, currentPosition,currentPosition);
+                vAtomicTaskitem = std::make_shared<ChargeBatterySim>(monitor, currentPosition,currentPosition);
                 break;
             case enum_AtomicTask::takePicture :
-                vAtomicTaskitem = std::make_shared<TakePicture>(monitor, currentPosition,currentPosition);
+                vAtomicTaskitem = std::make_shared<TakePictureSim>(monitor, currentPosition,currentPosition);
                 break;
             default:
                 break;
@@ -73,7 +73,7 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
             std::cout << "Not found\n";
         }
     }
-}
+} */
 
 bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
 {
@@ -101,7 +101,7 @@ bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
                 temp += 4;
                 vAttribuites++;
                 s_pose goal = ((s_pose*) temp)[0];
-                vAtomicTaskitem = std::make_shared<GoTo>(monitor, currentPosition, goal);
+                vAtomicTaskitem = std::make_shared<GoToSim>(monitor, currentPosition, goal);
                 currentPosition = goal;
                 partialSize += vSize;
                 temp += vSize;
@@ -109,13 +109,13 @@ bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
             }
 
             case enum_AtomicTask::turnOn :
-                vAtomicTaskitem = std::make_shared<TurnOn>(monitor, currentPosition,currentPosition);
+                vAtomicTaskitem = std::make_shared<TurnOnSim>(monitor, currentPosition,currentPosition);
                 break;
             case enum_AtomicTask::chargeBattery :
-                vAtomicTaskitem = std::make_shared<ChargeBattery>(monitor, currentPosition,currentPosition);
+                vAtomicTaskitem = std::make_shared<ChargeBatterySim>(monitor, currentPosition,currentPosition);
                 break;
             case enum_AtomicTask::takePicture :
-                vAtomicTaskitem = std::make_shared<TakePicture>(monitor, currentPosition,currentPosition);
+                vAtomicTaskitem = std::make_shared<TakePictureSim>(monitor, currentPosition,currentPosition);
                 break;
             default:
                 break;

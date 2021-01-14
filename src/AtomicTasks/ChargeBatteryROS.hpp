@@ -1,28 +1,27 @@
 //
-//  chargeBattery.hpp
+//  ChargeBatteryROS.hpp
 //  MRSMac
 //
 //  Created by Afonso Braga on 15/05/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#ifndef ChargeBattery_hpp
-#define ChargeBattery_hpp
+#ifndef ChargeBatteryROS_hpp
+#define ChargeBatteryROS_hpp
 
 #include "AtomicTask.hpp"
 #include <cmath>
 
-class ChargeBattery: public AtomicTask
+class ChargeBatteryROS: public AtomicTask
 {
 protected:
-    float costMeter = 2.0;
     std::chrono::milliseconds tick = std::chrono::milliseconds(100); // 0.1s
     std::chrono::system_clock::time_point t0;
 public:
-    ChargeBattery(BlackBoard* vMonitor, s_pose& start, s_pose& end);
-    ~ChargeBattery();
+    ChargeBatteryROS(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    ~ChargeBatteryROS();
     void run() override;
     void calculateCost() override;
     
 };
-#endif /* chargeBattery_hpp */
+#endif /* ChargeBatteryROS_hpp */

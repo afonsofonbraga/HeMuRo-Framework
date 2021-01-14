@@ -1,21 +1,22 @@
 //
-//  GoTo.cpp
+//  GoToSim.cpp
 //  MRSMac
 //
 //  Created by Afonso Braga on 06/05/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#include "GoTo.hpp"
+#include "GoToSim.hpp"
 
-GoTo::GoTo(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+GoToSim::GoToSim(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
+    costFactor = factor * (battery_discharge /(robots_max_speed*3600))/battery_capacity;
     calculateCost();
 }
 
-GoTo::~GoTo(){}
+GoToSim::~GoToSim(){}
 
-void GoTo::run()
+void GoToSim::run()
 {
     switch(this->status)
     {
@@ -59,9 +60,9 @@ void GoTo::run()
     }
 }
 
-void GoTo::calculateCost()
+void GoToSim::calculateCost()
 {
-    this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costMeter;
+    this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costFactor;
 }
 
 

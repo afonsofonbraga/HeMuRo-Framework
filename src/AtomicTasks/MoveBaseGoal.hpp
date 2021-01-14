@@ -29,7 +29,6 @@ protected:
     float battery_capacity = 7000; // Battery's capacity [mAh]
     
     int factor = 10; // The robot does not go straight to the goal LACOXAMBRE
-    float costMeter = factor * (battery_discharge /(robots_max_speed*3600))/battery_capacity;
     
     
     float kp = 3, ka = 8, kb = -0.5;

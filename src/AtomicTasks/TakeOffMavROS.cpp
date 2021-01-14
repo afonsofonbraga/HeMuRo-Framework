@@ -1,21 +1,21 @@
 //
-//  TakeOff.cpp
+//  TakeOffMavROS.cpp
 //  MRSFramework
 //
 //  Created by Afonso Braga on 25/08/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#include "TakeOff.hpp"
+#include "TakeOffMavROS.hpp"
 
-TakeOff::TakeOff(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+TakeOffMavROS::TakeOffMavROS(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     calculateCost();
 }
 
-TakeOff::~TakeOff(){}
+TakeOffMavROS::~TakeOffMavROS(){}
 
-void TakeOff::run()
+void TakeOffMavROS::run()
 {
     
     switch(this->status)
@@ -62,7 +62,7 @@ void TakeOff::run()
         }
     }
 }
-void TakeOff::calculateCost()
+void TakeOffMavROS::calculateCost()
 {
     this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2) + pow(this->endPosition.z - this->startPosition.z, 2)) * this->costMeter;
 }

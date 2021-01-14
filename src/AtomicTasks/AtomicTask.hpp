@@ -20,6 +20,7 @@ protected:
     s_pose startPosition;
     s_pose endPosition;
     float cost;
+    float costFactor;
     enum_AtomicTaskStatus status;
     BlackBoard* monitor;
 public:
@@ -32,6 +33,7 @@ public:
     virtual void stop();
     enum_AtomicTaskStatus getStatus();
     virtual void calculateCost();
+    void setCostFactor(float value);
     float getCost();
 };
 #endif /* AtomicTask_hpp */

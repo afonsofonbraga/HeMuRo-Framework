@@ -14,14 +14,14 @@
 #include "MissionExecution.hpp"
 
 
-#include "GoTo.hpp"
-#include "ChargeBattery.hpp"
-#include "TurnOn.hpp"
-#include "TakePicture.hpp"
-#include "MoveBaseGoal.hpp"
+#include "GoToSim.hpp"
+#include "ChargeBatterySim.hpp"
+#include "TurnOnSim.hpp"
+#include "TakePictureSim.hpp"
+
+
 
 void decomposableTaskList(BlackBoard* monitor);
-void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable);
+//void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable);
 bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable);
-
 #endif /* DecomposableTasks_hpp */

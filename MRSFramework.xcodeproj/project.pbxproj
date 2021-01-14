@@ -9,10 +9,15 @@
 /* Begin PBXBuildFile section */
 		23103C752552356D0075C543 /* WebApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23103C732552356D0075C543 /* WebApp.cpp */; };
 		231AD3F0251E434D00C88B27 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 231AD3EE251E434D00C88B27 /* Logger.cpp */; };
-		2335B7F724FD71BF00661D4C /* DecomposableTasks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2335B7F524FD71BF00661D4C /* DecomposableTasks.cpp */; };
-		23494C9124CF130200697ABA /* TakePicture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23494C8F24CF130200697ABA /* TakePicture.cpp */; };
-		235944C425752EA0009DA982 /* Auction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235944C225752EA0009DA982 /* Auction.cpp */; };
-		235944C7257537EE009DA982 /* TaskModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235944C5257537EE009DA982 /* TaskModule.cpp */; };
+		23444C4625AF5B8500768AC2 /* Agent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23444C4325AF59B800768AC2 /* Agent.cpp */; };
+		23444C4B25AF76CD00768AC2 /* Auction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235944C225752EA0009DA982 /* Auction.cpp */; };
+		23444C4D25AF76D000768AC2 /* TaskModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235944C5257537EE009DA982 /* TaskModule.cpp */; };
+		23444C5425AF90E300768AC2 /* ChargeBatteryROS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2335B80324FD878800661D4C /* ChargeBatteryROS.cpp */; };
+		23444C5625AF913300768AC2 /* GoToROS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F682EE24F6A8A1008ED536 /* GoToROS.cpp */; };
+		23444C5925B083CD00768AC2 /* TakeOffMavROS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2376201024F54C91000C1B23 /* TakeOffMavROS.cpp */; };
+		23444C5B25B0841000768AC2 /* LandMavROS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2376201224F54C9C000C1B23 /* LandMavROS.cpp */; };
+		23444C5D25B0844A00768AC2 /* ArmMavROS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2376201A24F56B3B000C1B23 /* ArmMavROS.cpp */; };
+		23494C9124CF130200697ABA /* TakePictureSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23494C8F24CF130200697ABA /* TakePictureSim.cpp */; };
 		235CC3EB2493F0200012376D /* Mission.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235CC3E92493F0200012376D /* Mission.cpp */; };
 		236244F125211498007B5319 /* LoggerAgent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 236244EF25211498007B5319 /* LoggerAgent.cpp */; };
 		23789A9224AB95D1001372E5 /* MissionRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23789A9024AB95D1001372E5 /* MissionRequest.cpp */; };
@@ -26,13 +31,12 @@
 		23965EB225013E8300F6E7A5 /* ChargingSpot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23965EB025013E8300F6E7A5 /* ChargingSpot.cpp */; };
 		239C81DD248FBED900B58BAD /* AtomicTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8324634A2F00EC7860 /* AtomicTask.cpp */; };
 		23B17FAC2549CAC0003267ED /* WebModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23B17FAA2549CAC0003267ED /* WebModule.cpp */; };
-		23C6E54A246EE01A00D99185 /* GoTo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8624634DDF00EC7860 /* GoTo.cpp */; };
-		23C6E54E246EF4C500D99185 /* ChargeBattery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */; };
-		23C6E551246EF4F100D99185 /* TurnOn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54F246EF4F100D99185 /* TurnOn.cpp */; };
+		23C6E54A246EE01A00D99185 /* GoToSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F00C8624634DDF00EC7860 /* GoToSim.cpp */; };
+		23C6E54E246EF4C500D99185 /* ChargeBatterySim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54C246EF4C500D99185 /* ChargeBatterySim.cpp */; };
+		23C6E551246EF4F100D99185 /* TurnOnSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54F246EF4F100D99185 /* TurnOnSim.cpp */; };
 		23D20B51245C71560013F98A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B50245C71560013F98A /* main.cpp */; };
 		23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B45245C705C0013F98A /* BlackBoard.cpp */; };
 		23E9710925263C470021D3B6 /* MoveBaseGoal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23E9710725263C470021D3B6 /* MoveBaseGoal.cpp */; };
-		23ECC3C9248E99AC0025CBC7 /* MissionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23ECC3C7248E99AC0025CBC7 /* MissionManager.cpp */; };
 		23EDAF1225491C81002845E5 /* libwt.4.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C912A82548C31F00818B4D /* libwt.4.4.0.dylib */; };
 		23EDAF1325491C81002845E5 /* libwthttp.4.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C912AB2548C36D00818B4D /* libwthttp.4.4.0.dylib */; };
 		23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51B245CA8B9003D13A3 /* Module.cpp */; };
@@ -68,30 +72,29 @@
 		2335B7FD24FD7C6A00661D4C /* DecomposableTasks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecomposableTasks.cpp; sourceTree = "<group>"; };
 		2335B7FE24FD7C7200661D4C /* DecomposableTasks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecomposableTasks.cpp; sourceTree = "<group>"; };
 		2335B7FF24FD7C7200661D4C /* DecomposableTasks.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DecomposableTasks.hpp; sourceTree = "<group>"; };
-		2335B80024FD7C7D00661D4C /* DecomposableTasks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecomposableTasks.cpp; sourceTree = "<group>"; };
-		2335B80124FD7C7D00661D4C /* DecomposableTasks.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DecomposableTasks.hpp; sourceTree = "<group>"; };
-		2335B80224FD7F3E00661D4C /* dataTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dataTask.hpp; sourceTree = "<group>"; };
-		2335B80324FD878800661D4C /* ChargeBattery.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargeBattery.cpp; sourceTree = "<group>"; };
-		2335B80424FD878800661D4C /* ChargeBattery.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargeBattery.hpp; sourceTree = "<group>"; };
+		2335B80324FD878800661D4C /* ChargeBatteryROS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargeBatteryROS.cpp; sourceTree = "<group>"; };
+		2335B80424FD878800661D4C /* ChargeBatteryROS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargeBatteryROS.hpp; sourceTree = "<group>"; };
 		2335B80524FD878800661D4C /* TakePicture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TakePicture.hpp; sourceTree = "<group>"; };
 		2335B80624FD878800661D4C /* TakePicture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TakePicture.cpp; sourceTree = "<group>"; };
 		2335B80724FD878800661D4C /* TurnOn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TurnOn.cpp; sourceTree = "<group>"; };
 		2335B80824FD878900661D4C /* TurnOn.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TurnOn.hpp; sourceTree = "<group>"; };
 		2335B80924FD879200661D4C /* ChargeBattery.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargeBattery.cpp; sourceTree = "<group>"; };
 		2335B80A24FD879200661D4C /* ChargeBattery.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargeBattery.hpp; sourceTree = "<group>"; };
-		2335B80B24FD879200661D4C /* TakePicture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TakePicture.hpp; sourceTree = "<group>"; };
-		2335B80C24FD879200661D4C /* TurnOn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TurnOn.cpp; sourceTree = "<group>"; };
-		2335B80D24FD879200661D4C /* TakePicture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TakePicture.cpp; sourceTree = "<group>"; };
-		2335B80E24FD879200661D4C /* TurnOn.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TurnOn.hpp; sourceTree = "<group>"; };
+		2335B80B24FD879200661D4C /* TakePicture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TakePicture.hpp; path = ../Mavros/TakePicture.hpp; sourceTree = "<group>"; };
+		2335B80C24FD879200661D4C /* TurnOn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TurnOn.cpp; path = ../Mavros/TurnOn.cpp; sourceTree = "<group>"; };
+		2335B80D24FD879200661D4C /* TakePicture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TakePicture.cpp; path = ../Mavros/TakePicture.cpp; sourceTree = "<group>"; };
+		2335B80E24FD879200661D4C /* TurnOn.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TurnOn.hpp; path = ../Mavros/TurnOn.hpp; sourceTree = "<group>"; };
 		2335B80F24FD879C00661D4C /* ChargeBattery.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargeBattery.cpp; sourceTree = "<group>"; };
 		2335B81024FD879C00661D4C /* ChargeBattery.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargeBattery.hpp; sourceTree = "<group>"; };
 		2335B81124FD879C00661D4C /* TurnOn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TurnOn.cpp; sourceTree = "<group>"; };
 		2335B81224FD879C00661D4C /* TurnOn.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TurnOn.hpp; sourceTree = "<group>"; };
 		233F8D3924621A5900C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		233F8D3A24621B0D00C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		23444C4325AF59B800768AC2 /* Agent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Agent.cpp; sourceTree = "<group>"; };
+		23444C4425AF59B800768AC2 /* Agent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Agent.hpp; sourceTree = "<group>"; };
 		2345667224CF265600B28F87 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
-		23494C8F24CF130200697ABA /* TakePicture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TakePicture.cpp; sourceTree = "<group>"; };
-		23494C9024CF130200697ABA /* TakePicture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TakePicture.hpp; sourceTree = "<group>"; };
+		23494C8F24CF130200697ABA /* TakePictureSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TakePictureSim.cpp; sourceTree = "<group>"; };
+		23494C9024CF130200697ABA /* TakePictureSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TakePictureSim.hpp; sourceTree = "<group>"; };
 		234EDEBC24AFAE7800385914 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		234FD6972490156300F586DE /* sendMission.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sendMission.cpp; sourceTree = "<group>"; };
 		234FD6982490263D00F586DE /* original.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = original.cpp; sourceTree = "<group>"; };
@@ -107,12 +110,12 @@
 		2376200D24F54B81000C1B23 /* Alive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Alive.cpp; sourceTree = "<group>"; };
 		2376200E24F54B87000C1B23 /* Alive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Alive.cpp; sourceTree = "<group>"; };
 		2376200F24F54B87000C1B23 /* Alive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Alive.hpp; sourceTree = "<group>"; };
-		2376201024F54C91000C1B23 /* TakeOff.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TakeOff.cpp; sourceTree = "<group>"; };
-		2376201124F54C91000C1B23 /* TakeOff.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TakeOff.hpp; sourceTree = "<group>"; };
-		2376201224F54C9C000C1B23 /* Land.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Land.cpp; sourceTree = "<group>"; };
-		2376201324F54C9C000C1B23 /* Land.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Land.hpp; sourceTree = "<group>"; };
-		2376201A24F56B3B000C1B23 /* Arm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Arm.cpp; sourceTree = "<group>"; };
-		2376201B24F56B3B000C1B23 /* Arm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Arm.hpp; sourceTree = "<group>"; };
+		2376201024F54C91000C1B23 /* TakeOffMavROS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TakeOffMavROS.cpp; sourceTree = "<group>"; };
+		2376201124F54C91000C1B23 /* TakeOffMavROS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TakeOffMavROS.hpp; sourceTree = "<group>"; };
+		2376201224F54C9C000C1B23 /* LandMavROS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LandMavROS.cpp; sourceTree = "<group>"; };
+		2376201324F54C9C000C1B23 /* LandMavROS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LandMavROS.hpp; sourceTree = "<group>"; };
+		2376201A24F56B3B000C1B23 /* ArmMavROS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArmMavROS.cpp; sourceTree = "<group>"; };
+		2376201B24F56B3B000C1B23 /* ArmMavROS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArmMavROS.hpp; sourceTree = "<group>"; };
 		23789A9024AB95D1001372E5 /* MissionRequest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MissionRequest.cpp; sourceTree = "<group>"; };
 		23789A9124AB95D1001372E5 /* MissionRequest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MissionRequest.hpp; sourceTree = "<group>"; };
 		23789A9324AB9694001372E5 /* MissionExecution.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MissionExecution.cpp; sourceTree = "<group>"; };
@@ -122,6 +125,12 @@
 		2381ABAB245DC25B00465752 /* UDPBroadcast.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPBroadcast.hpp; sourceTree = "<group>"; };
 		2381ABAD245DD23900465752 /* UDPReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPReceiver.cpp; sourceTree = "<group>"; };
 		2381ABAE245DD23900465752 /* UDPReceiver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPReceiver.hpp; sourceTree = "<group>"; };
+		2384745625AE182C00A4AEB0 /* 001-vr-glasses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "001-vr-glasses.png"; sourceTree = "<group>"; };
+		2384745725AE182C00A4AEB0 /* 007-robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "007-robot.png"; sourceTree = "<group>"; };
+		2384745825AE182C00A4AEB0 /* question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "question-mark.png"; sourceTree = "<group>"; };
+		2384745925AE182C00A4AEB0 /* submarine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = submarine.png; sourceTree = "<group>"; };
+		2384745A25AE182C00A4AEB0 /* 023-drone-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "023-drone-2.png"; sourceTree = "<group>"; };
+		2384745B25AE182D00A4AEB0 /* charging-station.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "charging-station.png"; sourceTree = "<group>"; };
 		2386343D24FEB45600049ED1 /* UDPReceiverSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPReceiverSim.cpp; sourceTree = "<group>"; };
 		2386343E24FEB45600049ED1 /* UDPReceiverSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPReceiverSim.hpp; sourceTree = "<group>"; };
 		23872A19248049B200EC738C /* UDPSender.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPSender.cpp; sourceTree = "<group>"; };
@@ -135,10 +144,10 @@
 		23B17FA72549B5A5003267ED /* hello.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hello.cpp; sourceTree = "<group>"; };
 		23B17FAA2549CAC0003267ED /* WebModule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WebModule.cpp; sourceTree = "<group>"; };
 		23B17FAB2549CAC0003267ED /* WebModule.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WebModule.hpp; sourceTree = "<group>"; };
-		23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargeBattery.cpp; sourceTree = "<group>"; };
-		23C6E54D246EF4C500D99185 /* ChargeBattery.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargeBattery.hpp; sourceTree = "<group>"; };
-		23C6E54F246EF4F100D99185 /* TurnOn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TurnOn.cpp; sourceTree = "<group>"; };
-		23C6E550246EF4F100D99185 /* TurnOn.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TurnOn.hpp; sourceTree = "<group>"; };
+		23C6E54C246EF4C500D99185 /* ChargeBatterySim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargeBatterySim.cpp; sourceTree = "<group>"; };
+		23C6E54D246EF4C500D99185 /* ChargeBatterySim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargeBatterySim.hpp; sourceTree = "<group>"; };
+		23C6E54F246EF4F100D99185 /* TurnOnSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TurnOnSim.cpp; sourceTree = "<group>"; };
+		23C6E550246EF4F100D99185 /* TurnOnSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TurnOnSim.hpp; sourceTree = "<group>"; };
 		23C9112F2548C16800818B4D /* WInteractWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WInteractWidget.h; sourceTree = "<group>"; };
 		23C911302548C16800818B4D /* WIdentityProxyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WIdentityProxyModel.h; sourceTree = "<group>"; };
 		23C911312548C16800818B4D /* WValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WValidator.h; sourceTree = "<group>"; };
@@ -526,8 +535,8 @@
 		23F00C82246331AA00EC7860 /* BlackBoard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlackBoard.hpp; sourceTree = "<group>"; };
 		23F00C8324634A2F00EC7860 /* AtomicTask.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AtomicTask.cpp; sourceTree = "<group>"; };
 		23F00C8424634A2F00EC7860 /* AtomicTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AtomicTask.hpp; sourceTree = "<group>"; };
-		23F00C8624634DDF00EC7860 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
-		23F00C8724634DDF00EC7860 /* GoTo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GoTo.hpp; path = src/Task/Default/GoTo.hpp; sourceTree = SOURCE_ROOT; };
+		23F00C8624634DDF00EC7860 /* GoToSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoToSim.cpp; sourceTree = "<group>"; };
+		23F00C8724634DDF00EC7860 /* GoToSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GoToSim.hpp; path = src/AtomicTasks/GoToSim.hpp; sourceTree = SOURCE_ROOT; };
 		23F0BD4624F54A91003194C1 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
 		23F3A2182500630F00561375 /* RosbotRobot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RosbotRobot.cpp; sourceTree = "<group>"; };
 		23F3A2192500630F00561375 /* RosbotRobot.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RosbotRobot.hpp; sourceTree = "<group>"; };
@@ -539,10 +548,10 @@
 		23F3A222250074CC00561375 /* TurtlebotRobot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TurtlebotRobot.cpp; sourceTree = "<group>"; };
 		23F3A223250074CC00561375 /* TurtlebotRobot.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TurtlebotRobot.hpp; sourceTree = "<group>"; };
 		23F682EB24F6A869008ED536 /* GoTo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
-		23F682EE24F6A8A1008ED536 /* GoTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoTo.cpp; sourceTree = "<group>"; };
-		23F682EF24F6A8A1008ED536 /* GoTo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GoTo.hpp; sourceTree = "<group>"; };
-		23F682F024F6A8AD008ED536 /* Alive.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Alive.cpp; sourceTree = "<group>"; };
-		23F682F124F6A8AD008ED536 /* Alive.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Alive.hpp; sourceTree = "<group>"; };
+		23F682EE24F6A8A1008ED536 /* GoToROS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoToROS.cpp; sourceTree = "<group>"; };
+		23F682EF24F6A8A1008ED536 /* GoToROS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GoToROS.hpp; sourceTree = "<group>"; };
+		23F682F024F6A8AD008ED536 /* ROSModuleRosbot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ROSModuleRosbot.cpp; sourceTree = "<group>"; };
+		23F682F124F6A8AD008ED536 /* ROSModuleRosbot.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ROSModuleRosbot.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -563,6 +572,43 @@
 			children = (
 			);
 			path = logs;
+			sourceTree = "<group>";
+		};
+		23444C5325AF8BA000768AC2 /* OLD */ = {
+			isa = PBXGroup;
+			children = (
+				23ECC3C7248E99AC0025CBC7 /* MissionManager.cpp */,
+				23ECC3C8248E99AC0025CBC7 /* MissionManager.hpp */,
+				2335B80C24FD879200661D4C /* TurnOn.cpp */,
+				2335B80E24FD879200661D4C /* TurnOn.hpp */,
+				2335B80D24FD879200661D4C /* TakePicture.cpp */,
+				2335B80924FD879200661D4C /* ChargeBattery.cpp */,
+				2335B80A24FD879200661D4C /* ChargeBattery.hpp */,
+				23F0BD4624F54A91003194C1 /* GoTo.cpp */,
+				2324E2D124F815E90033C523 /* GoTo.hpp */,
+				2335B80B24FD879200661D4C /* TakePicture.hpp */,
+				2335B80724FD878800661D4C /* TurnOn.cpp */,
+				2335B80824FD878900661D4C /* TurnOn.hpp */,
+				2335B80624FD878800661D4C /* TakePicture.cpp */,
+				2335B80524FD878800661D4C /* TakePicture.hpp */,
+				2335B7F824FD7A8A00661D4C /* dataTask.hpp */,
+				2335B7F524FD71BF00661D4C /* DecomposableTasks.cpp */,
+				2335B7F624FD71BF00661D4C /* DecomposableTasks.hpp */,
+			);
+			path = OLD;
+			sourceTree = "<group>";
+		};
+		23444C5F25B084E800768AC2 /* Agents */ = {
+			isa = PBXGroup;
+			children = (
+				23965EA825012CF700F6E7A5 /* ChargingStation */,
+				23F682ED24F6A882008ED536 /* Rosbot */,
+				236244EE2521147F007B5319 /* Logger */,
+				237E6C6124A3DB05009F5B02 /* Default */,
+				23444C4325AF59B800768AC2 /* Agent.cpp */,
+				23444C4425AF59B800768AC2 /* Agent.hpp */,
+			);
+			path = Agents;
 			sourceTree = "<group>";
 		};
 		2345667124CF262400B28F87 /* Turtlebot */ = {
@@ -597,19 +643,8 @@
 		237E6C6124A3DB05009F5B02 /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				23C6E54C246EF4C500D99185 /* ChargeBattery.cpp */,
-				23C6E54D246EF4C500D99185 /* ChargeBattery.hpp */,
-				2335B7F824FD7A8A00661D4C /* dataTask.hpp */,
-				2335B7F524FD71BF00661D4C /* DecomposableTasks.cpp */,
-				2335B7F624FD71BF00661D4C /* DecomposableTasks.hpp */,
 				23F3A21B25006C7E00561375 /* DefaultRobot.cpp */,
 				23F3A21C25006C7E00561375 /* DefaultRobot.hpp */,
-				23F00C8624634DDF00EC7860 /* GoTo.cpp */,
-				23F00C8724634DDF00EC7860 /* GoTo.hpp */,
-				23494C8F24CF130200697ABA /* TakePicture.cpp */,
-				23494C9024CF130200697ABA /* TakePicture.hpp */,
-				23C6E54F246EF4F100D99185 /* TurnOn.cpp */,
-				23C6E550246EF4F100D99185 /* TurnOn.hpp */,
 			);
 			path = Default;
 			sourceTree = "<group>";
@@ -617,17 +652,53 @@
 		23805D362460BC730061F4A0 /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				236244EE2521147F007B5319 /* Logger */,
-				23F00C8324634A2F00EC7860 /* AtomicTask.cpp */,
-				23F00C8424634A2F00EC7860 /* AtomicTask.hpp */,
-				23965EA825012CF700F6E7A5 /* ChargingStation */,
 				233F8D3924621A5900C5B39B /* CMakeLists.txt */,
-				237E6C6124A3DB05009F5B02 /* Default */,
 				23F0BD4524F54A75003194C1 /* Mavros */,
-				23F682ED24F6A882008ED536 /* Rosbot */,
 				2345667124CF262400B28F87 /* Turtlebot */,
 			);
 			path = Task;
+			sourceTree = "<group>";
+		};
+		2384745425AE17FA00A4AEB0 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				2384745625AE182C00A4AEB0 /* 001-vr-glasses.png */,
+				2384745725AE182C00A4AEB0 /* 007-robot.png */,
+				2384745A25AE182C00A4AEB0 /* 023-drone-2.png */,
+				2384745B25AE182D00A4AEB0 /* charging-station.png */,
+				2384745825AE182C00A4AEB0 /* question-mark.png */,
+				2384745925AE182C00A4AEB0 /* submarine.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		2384745C25AE18E600A4AEB0 /* AtomicTasks */ = {
+			isa = PBXGroup;
+			children = (
+				23F00C8324634A2F00EC7860 /* AtomicTask.cpp */,
+				23F00C8424634A2F00EC7860 /* AtomicTask.hpp */,
+				23494C8F24CF130200697ABA /* TakePictureSim.cpp */,
+				23494C9024CF130200697ABA /* TakePictureSim.hpp */,
+				23C6E54F246EF4F100D99185 /* TurnOnSim.cpp */,
+				23C6E550246EF4F100D99185 /* TurnOnSim.hpp */,
+				23F00C8624634DDF00EC7860 /* GoToSim.cpp */,
+				23F00C8724634DDF00EC7860 /* GoToSim.hpp */,
+				23C6E54C246EF4C500D99185 /* ChargeBatterySim.cpp */,
+				23C6E54D246EF4C500D99185 /* ChargeBatterySim.hpp */,
+				23F682EE24F6A8A1008ED536 /* GoToROS.cpp */,
+				23F682EF24F6A8A1008ED536 /* GoToROS.hpp */,
+				2335B80324FD878800661D4C /* ChargeBatteryROS.cpp */,
+				2335B80424FD878800661D4C /* ChargeBatteryROS.hpp */,
+				23E9710725263C470021D3B6 /* MoveBaseGoal.cpp */,
+				23E9710825263C470021D3B6 /* MoveBaseGoal.hpp */,
+				2376201024F54C91000C1B23 /* TakeOffMavROS.cpp */,
+				2376201124F54C91000C1B23 /* TakeOffMavROS.hpp */,
+				2376201224F54C9C000C1B23 /* LandMavROS.cpp */,
+				2376201324F54C9C000C1B23 /* LandMavROS.hpp */,
+				2376201A24F56B3B000C1B23 /* ArmMavROS.cpp */,
+				2376201B24F56B3B000C1B23 /* ArmMavROS.hpp */,
+			);
+			path = AtomicTasks;
 			sourceTree = "<group>";
 		};
 		23965EA825012CF700F6E7A5 /* ChargingStation */ = {
@@ -644,6 +715,7 @@
 		23B17FA92549C24D003267ED /* Web */ = {
 			isa = PBXGroup;
 			children = (
+				2384745425AE17FA00A4AEB0 /* images */,
 				23287F93254C6836009396B1 /* MRSstyle.css */,
 				23B17FAA2549CAC0003267ED /* WebModule.cpp */,
 				23B17FAB2549CAC0003267ED /* WebModule.hpp */,
@@ -1205,6 +1277,9 @@
 		23D20B42245C705C0013F98A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				23444C5325AF8BA000768AC2 /* OLD */,
+				23444C5F25B084E800768AC2 /* Agents */,
+				2384745C25AE18E600A4AEB0 /* AtomicTasks */,
 				23D20B43245C705C0013F98A /* CMakeLists.txt */,
 				23EDB521245CC72F003D13A3 /* Communication */,
 				23D20B44245C705C0013F98A /* Core */,
@@ -1258,8 +1333,6 @@
 		23ECC3C6248E99940025CBC7 /* Mission */ = {
 			isa = PBXGroup;
 			children = (
-				23ECC3C7248E99AC0025CBC7 /* MissionManager.cpp */,
-				23ECC3C8248E99AC0025CBC7 /* MissionManager.hpp */,
 				235CC3E92493F0200012376D /* Mission.cpp */,
 				235CC3EA2493F0200012376D /* Mission.hpp */,
 				23789A9024AB95D1001372E5 /* MissionRequest.cpp */,
@@ -1296,25 +1369,11 @@
 			children = (
 				2376200D24F54B81000C1B23 /* Alive.cpp */,
 				2376200C24F54B81000C1B23 /* Alive.hpp */,
-				2376201A24F56B3B000C1B23 /* Arm.cpp */,
-				2376201B24F56B3B000C1B23 /* Arm.hpp */,
-				2335B80924FD879200661D4C /* ChargeBattery.cpp */,
-				2335B80A24FD879200661D4C /* ChargeBattery.hpp */,
 				2335B7FA24FD7BFB00661D4C /* dataTask.hpp */,
 				2335B7FE24FD7C7200661D4C /* DecomposableTasks.cpp */,
 				2335B7FF24FD7C7200661D4C /* DecomposableTasks.hpp */,
-				23F0BD4624F54A91003194C1 /* GoTo.cpp */,
-				2324E2D124F815E90033C523 /* GoTo.hpp */,
-				2376201224F54C9C000C1B23 /* Land.cpp */,
-				2376201324F54C9C000C1B23 /* Land.hpp */,
 				23F3A2202500747A00561375 /* MavrosRobot.cpp */,
 				23F3A2212500747A00561375 /* MavrosRobot.hpp */,
-				2376201024F54C91000C1B23 /* TakeOff.cpp */,
-				2376201124F54C91000C1B23 /* TakeOff.hpp */,
-				2335B80D24FD879200661D4C /* TakePicture.cpp */,
-				2335B80B24FD879200661D4C /* TakePicture.hpp */,
-				2335B80C24FD879200661D4C /* TurnOn.cpp */,
-				2335B80E24FD879200661D4C /* TurnOn.hpp */,
 			);
 			path = Mavros;
 			sourceTree = "<group>";
@@ -1322,23 +1381,10 @@
 		23F682ED24F6A882008ED536 /* Rosbot */ = {
 			isa = PBXGroup;
 			children = (
-				23F682F024F6A8AD008ED536 /* Alive.cpp */,
-				23F682F124F6A8AD008ED536 /* Alive.hpp */,
-				2335B80324FD878800661D4C /* ChargeBattery.cpp */,
-				2335B80424FD878800661D4C /* ChargeBattery.hpp */,
-				2335B80224FD7F3E00661D4C /* dataTask.hpp */,
-				2335B80024FD7C7D00661D4C /* DecomposableTasks.cpp */,
-				2335B80124FD7C7D00661D4C /* DecomposableTasks.hpp */,
-				23F682EE24F6A8A1008ED536 /* GoTo.cpp */,
-				23F682EF24F6A8A1008ED536 /* GoTo.hpp */,
+				23F682F024F6A8AD008ED536 /* ROSModuleRosbot.cpp */,
+				23F682F124F6A8AD008ED536 /* ROSModuleRosbot.hpp */,
 				23F3A2182500630F00561375 /* RosbotRobot.cpp */,
 				23F3A2192500630F00561375 /* RosbotRobot.hpp */,
-				2335B80624FD878800661D4C /* TakePicture.cpp */,
-				2335B80524FD878800661D4C /* TakePicture.hpp */,
-				2335B80724FD878800661D4C /* TurnOn.cpp */,
-				2335B80824FD878900661D4C /* TurnOn.hpp */,
-				23E9710725263C470021D3B6 /* MoveBaseGoal.cpp */,
-				23E9710825263C470021D3B6 /* MoveBaseGoal.hpp */,
 			);
 			path = Rosbot;
 			sourceTree = "<group>";
@@ -1438,34 +1484,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				23872A1B248049B200EC738C /* UDPSender.cpp in Sources */,
-				235944C7257537EE009DA982 /* TaskModule.cpp in Sources */,
+				23444C4D25AF76D000768AC2 /* TaskModule.cpp in Sources */,
 				23965EAE2501312000F6E7A5 /* BatteryManager.cpp in Sources */,
 				23965EAB25012DB900F6E7A5 /* ChargingStation.cpp in Sources */,
-				23494C9124CF130200697ABA /* TakePicture.cpp in Sources */,
-				23ECC3C9248E99AC0025CBC7 /* MissionManager.cpp in Sources */,
+				23494C9124CF130200697ABA /* TakePictureSim.cpp in Sources */,
 				23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */,
 				23103C752552356D0075C543 /* WebApp.cpp in Sources */,
 				239C81DD248FBED900B58BAD /* AtomicTask.cpp in Sources */,
+				23444C5D25B0844A00768AC2 /* ArmMavROS.cpp in Sources */,
 				23D20B58245C73370013F98A /* BlackBoard.cpp in Sources */,
 				2386344024FEBD0800049ED1 /* UDPReceiverSim.cpp in Sources */,
 				23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */,
 				235CC3EB2493F0200012376D /* Mission.cpp in Sources */,
-				23C6E54A246EE01A00D99185 /* GoTo.cpp in Sources */,
+				23C6E54A246EE01A00D99185 /* GoToSim.cpp in Sources */,
+				23444C4625AF5B8500768AC2 /* Agent.cpp in Sources */,
 				23789A9524AB9694001372E5 /* MissionExecution.cpp in Sources */,
 				23E9710925263C470021D3B6 /* MoveBaseGoal.cpp in Sources */,
-				23C6E551246EF4F100D99185 /* TurnOn.cpp in Sources */,
-				2335B7F724FD71BF00661D4C /* DecomposableTasks.cpp in Sources */,
+				23444C5925B083CD00768AC2 /* TakeOffMavROS.cpp in Sources */,
+				23C6E551246EF4F100D99185 /* TurnOnSim.cpp in Sources */,
 				23B17FAC2549CAC0003267ED /* WebModule.cpp in Sources */,
 				231AD3F0251E434D00C88B27 /* Logger.cpp in Sources */,
 				2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */,
+				23444C5425AF90E300768AC2 /* ChargeBatteryROS.cpp in Sources */,
+				23444C5B25B0841000768AC2 /* LandMavROS.cpp in Sources */,
 				23D20B51245C71560013F98A /* main.cpp in Sources */,
 				23F3A21D25006C7E00561375 /* DefaultRobot.cpp in Sources */,
 				236244F125211498007B5319 /* LoggerAgent.cpp in Sources */,
-				235944C425752EA0009DA982 /* Auction.cpp in Sources */,
+				23444C4B25AF76CD00768AC2 /* Auction.cpp in Sources */,
+				23444C5625AF913300768AC2 /* GoToROS.cpp in Sources */,
 				23965EB225013E8300F6E7A5 /* ChargingSpot.cpp in Sources */,
 				2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */,
 				23789A9224AB95D1001372E5 /* MissionRequest.cpp in Sources */,
-				23C6E54E246EF4C500D99185 /* ChargeBattery.cpp in Sources */,
+				23C6E54E246EF4C500D99185 /* ChargeBatterySim.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

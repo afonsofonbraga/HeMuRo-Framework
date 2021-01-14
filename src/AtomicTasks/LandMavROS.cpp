@@ -1,21 +1,21 @@
 //
-//  Land.cpp
+//  LandMavROS.cpp
 //  MRSFramework
 //
 //  Created by Afonso Braga on 25/08/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#include "Land.hpp"
+#include "LandMavROS.hpp"
 
-Land::Land(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+LandMavROS::LandMavROS(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     calculateCost();
 }
 
-Land::~Land() {}
+LandMavROS::~LandMavROS() {}
 
-void Land::run()
+void LandMavROS::run()
 {
     switch(this->status)
     {
@@ -43,7 +43,7 @@ void Land::run()
     }
 }
 
-void Land::calculateCost()
+void LandMavROS::calculateCost()
 {
     this->cost = this->costMeter;
 }

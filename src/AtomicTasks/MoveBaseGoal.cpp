@@ -11,6 +11,7 @@
 
 MoveBaseGoal::MoveBaseGoal(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
+    this->costFactor = factor * (battery_discharge /(robots_max_speed*3600))/battery_capacity;
     calculateCost();
 }
 
@@ -84,14 +85,7 @@ void MoveBaseGoal::calculateCost()
     s_ROSBridgeMessage teste;
     strcpy(teste.topicName,"Move_base/Cost");
     memmove(teste.buffer,(char*)&this->endPosition,sizeof(s_pose));
-    this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2) + pow(this->endPosition.z - this->startPosition.z, 2)) * this->costMeter;
-    /*
-    this->monitor->print("CUSTOOOOOO1:  " + std::to_string(this->cost));
-    usleep(1000000);
-    this->monitor->print("CUSTOOOOOO2:  " + std::to_string(this->cost));
-    //float* cost1;
-    //memcpy(&cost1, teste.buffer + sizeof(s_pose), sizeof(float *));
-     */
+    this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2) + pow(this->endPosition.z - this->startPosition.z, 2)) * this->costFactor;
 }
 
 float MoveBaseGoal::adjustAngle(float angle)

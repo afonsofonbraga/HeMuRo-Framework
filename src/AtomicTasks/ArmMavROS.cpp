@@ -1,21 +1,22 @@
 //
-//  TakePicture.cpp
-//  MRSMac
+//  ArmMavROS.cpp
+//  MRSFramework
 //
-//  Created by Afonso Braga on 27/07/20.
+//  Created by Afonso Braga on 25/08/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#include "TakePicture.hpp"
+#include "ArmMavROS.hpp"
 
-TakePicture::TakePicture(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+
+ArmMavROS::ArmMavROS(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     calculateCost();
 }
 
-TakePicture::~TakePicture() {}
+ArmMavROS::~ArmMavROS() {}
 
-void TakePicture::run()
+void ArmMavROS::run()
 {
     switch(this->status)
     {
@@ -27,10 +28,16 @@ void TakePicture::run()
             break;
             
         case enum_AtomicTaskStatus::running:
-            this->monitor->print("Taking a Picture.");
-            //std::cout << "Taking a Picture."<< std::endl;
+        {
+            std::cout << "Arming."<< std::endl;
+            s_ROSBridgeMessage teste;
+            strcpy(teste.topicName,"Arm");
+            this->monitor->addROSBridgeMessage(teste);
+            usleep(1000000); //Vamos Precisar de um buffer
             this->status = enum_AtomicTaskStatus::completed;
             break;
+        }
+            
         case enum_AtomicTaskStatus::completed:
             break;
         default:
@@ -38,7 +45,7 @@ void TakePicture::run()
     }
 }
 
-void TakePicture::calculateCost()
+void ArmMavROS::calculateCost()
 {
     this->cost = this->costMeter;
 }

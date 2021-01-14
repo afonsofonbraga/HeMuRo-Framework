@@ -1,12 +1,12 @@
 //
-//  GoTo.hpp
+//  GoToROS.hpp
 //  MRSFramework
 //
 //  Created by Afonso Braga on 26/08/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 //
-//  GoTo.cpp
+//  GoToROS.cpp
 //  MRSFramework
 //
 //  Created by Afonso Braga on 26/08/20.
@@ -14,8 +14,8 @@
 //
 
 
-#ifndef GoTo_hpp
-#define GoTo_hpp
+#ifndef GoToROS_hpp
+#define GoToROS_hpp
 
 #include <stdio.h>
 
@@ -25,7 +25,7 @@
 #include <math.h>
 #include <unistd.h>
 
-class GoTo : public AtomicTask
+class GoToROS : public AtomicTask
 {
 protected:
     std::chrono::system_clock::time_point t0;
@@ -36,8 +36,6 @@ protected:
     float battery_capacity = 7000; // Battery's capacity [mAh]
      
     int factor = 10; // The robot does not go straight to the goal LACOXAMBRE
-    float costMeter = factor * (battery_discharge /(robots_max_speed*3600))/battery_capacity;
-    
     
     float kp = 3, ka = 8, kb = -0.5;
     float alpha_t = 0;
@@ -46,12 +44,12 @@ protected:
     float adjustAngle(float angle);
     
 public:
-    GoTo(BlackBoard* vMonitor, s_pose& start, s_pose& end);
-    ~GoTo();
+    GoToROS(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    ~GoToROS();
     void run() override;
     void calculateCost() override;
     
 };
 
-#endif /* GoTo_hpp */
+#endif /* GoToROS_hpp */
 

@@ -1,22 +1,22 @@
 //
-//  Arm.cpp
-//  MRSFramework
+//  TakePictureSim.cpp
+//  MRSMac
 //
-//  Created by Afonso Braga on 25/08/20.
+//  Created by Afonso Braga on 27/07/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#include "Arm.hpp"
+#include "TakePictureSim.hpp"
 
-
-Arm::Arm(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+TakePictureSim::TakePictureSim(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
+    costFactor = 1.0;
     calculateCost();
 }
 
-Arm::~Arm() {}
+TakePictureSim::~TakePictureSim() {}
 
-void Arm::run()
+void TakePictureSim::run()
 {
     switch(this->status)
     {
@@ -28,16 +28,10 @@ void Arm::run()
             break;
             
         case enum_AtomicTaskStatus::running:
-        {
-            std::cout << "Arming."<< std::endl;
-            s_ROSBridgeMessage teste;
-            strcpy(teste.topicName,"Arm");
-            this->monitor->addROSBridgeMessage(teste);
-            usleep(1000000); //Vamos Precisar de um buffer
+            this->monitor->print("Taking a Picture.");
+            //std::cout << "Taking a Picture."<< std::endl;
             this->status = enum_AtomicTaskStatus::completed;
             break;
-        }
-            
         case enum_AtomicTaskStatus::completed:
             break;
         default:
@@ -45,8 +39,8 @@ void Arm::run()
     }
 }
 
-void Arm::calculateCost()
+void TakePictureSim::calculateCost()
 {
-    this->cost = this->costMeter;
+    this->cost = this->costFactor;
 }
 

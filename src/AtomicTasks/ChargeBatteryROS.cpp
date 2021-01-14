@@ -1,23 +1,24 @@
 //
-//  chargeBattery.cpp
+//  ChargeBatteryROS.cpp
 //  MRSMac
 //
 //  Created by Afonso Braga on 15/05/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#include "ChargeBattery.hpp"
+#include "ChargeBatteryROS.hpp"
 
 
 
-ChargeBattery::ChargeBattery(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+ChargeBatteryROS::ChargeBatteryROS(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
+    this->costFactor = 2.0;
     calculateCost();
 }
 
-ChargeBattery::~ChargeBattery(){}
+ChargeBatteryROS::~ChargeBatteryROS(){}
 
-void ChargeBattery::run()
+void ChargeBatteryROS::run()
 {
     switch(this->status)
     {
@@ -27,7 +28,6 @@ void ChargeBattery::run()
         case enum_AtomicTaskStatus::waiting:
         {
             this->monitor->print("Start charging!");
-            //std::cout << "Carregando Bateria."<< std::endl;
             
             //Send a interrupt to inform that the robot has arrived at the station.
             s_BatteryMessage message;
@@ -35,6 +35,13 @@ void ChargeBattery::run()
             this->monitor->addBatteryMessage(message);
             t0 = std::chrono::system_clock::now();
             this->status = enum_AtomicTaskStatus::running;
+            
+            bool chargeStatus = true;
+            s_ROSBridgeMessage msg;
+            strcpy(msg.topicName,"ChargeBattery");
+            memmove(msg.buffer,(char*)&chargeStatus,sizeof(chargeStatus));
+            this->monitor->addROSBridgeMessage(msg);
+            
             break;
         }
 
@@ -43,13 +50,17 @@ void ChargeBattery::run()
             if(this->monitor->getBatteryLevel() < 100)
             {
                 std::this_thread::sleep_until(t0 + this->tick);
-                this->monitor->chargeBattery(1.0);
                 t0 = t0 + this->tick;
                 
             } else
             {
                 this->monitor->print("Battery Charged!");
-                //std::cout << "Bateria Carregada!"<< std::endl;
+                
+                bool chargeStatus = false;
+                s_ROSBridgeMessage msg;
+                strcpy(msg.topicName,"ChargeBattery");
+                memmove(msg.buffer,(char*)&chargeStatus,sizeof(chargeStatus));
+                this->monitor->addROSBridgeMessage(msg);
                 
                 //Send a interrupt to inform that the charging is complete!"
                 s_BatteryMessage message;
@@ -61,14 +72,13 @@ void ChargeBattery::run()
             break;
         case enum_AtomicTaskStatus::completed:
             break;
-
         default:
             break;
     }
 }
 
-void ChargeBattery::calculateCost()
+void ChargeBatteryROS::calculateCost()
 {
-    this->cost = this->costMeter;
+    this->cost = this->costFactor;
 }
 

@@ -12,8 +12,24 @@ MissionManager::MissionManager(BlackBoard* monitor) : Module(monitor)
 {
     this->monitor->getBroadcastIP(*this->broadcastIP);
     this->monitor->getRobotsName(*this->robotName);
-    decomposableTaskList(monitor);
+    //decomposableTaskList(monitor);
     
+}
+/*
+MissionManager::MissionManager(BlackBoard* monitor, bool (Agent::*addAtomicTask2) (BlackBoard*, MissionExecution&)) : Module(monitor)
+{
+    this->monitor->getBroadcastIP(*this->broadcastIP);
+    this->monitor->getRobotsName(*this->robotName);
+    decomposableTaskList(monitor);
+    this->addAtomicTask = addAtomicTask2;
+}
+*/
+MissionManager::MissionManager(BlackBoard* monitor,Agent* a): Module(monitor)
+{
+    this->monitor->getBroadcastIP(*this->broadcastIP);
+    this->monitor->getRobotsName(*this->robotName);
+    //decomposableTaskList(monitor);
+    this->agent = a;
 }
 
 MissionManager::~MissionManager()
@@ -257,7 +273,7 @@ void MissionManager::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissi
         
         //addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
         //addAtomicTask2(monitor, this->MissionList[vMissionMessage->missionCode]);
-        bool status = addAtomicTask(monitor, this->MissionList[vMissionMessage->missionCode]);
+        bool status = agent->addAtomicTask( this->MissionList[vMissionMessage->missionCode]);
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
         //CHECK IF THERE IS ENOUGH BATTERY OR IF THE PATH IS FEASABLE
         //this->MissionList.insert_or_assign(vMission->missionCode, *vMission);
@@ -304,7 +320,7 @@ void MissionManager::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> v
         
         //addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
         //addAtomicTask2(monitor, this->MissionList[vMissionMessage->missionCode]);
-        bool status = addAtomicTask(monitor, this->MissionList[vMissionMessage->missionCode]);
+        bool status = agent->addAtomicTask( this->MissionList[vMissionMessage->missionCode]);
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
         // This one doesn't send back
     }
@@ -428,7 +444,7 @@ void MissionManager::emergencyCall(std::unique_ptr<s_MissionMessage> vMissionMes
         //addAtomicTask(*vMission);
         
         //addAtomicTask2(monitor, *vMission);
-        bool status = addAtomicTask(monitor, *vMission);
+        bool status = agent->addAtomicTask(*vMission);
         if (status == true)
         {
             calculateMissionCost(*vMission);

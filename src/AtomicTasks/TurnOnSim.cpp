@@ -1,22 +1,23 @@
 //
-//  turnOn.cpp
+//  TurnOnSim.cpp
 //  MRSMac
 //
 //  Created by Afonso Braga on 15/05/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#include "TurnOn.hpp"
+#include "TurnOnSim.hpp"
 
 
-TurnOn::TurnOn(BlackBoard* vMonitor,s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+TurnOnSim::TurnOnSim(BlackBoard* vMonitor,s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
+    costFactor = 1.0;
     calculateCost();
 }
 
-TurnOn::~TurnOn(){}
+TurnOnSim::~TurnOnSim(){}
 
-void TurnOn::run()
+void TurnOnSim::run()
 {
     this->status = enum_AtomicTaskStatus::running;
     this->monitor->print("Turning on");
@@ -25,8 +26,8 @@ void TurnOn::run()
     this->status = enum_AtomicTaskStatus::completed;
 }
 
-void TurnOn::calculateCost()
+void TurnOnSim::calculateCost()
 {
-    this->cost = 4;
+    this->cost = this->costFactor;
 }
 

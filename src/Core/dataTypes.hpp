@@ -12,7 +12,7 @@
 #include <list>
 #include <queue>
 
-
+/*
 #ifdef DEFAULT
 #include "../Task/Default/dataTask.hpp"
 #endif
@@ -20,10 +20,16 @@
 #ifndef DEFAULT
 #include "dataTask.hpp"
 #endif
+ */
 
 #define MAX_ROBOT_ID 10
 #define MAX_ID 13
 #define MAX_IP 16
+
+
+enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo, moveBaseGoal, takePicture};
+enum class enum_DecomposableTask{null, checkPosition, lowBattery, takePicture, flightTest, deliverPicture}; //Trocar por DecomposableMission
+
 
 
 
