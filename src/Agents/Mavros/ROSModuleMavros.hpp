@@ -1,13 +1,13 @@
 //
-//  Alive.hpp
+//  ROSModuleMavros.hpp
 //  MRSFramework
 //
 //  Created by Afonso Braga on 26/07/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#ifndef Alive_hpp
-#define Alive_hpp
+#ifndef ROSModuleMavros_hpp
+#define ROSModuleMavros_hpp
 
 #include <string.h> /* memset() */
 #include <chrono> /* select() */
@@ -35,7 +35,7 @@
 
 #include <clover/Navigate.h>
 #include <clover/GetTelemetry.h>
-class Alive: public Module
+class ROSModuleMavros: public Module
 {
 protected:
     s_ROSBridgeMessage* vROSBridgeMessage;
@@ -62,9 +62,9 @@ protected:
     
 public:
     
-    Alive(BlackBoard* monitor, ros::NodeHandle& vNode);
-    ~Alive();
+    ROSModuleMavros(BlackBoard* monitor, ros::NodeHandle& vNode);
+    ~ROSModuleMavros();
     //void error(const char* msg);                    // Print an error
 };
 
-#endif /* Alive_hpp */
+#endif /* ROSModuleMavros_hpp */

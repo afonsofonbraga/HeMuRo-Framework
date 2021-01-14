@@ -33,7 +33,7 @@
 #include "MoveBaseGoal.hpp"
 #include "TurnOnSim.hpp"
 #include "ChageBatteryROS.hpp"
-#include "TakePictureSim"
+#include "TakePictureSim.hpp"
 
 class RosbotRobot: public Agent
 {

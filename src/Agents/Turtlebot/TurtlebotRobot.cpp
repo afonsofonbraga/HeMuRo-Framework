@@ -1,14 +1,14 @@
 //
-//  RosbotRobot.cpp
-//  MRSMac
+//  TurtlebotRobot.cpp
+//  MRSFramework
 //
 //  Created by Afonso Braga on 02/09/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#include "RosbotRobot.hpp"
+#include "TurtlebotRobot.hpp"
 
-RosbotRobot::RosbotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized): Agent(monitor)
+TurtlebotRobot::TurtlebotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized): Agent(monitor)
 {
     strcpy(mode,"Robot");
     this->decentralized = decentralized;
@@ -32,7 +32,7 @@ RosbotRobot::RosbotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decen
         receiver->start();
     }
     
-    rosModule = new ROSModuleRosbot(monitor, vNode);
+    rosModule = new ROSModuleTurtlebot(monitor, vNode);
     sender->start();
     broadcast->start();
     rosModule->start();
@@ -42,7 +42,7 @@ RosbotRobot::RosbotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decen
     taskModule->start();
 }
 
-RosbotRobot::~RosbotRobot()
+TurtlebotRobot::~TurtlebotRobot()
 {
     delete this->auction;
     delete this->taskModule;
@@ -57,34 +57,21 @@ RosbotRobot::~RosbotRobot()
     delete this->rosModule;
 }
 
-void RosbotRobot::decomposableTaskList()
+void TurtlebotRobot::decomposableTaskList()
 {
-    std::vector<enum_AtomicTask> atomicTaskVector;
-    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
-    enum_DecomposableTask dTask = enum_DecomposableTask::checkPosition;
-    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+    std::vector<enum_AtomicTask> teste;
+    teste.push_back(enum_AtomicTask::goTo);
+    enum_DecomposableTask lala = enum_DecomposableTask::checkPosition;
+    monitor->addDecomposableTaskList(lala, teste);
     
-    atomicTaskVector.clear();
-    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
-    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
-    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
-    dTask = enum_DecomposableTask::deliverPicture;
-    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+    teste.clear();
+    teste.push_back(enum_AtomicTask::chargeBattery);
+    lala = enum_DecomposableTask::lowBattery;
     
-    atomicTaskVector.clear();
-    atomicTaskVector.push_back(enum_AtomicTask::goTo);
-    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
-    dTask = enum_DecomposableTask::takePicture;
-    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
-    
-    atomicTaskVector.clear();
-    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
-    atomicTaskVector.push_back(enum_AtomicTask::chargeBattery);
-    dTask = enum_DecomposableTask::lowBattery;
-    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+    monitor->addDecomposableTaskList(lala, teste);
 }
 
-bool RosbotRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
+bool TurtlebotRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
 {
     vMissionDecomposable.atomicTaskSequence.clear();
     std::shared_ptr<AtomicTask> vAtomicTaskitem = nullptr;
@@ -116,27 +103,11 @@ bool RosbotRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
                  break;
             }
  
-            case enum_AtomicTask::moveBaseGoal:
-            {
-                int vSize = ((int*) temp)[0];
-                partialSize += 4;
-                temp += 4;
-                vAttribuites++;
-                s_pose goal = ((s_pose*) temp)[0];
-                vAtomicTaskitem = std::make_shared<moveBaseGoal>(monitor, currentPosition, goal);
-                currentPosition = goal;
-                partialSize += vSize;
-                temp += vSize;
-                break;
-            }
             case enum_AtomicTask::turnOn :
                 vAtomicTaskitem = std::make_shared<TurnOnSim>(monitor, currentPosition,currentPosition);
                 break;
             case enum_AtomicTask::chargeBattery :
                 vAtomicTaskitem = std::make_shared<ChargeBatteryROS>(monitor, currentPosition,currentPosition);
-                break;
-            case enum_AtomicTask::takePicture :
-                vAtomicTaskitem = std::make_shared<TakePictureSim>(monitor, currentPosition,currentPosition);
                 break;
             default:
                 break;

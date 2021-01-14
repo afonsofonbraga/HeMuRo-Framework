@@ -6,24 +6,24 @@
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#include "Alive.hpp"
+#include "ROSModuleMavros.hpp"
 #include <map>
 
 
-Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
+ROSModuleMavros::ROSModuleMavros(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
 {
     this->monitor->getRobotsName(vName);
     
     vName = "";
     // Subscribers
     std::string topic = vName + "mavros/state";
-    subscribersList["mavros/state"] = node.subscribe<mavros_msgs::State>(topic, 10, &Alive::state_cb, this);
+    subscribersList["mavros/state"] = node.subscribe<mavros_msgs::State>(topic, 10, &ROSModuleMavros::state_cb, this);
     
     topic = vName + "/mavros/local_position/pose";
-    subscribersList["/mavros/local_position/pose"] = node.subscribe<geometry_msgs::PoseStamped>(topic, 10, &Alive::pose_cb, this);
+    subscribersList["/mavros/local_position/pose"] = node.subscribe<geometry_msgs::PoseStamped>(topic, 10, &ROSModuleMavros::pose_cb, this);
     
     topic = vName + "/mavros/global_position/compass_hdg";
-    subscribersList["/mavros/global_position/compass_hdg"] = node.subscribe<std_msgs::Float64>(topic, 10, &Alive::heading_cb, this);
+    subscribersList["/mavros/global_position/compass_hdg"] = node.subscribe<std_msgs::Float64>(topic, 10, &ROSModuleMavros::heading_cb, this);
     
     // Publishers
     topic = vName + "mavros/setpoint_raw/local";
@@ -34,14 +34,14 @@ Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(
     
 }
 
-Alive::~Alive()
+ROSModuleMavros::~ROSModuleMavros()
 {
     this->stop();
     this->monitor->conditional_ROSBridgeMessageList.notify_one();
 }
 
 //get armed state
-void Alive::state_cb(const mavros_msgs::State::ConstPtr& msg)
+void ROSModuleMavros::state_cb(const mavros_msgs::State::ConstPtr& msg)
 {
     this->current_state = *msg;
     bool connected = current_state.connected;
@@ -49,7 +49,7 @@ void Alive::state_cb(const mavros_msgs::State::ConstPtr& msg)
 }
 
 //get current position of drone
-void Alive::pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg)
+void ROSModuleMavros::pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg)
 {
     this->current_pose = *msg;
     s_pose pose;
@@ -83,7 +83,7 @@ void Alive::pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg)
 
 
 //get compass heading
-void Alive::heading_cb(const std_msgs::Float64::ConstPtr& msg)
+void ROSModuleMavros::heading_cb(const std_msgs::Float64::ConstPtr& msg)
 {
     this->current_heading = *msg;
     //ROS_INFO("current heading: %f", current_heading.data);
@@ -96,7 +96,7 @@ void Alive::heading_cb(const std_msgs::Float64::ConstPtr& msg)
 }
 
 //set orientation of the drone (drone should always be level)
-void Alive::setHeading(float heading)
+void ROSModuleMavros::setHeading(float heading)
 {
     heading = -heading + 90 - GYM_OFFSET;
     float yaw = heading*(M_PI/180);
@@ -122,7 +122,7 @@ void Alive::setHeading(float heading)
     
 }
 // set position to fly to in the gym frame
-void Alive::setDestination(float x, float y, float z)
+void ROSModuleMavros::setDestination(float x, float y, float z)
 {
     float deg2rad = (M_PI/180);
     float X = x*cos(-GYM_OFFSET*deg2rad) - y*sin(-GYM_OFFSET*deg2rad);
@@ -135,7 +135,7 @@ void Alive::setDestination(float x, float y, float z)
 }
 
 
-void Alive::run()
+void ROSModuleMavros::run()
 {
     vROSBridgeMessage = new s_ROSBridgeMessage;
     this->monitor->getROSBridgeMessage(*vROSBridgeMessage);

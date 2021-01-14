@@ -13,28 +13,46 @@
 
 // Core Modules
 #include "BlackBoard.hpp"
+#include "Logger.hpp"
 #include "dataTypes.hpp"
+#include "BatteryManager.hpp"
+#include "Agent.hpp"
 
 // Communication Modules
 #include "UDPBroadcast.hpp"
 #include "UDPReceiver.hpp"
 #include "UDPSender.hpp"
 
-#include "Alive.hpp"
+#include "Auction.hpp"
+#include "TaskModule.hpp"
+
+#include "ROSModuleTurtlebot.hpp"
 #include "ros/ros.h"
 
-#include "MissionManager.hpp"
+#include "GoToROS.hpp"
+#include "TurnOnSim.hpp"
+#include "ChageBatteryROS.hpp"
+#include "TakePictureSim.hpp"
 
-class TurtlebotRobot
+class TurtlebotRobot: public Agent
 {
 protected:
     bool decentralized;
+    Logger* logger;
     UDPBroadcast* broadcast;
     UDPReceiver* receiver;
     UDPSender* sender;
-    MissionManager* missionManager;
-    Alive* alive;
+    
+    BatteryManager* batteryManager;
+    
+    Auction* auction;
+    TaskModule* taskModule;
+    
+    ROSModuleRosbot* rosModule;
+    char mode[MAX_IP];
 public:
     TurtlebotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized); // SEND ARGS
     ~TurtlebotRobot();
+    virtual bool addAtomicTask(MissionExecution& vMissionDecomposable);
+    virtual void decomposableTaskList();
 #endif /* TurtlebotRobot_hpp */

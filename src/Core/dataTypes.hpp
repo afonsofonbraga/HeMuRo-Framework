@@ -27,7 +27,7 @@
 #define MAX_IP 16
 
 
-enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo, moveBaseGoal, takePicture};
+enum class enum_AtomicTask{null, chargeBattery, turnOn, goTo, moveBaseGoal, takePicture, arm, takeOff, land};
 enum class enum_DecomposableTask{null, checkPosition, lowBattery, takePicture, flightTest, deliverPicture}; //Trocar por DecomposableMission
 
 
