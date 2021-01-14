@@ -23,7 +23,8 @@
 #include "MissionRequest.hpp"
 #include "MissionExecution.hpp"
 
-#include "DecomposableTasks.hpp"
+//#include "DecomposableTasks.hpp"
+#include "Agent.hpp"
 
 class Auction: public Module
 {
@@ -32,6 +33,7 @@ private:
     char robotName[MAX_ROBOT_ID] = "null";
     std::map<std::string, MissionExecution> MissionList;
     std::unordered_map<std::string, MissionRequest> missionOwnerList;
+    Agent* agent;
     //MissionExecution missionToExecute;
     
 protected:
@@ -71,6 +73,7 @@ protected:
     
 public:
     Auction(BlackBoard* monitor);
+    Auction(BlackBoard* monitor, Agent* a);
     ~Auction();
 };
 #endif /* Auction_hpp */

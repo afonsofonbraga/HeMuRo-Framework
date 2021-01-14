@@ -13,7 +13,13 @@ Auction::Auction(BlackBoard* monitor) : Module(monitor)
 {
     this->monitor->getBroadcastIP(*this->broadcastIP);
     this->monitor->getRobotsName(*this->robotName);
-    decomposableTaskList(monitor);
+    
+}
+Auction::Auction(BlackBoard* monitor, Agent* a) : Module(monitor)
+{
+    this->monitor->getBroadcastIP(*this->broadcastIP);
+    this->monitor->getRobotsName(*this->robotName);
+    this->agent = a;
     
 }
 
@@ -164,7 +170,7 @@ void Auction::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessa
         this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
         this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
         
-        bool status = addAtomicTask(monitor, this->MissionList[vMissionMessage->missionCode]);
+        bool status = agent->addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
         
         //CHECK IF THERE IS ENOUGH BATTERY OR IF THE PATH IS FEASABLE
@@ -203,7 +209,7 @@ void Auction::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> vMission
         this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
         this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
         
-        bool status = addAtomicTask(monitor, this->MissionList[vMissionMessage->missionCode]);
+        bool status = agent->addAtomicTask( this->MissionList[vMissionMessage->missionCode]);
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
         // This one doesn't send back
     }

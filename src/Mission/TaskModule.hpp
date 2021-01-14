@@ -23,7 +23,8 @@
 #include "MissionRequest.hpp"
 #include "MissionExecution.hpp"
 
-#include "DecomposableTasks.hpp"
+#include "Agent.hpp"
+//#include "DecomposableTasks.hpp"
 
 class TaskModule: public Module
 {
@@ -37,6 +38,7 @@ private:
     bool emergency = false;
     std::mutex mutex_emergency;
     MissionExecution missionEmergency;
+    Agent* agent;
     
     
 protected:
@@ -64,6 +66,7 @@ protected:
     
 public:
     TaskModule(BlackBoard* monitor);
+    TaskModule(BlackBoard* monitor, Agent* a);
     ~TaskModule();
 };
 

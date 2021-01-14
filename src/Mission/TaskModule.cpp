@@ -12,8 +12,13 @@ TaskModule::TaskModule(BlackBoard* monitor) : Module(monitor)
 {
     this->monitor->getBroadcastIP(*this->broadcastIP);
     this->monitor->getRobotsName(*this->robotName);
-    decomposableTaskList(monitor);
     
+}
+TaskModule::TaskModule(BlackBoard* monitor, Agent* a) : Module(monitor)
+{
+    this->monitor->getBroadcastIP(*this->broadcastIP);
+    this->monitor->getRobotsName(*this->robotName);
+    this->agent = a;
 }
 
 TaskModule::~TaskModule()
@@ -192,7 +197,7 @@ void TaskModule::addTaskReceived(std::unique_ptr<s_TaskMessage> vTaskMessage)
         this->missionToExecute.executionTime = vTaskMessage->executionTime;
         
         
-        bool status = addAtomicTask(monitor, this->missionToExecute);
+        bool status = agent->addAtomicTask( this->missionToExecute);
         calculateMissionCost(this->missionToExecute);
         this->monitor->setCostToExecute(this->missionToExecute.missionCost);
         
@@ -270,7 +275,7 @@ void TaskModule::emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage)
         int totalSize = ((int*) vTaskMessage->attributesBuffer)[0];
         memcpy(vMission->attributesBuffer,&vTaskMessage->attributesBuffer, totalSize);
 
-        bool status = addAtomicTask(monitor, *vMission);
+        bool status = agent->addAtomicTask( *vMission);
         if (status == true)
         {
             calculateMissionCost(*vMission);
