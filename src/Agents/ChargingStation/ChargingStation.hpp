@@ -1,20 +1,20 @@
 //
-//  DefaultRobot.hpp
+//  ChargingStation.hpp
 //  MRSMac
 //
-//  Created by Afonso Braga on 02/09/20.
+//  Created by Afonso Braga on 03/09/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#ifndef DefaultRobot_hpp
-#define DefaultRobot_hpp
+#ifndef ChargingStation_hpp
+#define ChargingStation_hpp
 
 #include <stdio.h>
 
 // Core Modules
 #include "BlackBoard.hpp"
-#include "Logger.hpp"
 #include "dataTypes.hpp"
+#include "Logger.hpp"
 
 // Communication Modules
 #include "UDPBroadcast.hpp"
@@ -28,23 +28,26 @@
 #include "Auction.hpp"
 #include "TaskModule.hpp"
 
-class DefaultRobot
+#include "Agent.hpp"
+
+class ChargingStation: public Agent
 {
 protected:
+    
     bool decentralized;
     Logger* logger;
     UDPBroadcast* broadcast;
     UDPReceiver* receiver;
     UDPSender* sender;
-    MissionManager* missionManager;
+    //MissionManager* missionManager;
     
     Auction* auction;
     TaskModule* taskModule;
     
     BatteryManager* batteryManager;
-    char mode[MAX_IP];
+    
 public:
-    DefaultRobot(BlackBoard* monitor, bool decentralized); // SEND ARGS
-    ~DefaultRobot();
+    ChargingStation(BlackBoard* monitor, bool decentralized);
+    ~ChargingStation();
 };
-#endif /* DefaultRobot_hpp */
+#endif /* ChargingStation_hpp */

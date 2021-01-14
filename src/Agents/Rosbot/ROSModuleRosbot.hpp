@@ -1,13 +1,13 @@
 //
-//  Alive.hpp
+//  ROSModuleRosbot.hpp
 //  MRSFramework
 //
 //  Created by Afonso Braga on 26/08/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#ifndef Alive_hpp
-#define Alive_hpp
+#ifndef ROSModuleRosbot_hpp
+#define ROSModuleRosbot_hpp
 
 #include <string.h> /* memset() */
 #include <chrono> /* select() */
@@ -37,7 +37,7 @@
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-class Alive: public Module
+class ROSModuleRosbot: public Module
 {
 protected:
     s_ROSBridgeMessage* vROSBridgeMessage;
@@ -52,8 +52,8 @@ protected:
     std::string vName;
 public:
     
-    Alive(BlackBoard* monitor, ros::NodeHandle& vNode);
-    ~Alive();
+    ROSModuleRosbot(BlackBoard* monitor, ros::NodeHandle& vNode);
+    ~ROSModuleRosbot();
     //void error(const char* msg);                    // Print an error
 };
-#endif /* Alive_hpp */
+#endif /* ROSModuleRosbot_hpp */

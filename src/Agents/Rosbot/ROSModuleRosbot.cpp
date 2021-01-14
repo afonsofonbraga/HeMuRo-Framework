@@ -1,28 +1,28 @@
 //
-//  Alive.cpp
+//  ROSModuleRosbot.cpp
 //  MRSFramework
 //
 //  Created by Afonso Braga on 26/08/20.
 //  Copyright ? 2020 Afonso Braga. All rights reserved.
 //
 
-#include "Alive.hpp"
+#include "ROSModuleRosbot.hpp"
 #include <map>
 
 
 
 
 
-Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
+ROSModuleRosbot::ROSModuleRosbot(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
 {
     this->monitor->getRobotsName(vName);
     
     //Subscribers
     std::string topic = vName + "/odom";
-    subscribersList["odom"] = node.subscribe(topic, 1000, &Alive::callbackOdometry,this);
+    subscribersList["odom"] = node.subscribe(topic, 1000, &ROSModuleRosbot::callbackOdometry,this);
     
     topic = vName + "/battery/percent";
-    subscribersList["battery/percent"] = node.subscribe(topic, 1, &Alive::callbackBatteryPercentage,this);
+    subscribersList["battery/percent"] = node.subscribe(topic, 1, &ROSModuleRosbot::callbackBatteryPercentage,this);
     
     //Publishers
     topic = vName + "/cmd_vel";
@@ -42,14 +42,14 @@ Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(
     check_path = new ros::ServiceClient(node.serviceClient<nav_msgs::GetPlan>(topic));
 }
 
-Alive::~Alive()
+ROSModuleRosbot::~ROSModuleRosbot()
 {
     this->stop();
     this->monitor->conditional_ROSBridgeMessageList.notify_one();
     
 }
 
-void Alive::callbackOdometry(const nav_msgs::Odometry::ConstPtr& msg)
+void ROSModuleRosbot::callbackOdometry(const nav_msgs::Odometry::ConstPtr& msg)
 {
     //ROS_INFO("TurtleBot Position: [%f, %f, %f]", msg->x,msg->y,msg->theta);
     s_pose pose;
@@ -84,12 +84,12 @@ void Alive::callbackOdometry(const nav_msgs::Odometry::ConstPtr& msg)
     this->monitor->setPosition(pose);
 }
 
-void Alive::callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg)
+void ROSModuleRosbot::callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg)
 {
     this->monitor->setBatteryLevel(msg->data);
 }
 
-void Alive::run()
+void ROSModuleRosbot::run()
 {
     vROSBridgeMessage = new s_ROSBridgeMessage;
     

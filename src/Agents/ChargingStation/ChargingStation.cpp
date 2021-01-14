@@ -1,33 +1,32 @@
 //
-//  DefaultRobot.cpp
+//  ChargingStation.cpp
 //  MRSMac
 //
-//  Created by Afonso Braga on 02/09/20.
+//  Created by Afonso Braga on 03/09/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#include "DefaultRobot.hpp"
+#include "ChargingStation.hpp"
 
-DefaultRobot::DefaultRobot(BlackBoard* monitor, bool decentralized)
+ChargingStation::ChargingStation(BlackBoard* monitor, bool decentralized): Agent(monitor)
 {
-    strcpy(mode,"Robot");
     this->decentralized = decentralized;
-    monitor->setRobotCategory(enum_RobotCategory::usv);
-    broadcast = new UDPBroadcast(monitor);
+    monitor->setRobotCategory(enum_RobotCategory::chargingStation);
+
     sender = new UDPSender(monitor);
-    missionManager = new MissionManager(monitor);
-    
-    auction = new Auction(monitor);
-    taskModule = new TaskModule(monitor);
-    
+    broadcast = new UDPBroadcast(monitor);
+    char mode[] = "ChargingStation";
     batteryManager = new BatteryManager(monitor,mode);
+    //missionManager = new MissionManager(monitor);
     
-    //usleep(10000);
+    auction = new Auction(monitor, this);
+    taskModule = new TaskModule(monitor, this);
+    
     if (this->decentralized == true)
     {
         receiver = new UDPReceiver(monitor);
         logger = new Logger(monitor);
-        
+    
         logger->Module::start();
         receiver->start();
     }
@@ -36,11 +35,11 @@ DefaultRobot::DefaultRobot(BlackBoard* monitor, bool decentralized)
     broadcast->start();
     batteryManager->start();
     //missionManager->start();
-    auction->start();
     taskModule->start();
+    auction->start();
 }
 
-DefaultRobot::~DefaultRobot()
+ChargingStation::~ChargingStation()
 {
     delete this->broadcast;
     if (this->decentralized == true)
@@ -48,8 +47,9 @@ DefaultRobot::~DefaultRobot()
         delete this->receiver;
         delete this->logger;
     }
-        
+    
     delete this->sender;
-    delete this->missionManager;
+    //delete this->missionManager;
     delete this->batteryManager;
+    
 }

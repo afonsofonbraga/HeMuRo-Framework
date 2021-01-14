@@ -25,8 +25,9 @@
     #include "WebModule.hpp"
 #endif
 
+#include "Agent.hpp"
 
-class LoggerAgent
+class LoggerAgent: public Agent
 {
 protected:
     bool decentralized;

@@ -65,7 +65,7 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
                     
                 case enum_AtomicTask::arm :
                 {
-                    vAtomicTaskitem = std::make_shared<Arm>(monitor, currentPosition,currentPosition);
+                    vAtomicTaskitem = std::make_shared<ArmMavROS>(monitor, currentPosition,currentPosition);
                 }
                     
                     break;
@@ -75,7 +75,7 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
                     s_pose vPose;
                     vPose = currentPosition;
                     vPose.z = vMissionDecomposable.goal.z;
-                    vAtomicTaskitem = std::make_shared<TakeOff>(monitor, currentPosition,vPose);
+                    vAtomicTaskitem = std::make_shared<TakeOffMavROS>(monitor, currentPosition,vPose);
                     currentPosition = vPose;
                 }
                     
@@ -83,7 +83,7 @@ void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
                     
                 case enum_AtomicTask::land :
                 {
-                    vAtomicTaskitem = std::make_shared<Land>(monitor, currentPosition,currentPosition);
+                    vAtomicTaskitem = std::make_shared<LandMavROS>(monitor, currentPosition,currentPosition);
                 }
                     
                     break;

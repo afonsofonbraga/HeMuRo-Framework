@@ -1,16 +1,64 @@
 //
-//  DecomposableTasks.cpp
+//  RosbotRobot.cpp
 //  MRSMac
 //
-//  Created by Afonso Braga on 31/08/20.
+//  Created by Afonso Braga on 02/09/20.
 //  Copyright © 2020 Afonso Braga. All rights reserved.
 //
 
-#include "DecomposableTasks.hpp"
+#include "RosbotRobot.hpp"
 
-void decomposableTaskList(BlackBoard* monitor)
+RosbotRobot::RosbotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized)
 {
+    strcpy(mode,"Robot");
+    this->decentralized = decentralized;
+    monitor->setRobotCategory(enum_RobotCategory::ugv);
+    decomposableTaskList();
     
+    broadcast = new UDPBroadcast(monitor);
+    sender = new UDPSender(monitor);
+    
+    auction = new Auction(monitor, this);
+    taskModule = new TaskModule(monitor, this);
+    
+    batteryManager = new BatteryManager(monitor,mode);
+    
+    if (this->decentralized == true)
+    {
+        receiver = new UDPReceiver(monitor);
+        logger = new Logger(monitor);
+        
+        logger->Module::start();
+        receiver->start();
+    }
+    
+    rosModule = new ROSModuleRosbot(monitor, vNode);
+    sender->start();
+    broadcast->start();
+    rosModule->start();
+    batteryManager->start();
+    
+    auction->start();
+    taskModule->start();
+}
+
+RosbotRobot::~RosbotRobot()
+{
+    delete this->auction;
+    delete this->taskModule;
+    delete this->broadcast;
+    delete this->sender;
+    delete this->batteryManager;
+    if (this->decentralized == true)
+    {
+        delete this->receiver;
+        delete this->logger;
+    }
+    delete this->rosModule;
+}
+
+void RosbotRobot::decomposableTaskList()
+{
     std::vector<enum_AtomicTask> atomicTaskVector;
     atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
     enum_DecomposableTask dTask = enum_DecomposableTask::checkPosition;
@@ -36,52 +84,7 @@ void decomposableTaskList(BlackBoard* monitor)
     monitor->addDecomposableTaskList(dTask, atomicTaskVector);
 }
 
-void addAtomicTask2(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
-{
-    vMissionDecomposable.atomicTaskSequence.clear();
-    std::shared_ptr<AtomicTask> vAtomicTaskitem = nullptr;
-    s_pose currentPosition;
-    monitor->getPosition(currentPosition);
-    //std::queue<s_pose> goal = vMissionDecomposable.goal; // When working with the UDPReceiverSim this is necessary
-    
-    for (auto n : vMissionDecomposable.atomicTaskEnumerator){
-        switch(n){
-            case enum_AtomicTask::null :
-                break;
-            case enum_AtomicTask::goTo :
-                vAtomicTaskitem = std::make_shared<GoTo>(monitor, currentPosition,vMissionDecomposable.goal);
-                currentPosition = vMissionDecomposable.goal;
-                //goal.pop();
-                break;
-            case enum_AtomicTask::moveBaseGoal:
-                vAtomicTaskitem = std::make_shared<moveBaseGoal>(monitor, currentPosition,vMissionDecomposable.goal);
-                currentPosition = vMissionDecomposable.goal;
-                //goal.pop();
-                break;
-            case enum_AtomicTask::turnOn :
-                vAtomicTaskitem = std::make_shared<TurnOn>(monitor, currentPosition,currentPosition);
-                break;
-            case enum_AtomicTask::chargeBattery :
-                vAtomicTaskitem = std::make_shared<ChargeBattery>(monitor, currentPosition,currentPosition);
-                break;
-            case enum_AtomicTask::takePicture :
-                vAtomicTaskitem = std::make_shared<TakePicture>(monitor, currentPosition,currentPosition);
-                break;
-            default:
-                break;
-                
-        }
-        if (vAtomicTaskitem != nullptr)
-        {
-            vMissionDecomposable.atomicTaskSequence.push_back(std::move(vAtomicTaskitem));
-            //delete vAtomicTaskitem;
-        } else {
-            std::cout << "Not found\n";
-        }
-    }
-}
-
-bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
+bool RosbotRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
 {
     vMissionDecomposable.atomicTaskSequence.clear();
     std::shared_ptr<AtomicTask> vAtomicTaskitem = nullptr;
@@ -106,7 +109,7 @@ bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
                  temp += 4;
                  vAttribuites++;
                  s_pose goal = ((s_pose*) temp)[0];
-                 vAtomicTaskitem = std::make_shared<GoTo>(monitor, currentPosition, goal);
+                 vAtomicTaskitem = std::make_shared<GoToROS>(monitor, currentPosition, goal);
                  currentPosition = goal;
                  partialSize += vSize;
                  temp += vSize;
@@ -127,13 +130,13 @@ bool addAtomicTask(BlackBoard* monitor, MissionExecution& vMissionDecomposable)
                 break;
             }
             case enum_AtomicTask::turnOn :
-                vAtomicTaskitem = std::make_shared<TurnOn>(monitor, currentPosition,currentPosition);
+                vAtomicTaskitem = std::make_shared<TurnOnSim>(monitor, currentPosition,currentPosition);
                 break;
             case enum_AtomicTask::chargeBattery :
-                vAtomicTaskitem = std::make_shared<ChargeBattery>(monitor, currentPosition,currentPosition);
+                vAtomicTaskitem = std::make_shared<ChargeBatteryROS>(monitor, currentPosition,currentPosition);
                 break;
             case enum_AtomicTask::takePicture :
-                vAtomicTaskitem = std::make_shared<TakePicture>(monitor, currentPosition,currentPosition);
+                vAtomicTaskitem = std::make_shared<TakePictureSim>(monitor, currentPosition,currentPosition);
                 break;
             default:
                 break;
