@@ -8,7 +8,7 @@
 
 #include "GoToSim.hpp"
 
-GoToSim::GoToSim(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+GoToSim::GoToSim(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     costFactor = factor * (battery_discharge /(robots_max_speed*3600))/battery_capacity;
     calculateCost();

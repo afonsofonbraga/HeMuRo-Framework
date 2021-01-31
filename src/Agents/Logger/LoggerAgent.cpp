@@ -8,7 +8,7 @@
 
 #include "LoggerAgent.hpp"
 
-LoggerAgent::LoggerAgent(BlackBoard* monitor, bool decentralized): Agent(monitor)
+LoggerAgent::LoggerAgent(Blackboard* monitor, bool decentralized): Agent(monitor)
 {
     this->decentralized = decentralized;
     monitor->setRobotCategory(enum_RobotCategory::null);
@@ -26,7 +26,7 @@ LoggerAgent::LoggerAgent(BlackBoard* monitor, bool decentralized): Agent(monitor
     
 }
 
-LoggerAgent::LoggerAgent(BlackBoard* monitor, bool decentralized , int argc, char** argv): Agent(monitor)
+LoggerAgent::LoggerAgent(Blackboard* monitor, bool decentralized , int argc, char** argv): Agent(monitor)
 {
     this->decentralized = decentralized;
     monitor->setRobotCategory(enum_RobotCategory::null);

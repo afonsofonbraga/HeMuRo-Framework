@@ -10,7 +10,7 @@
 #include <map>
 
 
-ROSModuleMavros::ROSModuleMavros(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
+ROSModuleMavros::ROSModuleMavros(Blackboard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
 {
     this->monitor->getRobotsName(vName);
     
@@ -37,7 +37,7 @@ ROSModuleMavros::ROSModuleMavros(BlackBoard *monitor,ros::NodeHandle& vNode): Mo
 ROSModuleMavros::~ROSModuleMavros()
 {
     this->stop();
-    this->monitor->conditional_ROSBridgeMessageList.notify_one();
+    this->monitor->conditional_ROSModuleMessageList.notify_one();
 }
 
 //get armed state
@@ -137,12 +137,12 @@ void ROSModuleMavros::setDestination(float x, float y, float z)
 
 void ROSModuleMavros::run()
 {
-    vROSBridgeMessage = new s_ROSBridgeMessage;
-    this->monitor->getROSBridgeMessage(*vROSBridgeMessage);
+    vROSModuleMessage = new s_ROSModuleMessage;
+    this->monitor->getROSModuleMessage(*vROSModuleMessage);
     
-    if (vROSBridgeMessage != nullptr && this->isRunning == true)
+    if (vROSModuleMessage != nullptr && this->isRunning == true)
     {
-        if (strcmp(vROSBridgeMessage->topicName, "Arm" )== 0)
+        if (strcmp(vROSModuleMessage->topicName, "Arm" )== 0)
         {
             GYM_OFFSET = 0;
             for (int i = 1; i <= 1; ++i)
@@ -163,9 +163,9 @@ void ROSModuleMavros::run()
             else
                 ROS_ERROR("Failed arming");
         }
-        else if(strcmp(vROSBridgeMessage->topicName, "TakeOff") == 0)
+        else if(strcmp(vROSModuleMessage->topicName, "TakeOff") == 0)
         {
-            s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
+            s_pose vPose = ((s_pose*) vROSModuleMessage->buffer)[0];
             
             std::string service = vName + "/navigate";
             ros::ServiceClient nav_client = n.serviceClient<clover::Navigate>(service);
@@ -184,7 +184,7 @@ void ROSModuleMavros::run()
                 ROS_ERROR("Failed Takeoff");
             }
         }
-        else if(strcmp(vROSBridgeMessage->topicName, "Land") == 0)
+        else if(strcmp(vROSModuleMessage->topicName, "Land") == 0)
         {
             std::string service = vName + "/mavros/cmd/land";
             ros::ServiceClient land_client = node.serviceClient<mavros_msgs::CommandTOL>(service);
@@ -196,10 +196,10 @@ void ROSModuleMavros::run()
                 ROS_ERROR("Landing failed");
             }
         }
-        else if(strcmp(vROSBridgeMessage->topicName, "GoTo") == 0)
+        else if(strcmp(vROSModuleMessage->topicName, "GoTo") == 0)
         {
             //move forward
-            s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
+            s_pose vPose = ((s_pose*) vROSModuleMessage->buffer)[0];
             
             std::string service = vName + "/navigate";
             ros::ServiceClient nav_client = node.serviceClient<clover::Navigate>(service);

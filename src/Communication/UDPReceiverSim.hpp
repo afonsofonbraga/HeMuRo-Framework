@@ -23,7 +23,7 @@
 #include <netdb.h>
 #include <unistd.h>
 
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Module.hpp"
 #include "dataTypes.hpp"
 #define MAX_MSG 500
@@ -44,7 +44,7 @@ protected:
     
     std::thread t_main;         // Thread object
     bool isRunning;
-    std::unordered_map<std::string, BlackBoard*> robotsList;
+    std::unordered_map<std::string, Blackboard*> robotsList;
     virtual void mainThread();  // Configure the Tick
     virtual void run();         // Implementation
     
@@ -52,7 +52,7 @@ public:
     UDPReceiverSim();
     ~UDPReceiverSim();
     
-    void addRobot(BlackBoard* monitor);
+    void addRobot(Blackboard* monitor);
     bool getRunningStatus();    // Return isRunning variable
     void start();               // Start Thread
     virtual void stop();        // Pause Running Thread

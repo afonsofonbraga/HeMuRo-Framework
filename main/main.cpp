@@ -15,7 +15,7 @@
 #include <unordered_map>
 
 #include "dataTypes.hpp"
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "UDPReceiverSim.hpp"
 #include "LoggerAgent.hpp"
 
@@ -45,7 +45,7 @@ int main( int argc, char *argv[ ] )
         return 0;
     }
     
-    std::vector<BlackBoard *> v_BlackBoard; // = new std::vector<BlackBoard>;
+    std::vector<Blackboard *> v_Blackboard; // = new std::vector<Blackboard>;
     UDPReceiverSim* receiver = new UDPReceiverSim();
     
 #ifdef DEFAULT
@@ -73,33 +73,33 @@ int main( int argc, char *argv[ ] )
 #endif
     
     std::string robotsName = "Logger";
-    BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
-    v_BlackBoard.push_back(memory);
-    receiver->addRobot(v_BlackBoard.at(0));
+    Blackboard* memory = new Blackboard(robotsName, enum_RobotCategory::null);
+    v_Blackboard.push_back(memory);
+    receiver->addRobot(v_Blackboard.at(0));
     bool decentralizedCommunication = false;
-    LoggerAgent* logger = new LoggerAgent(v_BlackBoard.at(0), decentralizedCommunication);
+    LoggerAgent* logger = new LoggerAgent(v_Blackboard.at(0), decentralizedCommunication);
 
     for (int i = 1; i < argc; i++)
     {
         robotsName = argv[i];
-        BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
-        v_BlackBoard.push_back(memory);
-        receiver->addRobot(v_BlackBoard.at(i));
+        Blackboard* memory = new Blackboard(robotsName, enum_RobotCategory::null);
+        v_Blackboard.push_back(memory);
+        receiver->addRobot(v_Blackboard.at(i));
         decentralizedCommunication = false;
 #ifdef DEFAULT
-        DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
+        DefaultRobot* robot = new DefaultRobot(v_Blackboard.at(i), decentralizedCommunication);
 #endif
         
 #ifdef MAVROS
-        MavrosRobot* robot = new MavrosRobot(v_BlackBoard.at(i), n , decentralizedCommunication);
+        MavrosRobot* robot = new MavrosRobot(v_Blackboard.at(i), n , decentralizedCommunication);
 #endif
         
 #ifdef ROSBOT
-        RosbotRobot* robot = new RosbotRobot(v_BlackBoard.at(i), n, decentralizedCommunication);
+        RosbotRobot* robot = new RosbotRobot(v_Blackboard.at(i), n, decentralizedCommunication);
 #endif
         
 #ifdef TRUTLEBOT
-        TurtlebotRobot* robot = new TurtlebotRobot(v_BlackBoard.at(i), n, decentralizedCommunication);
+        TurtlebotRobot* robot = new TurtlebotRobot(v_Blackboard.at(i), n, decentralizedCommunication);
 #endif
         v_Robot.push_back(robot);
     }

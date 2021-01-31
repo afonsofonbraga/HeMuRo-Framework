@@ -15,7 +15,7 @@
 #include <chrono>
 #include <thread>
 
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "dataTypes.hpp"
 #include "Module.hpp"
 #include "WebApp.hpp"
@@ -54,12 +54,12 @@ namespace fs = boost::filesystem;
 class WebApp : public Wt::WContainerWidget
 {
 public:
-    WebApp(BlackBoard* monitor);
+    WebApp(Blackboard* monitor);
     ~WebApp();
     void                          insertTerminalLine();
     
 private:
-    BlackBoard*                   monitor;
+    Blackboard*                   monitor;
     Wt::WTable*                   table;
     std::unique_ptr<Wt::WTimer>   timer_;
     Wt::WTextArea*                terminal;

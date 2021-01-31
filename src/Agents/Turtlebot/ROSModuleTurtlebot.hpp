@@ -15,7 +15,7 @@
 #include <thread>
 #include <sys/time.h>
 
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Module.hpp"
 #include "dataTypes.hpp"
 
@@ -29,7 +29,7 @@
 class Alive: public Module
 {
 protected:
-    s_ROSBridgeMessage* vROSBridgeMessage;
+    s_ROSModuleMessage* vROSModuleMessage;
     void callbackPosition(const turtlesim::Pose::ConstPtr& msg);
     void callbackColor(const turtlesim::Color::ConstPtr& msg);
     void callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg);
@@ -40,7 +40,7 @@ protected:
     std::string vName;
 public:
     
-    Alive(BlackBoard* monitor, ros::NodeHandle& vNode);
+    Alive(Blackboard* monitor, ros::NodeHandle& vNode);
     ~Alive();
 
     //void error(const char* msg);                    // Print an error

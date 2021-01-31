@@ -19,7 +19,7 @@ class TakeOffMavROS: public AtomicTask
 protected:
     float costMeter = 1.0;
 public:
-    TakeOffMavROS(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    TakeOffMavROS(Blackboard* vMonitor, s_pose& start, s_pose& end);
     ~TakeOffMavROS();
     void run() override;
     void calculateCost() override;

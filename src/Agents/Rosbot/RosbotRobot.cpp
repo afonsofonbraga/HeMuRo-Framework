@@ -8,7 +8,7 @@
 
 #include "RosbotRobot.hpp"
 
-RosbotRobot::RosbotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized): Agent(monitor)
+RosbotRobot::RosbotRobot(Blackboard* monitor, ros::NodeHandle& vNode, bool decentralized): Agent(monitor)
 {
     strcpy(mode,"Robot");
     this->decentralized = decentralized;
@@ -123,7 +123,7 @@ bool RosbotRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
                 temp += 4;
                 vAttribuites++;
                 s_pose goal = ((s_pose*) temp)[0];
-                vAtomicTaskitem = std::make_shared<moveBaseGoal>(monitor, currentPosition, goal);
+                vAtomicTaskitem = std::make_shared<MoveBaseGoal>(monitor, currentPosition, goal);
                 currentPosition = goal;
                 partialSize += vSize;
                 temp += vSize;

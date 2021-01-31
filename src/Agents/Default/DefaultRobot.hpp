@@ -12,7 +12,7 @@
 #include <stdio.h>
 
 // Core Modules
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Logger.hpp"
 #include "dataTypes.hpp"
 #include "BatteryManager.hpp"
@@ -47,7 +47,7 @@ protected:
     BatteryManager* batteryManager;
     char mode[MAX_IP];
 public:
-    DefaultRobot(BlackBoard* monitor, bool decentralized); // SEND ARGS
+    DefaultRobot(Blackboard* monitor, bool decentralized); // SEND ARGS
     ~DefaultRobot();
     virtual bool addAtomicTask(MissionExecution& vMissionDecomposable);
     virtual void decomposableTaskList();

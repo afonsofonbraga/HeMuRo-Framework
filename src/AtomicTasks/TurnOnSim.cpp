@@ -9,7 +9,7 @@
 #include "TurnOnSim.hpp"
 
 
-TurnOnSim::TurnOnSim(BlackBoard* vMonitor,s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+TurnOnSim::TurnOnSim(Blackboard* vMonitor,s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     costFactor = 1.0;
     calculateCost();

@@ -15,7 +15,7 @@
 #include <map>
 #include <string>
 #include <math.h>
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Module.hpp"
 #include "dataTypes.hpp"
 
@@ -82,7 +82,7 @@ protected:
     void sendUDPMessage(s_BatteryMessage &vBatteryMessage, char &targetAddress, char& targetName);
         
 public:
-    BatteryManager(BlackBoard* monitor, char vMode[]);
+    BatteryManager(Blackboard* monitor, char vMode[]);
     ~BatteryManager();
 };
 

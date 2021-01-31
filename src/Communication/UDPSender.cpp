@@ -8,7 +8,7 @@
 
 #include "UDPSender.hpp"
 
-UDPSender::UDPSender(BlackBoard* monitor): Module(monitor)
+UDPSender::UDPSender(Blackboard* monitor): Module(monitor)
 {
     this->vSocket = socket(AF_INET,SOCK_DGRAM,0);
     if(this->vSocket<0)

@@ -8,7 +8,7 @@
 
 #include "TakePictureSim.hpp"
 
-TakePictureSim::TakePictureSim(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+TakePictureSim::TakePictureSim(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     costFactor = 1.0;
     calculateCost();

@@ -9,7 +9,7 @@
 #include <thread>
 #include <vector>
 #include <iostream>
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Module.hpp"
 #include "ModulePeriodic.hpp"
 #include <unordered_map>
@@ -23,7 +23,7 @@
 
 int main(){
     
-    std::vector<BlackBoard *> v_BlackBoard; // = new std::vector<BlackBoard>;
+    std::vector<Blackboard *> v_Blackboard; // = new std::vector<Blackboard>;
     std::vector<UDPBroadcast*> v_Broadcast;// = new std::vector<UDPBroadcast>;
     std::vector<UDPReceiver*> v_Receiver;
     std::vector<UDPSender*> v_Sender;
@@ -49,12 +49,12 @@ int main(){
     //auto n = nomes.at(1);
     {
         //std::string nome = "Robo" + std::to_string(i);
-        BlackBoard* memory = new BlackBoard(n);
-        v_BlackBoard.push_back(memory);
-        UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
-        UDPReceiver* receiver = new UDPReceiver(v_BlackBoard.at(i));
-        UDPSender* sender = new UDPSender(v_BlackBoard.at(i));
-        TaskManager* taskManager = new TaskManager(v_BlackBoard.at(i));
+        Blackboard* memory = new Blackboard(n);
+        v_Blackboard.push_back(memory);
+        UDPBroadcast* broadcast = new UDPBroadcast(v_Blackboard.at(i));
+        UDPReceiver* receiver = new UDPReceiver(v_Blackboard.at(i));
+        UDPSender* sender = new UDPSender(v_Blackboard.at(i));
+        TaskManager* taskManager = new TaskManager(v_Blackboard.at(i));
         v_Broadcast.push_back(broadcast);
         v_Receiver.push_back(receiver);
         v_TaskManager.push_back(taskManager);
@@ -77,16 +77,16 @@ int main(){
 
     message.messageSize = sizeof(message.buffer);
 
-    v_BlackBoard.at(0)->addUDPMessage(message);
+    v_Blackboard.at(0)->addUDPMessage(message);
     
     //for(int j=0; j< 1; j++)
     //{
-     //   v_BlackBoard.at(j)->addTask(discharge);
-      //  v_BlackBoard.at(j)->addTask(walk);
-       // v_BlackBoard.at(j)->addTask(charge);
+     //   v_Blackboard.at(j)->addTask(discharge);
+      //  v_Blackboard.at(j)->addTask(walk);
+       // v_Blackboard.at(j)->addTask(charge);
     //}
     for (int j=0; j<100;j++){
-        v_BlackBoard.at(1)->addUDPMessage(message);
+        v_Blackboard.at(1)->addUDPMessage(message);
     }
     std::this_thread::sleep_for(std::chrono::seconds(100));
     

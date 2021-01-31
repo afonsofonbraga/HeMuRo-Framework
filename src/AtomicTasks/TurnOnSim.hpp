@@ -11,13 +11,13 @@
 
 #include "AtomicTask.hpp"
 #include <cmath>
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 
 class TurnOnSim: public AtomicTask
 {
 protected:
 public:
-    TurnOnSim(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    TurnOnSim(Blackboard* vMonitor, s_pose& start, s_pose& end);
     ~TurnOnSim();
     void run() override;
     void calculateCost() override;

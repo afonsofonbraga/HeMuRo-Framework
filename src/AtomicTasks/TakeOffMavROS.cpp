@@ -8,7 +8,7 @@
 
 #include "TakeOffMavROS.hpp"
 
-TakeOffMavROS::TakeOffMavROS(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+TakeOffMavROS::TakeOffMavROS(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     calculateCost();
 }
@@ -44,10 +44,10 @@ void TakeOffMavROS::run()
                     this->status = enum_AtomicTaskStatus::completed;
                 } else
                 {
-                    s_ROSBridgeMessage teste;
+                    s_ROSModuleMessage teste;
                     strcpy(teste.topicName,"TakeOff");
                     memmove(teste.buffer,(char*)&this->endPosition,sizeof(this->endPosition));
-                    this->monitor->addROSBridgeMessage(teste);
+                    this->monitor->addROSModuleMessage(teste);
                     usleep(10000000); //Vamos Precisar de um buffer
                     std::cout << "subiu" << std::endl;
                 }

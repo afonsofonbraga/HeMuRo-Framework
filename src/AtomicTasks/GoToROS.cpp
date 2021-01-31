@@ -10,7 +10,7 @@
 #include "GoToROS.hpp"
 #include <map>
 
-GoToROS::GoToROS(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+GoToROS::GoToROS(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     costFactor = factor * (battery_discharge /(robots_max_speed*3600))/battery_capacity;
     calculateCost();
@@ -77,10 +77,10 @@ void GoToROS::run()
                     
                 }
                 
-                s_ROSBridgeMessage teste;
+                s_ROSModuleMessage teste;
                 strcpy(teste.topicName,"GoTo");
                 memmove(teste.buffer,(char*)&vCmdvel,sizeof(vCmdvel));
-                this->monitor->addROSBridgeMessage(teste);
+                this->monitor->addROSModuleMessage(teste);
             }
             
             t0 = t0 + this->tick;

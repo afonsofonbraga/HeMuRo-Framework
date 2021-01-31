@@ -33,7 +33,7 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include <unistd.h>
 
 
@@ -41,12 +41,12 @@ class Module{
 protected:
     std::thread t_main;          /*!< Thread object */
     bool isRunning;              /*!< Boolean status */
-    BlackBoard *monitor;         /*!< Blackboard monitor*/
+    Blackboard *monitor;         /*!< Blackboard monitor*/
     virtual void mainThread();   /*!< Configure the Tick*/
     virtual void run();          /*!< Implementation*/
     
 public:
-    Module(BlackBoard *monitor); /*!<  Constructor */
+    Module(Blackboard *monitor); /*!<  Constructor */
     ~Module();                   /*!< Destructor */
     
     bool getRunningStatus();     /*!< \brief Return true if Module is running.

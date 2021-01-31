@@ -8,7 +8,7 @@
 
 #include "LandMavROS.hpp"
 
-LandMavROS::LandMavROS(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+LandMavROS::LandMavROS(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     calculateCost();
 }
@@ -29,9 +29,9 @@ void LandMavROS::run()
         case enum_AtomicTaskStatus::running:
         {
             std::cout << "Landing."<< std::endl;
-            s_ROSBridgeMessage teste;
+            s_ROSModuleMessage teste;
             strcpy(teste.topicName,"Land");
-            this->monitor->addROSBridgeMessage(teste);
+            this->monitor->addROSModuleMessage(teste);
             this->status = enum_AtomicTaskStatus::completed;
             break;
         }

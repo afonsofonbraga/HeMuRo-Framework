@@ -10,7 +10,7 @@
 
 
 
-ChargeBatterySim::ChargeBatterySim(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+ChargeBatterySim::ChargeBatterySim(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     this->costFactor = 2.0;
     calculateCost();

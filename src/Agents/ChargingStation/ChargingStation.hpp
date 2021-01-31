@@ -12,7 +12,7 @@
 #include <stdio.h>
 
 // Core Modules
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "dataTypes.hpp"
 #include "Logger.hpp"
 
@@ -20,8 +20,6 @@
 #include "UDPBroadcast.hpp"
 #include "UDPReceiver.hpp"
 #include "UDPSender.hpp"
-
-#include "MissionManager.hpp"
 
 #include "BatteryManager.hpp"
 
@@ -47,7 +45,7 @@ protected:
     BatteryManager* batteryManager;
     
 public:
-    ChargingStation(BlackBoard* monitor, bool decentralized);
+    ChargingStation(Blackboard* monitor, bool decentralized);
     ~ChargingStation();
 };
 #endif /* ChargingStation_hpp */

@@ -18,7 +18,7 @@ class ArmMavROS: public AtomicTask
 protected:
     float costMeter = 1.0;
 public:
-    ArmMavROS(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    ArmMavROS(Blackboard* vMonitor, s_pose& start, s_pose& end);
     ~ArmMavROS();
     void run() override;
     void calculateCost() override;

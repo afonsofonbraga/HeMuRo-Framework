@@ -14,7 +14,7 @@
 #include <map>
 #include <string>
 
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Module.hpp"
 #include "dataTypes.hpp"
 #include "AtomicTask.hpp"
@@ -65,8 +65,8 @@ protected:
     void missionRequestController(char* missionID);
     
 public:
-    TaskModule(BlackBoard* monitor);
-    TaskModule(BlackBoard* monitor, Agent* a);
+    TaskModule(Blackboard* monitor);
+    TaskModule(Blackboard* monitor, Agent* a);
     ~TaskModule();
 };
 

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <unordered_map>
 
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "dataTypes.hpp"
 #include "UDPReceiverSim.hpp"
 
@@ -105,37 +105,37 @@ int main(int argc, char **argv){
     int numberOfRobots = 1; // Number of robots that will be executing the tasks
     int defaultAgents = 0; // Number of Agents including Logger and Charging Stations
     
-    std::vector<BlackBoard* > v_BlackBoard; // = new std::vector<BlackBoard>;
+    std::vector<Blackboard* > v_Blackboard; // = new std::vector<Blackboard>;
     std::vector<DefaultRobot* > v_DefaultRobot;
     std::vector<ChargingStation* > v_ChargingStation;
     UDPReceiverSim* receiver = new UDPReceiverSim();
     LoggerAgent* logger;
     
     std::string robotsName = "Logger";
-    BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
-    v_BlackBoard.push_back(memory);
+    Blackboard* memory = new Blackboard(robotsName, enum_RobotCategory::null);
+    v_Blackboard.push_back(memory);
     bool decentralizedCommunication = false;
-    logger = new LoggerAgent(v_BlackBoard.at(defaultAgents), decentralizedCommunication, argc, argv);
-    receiver->addRobot(v_BlackBoard.at(defaultAgents));
+    logger = new LoggerAgent(v_Blackboard.at(defaultAgents), decentralizedCommunication, argc, argv);
+    receiver->addRobot(v_Blackboard.at(defaultAgents));
     defaultAgents++;
     
     robotsName = "CStation1";
-    memory = new BlackBoard(robotsName, enum_RobotCategory::null);
-    v_BlackBoard.push_back(memory);
-    v_BlackBoard.at(defaultAgents)->setPosition(chargingStation_01);
-    ChargingStation* station = new ChargingStation(v_BlackBoard.at(defaultAgents), decentralizedCommunication);
-    receiver->addRobot(v_BlackBoard.at(defaultAgents));
+    memory = new Blackboard(robotsName, enum_RobotCategory::null);
+    v_Blackboard.push_back(memory);
+    v_Blackboard.at(defaultAgents)->setPosition(chargingStation_01);
+    ChargingStation* station = new ChargingStation(v_Blackboard.at(defaultAgents), decentralizedCommunication);
+    receiver->addRobot(v_Blackboard.at(defaultAgents));
     v_ChargingStation.push_back(station);
     defaultAgents++;
     
     
     robotsName = "CStation2";
-    memory = new BlackBoard(robotsName, enum_RobotCategory::null);
-    v_BlackBoard.push_back(memory);
-    v_BlackBoard.at(defaultAgents)->setPosition(chargingStation_02);
+    memory = new Blackboard(robotsName, enum_RobotCategory::null);
+    v_Blackboard.push_back(memory);
+    v_Blackboard.at(defaultAgents)->setPosition(chargingStation_02);
     v_ChargingStation.push_back(station);
-    station = new ChargingStation(v_BlackBoard.at(defaultAgents), decentralizedCommunication);
-    receiver->addRobot(v_BlackBoard.at(defaultAgents));
+    station = new ChargingStation(v_Blackboard.at(defaultAgents), decentralizedCommunication);
+    receiver->addRobot(v_Blackboard.at(defaultAgents));
     v_ChargingStation.push_back(station);
     defaultAgents++;
     
@@ -143,11 +143,11 @@ int main(int argc, char **argv){
      for (int i=defaultAgents; i-defaultAgents< numberOfRobots; i++)
      {
      std::string robotsName = name + std::to_string(i-defaultAgents);
-     BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
-     v_BlackBoard.push_back(memory);
+     Blackboard* memory = new Blackboard(robotsName, enum_RobotCategory::null);
+     v_Blackboard.push_back(memory);
      bool decentralizedCommunication = false;
-     DefaultRobot* robot = new DefaultRobot(v_BlackBoard.at(i), decentralizedCommunication);
-     receiver->addRobot(v_BlackBoard.at(i));
+     DefaultRobot* robot = new DefaultRobot(v_Blackboard.at(i), decentralizedCommunication);
+     receiver->addRobot(v_Blackboard.at(i));
      v_DefaultRobot.push_back(robot);
      usleep(1000);
      }
@@ -156,18 +156,18 @@ int main(int argc, char **argv){
     
     
     
-    std::cout << "Time to send a Mission!!!!!"<< std::endl;
+    //std::cout << "Time to send a Mission!!!!!"<< std::endl;
     
     s_MissionMessage mission;
-    v_BlackBoard.at(1)->getRobotsIP(*vIP);
-    v_BlackBoard.at(1)->getRobotsName(*mission.senderName);
+    v_Blackboard.at(1)->getRobotsIP(*vIP);
+    v_Blackboard.at(1)->getRobotsName(*mission.senderName);
     strcpy(mission.senderAddress , vIP);
     mission.operation = enum_MissionOperation::createMission;
     
     s_UDPMessage message;
     strcpy(message.address , vIP);
     Operation operation = Operation::missionMessage;
-    v_BlackBoard.at(1)->getRobotsName(*message.name);
+    v_Blackboard.at(1)->getRobotsName(*message.name);
     
     {
         strcpy(mission.missionCode, "Task2");
@@ -195,7 +195,7 @@ int main(int argc, char **argv){
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
         message.messageSize = sizeof(message.buffer);
         
-        v_BlackBoard.at(1)->addUDPMessage(message);
+        v_Blackboard.at(1)->addUDPMessage(message);
     }
     
     {
@@ -228,7 +228,7 @@ int main(int argc, char **argv){
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
         message.messageSize = sizeof(message.buffer);
         
-        v_BlackBoard.at(1)->addUDPMessage(message);
+        v_Blackboard.at(1)->addUDPMessage(message);
     }
     
     {
@@ -254,7 +254,7 @@ int main(int argc, char **argv){
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
         message.messageSize = sizeof(message.buffer);
         
-        v_BlackBoard.at(1)->addUDPMessage(message);
+        v_Blackboard.at(1)->addUDPMessage(message);
     }
     
     {
@@ -281,7 +281,7 @@ int main(int argc, char **argv){
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
         message.messageSize = sizeof(message.buffer);
         
-        v_BlackBoard.at(1)->addUDPMessage(message);
+        v_Blackboard.at(1)->addUDPMessage(message);
     }
     while (std::getchar() != 'c'){}
     return 0;

@@ -8,7 +8,7 @@
 
 #include "UDPReceiver.hpp"
 
-UDPReceiver::UDPReceiver(BlackBoard *monitor): Module(monitor)
+UDPReceiver::UDPReceiver(Blackboard *monitor): Module(monitor)
 {
     this->vSocket = socket(AF_INET,SOCK_DGRAM,0);
     if(this->vSocket<0)
@@ -96,6 +96,14 @@ void UDPReceiver::dataTreatment(char *mensagem)
         {
             s_BatteryMessage batteryMessage = ((s_BatteryMessage*) temp)[0];
             this->monitor->addBatteryMessage(batteryMessage);
+            break;
+        }
+        case Operation::loggerMessage:
+        {
+            s_LoggerMessage loggerMessage;// = ((s_LoggerMessage*) temp[0]);
+            
+            memcpy(&loggerMessage,temp,sizeof(s_LoggerMessage));
+            this->monitor->addLoggerMessage(loggerMessage);
             break;
         }
         default:

@@ -8,7 +8,7 @@
 
 #include "Module.hpp"
 
-Module::Module(BlackBoard *monitor)
+Module::Module(Blackboard *monitor)
 {
     this->monitor = monitor;
     this->isRunning = false;

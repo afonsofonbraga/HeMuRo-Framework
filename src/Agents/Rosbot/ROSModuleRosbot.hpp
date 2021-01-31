@@ -17,7 +17,7 @@
 #include <math.h>
 #include <sys/time.h>
 
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Module.hpp"
 #include "dataTypes.hpp"
 
@@ -40,7 +40,7 @@ typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseCl
 class ROSModuleRosbot: public Module
 {
 protected:
-    s_ROSBridgeMessage* vROSBridgeMessage;
+    s_ROSModuleMessage* vROSModuleMessage;
     MoveBaseClient* ac;
     ros::ServiceClient* check_path;
     void callbackOdometry(const nav_msgs::Odometry::ConstPtr& msg);
@@ -52,7 +52,7 @@ protected:
     std::string vName;
 public:
     
-    ROSModuleRosbot(BlackBoard* monitor, ros::NodeHandle& vNode);
+    ROSModuleRosbot(Blackboard* monitor, ros::NodeHandle& vNode);
     ~ROSModuleRosbot();
     //void error(const char* msg);                    // Print an error
 };

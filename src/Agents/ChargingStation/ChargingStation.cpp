@@ -8,7 +8,7 @@
 
 #include "ChargingStation.hpp"
 
-ChargingStation::ChargingStation(BlackBoard* monitor, bool decentralized): Agent(monitor)
+ChargingStation::ChargingStation(Blackboard* monitor, bool decentralized): Agent(monitor)
 {
     this->decentralized = decentralized;
     monitor->setRobotCategory(enum_RobotCategory::chargingStation);

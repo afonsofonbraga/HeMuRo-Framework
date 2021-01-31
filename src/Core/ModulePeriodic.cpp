@@ -9,11 +9,11 @@
 #include "ModulePeriodic.hpp"
 
 
-ModulePeriodic::ModulePeriodic(BlackBoard *monitor): Module(monitor){
+ModulePeriodic::ModulePeriodic(Blackboard *monitor): Module(monitor){
     
 }
 
-ModulePeriodic::ModulePeriodic(BlackBoard* monitor, int vTick): Module(monitor){
+ModulePeriodic::ModulePeriodic(Blackboard* monitor, int vTick): Module(monitor){
     this->tick = std::chrono::milliseconds(vTick);
 }
 

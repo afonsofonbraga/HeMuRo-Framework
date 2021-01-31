@@ -8,7 +8,7 @@
 
 #include "WebApp.hpp"
 
-WebApp::WebApp(BlackBoard* monitor): WContainerWidget()
+WebApp::WebApp(Blackboard* monitor): WContainerWidget()
 {
     this->monitor = monitor;
     
@@ -92,7 +92,7 @@ void WebApp::updateAgentList()
     int row = 0;
     std::unordered_map<std::string, s_BroadcastMessage> robots;
     this->monitor->getAllRobotsPosition(robots);
-    //for (auto n : this->v_BlackBoard.at(0)->mapRobotsPosition)
+    //for (auto n : this->v_Blackboard.at(0)->mapRobotsPosition)
     std::string category;
     std::string img;
     std::string status;

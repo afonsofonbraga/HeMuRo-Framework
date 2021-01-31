@@ -91,7 +91,7 @@ void UDPReceiverSim::stop()
     this->isRunning = false;
 }
 
-void UDPReceiverSim::addRobot(BlackBoard *monitor)
+void UDPReceiverSim::addRobot(Blackboard *monitor)
 {
     std::string name;
     monitor->getRobotsName(name);

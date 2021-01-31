@@ -9,13 +9,13 @@
 #include "Auction.hpp"
 
 
-Auction::Auction(BlackBoard* monitor) : Module(monitor)
+Auction::Auction(Blackboard* monitor) : Module(monitor)
 {
     this->monitor->getBroadcastIP(*this->broadcastIP);
     this->monitor->getRobotsName(*this->robotName);
     
 }
-Auction::Auction(BlackBoard* monitor, Agent* a) : Module(monitor)
+Auction::Auction(Blackboard* monitor, Agent* a) : Module(monitor)
 {
     this->monitor->getBroadcastIP(*this->broadcastIP);
     this->monitor->getRobotsName(*this->robotName);

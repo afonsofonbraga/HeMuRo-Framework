@@ -24,7 +24,7 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Module.hpp"
 
 
@@ -34,8 +34,8 @@ protected:
     void run() override ;                                                /*!< Thread Implementation */
     std::chrono::milliseconds tick = std::chrono::milliseconds(1000);    /*!< Threads period */
 public:
-    ModulePeriodic(BlackBoard* monitor);                                 /*!< Constructor with a Default Period */
-    ModulePeriodic(BlackBoard* monitor, int vTick);                      /*!< Ordnary Constructor */
+    ModulePeriodic(Blackboard* monitor);                                 /*!< Constructor with a Default Period */
+    ModulePeriodic(Blackboard* monitor, int vTick);                      /*!< Ordnary Constructor */
     ~ModulePeriodic();                                                   /*!< Destructor */
 };
 

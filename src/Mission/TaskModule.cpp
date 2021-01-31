@@ -8,13 +8,13 @@
 
 #include "TaskModule.hpp"
 
-TaskModule::TaskModule(BlackBoard* monitor) : Module(monitor)
+TaskModule::TaskModule(Blackboard* monitor) : Module(monitor)
 {
     this->monitor->getBroadcastIP(*this->broadcastIP);
     this->monitor->getRobotsName(*this->robotName);
     
 }
-TaskModule::TaskModule(BlackBoard* monitor, Agent* a) : Module(monitor)
+TaskModule::TaskModule(Blackboard* monitor, Agent* a) : Module(monitor)
 {
     this->monitor->getBroadcastIP(*this->broadcastIP);
     this->monitor->getRobotsName(*this->robotName);

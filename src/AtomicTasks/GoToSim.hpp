@@ -30,7 +30,7 @@ protected:
     float alpha_t = 0;
     float v = 0;
 public:
-    GoToSim(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    GoToSim(Blackboard* vMonitor, s_pose& start, s_pose& end);
     ~GoToSim();
     void run() override;
     void calculateCost() override;

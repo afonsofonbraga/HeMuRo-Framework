@@ -8,7 +8,7 @@
 
 #include "DefaultRobot.hpp"
 
-DefaultRobot::DefaultRobot(BlackBoard* monitor, bool decentralized): Agent(monitor)
+DefaultRobot::DefaultRobot(Blackboard* monitor, bool decentralized): Agent(monitor)
 {
     strcpy(mode,"Robot");
     this->decentralized = decentralized;

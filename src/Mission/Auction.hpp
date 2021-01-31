@@ -14,7 +14,7 @@
 #include <map>
 #include <string>
 
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Module.hpp"
 #include "dataTypes.hpp"
 #include "AtomicTask.hpp"
@@ -72,8 +72,8 @@ protected:
     void missionRequestController(char* missionID);
     
 public:
-    Auction(BlackBoard* monitor);
-    Auction(BlackBoard* monitor, Agent* a);
+    Auction(Blackboard* monitor);
+    Auction(Blackboard* monitor, Agent* a);
     ~Auction();
 };
 #endif /* Auction_hpp */

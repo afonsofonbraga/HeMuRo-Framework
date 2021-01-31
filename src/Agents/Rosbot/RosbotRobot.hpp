@@ -12,7 +12,7 @@
 #include <stdio.h>
 
 // Core Modules
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Logger.hpp"
 #include "dataTypes.hpp"
 #include "BatteryManager.hpp"
@@ -32,7 +32,7 @@
 #include "GoToROS.hpp"
 #include "MoveBaseGoal.hpp"
 #include "TurnOnSim.hpp"
-#include "ChageBatteryROS.hpp"
+#include "ChargeBatteryROS.hpp"
 #include "TakePictureSim.hpp"
 
 class RosbotRobot: public Agent
@@ -52,7 +52,7 @@ protected:
     ROSModuleRosbot* rosModule;
     char mode[MAX_IP];
 public:
-    RosbotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized); // SEND ARGS
+    RosbotRobot(Blackboard* monitor, ros::NodeHandle& vNode, bool decentralized); // SEND ARGS
     ~RosbotRobot();
     virtual bool addAtomicTask(MissionExecution& vMissionDecomposable);
     virtual void decomposableTaskList();

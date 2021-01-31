@@ -151,7 +151,7 @@ struct s_LoggerMessage
 };
 
 
-struct s_ROSBridgeMessage
+struct s_ROSModuleMessage
 {
     char topicName[30] = "null";
     char buffer[500]="null";

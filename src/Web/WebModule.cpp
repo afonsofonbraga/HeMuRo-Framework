@@ -8,7 +8,7 @@
 #include "WebModule.hpp"
 
 
-WebModule::WebModule(BlackBoard* monitor, int argc, char **argv)
+WebModule::WebModule(Blackboard* monitor, int argc, char **argv)
 : Module(monitor)
 {
     this->monitor = monitor;
@@ -23,7 +23,7 @@ WebModule::~WebModule()
 
 void WebModule::run()
 {
-    BlackBoard* monitor2 = monitor;
+    Blackboard* monitor2 = monitor;
     /*Wt::WRun(argc, argv, [monitor2](const Wt::WEnvironment &env) {
      return std::make_unique<WebApp>(env,monitor2);
      });*/

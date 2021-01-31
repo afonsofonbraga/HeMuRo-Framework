@@ -10,7 +10,7 @@
 #define Agent_hpp
 
 #include <stdio.h>
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "dataTypes.hpp"
 #include "MissionExecution.hpp"
 
@@ -23,9 +23,9 @@ class Agent
 {
 private:
 protected:
-    BlackBoard* monitor;
+    Blackboard* monitor;
 public:
-    Agent(BlackBoard* monitor);
+    Agent(Blackboard* monitor);
     ~Agent();
     virtual bool addAtomicTask(MissionExecution& vMissionDecomposable);
     virtual void decomposableTaskList();

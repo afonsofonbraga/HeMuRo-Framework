@@ -12,7 +12,7 @@
 #include <stdio.h>
 
 // Core Modules
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Logger.hpp"
 #include "dataTypes.hpp"
 #include "BatteryManager.hpp"
@@ -32,7 +32,7 @@
 
 #include "GoToROS.hpp"
 #include "TurnOnSim.hpp"
-#include "ChageBatteryROS.hpp"
+#include "ChargeBatteryROS.hpp"
 #include "TakePictureSim.hpp"
 #include "ArmMavROS.hpp"
 #include "TakeOffMavROS.hpp"
@@ -54,7 +54,7 @@ protected:
     ROSModuleMavros* rosModule;
     char mode[MAX_IP];
 public:
-    MavrosRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized); // SEND ARGS
+    MavrosRobot(Blackboard* monitor, ros::NodeHandle& vNode, bool decentralized); // SEND ARGS
     ~MavrosRobot();
     virtual bool addAtomicTask(MissionExecution& vMissionDecomposable);
     virtual void decomposableTaskList();

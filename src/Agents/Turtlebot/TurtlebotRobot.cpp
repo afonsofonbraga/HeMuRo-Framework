@@ -8,7 +8,7 @@
 
 #include "TurtlebotRobot.hpp"
 
-TurtlebotRobot::TurtlebotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized): Agent(monitor)
+TurtlebotRobot::TurtlebotRobot(Blackboard* monitor, ros::NodeHandle& vNode, bool decentralized): Agent(monitor)
 {
     strcpy(mode,"Robot");
     this->decentralized = decentralized;

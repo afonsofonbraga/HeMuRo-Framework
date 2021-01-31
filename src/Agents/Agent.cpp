@@ -8,7 +8,7 @@
 
 #include "Agent.hpp"
 
-Agent::Agent(BlackBoard* monitor)
+Agent::Agent(Blackboard* monitor)
 {
     this->monitor = monitor;
 }

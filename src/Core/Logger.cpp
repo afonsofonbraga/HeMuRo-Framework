@@ -8,7 +8,7 @@
 
 #include "Logger.hpp"
 /*
-Logger::Logger(BlackBoard* monitor, int argc, char **argv) : Module(monitor)
+Logger::Logger(Blackboard* monitor, int argc, char **argv) : Module(monitor)
 {
     this->constructor();
     
@@ -16,7 +16,7 @@ Logger::Logger(BlackBoard* monitor, int argc, char **argv) : Module(monitor)
     webmodule->Module::start();
 }*/
 
-Logger::Logger(BlackBoard* monitor): Module(monitor)
+Logger::Logger(Blackboard* monitor): Module(monitor)
 {
     this->constructor();
 }

@@ -17,7 +17,7 @@
 #include <math.h>
 #include <sys/time.h>
 
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Module.hpp"
 #include "dataTypes.hpp"
 
@@ -38,7 +38,7 @@
 class ROSModuleMavros: public Module
 {
 protected:
-    s_ROSBridgeMessage* vROSBridgeMessage;
+    s_ROSModuleMessage* vROSModuleMessage;
     virtual void run() override;
     std::map <std::string, ros::Publisher> publishersList;
     std::map <std::string, ros::Subscriber> subscribersList;
@@ -62,7 +62,7 @@ protected:
     
 public:
     
-    ROSModuleMavros(BlackBoard* monitor, ros::NodeHandle& vNode);
+    ROSModuleMavros(Blackboard* monitor, ros::NodeHandle& vNode);
     ~ROSModuleMavros();
     //void error(const char* msg);                    // Print an error
 };

@@ -12,7 +12,7 @@
 #include <stdio.h>
 
 // Core Modules
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Logger.hpp"
 #include "dataTypes.hpp"
 #include "BatteryManager.hpp"
@@ -31,7 +31,7 @@
 
 #include "GoToROS.hpp"
 #include "TurnOnSim.hpp"
-#include "ChageBatteryROS.hpp"
+#include "ChargeBatteryROS.hpp"
 #include "TakePictureSim.hpp"
 
 class TurtlebotRobot: public Agent
@@ -51,7 +51,7 @@ protected:
     ROSModuleRosbot* rosModule;
     char mode[MAX_IP];
 public:
-    TurtlebotRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized); // SEND ARGS
+    TurtlebotRobot(Blackboard* monitor, ros::NodeHandle& vNode, bool decentralized); // SEND ARGS
     ~TurtlebotRobot();
     virtual bool addAtomicTask(MissionExecution& vMissionDecomposable);
     virtual void decomposableTaskList();

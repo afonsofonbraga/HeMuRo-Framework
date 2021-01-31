@@ -13,7 +13,7 @@
 
 
 
-ROSModuleRosbot::ROSModuleRosbot(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
+ROSModuleRosbot::ROSModuleRosbot(Blackboard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
 {
     this->monitor->getRobotsName(vName);
     
@@ -45,7 +45,7 @@ ROSModuleRosbot::ROSModuleRosbot(BlackBoard *monitor,ros::NodeHandle& vNode): Mo
 ROSModuleRosbot::~ROSModuleRosbot()
 {
     this->stop();
-    this->monitor->conditional_ROSBridgeMessageList.notify_one();
+    this->monitor->conditional_ROSModuleMessageList.notify_one();
     
 }
 
@@ -91,32 +91,32 @@ void ROSModuleRosbot::callbackBatteryPercentage(const std_msgs::Int32::ConstPtr&
 
 void ROSModuleRosbot::run()
 {
-    vROSBridgeMessage = new s_ROSBridgeMessage;
+    vROSModuleMessage = new s_ROSModuleMessage;
     
-    this->monitor->getROSBridgeMessage(*vROSBridgeMessage);
-    if (vROSBridgeMessage != nullptr && this->isRunning == true)
+    this->monitor->getROSModuleMessage(*vROSModuleMessage);
+    if (vROSModuleMessage != nullptr && this->isRunning == true)
     {
-        if(strcmp(vROSBridgeMessage->topicName, "GoTo") == 0)
+        if(strcmp(vROSModuleMessage->topicName, "GoTo") == 0)
         {
             //move forward
-            s_cmdvel vCmdvel = ((s_cmdvel*) vROSBridgeMessage->buffer)[0];
+            s_cmdvel vCmdvel = ((s_cmdvel*) vROSModuleMessage->buffer)[0];
             geometry_msgs::Twist msg;
             msg.linear.x = vCmdvel.x;
             msg.angular.z = vCmdvel.theta;
             this->publishersList["cmd_vel"].publish(msg);
         }
-        if(strcmp(vROSBridgeMessage->topicName, "ChargeBattery") == 0)
+        if(strcmp(vROSModuleMessage->topicName, "ChargeBattery") == 0)
         {
             //recharge battery
-            bool rechargeStatus = ((bool*)vROSBridgeMessage->buffer)[0];
+            bool rechargeStatus = ((bool*)vROSModuleMessage->buffer)[0];
             std_msgs::Bool msg;
             msg.data = rechargeStatus;
             std::cout << "Sending ROS command! " << msg.data << std::endl;
             this->publishersList["battery/recharge"].publish(msg);
         }
-        if(strcmp(vROSBridgeMessage->topicName, "Move_base/Goal") == 0)
+        if(strcmp(vROSModuleMessage->topicName, "Move_base/Goal") == 0)
         {
-            s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
+            s_pose vPose = ((s_pose*) vROSModuleMessage->buffer)[0];
             
             move_base_msgs::MoveBaseGoal msg;
             
@@ -139,14 +139,14 @@ void ROSModuleRosbot::run()
              ROS_INFO("The base failed to move forward 1 meter for some reason");
              */
         }
-        if(strcmp(vROSBridgeMessage->topicName, "Move_base/Cancel") == 0)
+        if(strcmp(vROSModuleMessage->topicName, "Move_base/Cancel") == 0)
         {
             ROS_INFO("Canceling goal");
             this->ac->cancelGoal();
         }
-        if(strcmp(vROSBridgeMessage->topicName, "Move_base/Cost") == 0)
+        if(strcmp(vROSModuleMessage->topicName, "Move_base/Cost") == 0)
         {
-            s_pose vPose = ((s_pose*) vROSBridgeMessage->buffer)[0];
+            s_pose vPose = ((s_pose*) vROSModuleMessage->buffer)[0];
             s_pose robotPosition;
             this->monitor->getPosition(robotPosition);
             
@@ -192,7 +192,7 @@ void ROSModuleRosbot::run()
             //ROS_INFO("Plan Costs: %f", distance);
             this->monitor->print("Plan costs: " + std::to_string(distance));
             //float* cost;
-            //memcpy(&cost, vROSBridgeMessage->buffer + sizeof(s_pose), sizeof(float *));
+            //memcpy(&cost, vROSModuleMessage->buffer + sizeof(s_pose), sizeof(float *));
             //*cost = distance;
         }
     }

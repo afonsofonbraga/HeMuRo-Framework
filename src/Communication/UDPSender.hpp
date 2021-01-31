@@ -21,7 +21,7 @@
 #include <iostream>
 #include <thread>
 
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Module.hpp"
 #include "dataTypes.hpp"
 
@@ -40,7 +40,7 @@ protected:
     void run() override;                                     // Implementation
     
 public:
-    UDPSender(BlackBoard* monitor);
+    UDPSender(Blackboard* monitor);
     ~UDPSender();
     UDPSender(const UDPSender& other);                //Copy Constructor
     UDPSender& operator=(const UDPSender& other);     //Copy Assignment

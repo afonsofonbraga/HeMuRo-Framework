@@ -9,7 +9,7 @@
 #include "ArmMavROS.hpp"
 
 
-ArmMavROS::ArmMavROS(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+ArmMavROS::ArmMavROS(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     calculateCost();
 }
@@ -30,9 +30,9 @@ void ArmMavROS::run()
         case enum_AtomicTaskStatus::running:
         {
             std::cout << "Arming."<< std::endl;
-            s_ROSBridgeMessage teste;
+            s_ROSModuleMessage teste;
             strcpy(teste.topicName,"Arm");
-            this->monitor->addROSBridgeMessage(teste);
+            this->monitor->addROSModuleMessage(teste);
             usleep(1000000); //Vamos Precisar de um buffer
             this->status = enum_AtomicTaskStatus::completed;
             break;

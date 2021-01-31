@@ -44,7 +44,7 @@ protected:
     float adjustAngle(float angle);
     
 public:
-    GoToROS(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    GoToROS(Blackboard* vMonitor, s_pose& start, s_pose& end);
     ~GoToROS();
     void run() override;
     void calculateCost() override;

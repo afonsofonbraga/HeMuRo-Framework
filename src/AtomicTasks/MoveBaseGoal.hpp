@@ -38,7 +38,7 @@ protected:
     float adjustAngle(float angle);
     
 public:
-    MoveBaseGoal(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    MoveBaseGoal(Blackboard* vMonitor, s_pose& start, s_pose& end);
     ~MoveBaseGoal();
     void run() override;
     void stop() override;

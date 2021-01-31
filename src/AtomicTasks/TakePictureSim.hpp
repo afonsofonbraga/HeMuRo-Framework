@@ -16,7 +16,7 @@ class TakePictureSim: public AtomicTask
 {
 protected:
 public:
-    TakePictureSim(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    TakePictureSim(Blackboard* vMonitor, s_pose& start, s_pose& end);
     ~TakePictureSim();
     void run() override;
     void calculateCost() override;

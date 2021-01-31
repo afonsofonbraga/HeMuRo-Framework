@@ -11,7 +11,7 @@
 
 #include <iostream>
 #include "dataTypes.hpp"
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 
 class AtomicTask
 {
@@ -22,10 +22,10 @@ protected:
     float cost;
     float costFactor;
     enum_AtomicTaskStatus status;
-    BlackBoard* monitor;
+    Blackboard* monitor;
 public:
-    AtomicTask(BlackBoard* vMonitor, s_pose& start, s_pose& end);
-    AtomicTask(BlackBoard* vMonitor, s_pose& end);
+    AtomicTask(Blackboard* vMonitor, s_pose& start, s_pose& end);
+    AtomicTask(Blackboard* vMonitor, s_pose& end);
     AtomicTask();
     ~AtomicTask();
     

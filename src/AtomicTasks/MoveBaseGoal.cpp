@@ -9,7 +9,7 @@
 #include "MoveBaseGoal.hpp"
 #include <map>
 
-MoveBaseGoal::MoveBaseGoal(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+MoveBaseGoal::MoveBaseGoal(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     this->costFactor = factor * (battery_discharge /(robots_max_speed*3600))/battery_capacity;
     calculateCost();
@@ -48,16 +48,16 @@ void MoveBaseGoal::run()
                 
                 if(sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2)) <= 0.1)
                 {
-                    s_ROSBridgeMessage teste;
+                    s_ROSModuleMessage teste;
                     strcpy(teste.topicName,"Move_base/Cancel");
-                    this->monitor->addROSBridgeMessage(teste);
+                    this->monitor->addROSModuleMessage(teste);
                     this->status = enum_AtomicTaskStatus::completed;
                 }else
                 {
-                    s_ROSBridgeMessage teste;
+                    s_ROSModuleMessage teste;
                     strcpy(teste.topicName,"Move_base/Goal");
                     memmove(teste.buffer,(char*)&this->endPosition,sizeof(s_pose));
-                    this->monitor->addROSBridgeMessage(teste);
+                    this->monitor->addROSModuleMessage(teste);
                 }
             }
             
@@ -74,24 +74,24 @@ void MoveBaseGoal::run()
 
 void MoveBaseGoal::stop()
 {
-    s_ROSBridgeMessage teste;
+    s_ROSModuleMessage teste;
     strcpy(teste.topicName,"Move_base/Cancel");
-    this->monitor->addROSBridgeMessage(teste);
+    this->monitor->addROSModuleMessage(teste);
     this->status = enum_AtomicTaskStatus::null;
 }
 
 void MoveBaseGoal::calculateCost()
 {
-    s_ROSBridgeMessage teste;
+    s_ROSModuleMessage teste;
     strcpy(teste.topicName,"Move_base/Cost");
     memmove(teste.buffer,(char*)&this->endPosition,sizeof(s_pose));
     this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2) + pow(this->endPosition.z - this->startPosition.z, 2)) * this->costFactor;
     /*
-    s_ROSBridgeMessage teste;
+     s_ROSModuleMessage teste;
     strcpy(teste.topicName,"Move_base/Cost");
     memmove(teste.buffer,(char*)&this->endPosition,sizeof(s_pose));
     //memcpy(teste.buffer + sizeof(s_pose), &this->cost, sizeof(float *));
-    this->monitor->addROSBridgeMessage(teste);
+    this->monitor->addROSModuleMessage(teste);
     this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2) + pow(this->endPosition.z - this->startPosition.z, 2));// * this->costMeter;
     this->monitor->print("CUSTOOOOOO1:  " + std::to_string(this->cost));
     //usleep(1000000);

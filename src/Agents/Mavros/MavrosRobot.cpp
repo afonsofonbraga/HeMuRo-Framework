@@ -8,7 +8,7 @@
 
 #include "MavrosRobot.hpp"
 
-MavrosRobot::MavrosRobot(BlackBoard* monitor, ros::NodeHandle& vNode, bool decentralized): Agent(monitor)
+MavrosRobot::MavrosRobot(Blackboard* monitor, ros::NodeHandle& vNode, bool decentralized): Agent(monitor)
 {
     strcpy(mode,"Robot");
     this->decentralized = decentralized;

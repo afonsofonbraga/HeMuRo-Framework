@@ -22,7 +22,7 @@
 #include <thread>
 #include <sys/time.h>
 
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Module.hpp"
 #include "dataTypes.hpp"
 #define MAX_MSG 500
@@ -42,7 +42,7 @@ protected:
     
     virtual void run();                             // Functions Implementation
 public:
-    UDPReceiver(BlackBoard* monitor);
+    UDPReceiver(Blackboard* monitor);
     ~UDPReceiver();
     
     void error(const char* msg);                    // Print an error

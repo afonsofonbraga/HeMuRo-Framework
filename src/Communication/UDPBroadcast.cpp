@@ -7,7 +7,7 @@
 //
 #include "UDPBroadcast.hpp"
 
-UDPBroadcast::UDPBroadcast(BlackBoard* monitor): ModulePeriodic(monitor)
+UDPBroadcast::UDPBroadcast(Blackboard* monitor): ModulePeriodic(monitor)
 {
     this->monitor->getBroadcastIP(*this->broadcastIP);
     this->vSocket = socket(AF_INET,SOCK_DGRAM,0);

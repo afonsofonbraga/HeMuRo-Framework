@@ -13,7 +13,7 @@
 #include <unordered_map>
 
 #include "dataTypes.hpp"
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Module.hpp"
 #include "ModulePeriodic.hpp"
 
@@ -42,7 +42,7 @@ int main(){
 #endif
     
     
-    std::vector<BlackBoard *> v_BlackBoard; // = new std::vector<BlackBoard>;
+    std::vector<Blackboard *> v_Blackboard; // = new std::vector<Blackboard>;
     std::vector<UDPBroadcast*> v_Broadcast;// = new std::vector<UDPBroadcast>;
     std::vector<UDPReceiver*> v_Receiver;
     std::vector<UDPSender*> v_Sender;
@@ -61,19 +61,19 @@ int main(){
     for (int i=0; i< numberOfRobots; i++)
     {
         std::string robotsName = name + std::to_string(i);
-        BlackBoard* memory = new BlackBoard(robotsName, enum_RobotCategory::null);
-        v_BlackBoard.push_back(memory);
-        UDPBroadcast* broadcast = new UDPBroadcast(v_BlackBoard.at(i));
-        UDPReceiver* receiver = new UDPReceiver(v_BlackBoard.at(i));
-        //receiver->addRobot(v_BlackBoard.at(i));
-        UDPSender* sender = new UDPSender(v_BlackBoard.at(i));
-        MissionManager* missionManager = new MissionManager(v_BlackBoard.at(i));
+        Blackboard* memory = new Blackboard(robotsName, enum_RobotCategory::null);
+        v_Blackboard.push_back(memory);
+        UDPBroadcast* broadcast = new UDPBroadcast(v_Blackboard.at(i));
+        UDPReceiver* receiver = new UDPReceiver(v_Blackboard.at(i));
+        //receiver->addRobot(v_Blackboard.at(i));
+        UDPSender* sender = new UDPSender(v_Blackboard.at(i));
+        MissionManager* missionManager = new MissionManager(v_Blackboard.at(i));
         
 #ifndef DEFAULT
-        //Alive* alive = new Alive(v_BlackBoard.at(i), n);
+        //Alive* alive = new Alive(v_Blackboard.at(i), n);
 #endif
 #ifdef DEFAULT
-        //Alive* alive = new Alive(v_BlackBoard.at(i));
+        //Alive* alive = new Alive(v_Blackboard.at(i));
 #endif
         v_Broadcast.push_back(broadcast);
         v_Receiver.push_back(receiver);
@@ -87,15 +87,15 @@ int main(){
     std::cout << "Time to send a Mission!!!!!"<< std::endl;
     
     s_MissionMessage mission;
-    v_BlackBoard.at(0)->getRobotsIP(*vIP);
-    v_BlackBoard.at(0)->getRobotsName(*mission.senderName);
+    v_Blackboard.at(0)->getRobotsIP(*vIP);
+    v_Blackboard.at(0)->getRobotsName(*mission.senderName);
     strcpy(mission.senderAddress , vIP);
     mission.operation = enum_MissionOperation::createMission;
     
     s_UDPMessage message;
     strcpy(message.address , vIP);
     Operation operation = Operation::missionMessage;
-    v_BlackBoard.at(0)->getRobotsName(*message.name);
+    v_Blackboard.at(0)->getRobotsName(*message.name);
     
     /*
     {
@@ -115,7 +115,7 @@ int main(){
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
         message.messageSize = sizeof(message.buffer);
         
-        v_BlackBoard.at(0)->addUDPMessage(message);
+        v_Blackboard.at(0)->addUDPMessage(message);
     }*/
     
     
@@ -136,7 +136,7 @@ int main(){
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
         message.messageSize = sizeof(message.buffer);
         
-        v_BlackBoard.at(0)->addUDPMessage(message);
+        v_Blackboard.at(0)->addUDPMessage(message);
     }
     
     {
@@ -156,7 +156,7 @@ int main(){
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
         message.messageSize = sizeof(message.buffer);
         
-        v_BlackBoard.at(0)->addUDPMessage(message);
+        v_Blackboard.at(0)->addUDPMessage(message);
     }
     
     {
@@ -176,7 +176,7 @@ int main(){
         memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
         message.messageSize = sizeof(message.buffer);
         
-        v_BlackBoard.at(0)->addUDPMessage(message);
+        v_Blackboard.at(0)->addUDPMessage(message);
     }
     
     while (std::getchar() != 'c'){}

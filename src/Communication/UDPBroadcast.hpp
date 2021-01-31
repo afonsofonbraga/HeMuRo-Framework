@@ -21,7 +21,7 @@
 #include <iostream>
 #include <thread>
 
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "ModulePeriodic.hpp"
 #include "dataTypes.hpp"
 
@@ -40,7 +40,7 @@ protected:
     void run() override;                                     // Implementation
     
 public:
-    UDPBroadcast(BlackBoard* monitor);
+    UDPBroadcast(Blackboard* monitor);
     ~UDPBroadcast();
     UDPBroadcast(const UDPBroadcast& other);                //Copy Constructor
     UDPBroadcast& operator=(const UDPBroadcast& other);     //Copy Assignment

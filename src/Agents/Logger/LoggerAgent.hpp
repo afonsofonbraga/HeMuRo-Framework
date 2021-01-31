@@ -12,7 +12,7 @@
 #include <stdio.h>
 
 // Core Modules
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "Logger.hpp"
 #include "dataTypes.hpp"
 
@@ -40,8 +40,8 @@ protected:
 
     //UDPSender* sender;
 public:
-    LoggerAgent(BlackBoard* monitor, bool decentralized); // SEND ARGS
-    LoggerAgent(BlackBoard* monitor, bool decentralized, int argc, char** argv); // SEND ARGS
+    LoggerAgent(Blackboard* monitor, bool decentralized); // SEND ARGS
+    LoggerAgent(Blackboard* monitor, bool decentralized, int argc, char** argv); // SEND ARGS
     ~LoggerAgent();
 };
 

@@ -13,7 +13,7 @@
 #include <chrono>
 #include <thread>
 
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "dataTypes.hpp"
 #include "Module.hpp"
 #include "WebApp.hpp"
@@ -24,14 +24,14 @@
 class WebModule: public Module
 {
 protected:
-    BlackBoard*    monitor;
+    Blackboard*    monitor;
     WebApp* webapp;
     Wt::WServer* server;
     int argc;
     char** argv;
     void run() override;
 public:
-    WebModule(BlackBoard* monitor, int argc, char **argv);
+    WebModule(Blackboard* monitor, int argc, char **argv);
     ~WebModule();
 };
 #endif /* webApp_hpp */

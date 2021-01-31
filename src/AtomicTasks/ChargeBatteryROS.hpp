@@ -18,7 +18,7 @@ protected:
     std::chrono::milliseconds tick = std::chrono::milliseconds(100); // 0.1s
     std::chrono::system_clock::time_point t0;
 public:
-    ChargeBatteryROS(BlackBoard* vMonitor, s_pose& start, s_pose& end);
+    ChargeBatteryROS(Blackboard* vMonitor, s_pose& start, s_pose& end);
     ~ChargeBatteryROS();
     void run() override;
     void calculateCost() override;

@@ -8,7 +8,7 @@
 
 #include "BatteryManager.hpp"
 
-BatteryManager::BatteryManager(BlackBoard* monitor, char vMode[]) : Module(monitor)
+BatteryManager::BatteryManager(Blackboard* monitor, char vMode[]) : Module(monitor)
 {
     this->monitor->getBroadcastIP(*this->broadcastIP);
     this->monitor->getRobotsName(*this->agentName);

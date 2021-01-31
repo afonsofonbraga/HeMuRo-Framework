@@ -10,7 +10,7 @@
 
 
 
-ChargeBatteryROS::ChargeBatteryROS(BlackBoard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
+ChargeBatteryROS::ChargeBatteryROS(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     this->costFactor = 2.0;
     calculateCost();
@@ -37,10 +37,10 @@ void ChargeBatteryROS::run()
             this->status = enum_AtomicTaskStatus::running;
             
             bool chargeStatus = true;
-            s_ROSBridgeMessage msg;
+            s_ROSModuleMessage msg;
             strcpy(msg.topicName,"ChargeBattery");
             memmove(msg.buffer,(char*)&chargeStatus,sizeof(chargeStatus));
-            this->monitor->addROSBridgeMessage(msg);
+            this->monitor->addROSModuleMessage(msg);
             
             break;
         }
@@ -57,10 +57,10 @@ void ChargeBatteryROS::run()
                 this->monitor->print("Battery Charged!");
                 
                 bool chargeStatus = false;
-                s_ROSBridgeMessage msg;
+                s_ROSModuleMessage msg;
                 strcpy(msg.topicName,"ChargeBattery");
                 memmove(msg.buffer,(char*)&chargeStatus,sizeof(chargeStatus));
-                this->monitor->addROSBridgeMessage(msg);
+                this->monitor->addROSModuleMessage(msg);
                 
                 //Send a interrupt to inform that the charging is complete!"
                 s_BatteryMessage message;

@@ -17,7 +17,7 @@
 #include <chrono>
 
 #include "Module.hpp"
-#include "BlackBoard.hpp"
+#include "Blackboard.hpp"
 #include "dataTypes.hpp"
 
 #ifndef __has_include
@@ -50,7 +50,7 @@ protected:
     
     void run() override;
 public:
-    Logger(BlackBoard* monitor);
+    Logger(Blackboard* monitor);
     ~Logger();
 };
 

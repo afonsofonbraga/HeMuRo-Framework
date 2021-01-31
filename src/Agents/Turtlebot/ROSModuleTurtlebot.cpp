@@ -30,7 +30,7 @@ void Alive::callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg)
     this->monitor->setBatteryLevel(msg->data);
 }
 
-Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
+Alive::Alive(Blackboard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
 {
     this->monitor->getRobotsName(vName);
     
@@ -50,20 +50,20 @@ Alive::Alive(BlackBoard *monitor,ros::NodeHandle& vNode): Module(monitor), node(
 Alive::~Alive()
 {
     this->stop();
-    this->monitor->conditional_ROSBridgeMessageList.notify_one();
+    this->monitor->conditional_ROSModuleMessageList.notify_one();
 }
 
 void Alive::run()
 {
-    vROSBridgeMessage = new s_ROSBridgeMessage;
-    this->monitor->getROSBridgeMessage(*vROSBridgeMessage);
+    vROSModuleMessage = new s_ROSModuleMessage;
+    this->monitor->getROSModuleMessage(*vROSModuleMessage);
     
-    if (vROSBridgeMessage != nullptr && this->isRunning == true)
+    if (vROSModuleMessage != nullptr && this->isRunning == true)
     {
-        if(strcmp(vROSBridgeMessage->topicName, "GoTo") == 0)
+        if(strcmp(vROSModuleMessage->topicName, "GoTo") == 0)
         {
             //move forward
-            s_cmdvel vCmdvel = ((s_cmdvel*) vROSBridgeMessage->buffer)[0];
+            s_cmdvel vCmdvel = ((s_cmdvel*) vROSModuleMessage->buffer)[0];
             geometry_msgs::Twist msg;
             msg.linear.x = vCmdvel.x;
             msg.angular.z = vCmdvel.theta;
