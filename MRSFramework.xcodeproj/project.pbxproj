@@ -633,8 +633,6 @@
 		23965EA825012CF700F6E7A5 /* ChargingStation */ = {
 			isa = PBXGroup;
 			children = (
-				23965EB025013E8300F6E7A5 /* ChargingSpot.cpp */,
-				23965EB125013E8300F6E7A5 /* ChargingSpot.hpp */,
 				23965EA925012DB900F6E7A5 /* ChargingStation.cpp */,
 				23965EAA25012DB900F6E7A5 /* ChargingStation.hpp */,
 			);
@@ -1206,6 +1204,7 @@
 		23D20B42245C705C0013F98A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				23ED8A4225CD97DA0006F106 /* Energy */,
 				23444C5F25B084E800768AC2 /* Agents */,
 				2384745C25AE18E600A4AEB0 /* AtomicTasks */,
 				23D20B43245C705C0013F98A /* CMakeLists.txt */,
@@ -1220,9 +1219,6 @@
 		23D20B44245C705C0013F98A /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				23965EAC2501312000F6E7A5 /* BatteryManager.cpp */,
-				23965EAD2501312000F6E7A5 /* BatteryManager.hpp */,
-				23E66CAE250278C20002A91B /* ChargingRequest.hpp */,
 				23D20B45245C705C0013F98A /* Blackboard.cpp */,
 				23F00C82246331AA00EC7860 /* Blackboard.hpp */,
 				23D20B46245C705C0013F98A /* CMakeLists.txt */,
@@ -1273,6 +1269,18 @@
 				235944C6257537EE009DA982 /* TaskModule.hpp */,
 			);
 			path = Mission;
+			sourceTree = "<group>";
+		};
+		23ED8A4225CD97DA0006F106 /* Energy */ = {
+			isa = PBXGroup;
+			children = (
+				23965EB025013E8300F6E7A5 /* ChargingSpot.cpp */,
+				23965EB125013E8300F6E7A5 /* ChargingSpot.hpp */,
+				23E66CAE250278C20002A91B /* ChargingRequest.hpp */,
+				23965EAC2501312000F6E7A5 /* BatteryManager.cpp */,
+				23965EAD2501312000F6E7A5 /* BatteryManager.hpp */,
+			);
+			path = Energy;
 			sourceTree = "<group>";
 		};
 		23EDB521245CC72F003D13A3 /* Communication */ = {

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "23F9DFE8245C6FDB008506C4"
-               BuildableName = "MRSFramework"
-               BlueprintName = "MRSFramework"
+               BlueprintIdentifier = "23D20B4C245C71560013F98A"
+               BuildableName = "MRSMac"
+               BlueprintName = "MRSMac"
                ReferencedContainer = "container:MRSFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -40,9 +40,19 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "23D20B4C245C71560013F98A"
+            BuildableName = "MRSMac"
+            BlueprintName = "MRSMac"
+            ReferencedContainer = "container:MRSFramework.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = ""
+            argument = "--docroot . --http-address 0.0.0.0 --http-port 8080 --resources-dir=/usr/local/share/Wt/resources"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
@@ -53,15 +63,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "23F9DFE8245C6FDB008506C4"
-            BuildableName = "MRSFramework"
-            BlueprintName = "MRSFramework"
+            BlueprintIdentifier = "23D20B4C245C71560013F98A"
+            BuildableName = "MRSMac"
+            BlueprintName = "MRSMac"
             ReferencedContainer = "container:MRSFramework.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

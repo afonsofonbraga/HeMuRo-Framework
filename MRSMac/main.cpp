@@ -181,7 +181,6 @@ int main(int argc, char **argv){
 
         //mission.goal.pop();
         mission.goal = sala_A01;
-        
         mission.numberOfAttributes = 1;
         *((int*) (mission.attributesBuffer + 4)) = sizeof(sala_A01);
         memcpy(mission.attributesBuffer + 8, &sala_A01, sizeof(sala_A01));
