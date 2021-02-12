@@ -49,7 +49,9 @@ protected:
     
     void addTaskReceived(std::unique_ptr<s_TaskMessage> vTaskMessage);
     void startCommand(std::unique_ptr<s_TaskMessage> vTaskMessage);
-    void addMissionToExecute(MissionExecution& vMissionExecute);
+    void addMissionToExecute(std::unique_ptr<s_TaskMessage> vTaskMessage);
+    //void addMissionToExecute(MissionExecution& vMissionExecute);
+    //void addMissionAndExecute(MissionExecution& vMissionExecute);
     void startMissionToExecute();
     
     // Variables and functions related to mission emergency

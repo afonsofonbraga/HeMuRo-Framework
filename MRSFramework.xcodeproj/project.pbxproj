@@ -99,6 +99,7 @@
 		2381ABAB245DC25B00465752 /* UDPBroadcast.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPBroadcast.hpp; sourceTree = "<group>"; };
 		2381ABAD245DD23900465752 /* UDPReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPReceiver.cpp; sourceTree = "<group>"; };
 		2381ABAE245DD23900465752 /* UDPReceiver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPReceiver.hpp; sourceTree = "<group>"; };
+		2382EF7D25D6CFE20083FD32 /* speedTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = speedTest.cpp; sourceTree = "<group>"; };
 		2384745625AE182C00A4AEB0 /* 001-vr-glasses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "001-vr-glasses.png"; sourceTree = "<group>"; };
 		2384745725AE182C00A4AEB0 /* 007-robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "007-robot.png"; sourceTree = "<group>"; };
 		2384745825AE182C00A4AEB0 /* question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "question-mark.png"; sourceTree = "<group>"; };
@@ -1188,6 +1189,7 @@
 		23D20B3E245C705C0013F98A /* main */ = {
 			isa = PBXGroup;
 			children = (
+				2382EF7D25D6CFE20083FD32 /* speedTest.cpp */,
 				23D20B3F245C705C0013F98A /* CMakeLists.txt */,
 				23D20B40245C705C0013F98A /* main.cpp */,
 			);

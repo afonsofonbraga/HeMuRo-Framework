@@ -62,7 +62,7 @@ void TaskModule::run()
                     break;
                     
                 case enum_TaskMessage::addAndExecute:
-                    //missionAccepted(std::move(vMissionMessage));
+                    addMissionToExecute(std::move(vTaskMessage));
                     break;
                     
                 case enum_TaskMessage::redirect:
@@ -246,6 +246,58 @@ void TaskModule::startCommand(std::unique_ptr<s_TaskMessage> vTaskMessage)
     }
 }
 
+void TaskModule::addMissionToExecute(std::unique_ptr<s_TaskMessage> vTaskMessage)
+{
+    auto vMission = std::make_unique<MissionExecution>();
+    
+    if(this->monitor->getDecomposableTask(vTaskMessage->taskToBeDecomposed, vMission->atomicTaskEnumerator) == true && vTaskMessage->robotCat == this->monitor->getRobotsCategory() && this->monitor->lockRobot(enum_RobotStatus::executing) == true)
+    {
+        missionToExecute.clear();
+        std::unique_lock<std::mutex> lk(mutex_mission);
+        strcpy(this->missionToExecute.missionCode,vTaskMessage->missionCode);
+        strcpy(this->missionToExecute.senderAddress,vTaskMessage->senderAddress);
+        strcpy(this->missionToExecute.senderName,vTaskMessage->senderName);
+        this->missionToExecute.enum_execution = enum_MissionExecution::waitingStart;
+        this->missionToExecute.mission = vTaskMessage->taskToBeDecomposed;
+        
+        this->missionToExecute.atomicTaskEnumerator = std::move(vMission->atomicTaskEnumerator);
+        this->missionToExecute.goal = vTaskMessage->goal;
+        this->missionToExecute.numberOfAttributes = vTaskMessage->numberOfAttributes;
+        int totalSize = ((int*) vTaskMessage->attributesBuffer)[0];
+        memcpy(this->missionToExecute.attributesBuffer,&vTaskMessage->attributesBuffer, totalSize);
+        
+        this->missionToExecute.robotCategory = vTaskMessage->robotCat;
+        this->missionToExecute.executionTime = vTaskMessage->executionTime;
+        
+        
+        bool status = agent->addAtomicTask( this->missionToExecute);
+        calculateMissionCost(this->missionToExecute);
+        this->monitor->setCostToExecute(this->missionToExecute.missionCost);
+        
+        if(this->missionToExecute.missionCost <= this->monitor->getBatteryLevel() && status == true)
+        {
+            this->missionToExecute.enum_execution = enum_MissionExecution::executing;
+            s_MissionMessage missionMessage;
+            strcpy(missionMessage.missionCode, missionToExecute.missionCode);
+            strcpy(missionMessage.senderName,missionToExecute.senderName);
+            strcpy(missionMessage.senderAddress,missionToExecute.senderAddress);
+            missionMessage.operation = enum_MissionOperation::lockingComplete;
+            this->monitor->addMissionMessage(missionMessage);
+            
+            this->monitor->print("Adding " + std::string(this->missionToExecute.missionCode) + " to execute!");
+            lk.unlock();
+            this->missionToExecute.startTime = std::chrono::system_clock::now();
+            this->conditional_executeMission.notify_one();
+        }else
+        {
+            // If the robot doesn't have enough battery to execute the mission it will be freed to bid again.
+            this->monitor->unlockRobot();
+        }
+
+        // Aqui temos que testar ainda o que o STATUS VAI FAZER
+        lk.unlock();
+    }
+}
 // Emergency related
 
 void TaskModule::emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage)
