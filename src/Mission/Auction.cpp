@@ -544,20 +544,27 @@ void Auction::missionAborted(std::unique_ptr<s_MissionMessage> vMissionMessage)
 void Auction::missionComplete(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     // Check if the received message comes from the winning bid and finish the mission
-    std::unique_lock<std::mutex> lk(*this->missionOwnerList[vMissionMessage->missionCode].cv_m);
-    if (strcmp(this->missionOwnerList[vMissionMessage->missionCode].winnerAddress, vMissionMessage->senderAddress) == 0)
+    try
     {
-        this->missionOwnerList[vMissionMessage->missionCode].enum_request = enum_MissionRequest::missionComplete;
-        this->missionOwnerList[vMissionMessage->missionCode].cv->notify_one();
-        
-        s_MissionStatus missionStatus;
-        strcpy(missionStatus.missionCode, vMissionMessage->missionCode);
-        strcpy(missionStatus.missionOwner,robotName);
-        strcpy(missionStatus.missionExecutioner, vMissionMessage->senderName);
-        missionStatus.status = enum_MissionStatus::complete;
-        this->monitor->printMissionStatus(missionStatus);
-        
-        lk.unlock();
+        std::unique_lock<std::mutex> lk(*this->missionOwnerList[vMissionMessage->missionCode].cv_m);
+        if (strcmp(this->missionOwnerList[vMissionMessage->missionCode].winnerAddress, vMissionMessage->senderAddress) == 0)
+        {
+            this->missionOwnerList[vMissionMessage->missionCode].enum_request = enum_MissionRequest::missionComplete;
+            this->missionOwnerList[vMissionMessage->missionCode].cv->notify_one();
+            
+            s_MissionStatus missionStatus;
+            strcpy(missionStatus.missionCode, vMissionMessage->missionCode);
+            strcpy(missionStatus.missionOwner,robotName);
+            strcpy(missionStatus.missionExecutioner, vMissionMessage->senderName);
+            missionStatus.status = enum_MissionStatus::complete;
+            this->monitor->printMissionStatus(missionStatus);
+            
+            lk.unlock();
+        }
+    }
+    catch(...)
+    {
+
     }
 }
 

@@ -151,7 +151,7 @@ int main(int argc, char **argv){
      v_DefaultRobot.push_back(robot);
      usleep(1000);
      }
-    
+    /*
     char vIP[MAX_IP];
     
     
@@ -281,7 +281,7 @@ int main(int argc, char **argv){
         message.messageSize = sizeof(message.buffer);
         
         v_Blackboard.at(1)->addUDPMessage(message);
-    }
+    }*/
     while (std::getchar() != 'c'){}
     return 0;
     

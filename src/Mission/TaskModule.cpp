@@ -283,19 +283,19 @@ void TaskModule::addMissionToExecute(std::unique_ptr<s_TaskMessage> vTaskMessage
             strcpy(missionMessage.senderAddress,missionToExecute.senderAddress);
             missionMessage.operation = enum_MissionOperation::lockingComplete;
             this->monitor->addMissionMessage(missionMessage);
-            
-            this->monitor->print("Adding " + std::string(this->missionToExecute.missionCode) + " to execute!");
             lk.unlock();
+            this->monitor->print("Adding " + std::string(this->missionToExecute.missionCode) + " to execute!");
+            
             this->missionToExecute.startTime = std::chrono::system_clock::now();
             this->conditional_executeMission.notify_one();
         }else
         {
             // If the robot doesn't have enough battery to execute the mission it will be freed to bid again.
             this->monitor->unlockRobot();
+            lk.unlock();
         }
 
         // Aqui temos que testar ainda o que o STATUS VAI FAZER
-        lk.unlock();
     }
 }
 // Emergency related

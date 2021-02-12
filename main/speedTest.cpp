@@ -174,60 +174,43 @@ int main( int argc, char *argv[ ] )
         v_Blackboard.at(1)->addTaskMessage(mission);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     s_pose position;
     v_Blackboard.at(1)->getPosition(position);
     s_pose new_position;
     float distance = 0;
     std::chrono::milliseconds tick = std::chrono::milliseconds(100);    /*!< Threads period */
     auto t1 = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
+    auto t0 = std::chrono::high_resolution_clock::now();
     while(true)
     {
         std::this_thread::sleep_until(t1 + tick);
         std::cout << "Trying" << std::endl;
         if(v_Blackboard.at(1)->isRobotAvailable() == false)
         {
-            auto t0 = std::chrono::high_resolution_clock::now();
+            start = std::chrono::high_resolution_clock::now();
+            t0 = std::chrono::high_resolution_clock::now();
             while(v_Blackboard.at(1)->isRobotAvailable() == false)
             {
                 std::this_thread::sleep_until(t0 + tick);
                 v_Blackboard.at(1)->getPosition(new_position);
-                distance += sqrt(pow(new_position.x-position.x,2) + pow(new_position.y-position.y,1) + pow(new_position.z-position.z,2));
+                std::cout << new_position.x << " " << new_position.y << " "<< new_position.z << std::endl;
+                distance += sqrt(pow(new_position.x-position.x,2) + pow(new_position.y-position.y,2) + pow(new_position.z-position.z,2));
+                position = new_position;
                 t0 = t0 + tick;
             }
             std::cout << "Acabou a Missao!!!!!!" << std::endl;
+            t0 = std::chrono::high_resolution_clock::now();
             break;
         }
         t1 = t1 + tick*10;
     }
-    
-    //delete logger;
+    std::chrono::duration<double> elapsed_seconds = t0-start;
+    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
+    std::cout << "Distance:" << distance << std::endl;
+    std::cout << "Speed: " << distance/elapsed_seconds.count() << std::endl;
+    while (std::getchar() != 'c'){}
+
     return 0;
 }
 
