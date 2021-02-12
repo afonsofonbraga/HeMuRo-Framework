@@ -8,7 +8,7 @@ Blackboard::Blackboard(std::string& name, enum_RobotCategory cat)
     this->position.roll = 0;
     this->position.pitch = 0;
     this->position.yaw = 0;
-    this->batteryLevel = 20;
+    this->batteryLevel = 100;
     setAgentsName(name);
     setRobotCategory(cat);
     this->setAgentsIP();
@@ -368,6 +368,30 @@ void Blackboard::getMissionMessage(s_MissionMessage& vMissionMessage)
             lk.unlock();
         }
     }
+}
+
+void Blackboard::setMissionStatus(s_MissionStatus &p)
+{
+    std::unique_lock<std::mutex> lk(mutex_mapMissionStatus);
+        this->map_missionStatus.insert_or_assign(p.missionCode, p);
+    lk.unlock();
+}
+
+void Blackboard::getMissionStatus(std::unordered_map<std::string, s_MissionStatus> &p)
+{
+    std::unique_lock<std::mutex> lk(mutex_mapMissionStatus);
+    for (auto n : map_missionStatus)
+    {
+        p[n.first] = n.second;
+    }
+    lk.unlock();
+}
+
+void Blackboard::removeMissionStatus(s_MissionStatus &p)
+{
+    std::unique_lock<std::mutex> lk(mutex_mapMissionStatus);
+        this->map_missionStatus.erase(p.missionCode);
+    lk.unlock();
 }
 
 // Selected Mission
@@ -733,4 +757,29 @@ void Blackboard::print(std::string vText)
     memmove(UDPMessage.buffer + MAX_ROBOT_ID + 8,(const unsigned char*)&message,sizeof(message));
     UDPMessage.messageSize = sizeof(UDPMessage.buffer);
     this->addUDPMessage(UDPMessage);
+}
+
+void Blackboard::printMissionStatus(s_MissionStatus vMission)
+{
+    s_LoggerMessage message;
+    this->getRobotsName(*message.robotName);
+    message.operation = enum_LoggerOperation::missionStatus;
+    
+    //strncpy(message.buffer,vText.c_str(),sizeof(message.buffer)-1);
+    memmove(message.buffer, (const unsigned char*)&vMission, sizeof(s_MissionStatus));
+    message.buffer[sizeof(message.buffer)-1]='\0';
+    
+    s_UDPMessage UDPMessage;
+    
+    strcpy(UDPMessage.address, this->broadcastIP);
+    strcpy(UDPMessage.name, "Logger");
+    memcpy(UDPMessage.buffer, "Logger",MAX_ROBOT_ID);
+    
+    Operation operation = Operation::loggerMessage;
+    *((Operation*)(UDPMessage.buffer + MAX_ROBOT_ID)) = operation;
+    *((int*)(UDPMessage.buffer + MAX_ROBOT_ID + 4)) = sizeof(message);
+    memmove(UDPMessage.buffer + MAX_ROBOT_ID + 8,(const unsigned char*)&message,sizeof(message));
+    UDPMessage.messageSize = sizeof(UDPMessage.buffer);
+    this->addUDPMessage(UDPMessage);
+    
 }

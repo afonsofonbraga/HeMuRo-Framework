@@ -24,6 +24,7 @@
 		23789A9524AB9694001372E5 /* MissionExecution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23789A9324AB9694001372E5 /* MissionExecution.cpp */; };
 		2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */; };
 		2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAD245DD23900465752 /* UDPReceiver.cpp */; };
+		2382EF8225D6EB850083FD32 /* Blackboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382EF8125D6EB800083FD32 /* Blackboard.cpp */; };
 		2386344024FEBD0800049ED1 /* UDPReceiverSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2386343D24FEB45600049ED1 /* UDPReceiverSim.cpp */; };
 		23872A1B248049B200EC738C /* UDPSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23872A19248049B200EC738C /* UDPSender.cpp */; };
 		23965EAB25012DB900F6E7A5 /* ChargingStation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23965EA925012DB900F6E7A5 /* ChargingStation.cpp */; };
@@ -35,7 +36,6 @@
 		23C6E54E246EF4C500D99185 /* ChargeBatterySim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54C246EF4C500D99185 /* ChargeBatterySim.cpp */; };
 		23C6E551246EF4F100D99185 /* TurnOnSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54F246EF4F100D99185 /* TurnOnSim.cpp */; };
 		23D20B51245C71560013F98A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B50245C71560013F98A /* main.cpp */; };
-		23D20B58245C73370013F98A /* Blackboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B45245C705C0013F98A /* Blackboard.cpp */; };
 		23E9710925263C470021D3B6 /* MoveBaseGoal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23E9710725263C470021D3B6 /* MoveBaseGoal.cpp */; };
 		23EDAF1225491C81002845E5 /* libwt.4.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C912A82548C31F00818B4D /* libwt.4.4.0.dylib */; };
 		23EDAF1325491C81002845E5 /* libwthttp.4.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C912AB2548C36D00818B4D /* libwthttp.4.4.0.dylib */; };
@@ -100,6 +100,8 @@
 		2381ABAD245DD23900465752 /* UDPReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPReceiver.cpp; sourceTree = "<group>"; };
 		2381ABAE245DD23900465752 /* UDPReceiver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPReceiver.hpp; sourceTree = "<group>"; };
 		2382EF7D25D6CFE20083FD32 /* speedTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = speedTest.cpp; sourceTree = "<group>"; };
+		2382EF8025D6EB800083FD32 /* Blackboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Blackboard.hpp; sourceTree = "<group>"; };
+		2382EF8125D6EB800083FD32 /* Blackboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Blackboard.cpp; sourceTree = "<group>"; };
 		2384745625AE182C00A4AEB0 /* 001-vr-glasses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "001-vr-glasses.png"; sourceTree = "<group>"; };
 		2384745725AE182C00A4AEB0 /* 007-robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "007-robot.png"; sourceTree = "<group>"; };
 		2384745825AE182C00A4AEB0 /* question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "question-mark.png"; sourceTree = "<group>"; };
@@ -492,7 +494,6 @@
 		23D20B3F245C705C0013F98A /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		23D20B40245C705C0013F98A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		23D20B43245C705C0013F98A /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		23D20B45245C705C0013F98A /* Blackboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Blackboard.cpp; sourceTree = "<group>"; };
 		23D20B46245C705C0013F98A /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		23D20B48245C705C0013F98A /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		23D20B4D245C71560013F98A /* MRSMac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MRSMac; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -505,7 +506,6 @@
 		23EDB51C245CA8B9003D13A3 /* Module.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Module.hpp; sourceTree = "<group>"; };
 		23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ModulePeriodic.cpp; sourceTree = "<group>"; };
 		23EDB51F245CBBA9003D13A3 /* ModulePeriodic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModulePeriodic.hpp; sourceTree = "<group>"; };
-		23F00C82246331AA00EC7860 /* Blackboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Blackboard.hpp; sourceTree = "<group>"; };
 		23F00C8324634A2F00EC7860 /* AtomicTask.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AtomicTask.cpp; sourceTree = "<group>"; };
 		23F00C8424634A2F00EC7860 /* AtomicTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AtomicTask.hpp; sourceTree = "<group>"; };
 		23F00C8624634DDF00EC7860 /* GoToSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GoToSim.cpp; sourceTree = "<group>"; };
@@ -1221,8 +1221,8 @@
 		23D20B44245C705C0013F98A /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				23D20B45245C705C0013F98A /* Blackboard.cpp */,
-				23F00C82246331AA00EC7860 /* Blackboard.hpp */,
+				2382EF8125D6EB800083FD32 /* Blackboard.cpp */,
+				2382EF8025D6EB800083FD32 /* Blackboard.hpp */,
 				23D20B46245C705C0013F98A /* CMakeLists.txt */,
 				23EDB51B245CA8B9003D13A3 /* Module.cpp */,
 				23EDB51C245CA8B9003D13A3 /* Module.hpp */,
@@ -1426,7 +1426,6 @@
 				23103C752552356D0075C543 /* WebApp.cpp in Sources */,
 				239C81DD248FBED900B58BAD /* AtomicTask.cpp in Sources */,
 				23444C5D25B0844A00768AC2 /* ArmMavROS.cpp in Sources */,
-				23D20B58245C73370013F98A /* Blackboard.cpp in Sources */,
 				2386344024FEBD0800049ED1 /* UDPReceiverSim.cpp in Sources */,
 				23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */,
 				235CC3EB2493F0200012376D /* Mission.cpp in Sources */,
@@ -1441,6 +1440,7 @@
 				2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */,
 				23444C5425AF90E300768AC2 /* ChargeBatteryROS.cpp in Sources */,
 				23444C5B25B0841000768AC2 /* LandMavROS.cpp in Sources */,
+				2382EF8225D6EB850083FD32 /* Blackboard.cpp in Sources */,
 				23D20B51245C71560013F98A /* main.cpp in Sources */,
 				23F3A21D25006C7E00561375 /* DefaultRobot.cpp in Sources */,
 				236244F125211498007B5319 /* LoggerAgent.cpp in Sources */,
