@@ -7,6 +7,7 @@
 include_directories(${framework_SOURCE_DIR}/src/AtomicTasks)
 include_directories(${framework_SOURCE_DIR}/src/Communication)
 include_directories(${framework_SOURCE_DIR}/src/Core)
+include_directories(${framework_SOURCE_DIR}/src/Energy)
 include_directories(${framework_SOURCE_DIR}/src/Mission)
 include_directories(${framework_SOURCE_DIR}/src/Agents)
 
@@ -34,7 +35,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_library(core Core/Blackboard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Core/Logger.cpp Core/BatteryManager.cpp Agents/Agent.cpp Agents/ChargingStation/ChargingSpot.cpp Agents/ChargingStation/ChargingStation.cpp Agents/Logger/LoggerAgent.cpp)
+add_library(core Core/Blackboard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Core/Logger.cpp Energy/BatteryManager.cpp Agents/Agent.cpp Energy/ChargingSpot.cpp Agents/ChargingStation/ChargingStation.cpp Agents/Logger/LoggerAgent.cpp)
 add_library(communication Core/Blackboard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Communication/UDPBroadcast.cpp Communication/UDPReceiver.cpp Communication/UDPSender.cpp Communication/UDPReceiverSim.cpp)
 
 if(DEFAULT)
