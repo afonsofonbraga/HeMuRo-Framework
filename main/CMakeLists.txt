@@ -3,6 +3,7 @@ find_package (Threads)
 
 
 include_directories(${framework_SOURCE_DIR}/src/Core)
+include_directories(${framework_SOURCE_DIR}/src/Energy)
 include_directories(${framework_SOURCE_DIR}/src/Communication)
 include_directories(${framework_SOURCE_DIR}/src/AtomicTasks)
 include_directories(${framework_SOURCE_DIR}/src/Agents)
@@ -12,6 +13,7 @@ include_directories(${framework_SOURCE_DIR}/src/Agents/ChargingStation)
 include_directories(${framework_SOURCE_DIR}/src/Agents/Logger)
 
 link_directories(${framework_SOURCE_DIR}/src/Core)
+link_directories(${framework_SOURCE_DIR}/src/Energy)
 link_directories(${framework_SOURCE_DIR}/src/Communication)
 link_directories(${framework_SOURCE_DIR}/src/AtomicTasks)
 link_directories(${framework_SOURCE_DIR}/src/Agents)
