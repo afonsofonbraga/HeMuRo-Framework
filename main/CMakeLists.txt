@@ -44,7 +44,7 @@ if(ROSBOT)
 endif()
 
 
-add_executable(framework main.cpp)
+add_executable(framework speedTest.cpp)
 target_link_libraries(framework core)
 target_link_libraries(framework communication)
 target_link_libraries(framework task)
