@@ -61,7 +61,7 @@
 		23103C742552356D0075C543 /* WebApp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WebApp.hpp; sourceTree = "<group>"; };
 		231AD3EE251E434D00C88B27 /* Logger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
 		231AD3EF251E434D00C88B27 /* Logger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Logger.hpp; sourceTree = "<group>"; };
-		23287F93254C6836009396B1 /* MRSstyle.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = MRSstyle.css; sourceTree = "<group>"; };
+		23287F93254C6836009396B1 /* MRSstyle1.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = MRSstyle1.css; sourceTree = "<group>"; };
 		2335B80324FD878800661D4C /* ChargeBatteryROS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargeBatteryROS.cpp; sourceTree = "<group>"; };
 		2335B80424FD878800661D4C /* ChargeBatteryROS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargeBatteryROS.hpp; sourceTree = "<group>"; };
 		233F8D3A24621B0D00C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -643,7 +643,7 @@
 			isa = PBXGroup;
 			children = (
 				2384745425AE17FA00A4AEB0 /* images */,
-				23287F93254C6836009396B1 /* MRSstyle.css */,
+				23287F93254C6836009396B1 /* MRSstyle1.css */,
 				23B17FAA2549CAC0003267ED /* WebModule.cpp */,
 				23B17FAB2549CAC0003267ED /* WebModule.hpp */,
 				23103C732552356D0075C543 /* WebApp.cpp */,

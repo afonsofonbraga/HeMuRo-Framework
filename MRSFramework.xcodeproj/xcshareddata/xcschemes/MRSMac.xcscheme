@@ -52,7 +52,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "--docroot . --http-address 0.0.0.0 --http-port 8080 --resources-dir=/usr/local/share/Wt/resources"
+            argument = "--docroot . --http-address 0.0.0.0 --http-port 808 --resources-dir=/usr/local/share/Wt/resources"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

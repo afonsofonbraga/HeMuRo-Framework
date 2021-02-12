@@ -48,7 +48,7 @@ enum class enum_AtomicTaskStatus{null, waiting, running, completed};
 enum class enum_TaskMessage{null, requestCost, addTask, executeTask, addAndExecute, redirect, addEmergency};
 
 
-
+enum class enum_MissionStatus{null, allocating, executing, complete, failure, aborted, timeout};
 enum class enum_MissionRequest{null, waitingBids, notifyingWinner, executingMission, missionComplete};
 enum class enum_MissionExecution{null, waitingAuction, waitingStart, executing, missionComplete};
 enum class enum_MissionOperation{null, createMission, addMission, addAndRequestCost, Bid, redirectRequest, abortMission, winningBid, lockingComplete, acceptMission , startMission, emergency, notifyMissionComplete, missionComplete};
@@ -58,7 +58,7 @@ enum class enum_ChargingRequest{null, ok, chargingRequest, notfyingWinner, going
 enum class enum_ChargingService{null, waitingRequest, bid, waitingForArrival, charging, chargingComplete};
 enum class enum_ChargingOperation{null, chargingRequest, bid, winningBid, acceptRequest, arrivedAtStation, startCharging, chargingComplete, atomicTaskInterrupt};
 
-enum class enum_LoggerOperation{null, print, save, printAndSave};
+enum class enum_LoggerOperation{null, print, save, printAndSave, missionStatus};
 
 
 enum class enum_RobotStatus{null, available, executing, failure, lowBattery, emergency};
@@ -160,7 +160,6 @@ struct s_LoggerMessage
     enum_LoggerOperation operation = enum_LoggerOperation::null;
 };
 
-
 struct s_ROSModuleMessage
 {
     char topicName[30] = "null";
@@ -172,4 +171,16 @@ struct s_cmdvel
     float x;
     float theta;
 };
+
+// Beta
+struct s_MissionStatus
+{
+    char missionCode[MAX_ID] = "null";
+    char missionOwner[MAX_ROBOT_ID] = "null";
+    char missionExecutioner[MAX_ROBOT_ID] = "null";
+    //enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
+    enum_MissionStatus status = enum_MissionStatus::null;
+};
+
+
 #endif /* datatypes_h */

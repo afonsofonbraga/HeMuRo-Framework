@@ -51,15 +51,26 @@ void Logger::constructor()
     fs::create_directory(path);
     std::string name;
     this->monitor->getRobotsName(name);
-    path = path + "/" + name + ".txt";
     
-    s.open(path, s.in | s.out | s.trunc);
+    missionPath = path + "/Missions.txt";
+    terminalPath = path + "/" + name + ".txt";
+     
+    this->start = std::chrono::steady_clock::now();
+    auto now = std::chrono::system_clock::now();
+    auto in_time_t = std::chrono::system_clock::to_time_t(now);
+    
+    s.open(terminalPath, s.in | s.out | s.trunc);
     if (s.is_open())
     {
-        this->start = std::chrono::steady_clock::now();
-        auto now = std::chrono::system_clock::now();
-        auto in_time_t = std::chrono::system_clock::to_time_t(now);
-        s << "[SYSTEM] Log started at: " << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X") << "\n";
+        s << "[0 s][SYSTEM] Log started at: " << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X") << "\n";
+        s.close();
+    }
+    
+    s.open(missionPath, s.in | s.out | s.trunc);
+    if (s.is_open())
+    {
+        s << "[0 s][SYSTEM] Log started at: " << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X") << "\n";
+        s << "[0 s][SYSTEM] Mission, Mission Owner, Mission Executioner, Status \n" ;
         s.close();
     }
 }
@@ -98,6 +109,11 @@ void Logger::run()
             {
                 break;
             }
+            case enum_LoggerOperation::missionStatus:
+            {
+                missionStatus(*vLoggerMessage);
+                break;
+            }
             default:
                 break;
         }
@@ -108,7 +124,7 @@ void Logger::printcmd(s_LoggerMessage &vMessage)
 {
     std::cout << "[" << vMessage.robotName << "] " << vMessage.buffer << std::endl;
     //webmodule ? webmodule->
-    std::fstream s(path, s.ate | s.in | s.out );
+    std::fstream s(terminalPath, s.ate | s.in | s.out );
     if (s.is_open())
     {
         auto end = std::chrono::steady_clock::now();
@@ -117,4 +133,47 @@ void Logger::printcmd(s_LoggerMessage &vMessage)
         s.close();
     }
     
+}
+
+void Logger::missionStatus(s_LoggerMessage &vMessage)
+{
+    s_MissionStatus missionStatusMessage = ((s_MissionStatus*) vMessage.buffer)[0];
+    
+    std::fstream s(missionPath, s.ate | s.in | s.out );
+    if (s.is_open())
+    {
+        auto end = std::chrono::steady_clock::now();
+        std::chrono::duration<double> diff = end-start;
+        std::string status;
+        switch(missionStatusMessage.status)
+        {
+            case enum_MissionStatus::null:
+                status = "null";
+                break;
+            case enum_MissionStatus::allocating:
+                status = "Allocating";
+                break;
+            case enum_MissionStatus::executing:
+                status = "Executing";
+                break;
+            case enum_MissionStatus::complete:
+                status = "Complete";
+                break;
+            case enum_MissionStatus::failure:
+                status = "Failure";
+                break;
+            case enum_MissionStatus::aborted:
+                status = "Redirected";
+                break;
+            case enum_MissionStatus::timeout:
+                status = "Timeout";
+            default:
+                status = "null";
+                break;
+        }
+        
+        s << "[" << std::setprecision(2) << diff.count() << " s][" << vMessage.robotName << "] " << missionStatusMessage.missionCode << ", " << missionStatusMessage.missionOwner << ", "<< missionStatusMessage.missionExecutioner << ", " << status << " \n" ;
+        s.close();
+    }
+    this->monitor->setMissionStatus(missionStatusMessage);
 }

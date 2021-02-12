@@ -43,8 +43,11 @@ private:
     
 protected:
     std::string path;
+    std::string terminalPath;
+    std::string missionPath;
     s_LoggerMessage* vLoggerMessage;
     void printcmd(s_LoggerMessage& vMessage);
+    void missionStatus(s_LoggerMessage& vMessage);
     std::chrono::time_point<std::chrono::steady_clock> start;
 
     

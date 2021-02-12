@@ -349,6 +349,12 @@ void Auction::createMission(std::unique_ptr<s_MissionMessage> vMissionMessage)
     this->missionOwnerList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
     this->missionOwnerList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
     
+    s_MissionStatus missionStatus;
+    strcpy(missionStatus.missionCode, vMissionMessage->missionCode);
+    strcpy(missionStatus.missionOwner, vMissionMessage->senderName);
+    missionStatus.status = enum_MissionStatus::null;
+    this->monitor->printMissionStatus(missionStatus);
+    
     this->missionOwnerList[vMissionMessage->missionCode].t5 =  new std::thread(&Auction::missionRequestController, this, std::ref(this->missionOwnerList[vMissionMessage->missionCode].missionCode));
 }
 
@@ -382,6 +388,12 @@ void Auction::waitingForBids(char* missionID)
     missionMessage.executionTime = this->missionOwnerList[missionID].executionTime;
     char broadcast[MAX_ROBOT_ID] = "Broadcast";
     sendUDPMessage(missionMessage, *this->broadcastIP, *broadcast);
+    
+    s_MissionStatus missionStatus;
+    strcpy(missionStatus.missionCode, missionID);
+    strcpy(missionStatus.missionOwner,missionMessage.senderName);
+    missionStatus.status = enum_MissionStatus::allocating;
+    this->monitor->printMissionStatus(missionStatus);
     
     // Lock and wait intil the time is passed by
     this->missionOwnerList[missionID].cv->wait_until(lk, now + std::chrono::seconds(this->missionOwnerList[missionID].biddingTime));
@@ -461,7 +473,10 @@ void Auction::notifyingWinner(char* missionID)
             this->monitor->print("Not accepted. Notifying the next bid.");
             this->missionOwnerList[missionID].enum_request = enum_MissionRequest::notifyingWinner;
         }else
+        {
             this->missionOwnerList[missionID].enum_request = enum_MissionRequest::executingMission;
+        }
+            
     }
     lk.unlock();
 }
@@ -482,6 +497,14 @@ void Auction::notifyingToExecute(char* missionID)
     missionMessage.operation = enum_MissionOperation::startMission;
     
     sendUDPMessage(missionMessage, *this->missionOwnerList[missionID].winnerAddress, *this->missionOwnerList[missionID].winnerName);
+    
+    s_MissionStatus missionStatus;
+    strcpy(missionStatus.missionCode, missionID);
+    strcpy(missionStatus.missionOwner,missionMessage.senderName);
+    strcpy(missionStatus.missionExecutioner, this->missionOwnerList[missionID].winnerName);
+    missionStatus.status = enum_MissionStatus::executing;
+    this->monitor->printMissionStatus(missionStatus);
+    
     this->missionOwnerList[missionID].cv->wait(lk);
 }
 
@@ -506,6 +529,14 @@ void Auction::missionAborted(std::unique_ptr<s_MissionMessage> vMissionMessage)
         this->missionOwnerList[vMissionMessage->missionCode].vectorBids.clear();
         this->missionOwnerList[vMissionMessage->missionCode].enum_request = enum_MissionRequest::waitingBids;
         this->missionOwnerList[vMissionMessage->missionCode].cv->notify_one();
+        
+        s_MissionStatus missionStatus;
+        strcpy(missionStatus.missionCode, vMissionMessage->missionCode);
+        strcpy(missionStatus.missionOwner,robotName);
+        strcpy(missionStatus.missionExecutioner, vMissionMessage->senderName);
+        missionStatus.status = enum_MissionStatus::aborted;
+        this->monitor->printMissionStatus(missionStatus);
+        
         lk.unlock();
     }
 }
@@ -518,6 +549,14 @@ void Auction::missionComplete(std::unique_ptr<s_MissionMessage> vMissionMessage)
     {
         this->missionOwnerList[vMissionMessage->missionCode].enum_request = enum_MissionRequest::missionComplete;
         this->missionOwnerList[vMissionMessage->missionCode].cv->notify_one();
+        
+        s_MissionStatus missionStatus;
+        strcpy(missionStatus.missionCode, vMissionMessage->missionCode);
+        strcpy(missionStatus.missionOwner,robotName);
+        strcpy(missionStatus.missionExecutioner, vMissionMessage->senderName);
+        missionStatus.status = enum_MissionStatus::complete;
+        this->monitor->printMissionStatus(missionStatus);
+        
         lk.unlock();
     }
 }

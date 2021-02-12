@@ -44,9 +44,9 @@ public:
     ~UDPSender();
     UDPSender(const UDPSender& other);                //Copy Constructor
     UDPSender& operator=(const UDPSender& other);     //Copy Assignment
-    template <class T> void print(T a){
-        std::cout<<a<<std::endl;
-    }
+//    template <class T> void print(T a){
+//        std::cout<<a<<std::endl;
+//    }
 
     void error(const char *msg);
 };

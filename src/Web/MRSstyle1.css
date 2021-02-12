@@ -21,6 +21,15 @@
     text-align: center;
     padding: 3px;
 }
+
+.tab-box {
+    min-width: 200px;
+    overflow:scroll;
+    background-color: #d3e0ed;
+    text-align: center;
+    padding: 3px;
+}
+
 .terminal-box {
     background-color: #d3e0ed;
     min-height: 250px;

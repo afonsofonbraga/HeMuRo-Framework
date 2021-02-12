@@ -88,6 +88,10 @@ protected:
     std::mutex                      mutex_missionList;                              /*!< Mutex from missionMessageList */
     std::vector<s_MissionMessage>   missionMessageList;                             /*!< MissionMessage Messages Buffer. */
     
+    
+    std::unordered_map<std::string, s_MissionStatus> map_missionStatus;             /*!< All mission status will be stored here*/
+    std::mutex                      mutex_mapMissionStatus;                         /*!< Mutex from mapMissionStatus */
+    
     // Battery Messages
     std::mutex mutex_batteryList;                                                   /*!< Mutex from batteryMessageList */
     std::vector<s_BatteryMessage>   batteryMessageList;                             /*!< BatteryManager Messages Buffer */
@@ -253,6 +257,16 @@ public:
                                                                                            *  \param vMissionMessage a s_MissionMessage where the values will be written on.
                                                                                            */
     
+    void                            setMissionStatus(s_MissionStatus& p);                 /*!< Add a MissionStatus to the list
+                                                                                           *\param p a s_MissionStatus with the information of a mission.
+                                                                                           */
+    void                            getMissionStatus(std::unordered_map<std::string, s_MissionStatus>& p);          /*!< Get all information from the MissionStatus list
+                                                                                                                     *\param p an unordered_map with all the information related to the missions.
+                                                                                                                     */
+    void                            removeMissionStatus(s_MissionStatus& p);              /*!< Remove one item of the MissionStatusList
+                                                                                           * \param p a s_MissionStatus with the name of the mission that will be removed of the list.
+                                                                                           */
+    
     // Battery Messages
     bool                            isBatteryMessageListEmpty();                          /*!< \brief A function that returns the status of the batteryMessageList Buffer.
                                                                                            *  \return true if the buffer is empty, false otherwise.
@@ -300,7 +314,9 @@ public:
     void                            print(std::string vText);                              /*!< \brief A method responsible for printing a text to the terminal.
                                                                                             *  \param vText a string.
                                                                                             */
-    
+    void                            printMissionStatus(s_MissionStatus vMission);           /*!< \brief A method responsible for sending to logger the mission status for debugging.
+                                                                                            *  \param vMission is a s_MissionStatus.
+                                                                                            */
     
     //NOT USED YET
     

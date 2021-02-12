@@ -40,7 +40,7 @@ void WebModule::run()
             //app->messageResourceBundle().use(app->appRoot() + "strings");
             //app->messageResourceBundle().use(app->appRoot() + "templates");
             
-            app->useStyleSheet("MRSstyle.css");
+            app->useStyleSheet("MRSstyle1.css");
             
             app->root()->addWidget(std::make_unique<WebApp>(monitor2));
             

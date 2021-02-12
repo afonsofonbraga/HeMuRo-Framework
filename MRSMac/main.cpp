@@ -102,7 +102,7 @@ int main(int argc, char **argv){
     }
     
     std::string name{"Robo"};
-    int numberOfRobots = 1; // Number of robots that will be executing the tasks
+    int numberOfRobots = 0; // Number of robots that will be executing the tasks
     int defaultAgents = 0; // Number of Agents including Logger and Charging Stations
     
     std::vector<Blackboard* > v_Blackboard; // = new std::vector<Blackboard>;

@@ -46,9 +46,29 @@ WebApp::WebApp(Blackboard* monitor): WContainerWidget()
     layout->addWidget(std::move(container), Wt::LayoutPosition::East);
     
     container = Wt::cpp14::make_unique<Wt::WContainerWidget>();
-    table = container->addWidget(Wt::cpp14::make_unique<Wt::WTable>());
-    container->setStyleClass("table-box");
+    
+    auto containerTable = Wt::cpp14::make_unique<Wt::WContainerWidget>();
+    agentsTable = containerTable->addWidget(Wt::cpp14::make_unique<Wt::WTable>());
+    containerTable->setStyleClass("table-box");
+
+    Wt::WTabWidget *tabW = container->addNew<Wt::WTabWidget>();
+    
+    tabW->addTab(std::move(containerTable),
+                 "Agents List", Wt::ContentLoading::Eager);
+    
+    containerTable = Wt::cpp14::make_unique<Wt::WContainerWidget>();
+    missionsTable = containerTable->addWidget(Wt::cpp14::make_unique<Wt::WTable>());
+    containerTable->setStyleClass("table-box");
+    
+    tabW->addTab(std::move(containerTable),
+                 "Missions List", Wt::ContentLoading::Eager);
+
+    tabW->setStyleClass("tab-box");
+    
+    
     layout->addWidget(std::move(container), Wt::LayoutPosition::Center);
+    
+    
     
     container = Wt::cpp14::make_unique<Wt::WContainerWidget>();
     container->addWidget(Wt::cpp14::make_unique<Wt::WText>("Terminal"));
@@ -68,6 +88,7 @@ WebApp::WebApp(Blackboard* monitor): WContainerWidget()
     timer_->setInterval(std::chrono::milliseconds{1000});
     timer_->timeout().connect(this, &WebApp::insertTerminalLine);
     timer_->timeout().connect(this, &WebApp::updateAgentList);
+    timer_->timeout().connect(this, &WebApp::updateMissionList);
     timer_->start();
 }
 
@@ -75,18 +96,23 @@ WebApp::~WebApp()
 {
 }
 
+void WebApp::updateMainContainer()
+{
+    this->updateMissionList();
+}
+
 void WebApp::updateAgentList()
 {
-    table->clear();
+    agentsTable->clear();
     
-    table->setHeaderCount(1);
-    table->setWidth(Wt::WLength("100%"));
-    table->elementAt(0, 0)->addNew<Wt::WText>("#");
-    table->elementAt(0, 1)->addNew<Wt::WText>("Agent Name");
-    table->elementAt(0, 2)->addNew<Wt::WText>("Category");
-    table->elementAt(0, 3)->addNew<Wt::WText>("Position (x,y,z)");
-    table->elementAt(0, 4)->addNew<Wt::WText>("Battery Level");
-    table->elementAt(0, 5)->addNew<Wt::WText>("Status");
+    agentsTable->setHeaderCount(1);
+    agentsTable->setWidth(Wt::WLength("100%"));
+    agentsTable->elementAt(0, 0)->addNew<Wt::WText>("#");
+    agentsTable->elementAt(0, 1)->addNew<Wt::WText>("Agent Name");
+    agentsTable->elementAt(0, 2)->addNew<Wt::WText>("Category");
+    agentsTable->elementAt(0, 3)->addNew<Wt::WText>("Position (x,y,z)");
+    agentsTable->elementAt(0, 4)->addNew<Wt::WText>("Battery Level");
+    agentsTable->elementAt(0, 5)->addNew<Wt::WText>("Status");
     
     
     int row = 0;
@@ -162,22 +188,81 @@ void WebApp::updateAgentList()
         
         bar->setRange(0, 100);
         bar->setValue(n.second.batteryLevel);
-        table->elementAt(row, 0)
+        agentsTable->elementAt(row, 0)
         ->addNew<Wt::WText>(Wt::WString("{1}").arg(row));
-        table->elementAt(row, 1)
+        agentsTable->elementAt(row, 1)
         ->addNew<Wt::WText>(n.first);
-        table->elementAt(row, 2)
+        agentsTable->elementAt(row, 2)
         ->addWidget(std::move(container2));
-        table->elementAt(row, 3)
+        agentsTable->elementAt(row, 3)
         ->addNew<Wt::WText>(Wt::WString("("+std::to_string(n.second.robotsPosition.x)+","+ std::to_string(n.second.robotsPosition.y)+ "," + std::to_string(n.second.robotsPosition.z) +")"));
-        table->elementAt(row, 4)
+        agentsTable->elementAt(row, 4)
         ->addWidget(std::move(container));
-        table->elementAt(row, 5)
+        agentsTable->elementAt(row, 5)
         ->addNew<Wt::WText>(status);
     }
 }
 
-// <Wt::WText>(category);
+void WebApp::updateMissionList()
+{
+    missionsTable->clear();
+    
+    missionsTable->setHeaderCount(1);
+    missionsTable->setWidth(Wt::WLength("100%"));
+    missionsTable->elementAt(0, 0)->addNew<Wt::WText>("#");
+    missionsTable->elementAt(0, 1)->addNew<Wt::WText>("Mission ID");
+    missionsTable->elementAt(0, 2)->addNew<Wt::WText>("Mission Owner");
+    missionsTable->elementAt(0, 3)->addNew<Wt::WText>("Mission Executioner*");
+    missionsTable->elementAt(0, 4)->addNew<Wt::WText>("Status");
+    
+    int row = 0;
+    std::unordered_map<std::string, s_MissionStatus> missionList;
+    this->monitor->getMissionStatus(missionList);
+    
+    std::string status;
+    
+    for (auto n : missionList)
+    {
+        row++;
+    
+        switch(n.second.status)
+        {
+            case enum_MissionStatus::null:
+                status = "null";
+                break;
+            case enum_MissionStatus::allocating:
+                status = "Allocating";
+                break;
+            case enum_MissionStatus::executing:
+                status = "Executing";
+                break;
+            case enum_MissionStatus::complete:
+                status = "Complete";
+                break;
+            case enum_MissionStatus::failure:
+                status = "Failure";
+                break;
+            case enum_MissionStatus::aborted:
+                status = "Redirected";
+                break;
+            case enum_MissionStatus::timeout:
+                status = "Timeout";
+            default:
+                break;
+        }
+        
+        missionsTable->elementAt(row, 0)
+        ->addNew<Wt::WText>(Wt::WString("{1}").arg(row));
+        missionsTable->elementAt(row, 1)
+        ->addNew<Wt::WText>(n.first);
+        missionsTable->elementAt(row, 2)
+        ->addNew<Wt::WText>(n.second.missionOwner);
+        missionsTable->elementAt(row, 3)
+        ->addNew<Wt::WText>(n.second.missionExecutioner);
+        missionsTable->elementAt(row, 4)
+        ->addNew<Wt::WText>(status);
+    }
+}
 
 void WebApp::insertTerminalLine()
 {

@@ -34,6 +34,10 @@
 
 #include <Wt/WProgressBar.h>
 
+#include <Wt/WMenuItem.h>
+#include <Wt/WTabWidget.h>
+
+
 
 #ifndef __has_include
 static_assert(false, "__has_include not supported");
@@ -60,10 +64,13 @@ public:
     
 private:
     Blackboard*                   monitor;
-    Wt::WTable*                   table;
+    Wt::WTable*                   agentsTable;
+    Wt::WTable*                   missionsTable;
     std::unique_ptr<Wt::WTimer>   timer_;
     Wt::WTextArea*                terminal;
     void                          updateAgentList();
+    void                          updateMissionList();
+    void                          updateMainContainer();
 protected:
     std::string                   path;
     s_LoggerMessage*              vLoggerMessage;
