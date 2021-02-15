@@ -197,13 +197,14 @@ void TaskModule::addTaskReceived(std::unique_ptr<s_TaskMessage> vTaskMessage)
         this->missionToExecute.executionTime = vTaskMessage->executionTime;
         
         
-        bool status = agent->addAtomicTask( this->missionToExecute);
+        bool status = agent->addAtomicTask(this->missionToExecute);
+        
+        calculateMissionExecutionTime(this->missionToExecute);
         calculateMissionCost(this->missionToExecute);
+
         this->monitor->setCostToExecute(this->missionToExecute.missionCost);
-        
-        //this->monitor->print("Mission " + std::string(vTaskMessage->missionCode) + " costs: " + std::to_string(this->missionToExecute.missionCost) + " BL: " + std::to_string(this->monitor->getBatteryLevel()));
-        
-        if(this->missionToExecute.missionCost <= this->monitor->getBatteryLevel() && status == true)
+                
+        if(this->missionToExecute.missionCost <= this->monitor->getBatteryLevel() && status == true && this->missionToExecute.timeToExecute <= std::chrono::milliseconds(this->missionToExecute.executionTime))
         {
             this->missionToExecute.enum_execution = enum_MissionExecution::waitingStart;
             s_MissionMessage missionMessage;
@@ -231,6 +232,16 @@ void TaskModule::calculateMissionCost(MissionExecution& mission)
     {
         mission.missionCost += n->getCost();
     }
+}
+
+void TaskModule::calculateMissionExecutionTime(MissionExecution& mission)
+{
+    mission.timeToExecute = std::chrono::milliseconds(0);
+    for (auto n:mission.atomicTaskSequence)
+    {
+        mission.timeToExecute += n->getTime();
+    }
+    std::cout << "Total Time to execute the mission: "<< mission.timeToExecute.count() << " seconds"<< std::endl;
 }
 
 void TaskModule::startCommand(std::unique_ptr<s_TaskMessage> vTaskMessage)

@@ -32,7 +32,6 @@ void Auction::run()
 {
     if(this->isRunning == true)
     {
-        //s_MissionMessage* vMissionMessage = new s_MissionMessage;
         auto vMissionMessage = std::make_unique<s_MissionMessage>();
         this->monitor->getMissionMessage(*vMissionMessage);
         
@@ -222,14 +221,11 @@ void Auction::winningBid(std::unique_ptr<s_MissionMessage> vMissionMessage)
     
     if(this->MissionList[vMissionMessage->missionCode].enum_execution == enum_MissionExecution::waitingAuction)
     {
-        //std::cout << "[" << this->robotName << "] I win!"<<std::endl;
         this->monitor->print("I win!");
         
         // First check if the robot is still available to execute the mission, if so, lock it up!
         if (this->monitor->getRobotStatus() == enum_RobotStatus::available)
         {
-            //this->monitor->print("I'm available to execute " + std::string(vMissionMessage->missionCode) + "!");
-            
             // Add this mission into the execution Module.
             addMissionToExecute(this->MissionList[vMissionMessage->missionCode]);
         }
@@ -253,12 +249,6 @@ void Auction::addMissionToExecute(MissionExecution& vMissionExecute)
     strcpy(vTaskMessage.attributesBuffer,vMissionExecute.attributesBuffer);
     int totalSize = ((int*) vMissionExecute.attributesBuffer)[0];
     memcpy(vTaskMessage.attributesBuffer,vMissionExecute.attributesBuffer, totalSize);
-    
-    
-    //missionToExecute.atomicTaskEnumerator = std::move(vMissionExecute.atomicTaskEnumerator);
-    //missionToExecute.atomicTaskSequence = std::move(vMissionExecute.atomicTaskSequence);
-    //missionToExecute.atomicTaskIndex = vMissionExecute.atomicTaskIndex;
-    //missionToExecute.missionCost = vMissionExecute.missionCost;
     
     vTaskMessage.robotCat = vMissionExecute.robotCategory;
     vTaskMessage.executionTime = vMissionExecute.executionTime;
@@ -364,8 +354,7 @@ void Auction::waitingForBids(char* missionID)
     // Lock mutex and start timer
     std::unique_lock<std::mutex> lk(*this->missionOwnerList[missionID].cv_m);
     std::chrono::time_point now = std::chrono::system_clock::now();
-    
-    //std::cout << "[" << this->robotName << "] Waiting for Bids" << std::endl;
+
     this->monitor->print("Waiting for Bids");
     
     // Send the mission to all robots
@@ -401,7 +390,6 @@ void Auction::waitingForBids(char* missionID)
     if(this->missionOwnerList[missionID].vectorBids.empty())
     {
         // If there is no available robots, start again.
-        //std::cout << "[" << this->robotName << "] No Bids received. Trying again." << std::endl;
         this->monitor->print("No Bids received for "+ std::string(missionID) +". Trying again.");
     } else
     {
@@ -416,7 +404,6 @@ void Auction::addBidReceived(std::unique_ptr<s_MissionMessage> vMissionMessage)
     std::unique_lock<std::mutex> lk(*this->missionOwnerList[vMissionMessage->missionCode].cv_m);
     if (this->missionOwnerList[vMissionMessage->missionCode].enum_request == enum_MissionRequest::waitingBids)
     {
-        //std::cout << "[" << this->robotName << "] " << vMissionMessage->missionCode << " received a bid from "<< vMissionMessage->senderName << "!" <<std::endl;
         this->monitor->print(std::string(vMissionMessage->missionCode) + " received a bid from " + std::string(vMissionMessage->senderName) + "!");
         Bid bid;
         bid.price = vMissionMessage->Cost;
@@ -433,7 +420,6 @@ void Auction::notifyingWinner(char* missionID)
     std::unique_lock<std::mutex> lk(*this->missionOwnerList[missionID].cv_m);
     if(this->missionOwnerList[missionID].vectorBids.empty() || this->missionOwnerList[missionID].vectorBids.size() == 0)
     {
-        //std::cout << "[" << this->robotName << "] No one accepted "<< missionID << ". Offering again..." << std::endl;
         this->monitor->print("No one accepted " + std::string(missionID) + ". Offering again...");
         
         this->missionOwnerList[missionID].enum_request = enum_MissionRequest::waitingBids;
@@ -450,7 +436,6 @@ void Auction::notifyingWinner(char* missionID)
         
         this->missionOwnerList[missionID].vectorBids.erase(this->missionOwnerList[missionID].vectorBids.begin() + winner);
         
-        //std::cout << "[" << this->robotName << "] "<< this->missionOwnerList[missionID].winnerName << " won " << missionID <<"! Notifying!" << std::endl;
         this->monitor->print(std::string(this->missionOwnerList[missionID].winnerName) + " won " + std::string(missionID) + "! Notifying!");
         
         s_MissionMessage missionMessage;
@@ -469,7 +454,6 @@ void Auction::notifyingWinner(char* missionID)
         
         if(this->missionOwnerList[missionID].missionAccepted == false)
         {
-            //std::cout << "[" << this->robotName << "] Not accepted. Notifying the next bid." << std::endl;
             this->monitor->print("Not accepted. Notifying the next bid.");
             this->missionOwnerList[missionID].enum_request = enum_MissionRequest::notifyingWinner;
         }else
@@ -484,8 +468,7 @@ void Auction::notifyingWinner(char* missionID)
 void Auction::notifyingToExecute(char* missionID)
 {
     std::unique_lock<std::mutex> lk(*this->missionOwnerList[missionID].cv_m);
-    
-    //std::cout << "[" << this->robotName << "] Sending the execution command!" << std::endl;
+
     this->monitor->print("Sending the execution command!");
     s_MissionMessage missionMessage;
     
@@ -524,7 +507,6 @@ void Auction::missionAborted(std::unique_ptr<s_MissionMessage> vMissionMessage)
     std::unique_lock<std::mutex> lk(*this->missionOwnerList[vMissionMessage->missionCode].cv_m);
     if (strcmp(this->missionOwnerList[vMissionMessage->missionCode].winnerAddress, vMissionMessage->senderAddress) == 0)
     {
-        //std::cout << "[" << this->robotName << "] Received an Abort Mission Command!" <<std::endl;
         this->monitor->print("Received an Abort Mission Command!");
         this->missionOwnerList[vMissionMessage->missionCode].vectorBids.clear();
         this->missionOwnerList[vMissionMessage->missionCode].enum_request = enum_MissionRequest::waitingBids;

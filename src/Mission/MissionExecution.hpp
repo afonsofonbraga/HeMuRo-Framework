@@ -25,6 +25,7 @@ public:
     std::vector<std::shared_ptr<AtomicTask>> atomicTaskSequence;
     int atomicTaskIndex = 0;
     float missionCost = 0;
+    std::chrono::milliseconds timeToExecute = std::chrono::milliseconds(0);
     std::chrono::time_point<std::chrono::system_clock> startTime;
     //auto now = std::chrono::system_clock::now();
 public:

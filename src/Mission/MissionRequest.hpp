@@ -24,7 +24,6 @@ public:
     std::thread* t5;
     int biddingTime = 5;
     int communicationTime = 2;
-    int executionTime = 30;
     std::vector<Bid> vectorBids;
     std::unique_ptr<std::condition_variable> cv;
     std::unique_ptr<std::mutex> cv_m;

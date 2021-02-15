@@ -64,6 +64,7 @@ protected:
     void emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage);
 
     void calculateMissionCost(MissionExecution& mission);
+    void calculateMissionExecutionTime(MissionExecution& mission);
     void missionRequestController(char* missionID);
     
 public:

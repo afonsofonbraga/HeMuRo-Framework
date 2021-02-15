@@ -10,17 +10,20 @@
 #define AtomicTask_hpp
 
 #include <iostream>
+#include <chrono>
 #include "dataTypes.hpp"
 #include "Blackboard.hpp"
+
 
 class AtomicTask
 {
 protected:
-    
     s_pose startPosition;
     s_pose endPosition;
     float cost;
-    float costFactor;
+    float costFactor = 0;
+    std::chrono::milliseconds time = std::chrono::milliseconds(0); //Time to execute the atomicTask
+    int timeFactor = 0;
     enum_AtomicTaskStatus status;
     Blackboard* monitor;
 public:
@@ -35,5 +38,8 @@ public:
     virtual void calculateCost();
     void setCostFactor(float value);
     float getCost();
+    virtual void calculateTime();
+    void setTimeFactor(int factor);
+    std::chrono::milliseconds getTime();
 };
 #endif /* AtomicTask_hpp */
