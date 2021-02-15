@@ -151,7 +151,7 @@ int main(int argc, char **argv){
      v_DefaultRobot.push_back(robot);
      usleep(1000);
      }
-    /*
+    
     char vIP[MAX_IP];
     
     
@@ -180,10 +180,10 @@ int main(int argc, char **argv){
         //mission.goal.yaw = 0.3;
 
         //mission.goal.pop();
-        mission.goal = sala_A01;
+        //mission.goal = sala_A03;
         mission.numberOfAttributes = 1;
         *((int*) (mission.attributesBuffer + 4)) = sizeof(sala_A01);
-        memcpy(mission.attributesBuffer + 8, &sala_A01, sizeof(sala_A01));
+        memcpy(mission.attributesBuffer + 8, &sala_A03, sizeof(sala_A01));
         *((int*) (mission.attributesBuffer)) = sizeof(sala_A01) + 8;
           
         mission.executionTime = 60;
@@ -196,7 +196,7 @@ int main(int argc, char **argv){
         
         v_Blackboard.at(1)->addUDPMessage(message);
     }
-    
+    /*
     {
         strcpy(mission.missionCode, "Deliver");
         mission.operation = enum_MissionOperation::createMission;

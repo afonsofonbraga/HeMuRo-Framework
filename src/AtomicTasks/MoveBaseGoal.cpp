@@ -13,7 +13,9 @@ MoveBaseGoal::MoveBaseGoal(Blackboard* vMonitor, s_pose& start, s_pose& end) : A
 {
     this->costFactor = factor * (battery_discharge /(robots_max_speed*3600))/battery_capacity;
     this->timeFactor = this->robots_max_speed;
+    
     calculateCost();
+    calculateTime();
 }
 
 MoveBaseGoal::~MoveBaseGoal(){}
