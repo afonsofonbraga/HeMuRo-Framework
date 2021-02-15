@@ -282,10 +282,13 @@ void TaskModule::addMissionToExecute(std::unique_ptr<s_TaskMessage> vTaskMessage
         
         
         bool status = agent->addAtomicTask( this->missionToExecute);
+        
+        calculateMissionExecutionTime(this->missionToExecute);
         calculateMissionCost(this->missionToExecute);
+        
         this->monitor->setCostToExecute(this->missionToExecute.missionCost);
         
-        if(this->missionToExecute.missionCost <= this->monitor->getBatteryLevel() && status == true)
+        if(this->missionToExecute.missionCost <= this->monitor->getBatteryLevel() && status == true && this->missionToExecute.timeToExecute <= std::chrono::milliseconds(this->missionToExecute.executionTime))
         {
             this->missionToExecute.enum_execution = enum_MissionExecution::executing;
             s_MissionMessage missionMessage;
