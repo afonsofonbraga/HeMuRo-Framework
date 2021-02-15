@@ -241,7 +241,6 @@ void TaskModule::calculateMissionExecutionTime(MissionExecution& mission)
     {
         mission.timeToExecute += n->getTime();
     }
-    std::cout << "Total Time to execute the mission: "<< mission.timeToExecute.count()/1000 << " seconds"<< std::endl;
 }
 
 void TaskModule::startCommand(std::unique_ptr<s_TaskMessage> vTaskMessage)

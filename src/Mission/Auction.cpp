@@ -171,11 +171,12 @@ void Auction::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessa
         
         bool status = agent->addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
+        calculateMissionExecutionTime(this->MissionList[vMissionMessage->missionCode]);
         
         //CHECK IF THERE IS ENOUGH BATTERY OR IF THE PATH IS FEASABLE
-        this->monitor->print("Mission " + std::string(vMissionMessage->missionCode) + " costs: " + std::to_string(this->MissionList[vMissionMessage->missionCode].missionCost) + " BL: " + std::to_string(this->monitor->getBatteryLevel()));
+        this->monitor->print("Mission " + std::string(vMissionMessage->missionCode) + " costs: " + std::to_string(this->MissionList[vMissionMessage->missionCode].missionCost) + " BL: " + std::to_string(this->monitor->getBatteryLevel()) + "ExecutionTime" + std::to_string(this->MissionList[vMissionMessage->missionCode].timeToExecute.count()/1000) + " Deadline: " + std::to_string(this->MissionList[vMissionMessage->missionCode].relativeDeadline.count()/1000));
         
-        if(this->MissionList[vMissionMessage->missionCode].missionCost <= this->monitor->getBatteryLevel() && status == true)
+        if(this->MissionList[vMissionMessage->missionCode].missionCost <= this->monitor->getBatteryLevel() && status == true && this->MissionList[vMissionMessage->missionCode].timeToExecute <= this->MissionList[vMissionMessage->missionCode].relativeDeadline)
             sendMissionCost(this->MissionList[vMissionMessage->missionCode]); // Send back the proposal
     }
 }
@@ -563,6 +564,16 @@ void Auction::calculateMissionCost(MissionExecution& mission)
         mission.missionCost += n->getCost();
     }
 }
+
+void Auction::calculateMissionExecutionTime(MissionExecution& mission)
+{
+    mission.timeToExecute = std::chrono::milliseconds(0);
+    for (auto n:mission.atomicTaskSequence)
+    {
+        mission.timeToExecute += n->getTime();
+    }
+}
+
 
 void Auction::sendMissionCost(MissionExecution& mission)
 {
