@@ -34,6 +34,7 @@ public:
     ~GoToSim();
     void run() override;
     void calculateCost() override;
+    void calculateTime() override;
     
 };
 

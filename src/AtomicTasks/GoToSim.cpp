@@ -11,7 +11,10 @@
 GoToSim::GoToSim(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     costFactor = factor * (battery_discharge /(robots_max_speed*3600))/battery_capacity;
+    this->timeFactor = this->robots_max_speed;
+    
     calculateCost();
+    calculateTime();
 }
 
 GoToSim::~GoToSim(){}
@@ -65,4 +68,8 @@ void GoToSim::calculateCost()
     this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costFactor;
 }
 
-
+void GoToSim::calculateTime()
+{
+    int time_seconds = round(sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2) + pow(this->endPosition.z - this->startPosition.z, 2))/this->timeFactor);
+    this->time = std::chrono::milliseconds(time_seconds*1000);
+}

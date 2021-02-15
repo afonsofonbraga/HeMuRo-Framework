@@ -58,7 +58,7 @@ enum_AtomicTaskStatus AtomicTask::getStatus()
     return this->status;
 }
 
-void AtomicTask::calculateTime() {this->time = std::chrono::milliseconds(this->timeFactor);}
+void AtomicTask::calculateTime() {this->time = std::chrono::milliseconds(int(this->timeFactor));}
 
 void AtomicTask::setTimeFactor(int factor) {this->timeFactor = factor; }
 

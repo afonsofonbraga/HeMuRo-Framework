@@ -23,7 +23,7 @@ protected:
     float cost;
     float costFactor = 0;
     std::chrono::milliseconds time = std::chrono::milliseconds(0); //Time to execute the atomicTask
-    int timeFactor = 0;
+    float timeFactor = 0;
     enum_AtomicTaskStatus status;
     Blackboard* monitor;
 public:
