@@ -223,7 +223,7 @@ void BatteryManager::batteryCheckLoop()
                 vTaskMessage.operation = enum_TaskMessage::addEmergency;
                 vTaskMessage.taskToBeDecomposed = enum_DecomposableTask::lowBattery;
                 
-                vTaskMessage.goal = chargingStationWinner.spotPosition;
+                //vTaskMessage.goal = chargingStationWinner.spotPosition;
                 
                 vTaskMessage.numberOfAttributes = 1;
                 *((int*) (vTaskMessage.attributesBuffer + 4)) = sizeof(chargingStationWinner.spotPosition);

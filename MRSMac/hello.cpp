@@ -185,7 +185,7 @@ int main(){
 
         //mission.goal.pop();
         mission.goal = sala_A01;
-        mission.executionTime = 30;
+        mission.relativeDeadline = std::chrono::milliseconds(60);
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
@@ -206,7 +206,7 @@ int main(){
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
         mission.goal = recepcao;
-        mission.executionTime = 30;
+        mission.relativeDeadline = std::chrono::milliseconds(60);
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
@@ -227,7 +227,7 @@ int main(){
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
         mission.goal = deposito_01;
-        mission.executionTime = 30;
+        mission.relativeDeadline = std::chrono::milliseconds(60);
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
@@ -249,7 +249,7 @@ int main(){
         //mission.goal.yaw = 0.3;
 
         mission.goal = escada_02;
-        mission.executionTime = 30;
+        mission.relativeDeadline = std::chrono::milliseconds(60);
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;

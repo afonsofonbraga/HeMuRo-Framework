@@ -71,5 +71,5 @@ void GoToSim::calculateCost()
 void GoToSim::calculateTime()
 {
     int time_seconds = round(sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2) + pow(this->endPosition.z - this->startPosition.z, 2))/this->timeFactor);
-    this->time = std::chrono::milliseconds(time_seconds*1000);
+    this->time = std::chrono::seconds(time_seconds);
 }

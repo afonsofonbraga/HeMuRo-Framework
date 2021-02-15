@@ -11,6 +11,7 @@
 #include <iostream>
 #include <list>
 #include <queue>
+#include <chrono>
 
 /*
 #ifdef DEFAULT
@@ -107,10 +108,11 @@ struct s_MissionMessage
     float Cost = 0;
     //char buffer[500] = "null";
     enum_RobotCategory robotCat = enum_RobotCategory::null;
-    int executionTime = 0;
+    std::chrono::milliseconds relativeDeadline = std::chrono::milliseconds(0);
+    //int executionTime = 0;
     int numberOfAttributes = 0;
-    char attributesBuffer[500] = "null";
-    s_pose goal;
+    char attributesBuffer[450] = "null";
+    //s_pose goal;
 };
 
 struct s_TaskMessage
@@ -121,11 +123,12 @@ struct s_TaskMessage
     enum_TaskMessage operation = enum_TaskMessage::null;
     enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
     enum_RobotCategory robotCat = enum_RobotCategory::null;
+    std::chrono::milliseconds relativeDeadline = std::chrono::milliseconds(0);
     float Cost = 0;
-    int executionTime = 0;
+    //int executionTime = 0;
     int numberOfAttributes = 0;
-    char attributesBuffer[500] = "null";
-    s_pose goal;
+    char attributesBuffer[450] = "null";
+    //s_pose goal;
 };
 
 struct s_BatteryMessage
@@ -139,8 +142,7 @@ struct s_BatteryMessage
     //char buffer[500] = "null";
     s_pose position;
     enum_RobotCategory robotCat;
-    int executionTime;
-    
+    std::chrono::milliseconds relativeDeadline = std::chrono::milliseconds(0);
 };
 
 struct s_ChargingRequest

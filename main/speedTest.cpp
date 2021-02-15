@@ -168,7 +168,8 @@ int main( int argc, char *argv[ ] )
         memcpy(mission.attributesBuffer + 8, &sala_A01, sizeof(sala_A01));
         *((int*) (mission.attributesBuffer)) = sizeof(sala_A01) + 8;
           
-        mission.executionTime = 60;
+        mission.relativeDeadline = std::chrono::milliseconds(60);
+        
     
         
         v_Blackboard.at(1)->addTaskMessage(mission);

@@ -103,7 +103,7 @@ void TaskModule::startMissionToExecute()
                 case enum_MissionExecution::executing:
                 {
                     auto currentTime = std::chrono::system_clock::now();
-                    if ( currentTime - this->missionToExecute.startTime <= std::chrono::seconds(this->missionToExecute.executionTime))
+                    if ( currentTime - this->missionToExecute.startTime <= this->missionToExecute.relativeDeadline)
                         this->missionToExecute.run();
                     else
                     {
@@ -188,13 +188,13 @@ void TaskModule::addTaskReceived(std::unique_ptr<s_TaskMessage> vTaskMessage)
         this->missionToExecute.mission = vTaskMessage->taskToBeDecomposed;
         
         this->missionToExecute.atomicTaskEnumerator = std::move(vMission->atomicTaskEnumerator);
-        this->missionToExecute.goal = vTaskMessage->goal;
+        //this->missionToExecute.goal = vTaskMessage->goal;
         this->missionToExecute.numberOfAttributes = vTaskMessage->numberOfAttributes;
         int totalSize = ((int*) vTaskMessage->attributesBuffer)[0];
         memcpy(this->missionToExecute.attributesBuffer,&vTaskMessage->attributesBuffer, totalSize);
         
         this->missionToExecute.robotCategory = vTaskMessage->robotCat;
-        this->missionToExecute.executionTime = vTaskMessage->executionTime;
+        this->missionToExecute.relativeDeadline = vTaskMessage->relativeDeadline;
         
         
         bool status = agent->addAtomicTask(this->missionToExecute);
@@ -204,7 +204,7 @@ void TaskModule::addTaskReceived(std::unique_ptr<s_TaskMessage> vTaskMessage)
 
         this->monitor->setCostToExecute(this->missionToExecute.missionCost);
                 
-        if(this->missionToExecute.missionCost <= this->monitor->getBatteryLevel() && status == true && this->missionToExecute.timeToExecute <= std::chrono::milliseconds(this->missionToExecute.executionTime))
+        if(this->missionToExecute.missionCost <= this->monitor->getBatteryLevel() && status == true && this->missionToExecute.timeToExecute <= this->missionToExecute.relativeDeadline)
         {
             this->missionToExecute.enum_execution = enum_MissionExecution::waitingStart;
             s_MissionMessage missionMessage;
@@ -272,13 +272,13 @@ void TaskModule::addMissionToExecute(std::unique_ptr<s_TaskMessage> vTaskMessage
         this->missionToExecute.mission = vTaskMessage->taskToBeDecomposed;
         
         this->missionToExecute.atomicTaskEnumerator = std::move(vMission->atomicTaskEnumerator);
-        this->missionToExecute.goal = vTaskMessage->goal;
+        //this->missionToExecute.goal = vTaskMessage->goal;
         this->missionToExecute.numberOfAttributes = vTaskMessage->numberOfAttributes;
         int totalSize = ((int*) vTaskMessage->attributesBuffer)[0];
         memcpy(this->missionToExecute.attributesBuffer,&vTaskMessage->attributesBuffer, totalSize);
         
         this->missionToExecute.robotCategory = vTaskMessage->robotCat;
-        this->missionToExecute.executionTime = vTaskMessage->executionTime;
+        this->missionToExecute.relativeDeadline = vTaskMessage->relativeDeadline;
         
         
         bool status = agent->addAtomicTask( this->missionToExecute);
@@ -288,7 +288,7 @@ void TaskModule::addMissionToExecute(std::unique_ptr<s_TaskMessage> vTaskMessage
         
         this->monitor->setCostToExecute(this->missionToExecute.missionCost);
         
-        if(this->missionToExecute.missionCost <= this->monitor->getBatteryLevel() && status == true && this->missionToExecute.timeToExecute <= std::chrono::milliseconds(this->missionToExecute.executionTime))
+        if(this->missionToExecute.missionCost <= this->monitor->getBatteryLevel() && status == true && this->missionToExecute.timeToExecute <= this->missionToExecute.relativeDeadline)
         {
             this->missionToExecute.enum_execution = enum_MissionExecution::executing;
             s_MissionMessage missionMessage;
@@ -336,7 +336,7 @@ void TaskModule::emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage)
         strcpy(vMission->senderName,vTaskMessage->senderName);
         vMission->mission = vTaskMessage->taskToBeDecomposed;
         
-        vMission->goal = vTaskMessage->goal;
+        //vMission->goal = vTaskMessage->goal;
         vMission->numberOfAttributes = vTaskMessage->numberOfAttributes;
         int totalSize = ((int*) vTaskMessage->attributesBuffer)[0];
         memcpy(vMission->attributesBuffer,&vTaskMessage->attributesBuffer, totalSize);

@@ -35,7 +35,9 @@ public:
     char winnerName[MAX_ROBOT_ID];
     enum_DecomposableTask mission = enum_DecomposableTask::null;
     enum_RobotCategory robotCategory;
-    int executionTime = 30;
+    std::chrono::milliseconds relativeDeadline = std::chrono::milliseconds(30);
+    //int executionTime = 30;
+    
     s_pose goal;
     int numberOfAttributes = 0;
     char attributesBuffer[500] = "null";

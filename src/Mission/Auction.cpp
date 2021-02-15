@@ -160,14 +160,14 @@ void Auction::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessa
         this->MissionList[vMissionMessage->missionCode].enum_execution = enum_MissionExecution::waitingAuction;
         this->MissionList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
         
-        this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
+        //this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
         this->MissionList[vMissionMessage->missionCode].numberOfAttributes = vMissionMessage->numberOfAttributes;
         int totalSize = ((int*) vMissionMessage->attributesBuffer)[0];
         memcpy(this->MissionList[vMissionMessage->missionCode].attributesBuffer,&vMissionMessage->attributesBuffer, totalSize);
         
         this->MissionList[vMissionMessage->missionCode].atomicTaskEnumerator = std::move(vMission->atomicTaskEnumerator);
         this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
-        this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
+        this->MissionList[vMissionMessage->missionCode].relativeDeadline = vMissionMessage->relativeDeadline;
         
         bool status = agent->addAtomicTask(this->MissionList[vMissionMessage->missionCode]);
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
@@ -198,7 +198,7 @@ void Auction::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> vMission
         this->MissionList[vMissionMessage->missionCode].enum_execution = enum_MissionExecution::waitingAuction;
         this->MissionList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
         
-        this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
+        //this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
         this->MissionList[vMissionMessage->missionCode].numberOfAttributes = vMissionMessage->numberOfAttributes;
         int totalSize = ((int*) vMissionMessage->attributesBuffer)[0];
         memcpy(this->MissionList[vMissionMessage->missionCode].attributesBuffer,&vMissionMessage->attributesBuffer, totalSize);
@@ -206,7 +206,7 @@ void Auction::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> vMission
         
         this->MissionList[vMissionMessage->missionCode].atomicTaskEnumerator = std::move(vMission->atomicTaskEnumerator);
         this->MissionList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
-        this->MissionList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
+        this->MissionList[vMissionMessage->missionCode].relativeDeadline = vMissionMessage->relativeDeadline;
         
         bool status = agent->addAtomicTask( this->MissionList[vMissionMessage->missionCode]);
         calculateMissionCost(this->MissionList[vMissionMessage->missionCode]);
@@ -244,14 +244,14 @@ void Auction::addMissionToExecute(MissionExecution& vMissionExecute)
     
     vTaskMessage.taskToBeDecomposed = vMissionExecute.mission;
     
-    vTaskMessage.goal = vMissionExecute.goal;
+    //vTaskMessage.goal = vMissionExecute.goal;
     vTaskMessage.numberOfAttributes = vMissionExecute.numberOfAttributes;
     strcpy(vTaskMessage.attributesBuffer,vMissionExecute.attributesBuffer);
     int totalSize = ((int*) vMissionExecute.attributesBuffer)[0];
     memcpy(vTaskMessage.attributesBuffer,vMissionExecute.attributesBuffer, totalSize);
     
     vTaskMessage.robotCat = vMissionExecute.robotCategory;
-    vTaskMessage.executionTime = vMissionExecute.executionTime;
+    vTaskMessage.relativeDeadline = vMissionExecute.relativeDeadline;
     vTaskMessage.operation = enum_TaskMessage::addTask;
     this->monitor->addTaskMessage(vTaskMessage);
     
@@ -330,14 +330,14 @@ void Auction::createMission(std::unique_ptr<s_MissionMessage> vMissionMessage)
     this->missionOwnerList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
     this->missionOwnerList[vMissionMessage->missionCode].enum_request = enum_MissionRequest::waitingBids;
     
-    this->missionOwnerList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
+    //this->missionOwnerList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
     this->missionOwnerList[vMissionMessage->missionCode].numberOfAttributes = vMissionMessage->numberOfAttributes;
     int totalSize = ((int*) vMissionMessage->attributesBuffer)[0];
     memcpy(this->missionOwnerList[vMissionMessage->missionCode].attributesBuffer,vMissionMessage->attributesBuffer, totalSize);
     
     
     this->missionOwnerList[vMissionMessage->missionCode].robotCategory = vMissionMessage->robotCat;
-    this->missionOwnerList[vMissionMessage->missionCode].executionTime = vMissionMessage->executionTime;
+    this->missionOwnerList[vMissionMessage->missionCode].relativeDeadline = vMissionMessage->relativeDeadline;
     
     s_MissionStatus missionStatus;
     strcpy(missionStatus.missionCode, vMissionMessage->missionCode);
@@ -367,14 +367,14 @@ void Auction::waitingForBids(char* missionID)
     missionMessage.taskToBeDecomposed = this->missionOwnerList[missionID].mission;
     
     
-    missionMessage.goal = this->missionOwnerList[missionID].goal;
+    //missionMessage.goal = this->missionOwnerList[missionID].goal;
     missionMessage.numberOfAttributes = this->missionOwnerList[missionID].numberOfAttributes;
     int totalSize = ((int*) this->missionOwnerList[missionID].attributesBuffer)[0];
     memcpy(missionMessage.attributesBuffer,this->missionOwnerList[missionID].attributesBuffer, totalSize);
     
     
     missionMessage.robotCat = this->missionOwnerList[missionID].robotCategory;
-    missionMessage.executionTime = this->missionOwnerList[missionID].executionTime;
+    missionMessage.relativeDeadline = this->missionOwnerList[missionID].relativeDeadline;
     char broadcast[MAX_ROBOT_ID] = "Broadcast";
     sendUDPMessage(missionMessage, *this->broadcastIP, *broadcast);
     

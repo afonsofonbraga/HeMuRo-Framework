@@ -87,7 +87,7 @@ int main(){
         mission.goal.y = 5.0;
         mission.goal.z = 3.0;
         mission.goal.yaw = 0;
-        mission.executionTime = 300;
+        mission.relativeDeadline = std::chrono::milliseconds(300);
         
         
         memcpy(message.buffer,"Robo0",10);
@@ -109,7 +109,7 @@ int main(){
         mission.goal.y = 4.0;
         mission.goal.z = 0.0;
         mission.goal.yaw = 0.3;
-        mission.executionTime = 300;
+        mission.relativeDeadline = std::chrono::milliseconds(60);
         
         memcpy(message.buffer,"Robo0",10);
         *((Operation*)(message.buffer + 10)) = operation;
@@ -129,7 +129,7 @@ int main(){
      mission.goal.y = 1.0;
      mission.goal.z = 0.0;
      mission.goal.yaw = 1;
-     mission.executionTime = 300;
+     mission.relativeDeadline = std::chrono::milliseconds(60);
      
      memcpy(message.buffer,"Robo0",10);
      *((Operation*)(message.buffer + 10)) = operation;

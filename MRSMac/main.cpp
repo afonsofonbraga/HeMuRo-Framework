@@ -12,9 +12,6 @@
 #include "ChargingStation.hpp"
 #include "LoggerAgent.hpp"
 
-
-
-
 int main(int argc, char **argv){
     s_pose sala_A01;
     {
@@ -102,7 +99,7 @@ int main(int argc, char **argv){
     }
     
     std::string name{"Robo"};
-    int numberOfRobots = 0; // Number of robots that will be executing the tasks
+    int numberOfRobots = 1; // Number of robots that will be executing the tasks
     int defaultAgents = 0; 
     
     std::vector<Blackboard* > v_Blackboard; // = new std::vector<Blackboard>;
@@ -186,7 +183,7 @@ int main(int argc, char **argv){
         memcpy(mission.attributesBuffer + 8, &sala_A03, sizeof(sala_A01));
         *((int*) (mission.attributesBuffer)) = sizeof(sala_A01) + 8;
           
-        mission.executionTime = 60;
+        mission.relativeDeadline = std::chrono::seconds(60);
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
@@ -196,7 +193,9 @@ int main(int argc, char **argv){
         
         v_Blackboard.at(1)->addUDPMessage(message);
     }
-    /*
+    
+    
+    
     {
         strcpy(mission.missionCode, "Deliver");
         mission.operation = enum_MissionOperation::createMission;
@@ -206,7 +205,7 @@ int main(int argc, char **argv){
         //mission.goal.y = 5.5;
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
-        mission.goal = recepcao;
+        //mission.goal = recepcao;
         mission.numberOfAttributes = 2;
         int total = 4;
         *((int*) (mission.attributesBuffer + total)) = sizeof(s_pose);
@@ -219,7 +218,7 @@ int main(int argc, char **argv){
         total += sizeof(s_pose);
         *((int*) (mission.attributesBuffer)) = total;
         
-        mission.executionTime = 120;
+        mission.relativeDeadline = std::chrono::seconds(130);
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
@@ -239,13 +238,13 @@ int main(int argc, char **argv){
         //mission.goal.y = 14.0;
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
-        mission.goal = deposito_01;
+        //mission.goal = deposito_01;
         mission.numberOfAttributes = 1;
         *((int*) (mission.attributesBuffer + 4)) = sizeof(s_pose);
         memcpy(mission.attributesBuffer + 8, &deposito_01, sizeof(s_pose));
         *((int*) (mission.attributesBuffer)) = sizeof(s_pose) + 8;
         
-        mission.executionTime = 60;
+        mission.relativeDeadline = std::chrono::seconds(60);
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
@@ -266,13 +265,13 @@ int main(int argc, char **argv){
         //mission.goal.z = 0.0;
         //mission.goal.yaw = 0.3;
 
-        mission.goal = escada_02;
+        //mission.goal = escada_02;
         mission.numberOfAttributes = 1;
         *((int*) (mission.attributesBuffer + 4)) = sizeof(s_pose);
         memcpy(mission.attributesBuffer + 8, &escada_02, sizeof(s_pose));
         *((int*) (mission.attributesBuffer)) = sizeof(s_pose) + 8;
         
-        mission.executionTime = 60;
+        mission.relativeDeadline = std::chrono::seconds(60);
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
@@ -281,7 +280,7 @@ int main(int argc, char **argv){
         message.messageSize = sizeof(message.buffer);
         
         v_Blackboard.at(1)->addUDPMessage(message);
-    }*/
+    }
     while (std::getchar() != 'c'){}
     return 0;
     

@@ -62,6 +62,6 @@ void MissionExecution::clear()
     
     mission = enum_DecomposableTask::null;
     robotCategory = enum_RobotCategory::null;
-    executionTime = 0;
+    relativeDeadline = std::chrono::milliseconds(0);
     numberOfAttributes = 0;
 }
