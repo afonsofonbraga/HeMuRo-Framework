@@ -22,6 +22,7 @@ public:
     ~ArmMavROS();
     void run() override;
     void calculateCost() override;
+    void calculateTime() override;
 };
 
 #endif /* TakePicture_hpp */

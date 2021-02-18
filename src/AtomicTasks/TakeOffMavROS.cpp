@@ -11,6 +11,10 @@
 TakeOffMavROS::TakeOffMavROS(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     calculateCost();
+    
+    this->timeFactor = 10000;
+    calculateTime();
+    
 }
 
 TakeOffMavROS::~TakeOffMavROS(){}
@@ -48,7 +52,10 @@ void TakeOffMavROS::run()
                     strcpy(teste.topicName,"TakeOff");
                     memmove(teste.buffer,(char*)&this->endPosition,sizeof(this->endPosition));
                     this->monitor->addROSModuleMessage(teste);
-                    usleep(10000000); //Vamos Precisar de um buffer
+                    
+                    auto t0 = std::chrono::system_clock::now();
+                    std::this_thread::sleep_until(t0 + this->tick);
+                    
                     std::cout << "subiu" << std::endl;
                 }
                 
@@ -68,3 +75,8 @@ void TakeOffMavROS::calculateCost()
 }
 
 
+void TakeOffMavROS::calculateTime()
+{
+    this->time = std::chrono::milliseconds(int(this->timeFactor));
+    this->tick = std::chrono::milliseconds(int(this->timeFactor));
+}

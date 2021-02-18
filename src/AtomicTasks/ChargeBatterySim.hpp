@@ -23,6 +23,7 @@ public:
     ~ChargeBatterySim();
     void run() override;
     void calculateCost() override;
+    // CalculateTime() is not available at this AtomicTask
     
 };
 #endif /* chargeBattery_hpp */

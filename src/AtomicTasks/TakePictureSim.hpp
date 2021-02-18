@@ -20,6 +20,7 @@ public:
     ~TakePictureSim();
     void run() override;
     void calculateCost() override;
+    void calculateTime() override;
 };
 
 #endif /* TakePictureSim_hpp */

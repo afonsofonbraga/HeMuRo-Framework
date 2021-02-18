@@ -11,6 +11,8 @@
 LandMavROS::LandMavROS(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     calculateCost();
+    this->timeFactor = 3000;
+    calculateTime();
 }
 
 LandMavROS::~LandMavROS() {}
@@ -32,6 +34,10 @@ void LandMavROS::run()
             s_ROSModuleMessage teste;
             strcpy(teste.topicName,"Land");
             this->monitor->addROSModuleMessage(teste);
+            
+            auto t0 = std::chrono::system_clock::now();
+            std::this_thread::sleep_until(t0 + this->time);
+            
             this->status = enum_AtomicTaskStatus::completed;
             break;
         }
@@ -48,3 +54,7 @@ void LandMavROS::calculateCost()
     this->cost = this->costMeter;
 }
 
+void LandMavROS::calculateTime()
+{
+    this->time = std::chrono::milliseconds(int(this->timeFactor));
+}

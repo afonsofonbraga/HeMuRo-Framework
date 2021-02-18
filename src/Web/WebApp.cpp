@@ -213,11 +213,14 @@ void WebApp::updateMissionList()
     missionsTable->elementAt(0, 1)->addNew<Wt::WText>("Mission ID");
     missionsTable->elementAt(0, 2)->addNew<Wt::WText>("Mission Owner");
     missionsTable->elementAt(0, 3)->addNew<Wt::WText>("Mission Executioner*");
-    missionsTable->elementAt(0, 4)->addNew<Wt::WText>("Status");
+    missionsTable->elementAt(0, 4)->addNew<Wt::WText>("Relative Deadline [s]");
+    missionsTable->elementAt(0, 5)->addNew<Wt::WText>("Estimated Execution Time [s]");
+    missionsTable->elementAt(0, 6)->addNew<Wt::WText>("Execution Time [s]");
+    missionsTable->elementAt(0, 7)->addNew<Wt::WText>("Status");
     
     int row = 0;
     std::unordered_map<std::string, s_MissionStatus> missionList;
-    this->monitor->getMissionStatus(missionList);
+    this->monitor->getAllMissionStatus(missionList);
     
     std::string status;
     
@@ -260,6 +263,12 @@ void WebApp::updateMissionList()
         missionsTable->elementAt(row, 3)
         ->addNew<Wt::WText>(n.second.missionExecutioner);
         missionsTable->elementAt(row, 4)
+        ->addNew<Wt::WText>(Wt::WString("{1}").arg(n.second.relativeDeadline.count()/1000));
+        missionsTable->elementAt(row, 5)
+        ->addNew<Wt::WText>(Wt::WString("{1}").arg(n.second.estimatedExecutionTime.count()/1000));
+        missionsTable->elementAt(row, 6)
+        ->addNew<Wt::WText>(Wt::WString("{1}").arg(n.second.executionTime.count()/1000));
+        missionsTable->elementAt(row, 7)
         ->addNew<Wt::WText>(status);
     }
 }

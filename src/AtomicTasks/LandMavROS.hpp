@@ -21,6 +21,7 @@ public:
     ~LandMavROS();
     void run() override;
     void calculateCost() override;
+    void calculateTime() override;
 };
 
 #endif /* LandMavROS_hpp */

@@ -12,6 +12,9 @@
 ArmMavROS::ArmMavROS(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
     calculateCost();
+    
+    this->timeFactor = 1000;
+    calculateTime();
 }
 
 ArmMavROS::~ArmMavROS() {}
@@ -33,7 +36,10 @@ void ArmMavROS::run()
             s_ROSModuleMessage teste;
             strcpy(teste.topicName,"Arm");
             this->monitor->addROSModuleMessage(teste);
-            usleep(1000000); //Vamos Precisar de um buffer
+            
+            auto t0 = std::chrono::system_clock::now();
+            std::this_thread::sleep_until(t0 + this->time);
+            
             this->status = enum_AtomicTaskStatus::completed;
             break;
         }
@@ -50,3 +56,7 @@ void ArmMavROS::calculateCost()
     this->cost = this->costMeter;
 }
 
+void ArmMavROS::calculateTime()
+{
+    this->time = std::chrono::milliseconds(int(this->timeFactor));
+}

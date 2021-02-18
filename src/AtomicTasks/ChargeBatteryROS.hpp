@@ -22,6 +22,7 @@ public:
     ~ChargeBatteryROS();
     void run() override;
     void calculateCost() override;
+    // CalculateTime() is not available at this AtomicTask
     
 };
 #endif /* ChargeBatteryROS_hpp */

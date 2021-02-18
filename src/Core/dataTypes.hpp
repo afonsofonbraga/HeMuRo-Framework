@@ -106,13 +106,10 @@ struct s_MissionMessage
     enum_MissionOperation operation = enum_MissionOperation::null;
     enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
     float Cost = 0;
-    //char buffer[500] = "null";
     enum_RobotCategory robotCat = enum_RobotCategory::null;
     std::chrono::milliseconds relativeDeadline = std::chrono::milliseconds(0);
-    //int executionTime = 0;
     int numberOfAttributes = 0;
-    char attributesBuffer[450] = "null";
-    //s_pose goal;
+    char attributesBuffer[500] = "null";
 };
 
 struct s_TaskMessage
@@ -125,10 +122,8 @@ struct s_TaskMessage
     enum_RobotCategory robotCat = enum_RobotCategory::null;
     std::chrono::milliseconds relativeDeadline = std::chrono::milliseconds(0);
     float Cost = 0;
-    //int executionTime = 0;
     int numberOfAttributes = 0;
-    char attributesBuffer[450] = "null";
-    //s_pose goal;
+    char attributesBuffer[500] = "null";
 };
 
 struct s_BatteryMessage
@@ -182,6 +177,9 @@ struct s_MissionStatus
     char missionExecutioner[MAX_ROBOT_ID] = "null";
     //enum_DecomposableTask taskToBeDecomposed = enum_DecomposableTask::null;
     enum_MissionStatus status = enum_MissionStatus::null;
+    std::chrono::milliseconds relativeDeadline = std::chrono::seconds(0);
+    std::chrono::milliseconds executionTime = std::chrono::seconds(0);
+    std::chrono::milliseconds estimatedExecutionTime = std::chrono::seconds(0);
 };
 
 

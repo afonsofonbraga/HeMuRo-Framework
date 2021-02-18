@@ -372,17 +372,48 @@ void Blackboard::getMissionMessage(s_MissionMessage& vMissionMessage)
 
 void Blackboard::setMissionStatus(s_MissionStatus &p)
 {
+    /* Primeiro deve checar se já tem algum ítem inscrito, se tiver apenas atualizar os dados.
+       Se for dono da missão, pode atualizar os dados que foram enviados.
+       Se fo o agente designado para executar a missão, pode atualizar apenas dados referentes a tempo de execução, conclusão.
+     */
     std::unique_lock<std::mutex> lk(mutex_mapMissionStatus);
-        this->map_missionStatus.insert_or_assign(p.missionCode, p);
+        auto search = this->map_missionStatus.find(p.missionCode);
+        if (search != this->map_missionStatus.end()) {
+            //EXISTE
+            if (strcmp(search->second.missionOwner, p.missionOwner) == 0)
+            {
+                if (strcmp(p.missionExecutioner,"null") != 0 && strcmp(search->second.missionExecutioner, p.missionExecutioner) != 0) strcpy(search->second.missionExecutioner,p.missionExecutioner);
+                if (p.relativeDeadline != std::chrono::seconds(0)) search->second.relativeDeadline = p.relativeDeadline;
+                if (p.executionTime != std::chrono::seconds(0)) search->second.executionTime = p.executionTime;
+                if (p.estimatedExecutionTime != std::chrono::seconds(0)) search->second.estimatedExecutionTime = p.estimatedExecutionTime;
+                if (p.status != enum_MissionStatus::null) search->second.status = p.status;
+                
+                this->map_missionStatus.insert_or_assign(search->first, search->second);
+            }
+            
+        } else {
+            this->map_missionStatus.insert_or_assign(p.missionCode, p);
+        }
     lk.unlock();
 }
 
-void Blackboard::getMissionStatus(std::unordered_map<std::string, s_MissionStatus> &p)
+void Blackboard::getAllMissionStatus(std::unordered_map<std::string, s_MissionStatus> &p)
 {
     std::unique_lock<std::mutex> lk(mutex_mapMissionStatus);
     for (auto n : map_missionStatus)
     {
         p[n.first] = n.second;
+    }
+    lk.unlock();
+}
+
+void Blackboard::getMissionStatus(s_MissionStatus &p)
+{
+    std::unique_lock<std::mutex> lk(mutex_mapMissionStatus);
+    
+    auto search = map_missionStatus.find(p.missionCode);
+    if (search != map_missionStatus.end()) {
+        p = search->second;
     }
     lk.unlock();
 }

@@ -119,6 +119,17 @@ void TaskModule::startMissionToExecute()
                     
                 case enum_MissionExecution::missionComplete:
                 {
+                    auto currentTime = std::chrono::system_clock::now();
+                    
+                    s_MissionStatus missionStatus;
+                    strcpy(missionStatus.missionCode, this->missionToExecute.missionCode);
+                    strcpy(missionStatus.missionOwner, this->missionToExecute.senderName);
+                    missionStatus.executionTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - this->missionToExecute.startTime);
+                    
+                    this->monitor->printMissionStatus(missionStatus);
+                    
+                    
+                    
                     this->monitor->print("Mission Complete!");
                     
                     s_MissionMessage missionMessage;
@@ -204,6 +215,14 @@ void TaskModule::addTaskReceived(std::unique_ptr<s_TaskMessage> vTaskMessage)
 
         this->monitor->setCostToExecute(this->missionToExecute.missionCost);
                 
+        s_MissionStatus missionStatus;
+        strcpy(missionStatus.missionCode, this->missionToExecute.missionCode);
+        strcpy(missionStatus.missionOwner, this->missionToExecute.senderName);
+        missionStatus.estimatedExecutionTime = this->missionToExecute.timeToExecute;
+        
+        this->monitor->printMissionStatus(missionStatus);
+        
+        
         if(this->missionToExecute.missionCost <= this->monitor->getBatteryLevel() && status == true && this->missionToExecute.timeToExecute <= this->missionToExecute.relativeDeadline)
         {
             this->missionToExecute.enum_execution = enum_MissionExecution::waitingStart;

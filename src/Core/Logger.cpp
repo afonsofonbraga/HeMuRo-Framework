@@ -70,7 +70,7 @@ void Logger::constructor()
     if (s.is_open())
     {
         s << "[0 s][SYSTEM] Log started at: " << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X") << "\n";
-        s << "[0 s][SYSTEM] Mission, Mission Owner, Mission Executioner, Status \n" ;
+        s << "[0 s][SYSTEM] Mission, Mission Owner, Mission Executioner, Relative Deadline , Estimated Execution Time, Execution Time, Status \n" ;
         s.close();
     }
 }
@@ -138,6 +138,8 @@ void Logger::printcmd(s_LoggerMessage &vMessage)
 void Logger::missionStatus(s_LoggerMessage &vMessage)
 {
     s_MissionStatus missionStatusMessage = ((s_MissionStatus*) vMessage.buffer)[0];
+    this->monitor->setMissionStatus(missionStatusMessage);
+    this->monitor->getMissionStatus(missionStatusMessage);
     
     std::fstream s(missionPath, s.ate | s.in | s.out );
     if (s.is_open())
@@ -172,8 +174,8 @@ void Logger::missionStatus(s_LoggerMessage &vMessage)
                 break;
         }
         
-        s << "[" << std::setprecision(2) << diff.count() << " s][" << vMessage.robotName << "] " << missionStatusMessage.missionCode << ", " << missionStatusMessage.missionOwner << ", "<< missionStatusMessage.missionExecutioner << ", " << status << " \n" ;
+        s << "[" << std::setprecision(2) << diff.count() << " s][" << vMessage.robotName << "] " << missionStatusMessage.missionCode << ", " << missionStatusMessage.missionOwner << ", "<< missionStatusMessage.missionExecutioner << ", " << missionStatusMessage.relativeDeadline.count() << ", " << missionStatusMessage.estimatedExecutionTime.count() << ", " << missionStatusMessage.executionTime.count() << ", " << status << " \n" ;
         s.close();
     }
-    this->monitor->setMissionStatus(missionStatusMessage);
+    
 }

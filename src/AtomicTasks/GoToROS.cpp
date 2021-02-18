@@ -99,6 +99,12 @@ void GoToROS::calculateCost()
     this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2)) * this->costFactor;
 }
 
+void GoToROS::calculateTime()
+{
+    int time_seconds = round(sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2) + pow(this->endPosition.z - this->startPosition.z, 2))/this->timeFactor);
+    this->time = std::chrono::seconds(time_seconds);
+}
+
 float GoToROS::adjustAngle(float angle)
 {
     angle = fmod(angle,2*M_PI);

@@ -160,7 +160,6 @@ void Auction::addMissionReceived(std::unique_ptr<s_MissionMessage> vMissionMessa
         this->MissionList[vMissionMessage->missionCode].enum_execution = enum_MissionExecution::waitingAuction;
         this->MissionList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
         
-        //this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
         this->MissionList[vMissionMessage->missionCode].numberOfAttributes = vMissionMessage->numberOfAttributes;
         int totalSize = ((int*) vMissionMessage->attributesBuffer)[0];
         memcpy(this->MissionList[vMissionMessage->missionCode].attributesBuffer,&vMissionMessage->attributesBuffer, totalSize);
@@ -199,7 +198,6 @@ void Auction::addMissionCalculateCost(std::unique_ptr<s_MissionMessage> vMission
         this->MissionList[vMissionMessage->missionCode].enum_execution = enum_MissionExecution::waitingAuction;
         this->MissionList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
         
-        //this->MissionList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
         this->MissionList[vMissionMessage->missionCode].numberOfAttributes = vMissionMessage->numberOfAttributes;
         int totalSize = ((int*) vMissionMessage->attributesBuffer)[0];
         memcpy(this->MissionList[vMissionMessage->missionCode].attributesBuffer,&vMissionMessage->attributesBuffer, totalSize);
@@ -245,7 +243,6 @@ void Auction::addMissionToExecute(MissionExecution& vMissionExecute)
     
     vTaskMessage.taskToBeDecomposed = vMissionExecute.mission;
     
-    //vTaskMessage.goal = vMissionExecute.goal;
     vTaskMessage.numberOfAttributes = vMissionExecute.numberOfAttributes;
     strcpy(vTaskMessage.attributesBuffer,vMissionExecute.attributesBuffer);
     int totalSize = ((int*) vMissionExecute.attributesBuffer)[0];
@@ -331,7 +328,6 @@ void Auction::createMission(std::unique_ptr<s_MissionMessage> vMissionMessage)
     this->missionOwnerList[vMissionMessage->missionCode].mission = vMissionMessage->taskToBeDecomposed;
     this->missionOwnerList[vMissionMessage->missionCode].enum_request = enum_MissionRequest::waitingBids;
     
-    //this->missionOwnerList[vMissionMessage->missionCode].goal = vMissionMessage->goal;
     this->missionOwnerList[vMissionMessage->missionCode].numberOfAttributes = vMissionMessage->numberOfAttributes;
     int totalSize = ((int*) vMissionMessage->attributesBuffer)[0];
     memcpy(this->missionOwnerList[vMissionMessage->missionCode].attributesBuffer,vMissionMessage->attributesBuffer, totalSize);
@@ -344,6 +340,7 @@ void Auction::createMission(std::unique_ptr<s_MissionMessage> vMissionMessage)
     strcpy(missionStatus.missionCode, vMissionMessage->missionCode);
     strcpy(missionStatus.missionOwner, vMissionMessage->senderName);
     missionStatus.status = enum_MissionStatus::null;
+    missionStatus.relativeDeadline = vMissionMessage->relativeDeadline;
     this->monitor->printMissionStatus(missionStatus);
     
     this->missionOwnerList[vMissionMessage->missionCode].t5 =  new std::thread(&Auction::missionRequestController, this, std::ref(this->missionOwnerList[vMissionMessage->missionCode].missionCode));
@@ -367,8 +364,6 @@ void Auction::waitingForBids(char* missionID)
     missionMessage.operation = enum_MissionOperation::addMission;
     missionMessage.taskToBeDecomposed = this->missionOwnerList[missionID].mission;
     
-    
-    //missionMessage.goal = this->missionOwnerList[missionID].goal;
     missionMessage.numberOfAttributes = this->missionOwnerList[missionID].numberOfAttributes;
     int totalSize = ((int*) this->missionOwnerList[missionID].attributesBuffer)[0];
     memcpy(missionMessage.attributesBuffer,this->missionOwnerList[missionID].attributesBuffer, totalSize);
@@ -583,7 +578,15 @@ void Auction::sendMissionCost(MissionExecution& mission)
     this->monitor->getRobotsIP(*missionMessage.senderAddress);
     this->monitor->getRobotsName(*missionMessage.senderName);
     missionMessage.operation = enum_MissionOperation::Bid;
-    missionMessage.Cost = mission.missionCost;
+    
+    // How to calculate the bid:
+    //    A * executionCost + B * timeToExecutePercentage
+    //Where:
+    //    A + B = 1
+    //    executionCost is a percentage
+    //    timeToExecutePercentage = timeToExecute/RelativeDeadline
+    
+    missionMessage.Cost = 0.5 * mission.missionCost + 0.5 * mission.timeToExecute.count()/mission.relativeDeadline.count();
     
     sendUDPMessage(missionMessage, *mission.senderAddress, *mission.senderName);
 }

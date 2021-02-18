@@ -260,9 +260,12 @@ public:
     void                            setMissionStatus(s_MissionStatus& p);                 /*!< Add a MissionStatus to the list
                                                                                            *\param p a s_MissionStatus with the information of a mission.
                                                                                            */
-    void                            getMissionStatus(std::unordered_map<std::string, s_MissionStatus>& p);          /*!< Get all information from the MissionStatus list
+    void                            getAllMissionStatus(std::unordered_map<std::string, s_MissionStatus>& p);       /*!< Get all information from the MissionStatus list
                                                                                                                      *\param p an unordered_map with all the information related to the missions.
                                                                                                                      */
+    void                            getMissionStatus(s_MissionStatus& p);                 /*!< Get information from a item at the MissionStatus list
+                                                                                           *\param p an s_MissionStatus with the information related to the mission.
+                                                                                           */
     void                            removeMissionStatus(s_MissionStatus& p);              /*!< Remove one item of the MissionStatusList
                                                                                            * \param p a s_MissionStatus with the name of the mission that will be removed of the list.
                                                                                            */
