@@ -289,10 +289,17 @@ void Auction::abortMission(std::unique_ptr<s_MissionMessage> vMissionMessage)
 {
     this->monitor->print("Redirecting " + std::string(vMissionMessage->missionCode) + "!");
     
+    s_MissionStatus missionStatus;
+    strcpy(missionStatus.missionCode, vMissionMessage->missionCode);
+    strcpy(missionStatus.missionOwner, vMissionMessage->senderName);
+    strcpy(missionStatus.missionExecutioner, robotName);
+    missionStatus.status = enum_MissionStatus::aborted;
+    this->monitor->printMissionStatus(missionStatus);
+    
     s_MissionMessage missionMessage;
     
     strcpy(missionMessage.missionCode, vMissionMessage->missionCode);
-    this->monitor->getRobotsIP(*vMissionMessage->senderAddress);
+    this->monitor->getRobotsIP(*missionMessage.senderAddress);
     missionMessage.operation = enum_MissionOperation::abortMission;
     
     sendUDPMessage(missionMessage, *vMissionMessage->senderAddress, *vMissionMessage->senderName);
