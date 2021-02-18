@@ -174,7 +174,8 @@ void TaskModule::startMissionToExecute()
                     lk.unlock();
                     cleanEmergecy();
                     this->monitor->unlockRobot();
-                    this->conditional_executeMission.wait(lk);
+                    this->missionToExecute.enum_execution = enum_MissionExecution::null;
+                    //this->conditional_executeMission.wait(lk);
                     break;
                 
                 default:

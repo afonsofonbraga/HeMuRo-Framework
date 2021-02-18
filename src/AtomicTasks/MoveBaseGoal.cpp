@@ -77,10 +77,10 @@ void MoveBaseGoal::run()
 
 void MoveBaseGoal::stop()
 {
+    this->status = enum_AtomicTaskStatus::null;
     s_ROSModuleMessage teste;
     strcpy(teste.topicName,"Move_base/Cancel");
     this->monitor->addROSModuleMessage(teste);
-    this->status = enum_AtomicTaskStatus::null;
 }
 
 void MoveBaseGoal::calculateCost()
