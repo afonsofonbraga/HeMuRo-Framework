@@ -174,7 +174,7 @@ void TaskModule::startMissionToExecute()
                     lk.unlock();
                     cleanEmergecy();
                     this->monitor->unlockRobot();
-                    //this->conditional_executeMission.wait(lk);
+                    this->conditional_executeMission.wait(lk);
                     break;
                 
                 default:
@@ -354,7 +354,6 @@ void TaskModule::emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage)
         strcpy(vMission->senderName,vTaskMessage->senderName);
         vMission->mission = vTaskMessage->taskToBeDecomposed;
         
-        //vMission->goal = vTaskMessage->goal;
         vMission->numberOfAttributes = vTaskMessage->numberOfAttributes;
         int totalSize = ((int*) vTaskMessage->attributesBuffer)[0];
         memcpy(vMission->attributesBuffer,&vTaskMessage->attributesBuffer, totalSize);
