@@ -99,7 +99,7 @@ int main(int argc, char **argv){
     }
     
     std::string name{"Robo"};
-    int numberOfRobots = 0; // Number of robots that will be executing the tasks
+    int numberOfRobots = 1; // Number of robots that will be executing the tasks
     int defaultAgents = 0; 
     
     std::vector<Blackboard* > v_Blackboard; // = new std::vector<Blackboard>;
@@ -165,7 +165,7 @@ int main(int argc, char **argv){
     strcpy(message.address , vIP);
     Operation operation = Operation::missionMessage;
     v_Blackboard.at(1)->getRobotsName(*message.name);
-    
+    /*
     {
         strcpy(mission.missionCode, "Task2");
         mission.operation = enum_MissionOperation::createMission;
@@ -195,7 +195,7 @@ int main(int argc, char **argv){
     }
     
     
-    
+    */
     {
         strcpy(mission.missionCode, "Deliver");
         mission.operation = enum_MissionOperation::createMission;
@@ -228,7 +228,7 @@ int main(int argc, char **argv){
         
         v_Blackboard.at(1)->addUDPMessage(message);
     }
-    
+    /*
     {
         strcpy(mission.missionCode, "Task3");
         mission.operation = enum_MissionOperation::createMission;
@@ -280,7 +280,7 @@ int main(int argc, char **argv){
         message.messageSize = sizeof(message.buffer);
         
         v_Blackboard.at(1)->addUDPMessage(message);
-    }
+    }*/
     while (std::getchar() != 'c'){}
     return 0;
     

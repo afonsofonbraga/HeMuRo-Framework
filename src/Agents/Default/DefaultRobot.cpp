@@ -12,6 +12,7 @@ DefaultRobot::DefaultRobot(Blackboard* monitor, bool decentralized): Agent(monit
 {
     strcpy(mode,"Robot");
     this->decentralized = decentralized;
+    this->monitor->setBatteryLevel(32);
     monitor->setRobotCategory(enum_RobotCategory::ugv);
     decomposableTaskList();
     

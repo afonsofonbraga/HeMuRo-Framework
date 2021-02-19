@@ -122,8 +122,6 @@ void BatteryManager::batteryCheckLoop()
             }
             case enum_ChargingRequest::ok:
             {
-                //std::cout << "BatteryLevel: " << batteryLevel << std::endl;
-                //this->monitor->print("BatteryLevel: " + std::to_string(batteryLevel));
                 
                 if(batteryLifeTime() == false)
                 {
@@ -166,7 +164,6 @@ void BatteryManager::batteryCheckLoop()
             {
                 if(this->vectorBids.empty() || this->vectorBids.size() == 0)
                 {
-                    //std::cout << "[robot] Charging request ignored by all. Trying again." << std::endl;
                     this->monitor->print("Charging request ignored by all. Trying again.");
                     
                     this->batteryStatus = enum_ChargingRequest::ok;
@@ -295,7 +292,6 @@ void BatteryManager::batteryCheckLoop()
 //****************************************************
 void BatteryManager::chargingRequest(std::unique_ptr<s_BatteryMessage> vBatteryMessage)
 {
-    //std::cout << "[CS " << this->agentName << "] Received a charging request from " << vBatteryMessage->senderName << "!"<< std::endl;
     this->monitor->print("Received a charging request from " + std::string(vBatteryMessage->senderName));
     
     bool freeSpot = false;
@@ -348,7 +344,6 @@ void BatteryManager::winningBid(std::unique_ptr<s_BatteryMessage> vBatteryMessag
             {
                 if (this->chargingSpotList[n.first].assignChargingRequest(chargingRequestList[vBatteryMessage->requestID]) == true)
                 {
-                    //std::cout << "[CS " << this->agentName << "] Charging spot reserved for " << vBatteryMessage->senderName << "!"<< std::endl;
                     this->monitor->print("Charging spot reserved for " + std::string(vBatteryMessage->senderName) + "!");
                     
                     //Notifying Robot
@@ -373,8 +368,6 @@ void BatteryManager::arrivedAtStation(std::unique_ptr<s_BatteryMessage> vBattery
 {
     //IF ARRIVED AT THE STATION START CHARGING
     //HERE DONT NEED TO DO ANYTHING JUST SEND BACK A COMMAND
-    
-    //std::cout << "[CS " << this->agentName << "] " << vBatteryMessage->senderName << " arrived at CS " << this->agentName << "!"<< std::endl;
     this->monitor->print(std::string(vBatteryMessage->senderName) + " arrived at CS " + std::string(this->agentName) + "!");
     
     auto search = chargingSpotList.find(vBatteryMessage->spotID);
@@ -395,7 +388,6 @@ void BatteryManager::arrivedAtStation(std::unique_ptr<s_BatteryMessage> vBattery
 
 void BatteryManager::chargingComplete(std::unique_ptr<s_BatteryMessage> vBatteryMessage)
 {
-    //std::cout << "[CS " << this->agentName << "] " << vBatteryMessage->senderName << " finished charging!"<< std::endl;
     this->monitor->print(std::string(vBatteryMessage->senderName) + " finished charging!");
     
     auto search = chargingSpotList.find(vBatteryMessage->spotID);
@@ -413,7 +405,6 @@ void BatteryManager::chargingComplete(std::unique_ptr<s_BatteryMessage> vBattery
 
 void BatteryManager::bid(std::unique_ptr<s_BatteryMessage> vBatteryMessage)
 {
-    //std::cout << "[Robot] I received a bid from " <<vBatteryMessage->senderName << " !"<< std::endl;
     this->monitor->print("I received a bid from " + std::string(vBatteryMessage->senderName) + " !");
     
     ChargingBid bid;
@@ -432,7 +423,6 @@ void BatteryManager::bid(std::unique_ptr<s_BatteryMessage> vBatteryMessage)
 
 void BatteryManager::acceptRequest(std::unique_ptr<s_BatteryMessage> vBatteryMessage)
 {
-    //std::cout << "[Robot] Charging request approved by " <<vBatteryMessage->senderName << "! Going to location!"<< std::endl;
     this->monitor->print("Charging request approved by " + std::string(vBatteryMessage->senderName) + "! Going to location!");
     
     
@@ -440,15 +430,12 @@ void BatteryManager::acceptRequest(std::unique_ptr<s_BatteryMessage> vBatteryMes
     this->chargingStationWinner.spotPosition = vBatteryMessage->position;
     this->batteryStatus = enum_ChargingRequest::goingToLocation;
     
-    //std::cout << "Spot ID: " << vBatteryMessage->spotID << " Global Position -> X: " << vBatteryMessage->position.x << " y: " << vBatteryMessage->position.y << std::endl;
     this->monitor->print("Spot ID: " + std::string(vBatteryMessage->spotID) + " Global Position -> X: " + std::to_string(vBatteryMessage->position.x) + " y: " + std::to_string(vBatteryMessage->position.y));
     conditional_batteryCheck.notify_one();
-    
 }
 
 void BatteryManager::startCharging(std::unique_ptr<s_BatteryMessage> vBatteryMessage)
 {
-    //std::cout << "[Robot] Start charging!"<< std::endl;
     this->monitor->print("Start charging!");
     
     conditional_batteryCheck.notify_one();

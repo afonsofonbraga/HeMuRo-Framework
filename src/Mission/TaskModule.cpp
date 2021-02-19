@@ -346,6 +346,7 @@ void TaskModule::emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage)
         if(this->missionToExecute.enum_execution == enum_MissionExecution::waitingStart || this->missionToExecute.enum_execution == enum_MissionExecution::executing)
         {
             this->missionToExecute.enum_execution = enum_MissionExecution::null;
+            this->missionToExecute.stop();
             redirectMission(this->missionToExecute);
         }
         lk.unlock();

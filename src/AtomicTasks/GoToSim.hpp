@@ -18,7 +18,7 @@ class GoToSim : public AtomicTask
 protected:
     float battery_discharge = 50000; // Motors discharge [mAh]
     float robots_max_speed = 0.5; // Robot's maximum speed [m/s]
-    float battery_capacity = 7000; // Battery's capacity [mAh]
+    float battery_capacity = 700; // Battery's capacity [mAh]
     int factor = 10; // The robot does not go straight to the goal LACOXAMBRE
 
     float kp = 3, ka = 8, kb = -0.5;
