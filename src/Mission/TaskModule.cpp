@@ -147,6 +147,7 @@ void TaskModule::startMissionToExecute()
                 default:
                     break;
             }
+            lk.unlock();
         } else
         {
             // EMERGENCY NOW

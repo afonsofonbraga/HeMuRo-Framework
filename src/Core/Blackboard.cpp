@@ -489,6 +489,12 @@ bool Blackboard::lockRobot(enum_RobotStatus statusRequest)
             } else
                 status = false;
             break;
+        case enum_RobotStatus::failure:
+        {
+            status = true;
+            this->agentStatus = enum_RobotStatus::failure;
+            break;
+        }
         default:
             status = false;
             break;

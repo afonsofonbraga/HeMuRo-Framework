@@ -129,7 +129,7 @@ void Logger::printcmd(s_LoggerMessage &vMessage)
     {
         auto end = std::chrono::steady_clock::now();
         std::chrono::duration<double> diff = end-start;
-        s << "[" << std::setprecision(2) << diff.count() << " s][" << vMessage.robotName << "] " << vMessage.buffer <<" \n" ;
+        s << "[" << diff.count() << " s][" << vMessage.robotName << "] " << vMessage.buffer <<" \n" ;
         s.close();
     }
     
@@ -174,7 +174,7 @@ void Logger::missionStatus(s_LoggerMessage &vMessage)
                 break;
         }
         
-        s << "[" << std::setprecision(2) << diff.count() << " s][" << vMessage.robotName << "] " << missionStatusMessage.missionCode << ", " << missionStatusMessage.missionOwner << ", "<< missionStatusMessage.missionExecutioner << ", " << missionStatusMessage.relativeDeadline.count() << ", " << missionStatusMessage.estimatedExecutionTime.count() << ", " << missionStatusMessage.executionTime.count() << ", " << status << " \n" ;
+        s << "[" << diff.count() << " s][" << vMessage.robotName << "] " << missionStatusMessage.missionCode << ", " << missionStatusMessage.missionOwner << ", "<< missionStatusMessage.missionExecutioner << ", " << missionStatusMessage.relativeDeadline.count() << ", " << missionStatusMessage.estimatedExecutionTime.count() << ", " << missionStatusMessage.executionTime.count() << ", " << status << " \n" ;
         s.close();
     }
     

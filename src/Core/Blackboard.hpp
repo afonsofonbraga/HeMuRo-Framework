@@ -220,10 +220,11 @@ public:
     enum_RobotStatus                getRobotStatus();                                  /*!< \brief A function that return the agent's current status.
                                                                                         *  \return enum_RobotStatus.
                                                                                         */
-    bool                            setRobotStatus(enum_RobotStatus statusRequest);    /*!< \brief A function that return the status of the robot.
-                                                                                        *  \param statusRequest as the state the user wants to be.
-                                                                                        *  \return true when the locking is successfull, false otherwise.
-                                                                                        */
+//  bool                            setRobotStatus(enum_RobotStatus statusRequest);
+//                                                                                     /*!< \brief A function that return the status of the robot.
+//                                                                                      *  \param statusRequest as the state the user wants to be.
+//                                                                                      *  \return true when the locking is successfull, false otherwise.
+//                                                                                      */
     float                           getCostToExecute();                                /*!< \brief A function that return the total cost to execute a Task
                                                                                         * \return a float with the total cost.
                                                                                         */

@@ -473,6 +473,8 @@ bool BatteryManager::batteryLifeTime()
     batteryLevel <= 30 ? status = true : false;
     (minimumDistance() * 1 + this->monitor->getCostToExecute() > batteryLevel) ? status = true : false; //inventei
 
+    if(batteryLevel == 0)
+        this->monitor->lockRobot(enum_RobotStatus::failure);
     return status;
 }
 
