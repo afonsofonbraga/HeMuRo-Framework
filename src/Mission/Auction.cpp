@@ -512,6 +512,9 @@ void Auction::missionAborted(std::unique_ptr<s_MissionMessage> vMissionMessage)
     {
         this->monitor->print("Received an Abort Mission Command!");
         this->missionOwnerList[vMissionMessage->missionCode].vectorBids.clear();
+        this->missionOwnerList[vMissionMessage->missionCode].missionAccepted = false;
+        strcpy(this->missionOwnerList[vMissionMessage->missionCode].winnerAddress ,"null");
+        strcpy(this->missionOwnerList[vMissionMessage->missionCode].winnerName , "null");
         this->missionOwnerList[vMissionMessage->missionCode].enum_request = enum_MissionRequest::waitingBids;
         this->missionOwnerList[vMissionMessage->missionCode].cv->notify_one();
         

@@ -1,0 +1,62 @@
+<launch>    
+  <arg name="my_ns" default= ""/>
+  <arg name="initial_pose_x" default = "1"/>
+  <arg name="initial_pose_y" default = "1"/>
+  <arg name="initial_pose_z" default = "1"/>
+  <arg name="initial_pose_a" default = "0"/>
+  <arg name="move_forward_only" default="true"/> 
+
+  <node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" >
+    <remap from="map" to="/map"/>
+    <param name="~odom_frame_id" value="$(arg my_ns)_tf/odom" />
+    <param name="~base_frame_id" value="$(arg my_ns)_tf/base_link"/>
+    <param name="~global_frame_id" value="/map" />
+    <!--<remap from="/base_pose_ground_truth" to="/$(arg my_ns)/odom" />-->
+  </node>
+
+  <!--<node pkg="amcl" type="amcl" name="amcl" output="screen">
+    <param name="update_min_d" value="0.1"/>
+    <param name="update_min_a" value="0.2"/>
+    <param name="min_particles" value="500"/>
+    <param name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <param name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <param name="initial_pose_a" value="$(arg initial_pose_a)"/>
+    
+
+    <remap from="scan" to="/$(arg my_ns)/laser/scan"/>
+    <remap from="map" to="/map"/>
+    <param name="global_frame_id" value="map"/>
+
+    <param name="odom_model_type" value="diff-corrected"/>
+    <param name="odom_frame_id" value="$(arg my_ns)_tf/odom"/>
+    <param name="base_frame_id" value="$(arg my_ns)_tf/base_link"/>
+  </node> -->
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find hemuro_sim)/param/Rosbot/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find hemuro_sim)/param/Rosbot/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find hemuro_sim)/param/Rosbot/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find hemuro_sim)/param/Rosbot/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find hemuro_sim)/param/Rosbot/trajectory_planner.yaml" command="load" />
+    <rosparam file="$(find hemuro_sim)/param/Rosbot/move_base_params.yaml" command="load" />
+
+    <remap from="map" to="/map"/>
+    <remap from="cmd_vel" to="cmd_vel"/>
+    <remap from="odom" to="odom"/>
+    <remap from="scan" to="/$(arg my_ns)/laser/scan"/>
+    <param name="move_base/DWAPlannerROS/yaw_goal_tolerance" value="1.0"/>
+    <param name="move_base/DWAPlannerROS/xy_goal_tolerance" value="1.0"/>
+
+    <param name="~/global_costmap/laser_scan_sensor/sensor_frame" value="$(arg my_ns)_tf/laser" />
+    <param name="~/local_costmap/laser_scan_sensor/sensor_frame" value="$(arg my_ns)_tf/laser" />
+
+    <param name="~/global_costmap/laser_scan_sensor/topic" value="/$(arg my_ns)/laser/scan" />
+    <param name="~/local_costmap/laser_scan_sensor/topic" value="/$(arg my_ns)/laser/scan" />
+
+    <param name="~/global_costmap/robot_base_frame" value="$(arg my_ns)_tf/base_link" />
+    <param name="~/local_costmap/robot_base_frame" value="$(arg my_ns)_tf/base_link" />
+    <param name="~/local_costmap/global_frame" value="map" />
+  </node>
+</launch>
+
+

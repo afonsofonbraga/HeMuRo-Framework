@@ -1,0 +1,36 @@
+<launch>
+   <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <!-- Workaround for crashes in VMware -->
+        <env name="SVGA_VGPU10" value="0"/>
+        <arg name="gui" value="true"/>
+        <arg name="world_name" value="$(find aws_robomaker_hospital_world)/worlds/hospital.world"/> 
+        <!-- <arg name="world_name" value="$(find aws_robomaker_small_warehouse_world)/worlds/small_warehouse.world"/> -->
+        <arg name="verbose" value="true"/>
+    </include>
+  
+   <!-- Starting robot--> 
+  <!--<group ns="p3dx">-->
+    <arg name="robot_model" default="$(find p3dx_description)/urdf/pioneer3dx.xacro"/>
+    <param name="robot_description" command="$(find xacro)/xacro '$(arg robot_model)'" />
+    <arg name="my_ns" value="" />
+    <arg name="robot_name" value="" />
+    <arg name="initial_pose_x" value="-2.0"/>
+    <arg name="initial_pose_y" value="7"/>
+    <arg name="initial_pose_a" value="0.0"/>
+    <param name="tf_prefix" value="$(arg my_ns)_tf" />
+
+    <include file="$(find p3dx_gazebo)/launch/one_robot.launch">
+      <arg name="init_pose" value="-x $(arg initial_pose_x) -y $(arg initial_pose_y) -z 0" />
+      <arg name="robot_name" value="$(arg robot_name)" />
+      <arg name="my_ns" value="$(arg my_ns)" />
+    </include>
+
+    <include file="$(find rosbot_description)/launch/gmapping.launch">
+      
+    </include>
+  <!--</group>-->
+
+  <!--<arg name="robot_model" default="$(find p3dx_description)/urdf/pioneer3dx.xacro"/>
+  <param name="robot_description" command="$(find xacro)/xacro '$(arg robot_model)'" /> -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rosbot_description)/rviz/rosbot.rviz" required="true" output="screen"/>
+</launch>

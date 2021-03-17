@@ -60,27 +60,34 @@ P3DXRobot::~P3DXRobot()
 void P3DXRobot::decomposableTaskList()
 {
     std::vector<enum_AtomicTask> atomicTaskVector;
-    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
-    enum_DecomposableTask dTask = enum_DecomposableTask::checkPosition;
-    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
-    
-    atomicTaskVector.clear();
-    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
-    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
-    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
-    dTask = enum_DecomposableTask::deliverPicture;
-    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
-    
-    atomicTaskVector.clear();
-    atomicTaskVector.push_back(enum_AtomicTask::goTo);
-    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
-    dTask = enum_DecomposableTask::takePicture;
-    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
-    
+    enum_DecomposableTask dTask = enum_DecomposableTask::null;
+
     atomicTaskVector.clear();
     atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
     atomicTaskVector.push_back(enum_AtomicTask::chargeBattery);
     dTask = enum_DecomposableTask::lowBattery;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    atomicTaskVector.push_back(enum_AtomicTask::pickUpSample);
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    atomicTaskVector.push_back(enum_AtomicTask::dropOffSample);
+    dTask = enum_DecomposableTask::deliverSmallSample;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    atomicTaskVector.push_back(enum_AtomicTask::pickUpSample);
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    atomicTaskVector.push_back(enum_AtomicTask::dropOffSample);
+    dTask = enum_DecomposableTask::deliverBigSample;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
+    dTask = enum_DecomposableTask::inspectPlace;
     monitor->addDecomposableTaskList(dTask, atomicTaskVector);
 }
 
@@ -102,19 +109,6 @@ bool P3DXRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
         switch(n){
             case enum_AtomicTask::null :
                 break;
-            case enum_AtomicTask::goTo :
-            {
-                int vSize = ((int*) temp)[0];
-                 partialSize += 4;
-                 temp += 4;
-                 vAttribuites++;
-                 s_pose goal = ((s_pose*) temp)[0];
-                 vAtomicTaskitem = std::make_shared<GoToROS>(monitor, currentPosition, goal);
-                 currentPosition = goal;
-                 partialSize += vSize;
-                 temp += vSize;
-                 break;
-            }
  
             case enum_AtomicTask::moveBaseGoal:
             {
@@ -124,19 +118,31 @@ bool P3DXRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
                 vAttribuites++;
                 s_pose goal = ((s_pose*) temp)[0];
                 vAtomicTaskitem = std::make_shared<MoveBaseGoal>(monitor, currentPosition, goal);
+                
+                float battery_discharge = 50000; // Motors discharge [mAh]
+                float robots_max_speed = 0.2; // Robot's maximum speed [m/s]
+                float battery_capacity = 7000; // Battery's capacity [mAh]
+                int factor = 10; // The robot does not go straight to the goal LACOXAMBRE
+
+                vAtomicTaskitem->setCostFactor(factor * (battery_discharge /(robots_max_speed*3600))/battery_capacity);
+                vAtomicTaskitem->setTimeFactor(robots_max_speed);
+
                 currentPosition = goal;
                 partialSize += vSize;
                 temp += vSize;
                 break;
             }
-            case enum_AtomicTask::turnOn :
-                vAtomicTaskitem = std::make_shared<TurnOnSim>(monitor, currentPosition,currentPosition);
-                break;
             case enum_AtomicTask::chargeBattery :
                 vAtomicTaskitem = std::make_shared<ChargeBatteryROS>(monitor, currentPosition,currentPosition);
                 break;
             case enum_AtomicTask::takePicture :
                 vAtomicTaskitem = std::make_shared<TakePictureSim>(monitor, currentPosition,currentPosition);
+                break;
+            case enum_AtomicTask::pickUpSample:
+                vAtomicTaskitem = std::make_shared<PickUpSim>(monitor, currentPosition, currentPosition);
+                break;
+            case enum_AtomicTask::dropOffSample:
+                vAtomicTaskitem = std::make_shared<DropOffSim>(monitor,currentPosition,currentPosition);
                 break;
             default:
                 break;

@@ -27,7 +27,7 @@ ModulePeriodic::~ModulePeriodic()
 void ModulePeriodic::mainThread()
 {
     auto t0 = std::chrono::high_resolution_clock::now();
-    while(this->isRunning)
+    while(this->isRunning == true)
     {
         std::this_thread::sleep_until(t0 + this->tick);
         this->run();

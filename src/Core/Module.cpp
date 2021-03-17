@@ -26,7 +26,7 @@ Module::~Module()
 
 void Module::mainThread()
 {
-    while(this->isRunning)
+    while(this->isRunning == true)
     {
         this->run();
     }

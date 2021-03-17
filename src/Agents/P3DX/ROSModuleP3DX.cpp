@@ -1,28 +1,28 @@
 //
-//  ROSModuleRosbot.cpp
+//  ROSModuleP3DX.cpp
 //  MRSFramework
 //
-//  Created by Afonso Braga on 10/03/21s.
+//  Created by Afonso Braga on 10/03/21.
 //  Copyright ? 2020 Afonso Braga. All rights reserved.
 //
 
-#include "ROSModuleRosbot.hpp"
+#include "ROSModuleP3DX.hpp"
 #include <map>
 
 
 
 
 
-ROSModuleRosbot::ROSModuleRosbot(Blackboard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
+ROSModuleP3DX::ROSModuleP3DX(Blackboard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
 {
     this->monitor->getRobotsName(vName);
     
     //Subscribers
     std::string topic = vName + "/odom";
-    subscribersList["odom"] = node.subscribe(topic, 1000, &ROSModuleRosbot::callbackOdometry,this);
+    subscribersList["odom"] = node.subscribe(topic, 1000, &ROSModuleP3DX::callbackOdometry,this);
     
     topic = vName + "/battery/percent";
-    subscribersList["battery/percent"] = node.subscribe(topic, 1, &ROSModuleRosbot::callbackBatteryPercentage,this);
+    subscribersList["battery/percent"] = node.subscribe(topic, 1, &ROSModuleP3DX::callbackBatteryPercentage,this);
     
     //Publishers
     topic = vName + "/cmd_vel";
@@ -42,14 +42,14 @@ ROSModuleRosbot::ROSModuleRosbot(Blackboard *monitor,ros::NodeHandle& vNode): Mo
     check_path = new ros::ServiceClient(node.serviceClient<nav_msgs::GetPlan>(topic));
 }
 
-ROSModuleRosbot::~ROSModuleRosbot()
+ROSModuleP3DX::~ROSModuleP3DX()
 {
     this->stop();
     this->monitor->conditional_ROSModuleMessageList.notify_one();
     
 }
 
-void ROSModuleRosbot::callbackOdometry(const nav_msgs::Odometry::ConstPtr& msg)
+void ROSModuleP3DX::callbackOdometry(const nav_msgs::Odometry::ConstPtr& msg)
 {
     //ROS_INFO("TurtleBot Position: [%f, %f, %f]", msg->x,msg->y,msg->theta);
     s_pose pose;
@@ -84,12 +84,12 @@ void ROSModuleRosbot::callbackOdometry(const nav_msgs::Odometry::ConstPtr& msg)
     this->monitor->setPosition(pose);
 }
 
-void ROSModuleRosbot::callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg)
+void ROSModuleP3DX::callbackBatteryPercentage(const std_msgs::Int32::ConstPtr& msg)
 {
     this->monitor->setBatteryLevel(msg->data);
 }
 
-void ROSModuleRosbot::run()
+void ROSModuleP3DX::run()
 {
     vROSModuleMessage = new s_ROSModuleMessage;
     

@@ -49,7 +49,7 @@ void BatteryManager::mainThread()
     if(strcmp(this->mode,"Robot") == 0)
         batteryCheck =  new std::thread(&BatteryManager::batteryCheckLoop, this);
     
-    while(this->isRunning)
+    while(this->isRunning == true)
     {
         this->run();
     }
@@ -105,13 +105,15 @@ void BatteryManager::run()
 
 void BatteryManager::batteryCheckLoop()
 {
-    while(this->isRunning)
+    bool goingToStation = false;
+
+    while(this->isRunning == true)
     {
         // HERE CAN BE USED AN ALGORITHM TO ESTIMATE LIFETIME
         std::unique_lock<std::mutex> lock1(mutex_batteryCheck);
         
-        float batteryLevel = this->monitor->getBatteryLevel();
-        
+        //float batteryLevel = this->monitor->getBatteryLevel();
+        bool status = batteryNeedsCharging();
         switch(this->batteryStatus)
         {
             case enum_ChargingRequest::null:
@@ -123,7 +125,7 @@ void BatteryManager::batteryCheckLoop()
             case enum_ChargingRequest::ok:
             {
                 
-                if(batteryLifeTime() == false)
+                if(status == false)
                 {
                     this->monitor->getRobotStatus() == enum_RobotStatus::lowBattery ? this->monitor->unlockRobot() : false;
                     auto t0 = std::chrono::high_resolution_clock::now();
@@ -135,7 +137,7 @@ void BatteryManager::batteryCheckLoop()
             }
             case enum_ChargingRequest::chargingRequest:
             {
-                if(batteryLifeTime()) //Remember to modify this line in case of modyfing the conditions for the charging request
+                if(status == true) //Remember to modify this line in case of modyfing the conditions for the charging request
                 {
                     this->monitor->lockRobot(enum_RobotStatus::lowBattery);
                     
@@ -198,42 +200,35 @@ void BatteryManager::batteryCheckLoop()
                 break;
             }
             case enum_ChargingRequest::goingToLocation:
-            {
-//                s_MissionMessage missionMessage;
-//
-//                strcpy(missionMessage.missionCode, chargingStationWinner.requestID);
-//                missionMessage.operation = enum_MissionOperation::emergency;
-//                missionMessage.taskToBeDecomposed = enum_DecomposableTask::lowBattery;
-//
-//                missionMessage.goal = chargingStationWinner.spotPosition;
-//
-//                missionMessage.numberOfAttributes = 1;
-//                *((int*) (missionMessage.attributesBuffer + 4)) = sizeof(chargingStationWinner.spotPosition);
-//                memcpy(missionMessage.attributesBuffer + 8, &chargingStationWinner.spotPosition, sizeof(chargingStationWinner.spotPosition));
-//                *((int*) (missionMessage.attributesBuffer)) = sizeof(chargingStationWinner.spotPosition) + 8;
-//
-//                this->monitor->addMissionMessage(missionMessage);
-                
-                s_TaskMessage vTaskMessage;
-                
-                strcpy(vTaskMessage.missionCode, chargingStationWinner.requestID);
-                vTaskMessage.operation = enum_TaskMessage::addEmergency;
-                vTaskMessage.taskToBeDecomposed = enum_DecomposableTask::lowBattery;
-                
-                //vTaskMessage.goal = chargingStationWinner.spotPosition;
-                
-                vTaskMessage.numberOfAttributes = 1;
-                *((int*) (vTaskMessage.attributesBuffer + 4)) = sizeof(chargingStationWinner.spotPosition);
-                memcpy(vTaskMessage.attributesBuffer + 8, &chargingStationWinner.spotPosition, sizeof(chargingStationWinner.spotPosition));
-                *((int*) (vTaskMessage.attributesBuffer)) = sizeof(chargingStationWinner.spotPosition) + 8;
-                  
-                this->monitor->addTaskMessage(vTaskMessage);
-                
-                //auto t0 = std::chrono::high_resolution_clock::now();
-                //if(conditional_batteryCheck.wait_until(lock1, t0 + std::chrono::seconds(15)) == std::cv_status::no_timeout)
-                
-                conditional_batteryCheck.wait(lock1);
+            {                
+                if (goingToStation == false)
                 {
+                    goingToStation = true;
+
+                    s_TaskMessage vTaskMessage;
+                
+                    strcpy(vTaskMessage.missionCode, chargingStationWinner.requestID);
+                    vTaskMessage.operation = enum_TaskMessage::addEmergency;
+                    vTaskMessage.taskToBeDecomposed = enum_DecomposableTask::lowBattery;
+                    
+                    //vTaskMessage.goal = chargingStationWinner.spotPosition;
+                    
+                    vTaskMessage.numberOfAttributes = 1;
+                    *((int*) (vTaskMessage.attributesBuffer + 4)) = sizeof(chargingStationWinner.spotPosition);
+                    memcpy(vTaskMessage.attributesBuffer + 8, &chargingStationWinner.spotPosition, sizeof(chargingStationWinner.spotPosition));
+                    *((int*) (vTaskMessage.attributesBuffer)) = sizeof(chargingStationWinner.spotPosition) + 8;
+                    
+                    this->monitor->addTaskMessage(vTaskMessage);
+                }
+                
+                if (goingToStation == true && this->arrivedAtStationStatus == false)
+                {
+                    auto t0 = std::chrono::high_resolution_clock::now();
+                    conditional_batteryCheck.wait_until(lock1, t0 + std::chrono::seconds(2));
+                } else if (goingToStation == true && arrivedAtStationStatus == true)
+                {
+                    goingToStation = false;
+                    arrivedAtStationStatus = false;
                     s_BatteryMessage message;
                     strcpy(message.requestID,this->requestID);
                     strcpy(message.spotID,chargingStationWinner.spotID);
@@ -244,15 +239,13 @@ void BatteryManager::batteryCheckLoop()
                     sendUDPMessage(message, *chargingStationWinner.chargingIP, *chargingStationWinner.chargingID);
                     
                     this->batteryStatus = enum_ChargingRequest::charging;
-                    
                 }
-                
                 lock1.unlock();
                 break;
             }
             case enum_ChargingRequest::charging:
             {
-                if(batteryLevel == 100)
+                if(this->monitor->getBatteryLevel() == 100)
                 {
                     s_BatteryMessage message;
                     strcpy(message.requestID,this->requestID);
@@ -437,7 +430,7 @@ void BatteryManager::acceptRequest(std::unique_ptr<s_BatteryMessage> vBatteryMes
 void BatteryManager::startCharging(std::unique_ptr<s_BatteryMessage> vBatteryMessage)
 {
     this->monitor->print("Start charging!");
-    
+    this->arrivedAtStationStatus = true;
     conditional_batteryCheck.notify_one();
     // THIS IS A BIT COMPLICATED; THIS COMMAND NEEDS TO BE ATTACHED TO THE ATOMICTASK.
 }
@@ -465,7 +458,7 @@ float BatteryManager::minimumDistance()
     return dist;
 }
 
-bool BatteryManager::batteryLifeTime()
+bool BatteryManager::batteryNeedsCharging()
 {
     bool status = false;
     float batteryLevel = this->monitor->getBatteryLevel();
@@ -474,7 +467,12 @@ bool BatteryManager::batteryLifeTime()
     (minimumDistance() * 1 + this->monitor->getCostToExecute() > batteryLevel) ? status = true : false; //inventei
 
     if(batteryLevel == 0)
+    {
+        this->monitor->print("Battery Failure!");
         this->monitor->lockRobot(enum_RobotStatus::failure);
+        this->stop(); //Stop Module
+        conditional_batteryCheck.notify_all();
+    }
     return status;
 }
 

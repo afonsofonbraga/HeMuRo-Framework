@@ -40,12 +40,12 @@ LoggerAgent::LoggerAgent(Blackboard* monitor, bool decentralized , int argc, cha
     //sender = new UDPSender(monitor);
     logger = new Logger(monitor);
     
-    #ifdef DEFAULT
+    #ifndef DEFAULT
     webmodule = new WebModule(monitor, argc, argv);
     #endif
     
     logger->Module::start();
-    #ifdef DEFAULT
+    #ifndef DEFAULT
     webmodule->Module::start();
     #endif
 }
@@ -57,7 +57,7 @@ LoggerAgent::~LoggerAgent()
         delete this->receiver;
     //delete this->sender;
     delete this->logger;
-    #ifdef DEFAULT
+    #ifndef DEFAULT
     delete this->webmodule;
     #endif
 }

@@ -130,7 +130,6 @@ int main(int argc, char **argv){
     memory = new Blackboard(robotsName, enum_RobotCategory::null);
     v_Blackboard.push_back(memory);
     v_Blackboard.at(defaultAgents)->setPosition(chargingStation_02);
-    v_ChargingStation.push_back(station);
     station = new ChargingStation(v_Blackboard.at(defaultAgents), decentralizedCommunication);
     receiver->addRobot(v_Blackboard.at(defaultAgents));
     v_ChargingStation.push_back(station);

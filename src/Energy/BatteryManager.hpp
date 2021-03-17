@@ -59,7 +59,8 @@ private:
     enum_ChargingRequest batteryStatus = enum_ChargingRequest::null;
     
     float minimumDistance();
-    bool batteryLifeTime();
+    bool batteryNeedsCharging();
+    bool arrivedAtStationStatus = false;
     
 protected:
     

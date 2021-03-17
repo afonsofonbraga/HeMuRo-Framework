@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find hemuro_sim)/launch/teste/rosbot_rviz.launch"></include>
+
+  <include file="$(find hemuro_sim)/launch/teste/gmapping.launch"></include>
+
+</launch>

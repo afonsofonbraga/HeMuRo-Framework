@@ -26,7 +26,7 @@ cd build
 cmake ../
 
 make
-make install
+sudo make install
 
 ```
 
@@ -43,3 +43,18 @@ make
 cd ..
 python3 benchmark.py
 ```
+
+
+## Execution
+
+After compilation remember to add:
+```
+--docroot . --http-address 0.0.0.0 --http-port 808 --resources-dir=/usr/local/share/Wt/resources
+```
+example of execution:
+
+```
+./framework thor --docroot . --http-address 0.0.0.0 --http-port 808 --resources-dir=/usr/local/share/Wt/resources
+```
+
+css and images must be at the executable folder.

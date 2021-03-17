@@ -58,7 +58,7 @@ void UDPReceiverSim::error(const char *msg){
 
 void UDPReceiverSim::mainThread()
 {
-    while(this->isRunning)
+    while(this->isRunning == true)
     {
         this->run();
     }

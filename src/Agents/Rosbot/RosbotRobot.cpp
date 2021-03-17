@@ -60,27 +60,32 @@ RosbotRobot::~RosbotRobot()
 void RosbotRobot::decomposableTaskList()
 {
     std::vector<enum_AtomicTask> atomicTaskVector;
-    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
-    enum_DecomposableTask dTask = enum_DecomposableTask::checkPosition;
-    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
-    
-    atomicTaskVector.clear();
-    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
-    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
-    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
-    dTask = enum_DecomposableTask::deliverPicture;
-    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
-    
-    atomicTaskVector.clear();
-    atomicTaskVector.push_back(enum_AtomicTask::goTo);
-    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
-    dTask = enum_DecomposableTask::takePicture;
-    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
-    
+    enum_DecomposableTask dTask = enum_DecomposableTask::null;
+
     atomicTaskVector.clear();
     atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
     atomicTaskVector.push_back(enum_AtomicTask::chargeBattery);
     dTask = enum_DecomposableTask::lowBattery;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    atomicTaskVector.push_back(enum_AtomicTask::pickUpSample);
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    atomicTaskVector.push_back(enum_AtomicTask::dropOffSample);
+    dTask = enum_DecomposableTask::deliverSmallSample;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
+    dTask = enum_DecomposableTask::inspectPlace;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::moveBaseGoal);
+    atomicTaskVector.push_back(enum_AtomicTask::measureTemperature);
+    dTask = enum_DecomposableTask::measureTemperature;
     monitor->addDecomposableTaskList(dTask, atomicTaskVector);
 }
 
@@ -137,6 +142,15 @@ bool RosbotRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
                 break;
             case enum_AtomicTask::takePicture :
                 vAtomicTaskitem = std::make_shared<TakePictureSim>(monitor, currentPosition,currentPosition);
+                break;
+            case enum_AtomicTask::pickUpSample:
+                vAtomicTaskitem = std::make_shared<PickUpSim>(monitor, currentPosition, currentPosition);
+                break;
+            case enum_AtomicTask::dropOffSample:
+                vAtomicTaskitem = std::make_shared<DropOffSim>(monitor,currentPosition,currentPosition);
+                break;
+            case enum_AtomicTask::measureTemperature:
+                vAtomicTaskitem = std::make_shared<MeasureTemperatureSim>(monitor,currentPosition,currentPosition);
                 break;
             default:
                 break;

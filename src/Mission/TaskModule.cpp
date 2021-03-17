@@ -29,7 +29,7 @@ TaskModule::~TaskModule()
 void TaskModule::mainThread()
 {
     executeMission =  new std::thread(&TaskModule::startMissionToExecute, this);
-    while(this->isRunning)
+    while(this->isRunning == true)
     {
         this->run();
     }
@@ -83,6 +83,13 @@ void TaskModule::startMissionToExecute()
     //STILL NEEDS TO HOLD THE MISSION IN CASE OF NEDDED
     while (this->isRunning)
     {
+        if (this->monitor->getRobotStatus() == enum_RobotStatus::failure)
+            {
+                this->stop();
+                this->missionToExecute.stop();
+                this->missionEmergency.stop();
+                break;
+            }
         if (getEmergencyStatus() == false)
         {
             std::unique_lock<std::mutex> lk(mutex_mission);
@@ -343,14 +350,7 @@ void TaskModule::emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage)
     if(this->monitor->getDecomposableTask(vTaskMessage->taskToBeDecomposed, vMission->atomicTaskEnumerator))
     {
         // Checar se robô está executando alguma missão, se sim, redirecionar. Se não, não é necessario.
-        std::unique_lock<std::mutex> lk(mutex_mission);
-        if(this->missionToExecute.enum_execution == enum_MissionExecution::waitingStart || this->missionToExecute.enum_execution == enum_MissionExecution::executing)
-        {
-            this->missionToExecute.enum_execution = enum_MissionExecution::null;
-            this->missionToExecute.stop();
-            redirectMission(this->missionToExecute);
-        }
-        lk.unlock();
+        
         
         strcpy(vMission->missionCode,vTaskMessage->missionCode);
         strcpy(vMission->senderAddress,vTaskMessage->senderAddress);
@@ -370,6 +370,14 @@ void TaskModule::emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage)
             addMissionEmergency(*vMission);
         }
         
+        std::unique_lock<std::mutex> lk(mutex_mission);
+        if(this->missionToExecute.enum_execution == enum_MissionExecution::waitingStart || this->missionToExecute.enum_execution == enum_MissionExecution::executing)
+        {
+            this->missionToExecute.enum_execution = enum_MissionExecution::null;
+            this->missionToExecute.stop();
+            redirectMission(this->missionToExecute);
+        }
+        lk.unlock();
     }
 }
 

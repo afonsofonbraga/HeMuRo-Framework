@@ -34,6 +34,9 @@
 #include "TurnOnSim.hpp"
 #include "ChargeBatteryROS.hpp"
 #include "TakePictureSim.hpp"
+#include "PickUpSim.hpp"
+#include "DropOffSim.hpp"
+#include "MeasureTemperatureSim.hpp"
 
 class RosbotRobot: public Agent
 {

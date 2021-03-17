@@ -16,6 +16,9 @@ find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs nav_
 catkin_package( CATKIN_DEPENDS roscpp rospy std_msgs nav_msgs move_base_msgs actionlib)
 endif()
 
+find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs nav_msgs move_base_msgs actionlib)
+catkin_package( CATKIN_DEPENDS roscpp rospy std_msgs nav_msgs move_base_msgs actionlib)
+
 if(TURTLESIM)
 add_definitions(-DTURTLESIM=1)
 find_package(catkin REQUIRED COMPONENTS

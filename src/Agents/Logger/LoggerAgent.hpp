@@ -21,9 +21,9 @@
 #include "UDPReceiver.hpp"
 #include "UDPSender.hpp"
 
-#ifdef DEFAULT
+//#ifndef DEFAULT
     #include "WebModule.hpp"
-#endif
+//#endif
 
 #include "Agent.hpp"
 
@@ -34,9 +34,9 @@ protected:
     Logger* logger;
     //UDPBroadcast* broadcast;
     UDPReceiver* receiver;
-    #ifdef DEFAULT
+ //   #ifndef DEFAULT
             WebModule* webmodule;
-    #endif
+ //   #endif
 
     //UDPSender* sender;
 public:

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="robot_name"/>
+    <arg name="init_pose"/>
+    <arg name="my_ns"/>
+
+    <param name="robot_description" command="$(find xacro)/xacro '$(find rosbot_description)/urdf/rosbot.xacro' robot_namespace:=$(arg robot_name)"/>
+    <node name="rosbot_spawn" pkg="gazebo_ros" type="spawn_model" args="$(arg init_pose) -urdf -param robot_description -model $(arg robot_name) -robot_namespace $(arg robot_name)"
+     respawn="false" output="screen">
+      <remap from="/cmd_vel" to="cmd_vel"/>
+      <remap from="map" to="/map"/>
+     </node>
+
+    <rosparam command="load" file="$(find joint_state_controller)/joint_state_controller.yaml" />
+    <node name="joint_state_controller_spawner" pkg="controller_manager" type="spawner" output="screen" args="joint_state_controller"/>
+    <node name="$(arg robot_name)_robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+      <param name="tf_prefix" value="$(arg robot_name)_tf"/>
+    </node>
+    <node pkg="tf" type="static_transform_publisher" name="odom" args="0 0 0 0 0 0 1 map $(arg robot_name)_tf/odom 100" />
+
+    <node pkg="battery_simulator" type="battery2" name="battery" output="screen">
+			<!-- This node publishes to the topics power (Int32), voltage (Float32), percent (Float32) and recharging (Bool) -->
+			<!-- This node subscribes to the topic recharge (Bool) -->
+			<!-- Battery discharge model (exponential, linear, inverse), default = exponential -->
+			<!-- Reference: https://batteryuniversity.com/learn/article/discharge_methods -->
+			<param name="discharge_model" value="exponential" />
+			<!-- Max battery voltage, default = 12.5 -->
+			<param name="max_voltage" value="12.5" />
+			<!-- Min battery voltage, default = 11.5 -->
+			<param name="min_voltage" value="11.5" />
+			<!-- Base battery voltage, default = 12.0 -->
+			<param name="base_voltage" value="12.0" />
+			<!-- Initial battery percent charge, default = 100 -->
+			<param name="initial_percent" value="35" />
+			<!-- Max current the battery can provide (milliamps hour), default = 7000 -->
+			<param name="discharge_current" value="7000" />
+			<!-- Max current the charger can provide (milliamps hour), default = 2400 -->
+			<param name="recharge_current" value="900000" />
+			<!-- Current required by the robot base without the motors (milliamps hour), default = 200 -->
+			<param name="base_power_consumption" value="200" />
+			<!-- Current required by the robot motors (milliamps hour), default = 5000 -->
+			<param name="motors_power_consumption" value="50000" />
+			<!-- Number of batteries of the robot (connected in parallel), default = 1 -->
+			<param name="num_batteries" value="1" />
+			<!-- The velocity topic of the robot (geometry_msgs/Twist), default = cmd_vel -->
+			<param name="cmd_vel_topic" value="/cmd_vel" />
+			<!-- Prints battery info at every second, default = false -->
+			<param name="verbose" value="false" />
+			<!-- Remap battery for each group-->
+			<remap from="/cmd_vel" to="cmd_vel"/>
+	</node>
+</launch>

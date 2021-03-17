@@ -29,11 +29,13 @@
 #include "ROSModuleP3DX.hpp"
 #include "ros/ros.h"
 
-#include "GoToROS.hpp"
+//#include "GoToROS.hpp"
 #include "MoveBaseGoal.hpp"
-#include "TurnOnSim.hpp"
+//#include "TurnOnSim.hpp"
 #include "ChargeBatteryROS.hpp"
 #include "TakePictureSim.hpp"
+#include "PickUpSim.hpp"
+#include "DropOffSim.hpp"
 
 class P3DXRobot: public Agent
 {

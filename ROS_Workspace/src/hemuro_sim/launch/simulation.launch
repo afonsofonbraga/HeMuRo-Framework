@@ -1,0 +1,36 @@
+<launch>
+  <!-- start world -->
+  <!--<node name="gazebo" pkg="gazebo" type="gazebo" 
+   args="$(find your_pkg)/worlds/your.world" respawn="false" output="screen" />-->
+
+  <!-- start gui -->
+  <!--<node name="gazebo_gui" pkg="gazebo" type="gui" respawn="false" output="screen"/>-->
+  <!--<include file="$(find aws_robomaker_hospital_world)/launch/view_hospital.launch"/>-->
+  <!-- include our robots -->
+
+   <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <!-- Workaround for crashes in VMware -->
+        <env name="SVGA_VGPU10" value="0"/>
+        <arg name="gui" value="true"/>
+        <arg name="world_name" value="$(find aws_robomaker_hospital_world)/worlds/hospital.world"/> 
+        <!-- <arg name="world_name" value="$(find aws_robomaker_small_warehouse_world)/worlds/small_warehouse.world"/> -->
+        <arg name="verbose" value="true"/>
+    </include>
+  
+  
+  <arg name="map_file" default="$(find rosbot_navigation)/maps/test_map7.yaml"/>
+  
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" >
+        <param name="frame_id" value="map"/>
+  </node>
+
+
+  <include file="$(find hemuro_sim)/launch/robots.launch" />
+
+  <!--<param name="robot_description" command="$(find xacro)/xacro '$(find rosbot_description)/urdf/rosbot.xacro'"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find hemuro_sim)/rviz/thor.rviz" required="true" output="screen"/> -->
+  
+  <!--<arg name="robot_model" default="$(find p3dx_description)/urdf/pioneer3dx.xacro"/>
+  <param name="robot_description" command="$(find xacro)/xacro '$(arg robot_model)'" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find hemuro_sim)/rviz/joao.rviz" required="true" output="screen"/>-->
+</launch>
