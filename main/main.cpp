@@ -122,20 +122,7 @@ int main( int argc, char *argv[ ] )
     
     std::vector<Blackboard *> v_Blackboard; // = new std::vector<Blackboard>;
     UDPReceiverSim* receiver = new UDPReceiverSim();
-    
-#ifdef DEFAULT
     std::vector<Agent* > v_Robot; 
-#endif
-    
-#ifndef DEFAULT
-    std::string node = "node"; //name;
-    ros::init(argc, argv ,node);
-    ros::NodeHandle n;
-    ros::AsyncSpinner spinner(0);
-    spinner.start();
-
-    std::vector<Agent* > v_Robot; 
-#endif
     
     std::string name{"Robo"};
     int defaultAgents = 0;
@@ -181,10 +168,18 @@ int main( int argc, char *argv[ ] )
     }
     defaultAgents += numberOfRobots;
 
+    
+#ifndef DEFAULT
+    std::string node = "node"; //name;
+    ros::init(argc, argv ,node);
+    ros::NodeHandle n;
+    ros::AsyncSpinner spinner(0);
+    spinner.start();
+#endif
     std::vector<std::string> robots;
     robots.push_back("thor");
-    robots.push_back("zeus");
-    //robots.push_back("joao");
+    //robots.push_back("zeus");
+    robots.push_back("joao");
     for (int i = 0; i < robots.size(); i++)
     {
         robotsName = robots.at(i);
@@ -193,16 +188,16 @@ int main( int argc, char *argv[ ] )
         receiver->addRobot(v_Blackboard.at(i + defaultAgents));
         decentralizedCommunication = false;
 #ifndef DEFAULT
-        //if(i%2 == 0)
+        if(i%2 == 0)
         {
             RosbotRobot* robot = new RosbotRobot(v_Blackboard.at(i + defaultAgents), n, decentralizedCommunication);
             v_Robot.push_back(robot);
         }
-        /*if (i%2 == 1)
+        if (i%2 == 1)
         {
             P3DXRobot* robot = new P3DXRobot(v_Blackboard.at(i + defaultAgents), n, decentralizedCommunication);
             v_Robot.push_back(robot);
-        }*/
+        }
 #endif            
 #ifdef DEFAULT
         DefaultRobot* robot = new DefaultRobot(v_Blackboard.at(i), decentralizedCommunication);
@@ -225,7 +220,7 @@ int main( int argc, char *argv[ ] )
     
     
     {
-        strcpy(mission.missionCode, "sure1");
+        strcpy(mission.missionCode, "Measure1");
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::measureTemperature;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -246,7 +241,7 @@ int main( int argc, char *argv[ ] )
     }
 
         {
-        strcpy(mission.missionCode, "sure2");
+        strcpy(mission.missionCode, "Measure2");
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::measureTemperature;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -365,6 +360,61 @@ int main( int argc, char *argv[ ] )
         v_Blackboard.at(1)->addUDPMessage(message);
     }
 
+{
+        strcpy(mission.missionCode, "Deliver3");
+        mission.operation = enum_MissionOperation::createMission;
+        mission.taskToBeDecomposed = enum_DecomposableTask::deliverBigSample;
+        mission.robotCat = enum_RobotCategory::ugv;
+        mission.numberOfAttributes = 2;
+        int total = 4;
+        *((int*) (mission.attributesBuffer + total)) = sizeof(s_pose);
+        total += 4;
+        memcpy(mission.attributesBuffer + total, &sala_A02, sizeof(s_pose));
+        total += sizeof(s_pose);
+        *((int*) (mission.attributesBuffer + total)) = sizeof(s_pose);
+        total += 4;
+        memcpy(mission.attributesBuffer + total, &deposito_01, sizeof(s_pose));
+        total += sizeof(s_pose);
+        *((int*) (mission.attributesBuffer)) = total;
+        
+        mission.relativeDeadline = std::chrono::seconds(180);
+        
+        memcpy(message.buffer,"CStation1",10);
+        *((Operation*)(message.buffer + 10)) = operation;
+        *((int*)(message.buffer + 14)) = sizeof(mission);
+        memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
+        message.messageSize = sizeof(message.buffer);
+        
+        v_Blackboard.at(1)->addUDPMessage(message);
+    }
+
+{
+        strcpy(mission.missionCode, "Deliver4");
+        mission.operation = enum_MissionOperation::createMission;
+        mission.taskToBeDecomposed = enum_DecomposableTask::deliverBigSample;
+        mission.robotCat = enum_RobotCategory::ugv;
+        mission.numberOfAttributes = 2;
+        int total = 4;
+        *((int*) (mission.attributesBuffer + total)) = sizeof(s_pose);
+        total += 4;
+        memcpy(mission.attributesBuffer + total, &sala_A04, sizeof(s_pose));
+        total += sizeof(s_pose);
+        *((int*) (mission.attributesBuffer + total)) = sizeof(s_pose);
+        total += 4;
+        memcpy(mission.attributesBuffer + total, &deposito_02, sizeof(s_pose));
+        total += sizeof(s_pose);
+        *((int*) (mission.attributesBuffer)) = total;
+        
+        mission.relativeDeadline = std::chrono::seconds(180);
+        
+        memcpy(message.buffer,"CStation1",10);
+        *((Operation*)(message.buffer + 10)) = operation;
+        *((int*)(message.buffer + 14)) = sizeof(mission);
+        memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
+        message.messageSize = sizeof(message.buffer);
+        
+        v_Blackboard.at(1)->addUDPMessage(message);
+    }
     while (std::getchar() != 'c'){}
     
     //delete logger;

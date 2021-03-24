@@ -23,7 +23,7 @@ WebApp::WebApp(Blackboard* monitor): WContainerWidget()
     path = getenv("HOME") + std::string("/Github/MRSFramework/logs/Logger") + std::to_string(n) + "/Logger.txt";
     
     setHeight(720);
-    setWidth(1280);
+    setWidth(1024);
     setStyleClass("backgound-box");
     
     auto layout = setLayout(Wt::cpp14::make_unique<Wt::WBorderLayout>());
@@ -34,7 +34,7 @@ WebApp::WebApp(Blackboard* monitor): WContainerWidget()
     auto item = container->addWidget(Wt::cpp14::make_unique<Wt::WText>("<h1>HeMuRo Framework</h1>"));
     container->setStyleClass("title-box");
     layout->addWidget(std::move(container), Wt::LayoutPosition::North);
-    
+    /*
     container = Wt::cpp14::make_unique<Wt::WContainerWidget>();
     item = container->addWidget(Wt::cpp14::make_unique<Wt::WText>("<h3>Menu</h3>"));
     container->setStyleClass("sidebar-box");
@@ -43,7 +43,7 @@ WebApp::WebApp(Blackboard* monitor): WContainerWidget()
     container = Wt::cpp14::make_unique<Wt::WContainerWidget>();
     item = container->addWidget(Wt::cpp14::make_unique<Wt::WText>("<h3>Information</h3> Here you can find all the <br /> information regarding <br />agents' status.<br />More information will be <br /> available in the future!<br /> Keep in touch!"));
     container->setStyleClass("sidebar-box");
-    layout->addWidget(std::move(container), Wt::LayoutPosition::East);
+    layout->addWidget(std::move(container), Wt::LayoutPosition::East); */
     
     container = Wt::cpp14::make_unique<Wt::WContainerWidget>();
     
@@ -108,8 +108,8 @@ void WebApp::updateAgentList()
     agentsTable->setHeaderCount(1);
     agentsTable->setWidth(Wt::WLength("100%"));
     agentsTable->elementAt(0, 0)->addNew<Wt::WText>("#");
-    agentsTable->elementAt(0, 1)->addNew<Wt::WText>("Agent Name");
-    agentsTable->elementAt(0, 2)->addNew<Wt::WText>("Category");
+    agentsTable->elementAt(0, 1)->addNew<Wt::WText>("Category");
+    agentsTable->elementAt(0, 2)->addNew<Wt::WText>("Agent Name");
     agentsTable->elementAt(0, 3)->addNew<Wt::WText>("Position (x,y,z)");
     agentsTable->elementAt(0, 4)->addNew<Wt::WText>("Battery Level");
     agentsTable->elementAt(0, 5)->addNew<Wt::WText>("Status");
@@ -130,27 +130,27 @@ void WebApp::updateAgentList()
         {
             case enum_RobotCategory::null:
                 category = "null";
-                img = "001-vr-glasses.png";
+                img = "agent.png";
                 break;
             case enum_RobotCategory::uav:
                 category = "UAV";
-                img = "023-drone-2.png";
+                img = "uav.png";
                 break;
             case enum_RobotCategory::ugv:
                 category = "UGV";
-                img = "007-robot.png";
+                img = "ugv.png";
                 break;
             case enum_RobotCategory::usv:
                 category = "USV";
-                img = "submarine.png";
+                img = "usv.png";
                 break;
             case enum_RobotCategory::chargingStation:
-                category = "Charging Station";
-                img = "charging-station.png";
+                category = "charging station";
+                img = "charging_station.png";
                 break;
             default:
                 category = "null";
-                img = "question-mark.png";
+                img = "null.png";
                 break;
         }
         switch(n.second.robotStatus)
@@ -191,9 +191,9 @@ void WebApp::updateAgentList()
         agentsTable->elementAt(row, 0)
         ->addNew<Wt::WText>(Wt::WString("{1}").arg(row));
         agentsTable->elementAt(row, 1)
-        ->addNew<Wt::WText>(n.first);
-        agentsTable->elementAt(row, 2)
         ->addWidget(std::move(container2));
+        agentsTable->elementAt(row, 2)
+        ->addNew<Wt::WText>(n.first);
         agentsTable->elementAt(row, 3)
         ->addNew<Wt::WText>(Wt::WString("("+std::to_string(n.second.robotsPosition.x)+","+ std::to_string(n.second.robotsPosition.y)+ "," + std::to_string(n.second.robotsPosition.z) +")"));
         agentsTable->elementAt(row, 4)
