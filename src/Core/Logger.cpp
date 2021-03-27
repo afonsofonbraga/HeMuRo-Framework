@@ -23,7 +23,7 @@ Logger::Logger(Blackboard* monitor): Module(monitor)
 
 void Logger::constructor()
 {
-    path = getenv("HOME") + std::string("/Github/MRSFramework/logs/PathController.txt");
+    path = std::string("$path_to_HeMuRo/logs/PathController.txt");
     int n;
     std::fstream s(path, s.in | s.out);
     if (!s.is_open()) {
@@ -47,7 +47,7 @@ void Logger::constructor()
         }
         s.close();
     }
-    path = getenv("HOME") + std::string("/Github/MRSFramework/logs/Logger") + std::to_string(n);
+    path =  std::string("$path_to_HeMuRo/logs/Logger") + std::to_string(n);
     fs::create_directory(path);
     std::string name;
     this->monitor->getRobotsName(name);

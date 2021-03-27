@@ -12,7 +12,7 @@ WebApp::WebApp(Blackboard* monitor): WContainerWidget()
 {
     this->monitor = monitor;
     
-    path = getenv("HOME") + std::string("/Github/MRSFramework/logs/PathController.txt");
+    path = std::string("$path_to_HeMuRo/logs/PathController.txt");
     int n = 0;
     std::string str;
     std::fstream s(path, s.in);
@@ -20,7 +20,7 @@ WebApp::WebApp(Blackboard* monitor): WContainerWidget()
         s >> str >> n;
         s.close();
     }
-    path = getenv("HOME") + std::string("/Github/MRSFramework/logs/Logger") + std::to_string(n) + "/Logger.txt";
+    path = std::string("$path_to_HeMuRo/logs/Logger") + std::to_string(n) + "/Logger.txt";
     
     setHeight(720);
     setWidth(1024);
@@ -75,7 +75,7 @@ WebApp::WebApp(Blackboard* monitor): WContainerWidget()
     container->addWidget(Wt::cpp14::make_unique<Wt::WBreak>());
     terminal = container->addWidget(Wt::cpp14::make_unique<Wt::WTextArea>());
     
-    terminal->setColumns(150);
+    terminal->setColumns(135);
     terminal->setRows(15);
     terminal->setReadOnly(true);
     terminal->setText("Starting Web Terminal...");
@@ -130,27 +130,27 @@ void WebApp::updateAgentList()
         {
             case enum_RobotCategory::null:
                 category = "null";
-                img = "agent.png";
+                img = "src/Web/images/agent.png";
                 break;
             case enum_RobotCategory::uav:
                 category = "UAV";
-                img = "uav.png";
+                img = "src/Web/images/uav.png";
                 break;
             case enum_RobotCategory::ugv:
                 category = "UGV";
-                img = "ugv.png";
+                img = "src/Web/images/ugv.png";
                 break;
             case enum_RobotCategory::usv:
                 category = "USV";
-                img = "usv.png";
+                img = "src/Web/images/usv.png";
                 break;
             case enum_RobotCategory::chargingStation:
                 category = "charging station";
-                img = "charging_station.png";
+                img = "src/Web/images/charging_station.png";
                 break;
             default:
                 category = "null";
-                img = "null.png";
+                img = "src/Web/images/null.png";
                 break;
         }
         switch(n.second.robotStatus)
