@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1BF025BE260E587C00251774 /* libwt.4.5.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF025BD260E587C00251774 /* libwt.4.5.0.dylib */; };
+		1BF025BF260E587C00251774 /* libwt.4.5.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 1BF025BD260E587C00251774 /* libwt.4.5.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1BF025C2260E589D00251774 /* libwthttp.4.5.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF025C1260E589D00251774 /* libwthttp.4.5.0.dylib */; };
+		1BF025C3260E589D00251774 /* libwthttp.4.5.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 1BF025C1260E589D00251774 /* libwthttp.4.5.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		23103C752552356D0075C543 /* WebApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23103C732552356D0075C543 /* WebApp.cpp */; };
 		231AD3F0251E434D00C88B27 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 231AD3EE251E434D00C88B27 /* Logger.cpp */; };
 		23444C4625AF5B8500768AC2 /* Agent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23444C4325AF59B800768AC2 /* Agent.cpp */; };
@@ -37,14 +41,24 @@
 		23C6E551246EF4F100D99185 /* TurnOnSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23C6E54F246EF4F100D99185 /* TurnOnSim.cpp */; };
 		23D20B51245C71560013F98A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23D20B50245C71560013F98A /* main.cpp */; };
 		23E9710925263C470021D3B6 /* MoveBaseGoal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23E9710725263C470021D3B6 /* MoveBaseGoal.cpp */; };
-		23EDAF1225491C81002845E5 /* libwt.4.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C912A82548C31F00818B4D /* libwt.4.4.0.dylib */; };
-		23EDAF1325491C81002845E5 /* libwthttp.4.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C912AB2548C36D00818B4D /* libwthttp.4.4.0.dylib */; };
 		23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51B245CA8B9003D13A3 /* Module.cpp */; };
 		23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EDB51E245CBBA9003D13A3 /* ModulePeriodic.cpp */; };
 		23F3A21D25006C7E00561375 /* DefaultRobot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F3A21B25006C7E00561375 /* DefaultRobot.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1BF025C0260E587C00251774 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1BF025C3260E589D00251774 /* libwthttp.4.5.0.dylib in Embed Libraries */,
+				1BF025BF260E587C00251774 /* libwt.4.5.0.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		23D20B4B245C71560013F98A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -57,11 +71,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1B19D823260ECC4100449420 /* run_linux.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = run_linux.sh; sourceTree = "<group>"; };
+		1B19D824260ECCD300449420 /* configure_linux.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure_linux.sh; sourceTree = "<group>"; };
+		1B19D825260ECDD900449420 /* configure_reverse.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure_reverse.sh; sourceTree = "<group>"; };
+		1B7FD522260EC30B00668C11 /* MRSstyle.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = MRSstyle.css; sourceTree = "<group>"; };
+		1B7FD523260EC79300668C11 /* charging_station.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = charging_station.png; sourceTree = "<group>"; };
+		1B7FD524260EC79300668C11 /* agent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = agent.png; sourceTree = "<group>"; };
+		1B7FD525260EC79300668C11 /* null.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = null.png; sourceTree = "<group>"; };
+		1B7FD526260EC79300668C11 /* uav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uav.png; sourceTree = "<group>"; };
+		1B7FD527260EC79300668C11 /* usv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usv.png; sourceTree = "<group>"; };
+		1B7FD528260EC79300668C11 /* ugv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ugv.png; sourceTree = "<group>"; };
+		1B9D087A260EBBAC008AC122 /* configure_osx.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure_osx.sh; sourceTree = "<group>"; };
+		1BF025BD260E587C00251774 /* libwt.4.5.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwt.4.5.0.dylib; path = ../wt/build/src/libwt.4.5.0.dylib; sourceTree = "<group>"; };
+		1BF025C1260E589D00251774 /* libwthttp.4.5.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwthttp.4.5.0.dylib; path = ../wt/build/src/http/libwthttp.4.5.0.dylib; sourceTree = "<group>"; };
 		23103C732552356D0075C543 /* WebApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WebApp.cpp; sourceTree = "<group>"; };
 		23103C742552356D0075C543 /* WebApp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WebApp.hpp; sourceTree = "<group>"; };
 		231AD3EE251E434D00C88B27 /* Logger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
 		231AD3EF251E434D00C88B27 /* Logger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Logger.hpp; sourceTree = "<group>"; };
-		23287F93254C6836009396B1 /* MRSstyle1.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = MRSstyle1.css; sourceTree = "<group>"; };
 		2335B80324FD878800661D4C /* ChargeBatteryROS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChargeBatteryROS.cpp; sourceTree = "<group>"; };
 		2335B80424FD878800661D4C /* ChargeBatteryROS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChargeBatteryROS.hpp; sourceTree = "<group>"; };
 		233F8D3A24621B0D00C5B39B /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -102,12 +128,6 @@
 		2382EF7D25D6CFE20083FD32 /* speedTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = speedTest.cpp; sourceTree = "<group>"; };
 		2382EF8025D6EB800083FD32 /* Blackboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Blackboard.hpp; sourceTree = "<group>"; };
 		2382EF8125D6EB800083FD32 /* Blackboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Blackboard.cpp; sourceTree = "<group>"; };
-		2384745625AE182C00A4AEB0 /* 001-vr-glasses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "001-vr-glasses.png"; sourceTree = "<group>"; };
-		2384745725AE182C00A4AEB0 /* 007-robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "007-robot.png"; sourceTree = "<group>"; };
-		2384745825AE182C00A4AEB0 /* question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "question-mark.png"; sourceTree = "<group>"; };
-		2384745925AE182C00A4AEB0 /* submarine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = submarine.png; sourceTree = "<group>"; };
-		2384745A25AE182C00A4AEB0 /* 023-drone-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "023-drone-2.png"; sourceTree = "<group>"; };
-		2384745B25AE182D00A4AEB0 /* charging-station.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "charging-station.png"; sourceTree = "<group>"; };
 		2386343D24FEB45600049ED1 /* UDPReceiverSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPReceiverSim.cpp; sourceTree = "<group>"; };
 		2386343E24FEB45600049ED1 /* UDPReceiverSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UDPReceiverSim.hpp; sourceTree = "<group>"; };
 		23872A19248049B200EC738C /* UDPSender.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UDPSender.cpp; sourceTree = "<group>"; };
@@ -530,8 +550,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23EDAF1225491C81002845E5 /* libwt.4.4.0.dylib in Frameworks */,
-				23EDAF1325491C81002845E5 /* libwthttp.4.4.0.dylib in Frameworks */,
+				1BF025C2260E589D00251774 /* libwthttp.4.5.0.dylib in Frameworks */,
+				1BF025BE260E587C00251774 /* libwt.4.5.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,12 +612,12 @@
 		2384745425AE17FA00A4AEB0 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				2384745625AE182C00A4AEB0 /* 001-vr-glasses.png */,
-				2384745725AE182C00A4AEB0 /* 007-robot.png */,
-				2384745A25AE182C00A4AEB0 /* 023-drone-2.png */,
-				2384745B25AE182D00A4AEB0 /* charging-station.png */,
-				2384745825AE182C00A4AEB0 /* question-mark.png */,
-				2384745925AE182C00A4AEB0 /* submarine.png */,
+				1B7FD524260EC79300668C11 /* agent.png */,
+				1B7FD523260EC79300668C11 /* charging_station.png */,
+				1B7FD525260EC79300668C11 /* null.png */,
+				1B7FD526260EC79300668C11 /* uav.png */,
+				1B7FD528260EC79300668C11 /* ugv.png */,
+				1B7FD527260EC79300668C11 /* usv.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -643,8 +663,8 @@
 		23B17FA92549C24D003267ED /* Web */ = {
 			isa = PBXGroup;
 			children = (
+				1B7FD522260EC30B00668C11 /* MRSstyle.css */,
 				2384745425AE17FA00A4AEB0 /* images */,
-				23287F93254C6836009396B1 /* MRSstyle1.css */,
 				23B17FAA2549CAC0003267ED /* WebModule.cpp */,
 				23B17FAB2549CAC0003267ED /* WebModule.hpp */,
 				23103C732552356D0075C543 /* WebApp.cpp */,
@@ -656,6 +676,8 @@
 		23C9112D2548C16800818B4D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1BF025C1260E589D00251774 /* libwthttp.4.5.0.dylib */,
+				1BF025BD260E587C00251774 /* libwt.4.5.0.dylib */,
 				23C912B32549101500818B4D /* libwt.4.4.0.dylib */,
 				23C912B22549101500818B4D /* libwttest.4.4.0.dylib */,
 				23C912AA2548C36D00818B4D /* libwtdbo.4.4.0.dylib */,
@@ -1326,6 +1348,10 @@
 		23F9DFE3245C6FDB008506C4 = {
 			isa = PBXGroup;
 			children = (
+				1B19D823260ECC4100449420 /* run_linux.sh */,
+				1B19D825260ECDD900449420 /* configure_reverse.sh */,
+				1B9D087A260EBBAC008AC122 /* configure_osx.sh */,
+				1B19D824260ECCD300449420 /* configure_linux.sh */,
 				23D20B41245C705C0013F98A /* build */,
 				23D20B48245C705C0013F98A /* CMakeLists.txt */,
 				23C9112D2548C16800818B4D /* Frameworks */,
@@ -1366,6 +1392,7 @@
 				23D20B49245C71560013F98A /* Sources */,
 				23D20B4A245C71560013F98A /* Frameworks */,
 				23D20B4B245C71560013F98A /* CopyFiles */,
+				1BF025C0260E587C00251774 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -1464,7 +1491,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"DEFAULT=1",
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
