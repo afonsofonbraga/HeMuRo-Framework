@@ -74,6 +74,9 @@
 		1B19D823260ECC4100449420 /* run_linux.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = run_linux.sh; sourceTree = "<group>"; };
 		1B19D824260ECCD300449420 /* configure_linux.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure_linux.sh; sourceTree = "<group>"; };
 		1B19D825260ECDD900449420 /* configure_reverse.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure_reverse.sh; sourceTree = "<group>"; };
+		1B6DC887260FE24000001017 /* build */ = {isa = PBXFileReference; lastKnownFileType = folder; path = build; sourceTree = "<group>"; };
+		1B6DC888260FE24000001017 /* logs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = logs; sourceTree = "<group>"; };
+		1B6DC889260FE24000001017 /* results */ = {isa = PBXFileReference; lastKnownFileType = folder; path = results; sourceTree = "<group>"; };
 		1B7FD522260EC30B00668C11 /* MRSstyle.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = MRSstyle.css; sourceTree = "<group>"; };
 		1B7FD523260EC79300668C11 /* charging_station.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = charging_station.png; sourceTree = "<group>"; };
 		1B7FD524260EC79300668C11 /* agent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = agent.png; sourceTree = "<group>"; };
@@ -1348,6 +1351,9 @@
 		23F9DFE3245C6FDB008506C4 = {
 			isa = PBXGroup;
 			children = (
+				1B6DC887260FE24000001017 /* build */,
+				1B6DC888260FE24000001017 /* logs */,
+				1B6DC889260FE24000001017 /* results */,
 				1B19D823260ECC4100449420 /* run_linux.sh */,
 				1B19D825260ECDD900449420 /* configure_reverse.sh */,
 				1B9D087A260EBBAC008AC122 /* configure_osx.sh */,
