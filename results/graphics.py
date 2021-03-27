@@ -12,7 +12,7 @@ def autolabel(rects, axss):
                     textcoords="offset points",
                     ha='center', va='bottom')
                     
-hand = open('/home/afonso/Github/MRSFramework/logs/Logger35/Missions.txt')
+hand = open('/home/robot/github/HeMuRo-Framework/logs/Logger21/Missions.txt')
 
 mission_owner = dict()
 mission_executioner = dict()
@@ -65,14 +65,16 @@ for agent in list(mission_redirected.keys()):
 for agent in list(mission_executioner.keys()):
     mission_redirected[agent] = mission_redirected.get(agent, 0 )
 
-
 label_executioner = list(mission_executioner.keys())
 size_executioner = list(mission_executioner.values())
 explode_executioner = [0] * len(size_executioner)
 
-label_redirected = list(mission_redirected.keys())
-size_redirected = list(mission_redirected.values())
-explode_redirected = [0] * len(size_redirected)
+label_redirected = list(mission_executioner.keys())
+ordered_redirected = list()
+for agent in list(mission_redirected.keys()):
+	ordered_redirected.insert(-1,mission_redirected.get(agent))
+print(ordered_redirected)
+explode_redirected = [0] * len(ordered_redirected)
 
 fig, axs = plt.subplots(1, 3, figsize=(15, 3))
 
@@ -85,13 +87,13 @@ x = np.arange(len(label_redirected))  # the label locations
 width = 0.05  # the width of the bars
 
 rects1 = axs[1].bar(x - width/2, size_executioner, width, label='Completed')
-rects2 = axs[1].bar(x + width/2, size_redirected, width, label='Redirected')
+rects2 = axs[1].bar(x + width/2, ordered_redirected, width, label='Redirected')
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
 axs[1].set_ylabel('Missions')
 axs[1].set_title('Missions Completed and Redirected')
 axs[1].set_xticks(x)
-axs[1].set_xticklabels(label_redirected)
+axs[1].set_xticklabels(label_executioner)
 axs[1].legend()
 
 
