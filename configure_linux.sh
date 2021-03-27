@@ -10,4 +10,5 @@
 
 # Example
 # grep -rl '$path_to_HeMuRo/' ./src | xargs sed -i 's+$path_to_HeMuRo/+/Users/afonsofonbraga/github/HeMuRo-Framework/+g'
-grep -rl '$path_to_HeMuRo/' ./src | xargs sed -i 's+$path_to_HeMuRo/+<insert HeMuros Path>+g'
+grep -rl '$path_to_HeMuRo/' ./src | xargs sed -i 's+$path_to_HeMuRo/+/home/robot/github/HeMuRo-Framework/+g'
+
