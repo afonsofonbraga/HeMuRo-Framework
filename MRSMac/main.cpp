@@ -99,7 +99,7 @@ int main(int argc, char **argv){
     }
     
     std::string name{"Robo"};
-    int numberOfRobots = 1; // Number of robots that will be executing the tasks
+    int numberOfRobots = 2; // Number of robots that will be executing the tasks
     int defaultAgents = 0; 
     
     std::vector<Blackboard* > v_Blackboard; // = new std::vector<Blackboard>;
@@ -165,8 +165,11 @@ int main(int argc, char **argv){
     Operation operation = Operation::missionMessage;
     v_Blackboard.at(1)->getRobotsName(*message.name);
     
+    for(int times = 1 ; times < 10; times++ )
     {
-        strcpy(mission.missionCode, "Task2");
+        {
+        std::string m = "Task1"+ std::to_string(times);
+        strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -196,7 +199,8 @@ int main(int argc, char **argv){
     
     
     {
-        strcpy(mission.missionCode, "Deliver");
+        std::string m = "Deliver"+ std::to_string(times);
+        strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::deliverPicture;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -229,7 +233,8 @@ int main(int argc, char **argv){
     }
     
     {
-        strcpy(mission.missionCode, "Task3");
+        std::string m = "Task3"+ std::to_string(times);
+        strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -255,7 +260,8 @@ int main(int argc, char **argv){
     }
     
     {
-        strcpy(mission.missionCode, "Task4");
+        std::string m = "Task4"+ std::to_string(times);
+        strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -279,6 +285,7 @@ int main(int argc, char **argv){
         message.messageSize = sizeof(message.buffer);
         
         v_Blackboard.at(1)->addUDPMessage(message);
+    }
     }
     while (std::getchar() != 'c'){}
     return 0;

@@ -92,6 +92,9 @@ void BatteryManager::run()
                     break;
                 case enum_ChargingOperation::atomicTaskInterrupt:
                 {
+                    std::unique_lock<std::mutex> lock1(mutex_batteryCheck);
+                    this->interrupt = true;
+                    lock1.unlock();
                     conditional_batteryCheck.notify_one();
                     break;
                 }
@@ -105,8 +108,6 @@ void BatteryManager::run()
 
 void BatteryManager::batteryCheckLoop()
 {
-    bool goingToStation = false;
-
     while(this->isRunning == true)
     {
         // HERE CAN BE USED AN ALGORITHM TO ESTIMATE LIFETIME
@@ -223,12 +224,18 @@ void BatteryManager::batteryCheckLoop()
                 
                 if (goingToStation == true && this->arrivedAtStationStatus == false)
                 {
+                    this->monitor->print("Still going to chargin station");
                     auto t0 = std::chrono::high_resolution_clock::now();
                     conditional_batteryCheck.wait_until(lock1, t0 + std::chrono::seconds(2));
-                } else if (goingToStation == true && arrivedAtStationStatus == true)
+                    if (this->interrupt == true)
+                    {
+                        this->interrupt = false;
+                        this->arrivedAtStationStatus = true;
+                    }
+                } else if (goingToStation == true && this->arrivedAtStationStatus == true)
                 {
-                    goingToStation = false;
-                    arrivedAtStationStatus = false;
+                    this->goingToStation = false;
+                    this->arrivedAtStationStatus = false;
                     s_BatteryMessage message;
                     strcpy(message.requestID,this->requestID);
                     strcpy(message.spotID,chargingStationWinner.spotID);
@@ -245,8 +252,9 @@ void BatteryManager::batteryCheckLoop()
             }
             case enum_ChargingRequest::charging:
             {
-                if(this->monitor->getBatteryLevel() == 100)
+                if(this->monitor->getBatteryLevel() == 100 && this->interrupt == true)
                 {
+                    this->interrupt = false;
                     s_BatteryMessage message;
                     strcpy(message.requestID,this->requestID);
                     this->monitor->getRobotsName(*message.senderName);

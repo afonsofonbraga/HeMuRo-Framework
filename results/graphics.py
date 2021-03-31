@@ -12,8 +12,8 @@ def autolabel(rects, axss):
                     textcoords="offset points",
                     ha='center', va='bottom')
                     
-hand = open('/home/robot/github/HeMuRo-Framework/logs/Logger28/Missions.txt')
-
+#hand = open('/home/robot/github/HeMuRo-Framework/logs/Logger28/Missions.txt')
+hand = open('/Users/afonsofonbraga/github/HeMuRo-Framework/logs/Logger36/Missions.txt')
 mission_owner = dict()
 mission_executioner = dict()
 mission_redirected = dict()

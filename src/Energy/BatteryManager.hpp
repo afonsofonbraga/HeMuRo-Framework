@@ -61,6 +61,8 @@ private:
     float minimumDistance();
     bool batteryNeedsCharging();
     bool arrivedAtStationStatus = false;
+    bool goingToStation = false;
+    bool interrupt = false;
     
 protected:
     

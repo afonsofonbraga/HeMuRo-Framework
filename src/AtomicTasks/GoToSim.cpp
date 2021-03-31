@@ -82,7 +82,7 @@ void GoToSim::run()
                     alpha_t = adjustAngle(gama - p.yaw);
                     float beta = adjustAngle(this->endPosition.yaw - gama);
                     
-                    v = fmin(kp*ro, 0.5);
+                    v = fmin(kp*ro, this->robots_max_speed);
                     
                     if((alpha_t > - M_PI && alpha_t < -M_PI/2) || (alpha_t > M_PI/2 && alpha_t >= M_PI))
                     {
