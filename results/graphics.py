@@ -12,7 +12,7 @@ def autolabel(rects, axss):
                     textcoords="offset points",
                     ha='center', va='bottom')
                     
-hand = open('/home/robot/github/HeMuRo-Framework/logs/Logger21/Missions.txt')
+hand = open('/home/robot/github/HeMuRo-Framework/logs/Logger28/Missions.txt')
 
 mission_owner = dict()
 mission_executioner = dict()
@@ -73,7 +73,7 @@ label_redirected = list(mission_executioner.keys())
 ordered_redirected = list()
 for agent in list(mission_redirected.keys()):
 	ordered_redirected.insert(-1,mission_redirected.get(agent))
-print(ordered_redirected)
+
 explode_redirected = [0] * len(ordered_redirected)
 
 fig, axs = plt.subplots(1, 3, figsize=(15, 3))

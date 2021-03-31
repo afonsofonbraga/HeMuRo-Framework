@@ -15,7 +15,7 @@
 
 .table-box {
     min-width: 200px;
-    min-height: 400px;
+    height: 400px;
     overflow:scroll;
     background-color: #d3e0ed;
     text-align: center;

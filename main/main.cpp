@@ -178,8 +178,9 @@ int main( int argc, char *argv[ ] )
 #endif
     std::vector<std::string> robots;
     robots.push_back("thor");
-    //robots.push_back("zeus");
-    robots.push_back("joao");
+    //robots.push_back("afrodite");
+    robots.push_back("zeus");
+    //robots.push_back("athena");
     for (int i = 0; i < robots.size(); i++)
     {
         robotsName = robots.at(i);
@@ -188,12 +189,12 @@ int main( int argc, char *argv[ ] )
         receiver->addRobot(v_Blackboard.at(i + defaultAgents));
         decentralizedCommunication = false;
 #ifndef DEFAULT
-        if(i%2 == 0)
+//        if(i%2 == 0)
         {
             RosbotRobot* robot = new RosbotRobot(v_Blackboard.at(i + defaultAgents), n, decentralizedCommunication);
             v_Robot.push_back(robot);
         }
-        if (i%2 == 1)
+        if (i%2 == 3)
         {
             P3DXRobot* robot = new P3DXRobot(v_Blackboard.at(i + defaultAgents), n, decentralizedCommunication);
             v_Robot.push_back(robot);
@@ -218,9 +219,11 @@ int main( int argc, char *argv[ ] )
     v_Blackboard.at(1)->getRobotsName(*message.name);
     
     
-    
+    for(int times = 1 ; times < 5; times++ )
     {
-        strcpy(mission.missionCode, "Measure1");
+		{
+		std::string m = "Measure1"+ std::to_string(times);
+        strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::measureTemperature;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -238,10 +241,11 @@ int main( int argc, char *argv[ ] )
         message.messageSize = sizeof(message.buffer);
         
         v_Blackboard.at(1)->addUDPMessage(message);
-    }
-
+		}
         {
-        strcpy(mission.missionCode, "Measure2");
+        //strcpy(mission.missionCode, "Measure2");
+        std::string m = "Measure2"+ std::to_string(times);
+        strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::measureTemperature;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -259,10 +263,12 @@ int main( int argc, char *argv[ ] )
         message.messageSize = sizeof(message.buffer);
         
         v_Blackboard.at(1)->addUDPMessage(message);
-    }
-
-    {
-        strcpy(mission.missionCode, "Inspect1");
+		}
+		
+		{
+		std::string m = "Inspect1"+ std::to_string(times);
+        strcpy(mission.missionCode, m.c_str());
+        //strcpy(mission.missionCode, "Inspect1");
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::inspectPlace;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -283,7 +289,9 @@ int main( int argc, char *argv[ ] )
     }
 
     {
-        strcpy(mission.missionCode, "Inspect2");
+        //strcpy(mission.missionCode, "Inspect2");
+        std::string m = "Inspect2"+ std::to_string(times);
+        strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::inspectPlace;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -305,7 +313,9 @@ int main( int argc, char *argv[ ] )
     
 
  {
-        strcpy(mission.missionCode, "Deliver1");
+        //strcpy(mission.missionCode, "Deliver1");
+        std::string m = "Deliver1"+ std::to_string(times);
+        strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::deliverSmallSample;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -333,7 +343,9 @@ int main( int argc, char *argv[ ] )
     }
 
     {
-        strcpy(mission.missionCode, "Deliver2");
+        //strcpy(mission.missionCode, "Deliver2");
+        std::string m = "Deliver2"+ std::to_string(times);
+        strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::deliverSmallSample;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -361,7 +373,9 @@ int main( int argc, char *argv[ ] )
     }
 
 {
-        strcpy(mission.missionCode, "Deliver3");
+        //strcpy(mission.missionCode, "Deliver3");
+        std::string m = "Deliver3"+ std::to_string(times);
+        strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::deliverBigSample;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -389,7 +403,9 @@ int main( int argc, char *argv[ ] )
     }
 
 {
-        strcpy(mission.missionCode, "Deliver4");
+        //strcpy(mission.missionCode, "Deliver4");
+        std::string m = "Deliver4"+ std::to_string(times);
+        strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::deliverBigSample;
         mission.robotCat = enum_RobotCategory::ugv;
@@ -415,6 +431,7 @@ int main( int argc, char *argv[ ] )
         
         v_Blackboard.at(1)->addUDPMessage(message);
     }
+	}
     while (std::getchar() != 'c'){}
     
     //delete logger;
