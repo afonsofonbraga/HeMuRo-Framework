@@ -178,9 +178,9 @@ int main( int argc, char *argv[ ] )
 #endif
     std::vector<std::string> robots;
     robots.push_back("thor");
-    //robots.push_back("afrodite");
+    robots.push_back("afrodite");
     robots.push_back("zeus");
-    //robots.push_back("athena");
+    robots.push_back("athena");
     for (int i = 0; i < robots.size(); i++)
     {
         robotsName = robots.at(i);
@@ -189,12 +189,12 @@ int main( int argc, char *argv[ ] )
         receiver->addRobot(v_Blackboard.at(i + defaultAgents));
         decentralizedCommunication = false;
 #ifndef DEFAULT
-//        if(i%2 == 0)
+        if(i%2 == 0)
         {
             RosbotRobot* robot = new RosbotRobot(v_Blackboard.at(i + defaultAgents), n, decentralizedCommunication);
             v_Robot.push_back(robot);
         }
-        if (i%2 == 3)
+        if (i%2 == 1)
         {
             P3DXRobot* robot = new P3DXRobot(v_Blackboard.at(i + defaultAgents), n, decentralizedCommunication);
             v_Robot.push_back(robot);
@@ -314,7 +314,7 @@ int main( int argc, char *argv[ ] )
 
  {
         //strcpy(mission.missionCode, "Deliver1");
-        std::string m = "Deliver1"+ std::to_string(times);
+        std::string m = "Small1"+ std::to_string(times);
         strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::deliverSmallSample;
@@ -344,7 +344,7 @@ int main( int argc, char *argv[ ] )
 
     {
         //strcpy(mission.missionCode, "Deliver2");
-        std::string m = "Deliver2"+ std::to_string(times);
+        std::string m = "Small2"+ std::to_string(times);
         strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::deliverSmallSample;
@@ -374,7 +374,7 @@ int main( int argc, char *argv[ ] )
 
 {
         //strcpy(mission.missionCode, "Deliver3");
-        std::string m = "Deliver3"+ std::to_string(times);
+        std::string m = "Big1"+ std::to_string(times);
         strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::deliverBigSample;
@@ -404,7 +404,7 @@ int main( int argc, char *argv[ ] )
 
 {
         //strcpy(mission.missionCode, "Deliver4");
-        std::string m = "Deliver4"+ std::to_string(times);
+        std::string m = "Big2"+ std::to_string(times);
         strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::deliverBigSample;
