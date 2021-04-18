@@ -47,7 +47,7 @@ enum class enum_RobotCategory{null, uav, ugv, usv, chargingStation};
 
 
 enum class enum_AtomicTaskStatus{null, waiting, running, completed};
-enum class enum_TaskMessage{null, requestCost, addTask, executeTask, addAndExecute, redirect, addEmergency};
+enum class enum_TaskMessage{null, requestCost, addTask, executeTask, addAndExecute, redirect, addEmergency, failure};
 
 
 enum class enum_MissionStatus{null, allocating, executing, complete, failure, aborted, timeout, lowBattery};
@@ -58,7 +58,7 @@ enum class enum_MissionOperation{null, createMission, addMission, addAndRequestC
 
 enum class enum_ChargingRequest{null, ok, chargingRequest, notfyingWinner, goingToLocation, charging, chargingComplete};
 enum class enum_ChargingService{null, waitingRequest, bid, waitingForArrival, charging, chargingComplete};
-enum class enum_ChargingOperation{null, chargingRequest, bid, winningBid, acceptRequest, arrivedAtStation, startCharging, chargingComplete, atomicTaskInterrupt};
+enum class enum_ChargingOperation{null, chargingRequest, bid, winningBid, acceptRequest, arrivedAtStation, startCharging, chargingComplete, abortChargingRequest, atomicTaskInterrupt};
 
 enum class enum_LoggerOperation{null, print, save, printAndSave, missionStatus};
 

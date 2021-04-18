@@ -90,6 +90,11 @@ void BatteryManager::run()
                 case enum_ChargingOperation::chargingComplete:
                     chargingComplete(std::move(vBatteryMessage));
                     break;
+                
+                case enum_ChargingOperation::abortChargingRequest:
+                    abortChargingRequest(std::move(vBatteryMessage));
+                    break;
+                    
                 case enum_ChargingOperation::atomicTaskInterrupt:
                 {
                     std::unique_lock<std::mutex> lock1(mutex_batteryCheck);
@@ -390,6 +395,19 @@ void BatteryManager::arrivedAtStation(std::unique_ptr<s_BatteryMessage> vBattery
 void BatteryManager::chargingComplete(std::unique_ptr<s_BatteryMessage> vBatteryMessage)
 {
     this->monitor->print(std::string(vBatteryMessage->senderName) + " finished charging!");
+    
+    auto search = chargingSpotList.find(vBatteryMessage->spotID);
+    if (search != chargingSpotList.end()) {
+        if( strcmp(chargingSpotList[vBatteryMessage->spotID].chargingRequest.requestID,vBatteryMessage->requestID) == 0)
+        {
+            chargingSpotList[vBatteryMessage->spotID].clearChargingRequest();
+        }
+    }
+}
+
+void BatteryManager::abortChargingRequest(std::unique_ptr<s_BatteryMessage> vBatteryMessage)
+{
+    this->monitor->print(std::string(vBatteryMessage->senderName) + " aborted charging!");
     
     auto search = chargingSpotList.find(vBatteryMessage->spotID);
     if (search != chargingSpotList.end()) {

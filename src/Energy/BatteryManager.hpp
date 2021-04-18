@@ -79,6 +79,7 @@ protected:
     void arrivedAtStation(std::unique_ptr<s_BatteryMessage> vBatteryMessage);
     void startCharging(std::unique_ptr<s_BatteryMessage> vBatteryMessage);
     void chargingComplete(std::unique_ptr<s_BatteryMessage> vBatteryMessage);
+    void abortChargingRequest(std::unique_ptr<s_BatteryMessage> vBatteryMessage);
     
     void batteryCheckLoop();
     

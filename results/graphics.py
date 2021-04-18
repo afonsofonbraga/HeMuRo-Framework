@@ -130,7 +130,7 @@ ordered_timeout = list()
 
 for agent in list(mission_redirected.keys()):
 	ordered_redirected.insert(-1,mission_redirected.get(agent))
-for agent in list(mission_lowbattery.keys()):
+for agent in list(mission_redirected.keys()):
     ordered_lowbattery.insert(-1,mission_lowbattery.get(agent))
 for agent in list(mission_redirected.keys()):
     ordered_failure.insert(-1,mission_failure.get(agent))

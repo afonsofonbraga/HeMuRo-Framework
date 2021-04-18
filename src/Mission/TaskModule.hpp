@@ -62,6 +62,7 @@ protected:
     bool cleanEmergecy();
     void redirectMission(MissionExecution& vMissionExecute);
     void emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage);
+    void failure(std::unique_ptr<s_TaskMessage> vTaskMessage);
 
     void calculateMissionCost(MissionExecution& mission);
     void calculateMissionExecutionTime(MissionExecution& mission);
