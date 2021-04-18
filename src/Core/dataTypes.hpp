@@ -50,7 +50,7 @@ enum class enum_AtomicTaskStatus{null, waiting, running, completed};
 enum class enum_TaskMessage{null, requestCost, addTask, executeTask, addAndExecute, redirect, addEmergency};
 
 
-enum class enum_MissionStatus{null, allocating, executing, complete, failure, aborted, timeout};
+enum class enum_MissionStatus{null, allocating, executing, complete, failure, aborted, timeout, lowBattery};
 enum class enum_MissionRequest{null, waitingBids, notifyingWinner, executingMission, missionComplete};
 enum class enum_MissionExecution{null, waitingAuction, waitingStart, executing, missionComplete};
 enum class enum_MissionOperation{null, createMission, addMission, addAndRequestCost, Bid, redirectRequest, abortMission, winningBid, lockingComplete, acceptMission , startMission, emergency, notifyMissionComplete, missionComplete};

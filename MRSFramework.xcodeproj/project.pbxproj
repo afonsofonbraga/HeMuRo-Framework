@@ -74,6 +74,7 @@
 		1B19D823260ECC4100449420 /* run_linux.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = run_linux.sh; sourceTree = "<group>"; };
 		1B19D824260ECCD300449420 /* configure_linux.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure_linux.sh; sourceTree = "<group>"; };
 		1B19D825260ECDD900449420 /* configure_reverse.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure_reverse.sh; sourceTree = "<group>"; };
+		1B2A1C81262CB05600DE5D0B /* results */ = {isa = PBXFileReference; lastKnownFileType = folder; path = results; sourceTree = "<group>"; };
 		1B6DC887260FE24000001017 /* build */ = {isa = PBXFileReference; lastKnownFileType = folder; path = build; sourceTree = "<group>"; };
 		1B6DC888260FE24000001017 /* logs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = logs; sourceTree = "<group>"; };
 		1B6DC889260FE24000001017 /* results */ = {isa = PBXFileReference; lastKnownFileType = folder; path = results; sourceTree = "<group>"; };
@@ -1351,6 +1352,7 @@
 		23F9DFE3245C6FDB008506C4 = {
 			isa = PBXGroup;
 			children = (
+				1B2A1C81262CB05600DE5D0B /* results */,
 				1B6DC887260FE24000001017 /* build */,
 				1B6DC888260FE24000001017 /* logs */,
 				1B6DC889260FE24000001017 /* results */,

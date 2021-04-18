@@ -117,6 +117,14 @@ void TaskModule::startMissionToExecute()
                         this->monitor->print("TIMEOUT!!! Redirecting Misssion " + std::string(this->missionToExecute.missionCode) + "!");
                         this->missionToExecute.enum_execution = enum_MissionExecution::null;
                         this->missionToExecute.stop();
+                        
+                        s_MissionStatus missionStatus;
+                        strcpy(missionStatus.missionCode, this->missionToExecute.missionCode);
+                        strcpy(missionStatus.missionOwner, this->missionToExecute.senderName);
+                        strcpy(missionStatus.missionExecutioner, robotName);
+                        missionStatus.status = enum_MissionStatus::timeout;
+                        this->monitor->printMissionStatus(missionStatus);
+                        
                         redirectMission(this->missionToExecute);
                         this->monitor->clearCostToExecute();
                         this->monitor->unlockRobot();
@@ -375,6 +383,14 @@ void TaskModule::emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage)
         {
             this->missionToExecute.enum_execution = enum_MissionExecution::null;
             this->missionToExecute.stop();
+            
+            s_MissionStatus missionStatus;
+            strcpy(missionStatus.missionCode, this->missionToExecute.missionCode);
+            strcpy(missionStatus.missionOwner, this->missionToExecute.senderName);
+            strcpy(missionStatus.missionExecutioner, robotName);
+            missionStatus.status = enum_MissionStatus::lowBattery;
+            this->monitor->printMissionStatus(missionStatus);
+            
             redirectMission(this->missionToExecute);
         }
         lk.unlock();

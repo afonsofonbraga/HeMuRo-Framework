@@ -169,6 +169,10 @@ void Logger::missionStatus(s_LoggerMessage &vMessage)
                 break;
             case enum_MissionStatus::timeout:
                 status = "Timeout";
+                break;
+            case enum_MissionStatus::lowBattery:
+                status = "LowBattery";
+                break;
             default:
                 status = "null";
                 break;
