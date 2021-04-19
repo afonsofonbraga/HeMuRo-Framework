@@ -63,16 +63,20 @@ WebApp::WebApp(Blackboard* monitor): WContainerWidget()
     tabW->addTab(std::move(containerTable),
                  "Missions List", Wt::ContentLoading::Eager);
 
-    tabW->setStyleClass("tab-box");
+    tabW->setStyleClass("centered-box");
     
-    
+    container->setStyleClass("centered-box");
     layout->addWidget(std::move(container), Wt::LayoutPosition::Center);
     
     
     
     container = Wt::cpp14::make_unique<Wt::WContainerWidget>();
     container->addWidget(Wt::cpp14::make_unique<Wt::WText>("Terminal"));
+    auto button = Wt::cpp14::make_unique<Wt::WPushButton>("Reload");
+    button->clicked().connect(this,&WebApp::insertTerminalLine);
+    container->addWidget(std::move(button));
     container->addWidget(Wt::cpp14::make_unique<Wt::WBreak>());
+    
     terminal = container->addWidget(Wt::cpp14::make_unique<Wt::WTextArea>());
     
     terminal->setColumns(135);
@@ -86,7 +90,7 @@ WebApp::WebApp(Blackboard* monitor): WContainerWidget()
     
     timer_ = Wt::cpp14::make_unique<Wt::WTimer>();
     timer_->setInterval(std::chrono::milliseconds{1000});
-    timer_->timeout().connect(this, &WebApp::insertTerminalLine);
+    //timer_->timeout().connect(this, &WebApp::insertTerminalLine);
     timer_->timeout().connect(this, &WebApp::updateAgentList);
     timer_->timeout().connect(this, &WebApp::updateMissionList);
     timer_->start();
@@ -250,6 +254,22 @@ void WebApp::updateMissionList()
                 break;
             case enum_MissionStatus::timeout:
                 status = "Timeout";
+                break;
+            case enum_MissionStatus::chargingRequested:
+                status = "ChargingRequested";
+                break;
+            case enum_MissionStatus::waitingArrival:
+                status = "WaitingArrival";
+                break;
+            case enum_MissionStatus::charging:
+                status = "Charging";
+                break;
+            case enum_MissionStatus::chargingCompleted:
+                status = "ChargingCompleted";
+                break;
+            case enum_MissionStatus::chargingCancelled:
+                status = "ChargingCancelled";
+                break;
             default:
                 break;
         }

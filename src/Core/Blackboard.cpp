@@ -8,7 +8,7 @@ Blackboard::Blackboard(std::string& name, enum_RobotCategory cat)
     this->position.roll = 0;
     this->position.pitch = 0;
     this->position.yaw = 0;
-    this->batteryLevel = 100;
+    this->batteryLevel = 20;
     setAgentsName(name);
     setRobotCategory(cat);
     this->setAgentsIP();

@@ -160,6 +160,12 @@ void BatteryManager::batteryCheckLoop()
                     
                     sendUDPMessage(message, *this->broadcastIP, *broadcast);
                     
+                    s_MissionStatus missionStatus;
+                    strcpy(missionStatus.missionCode, this->requestID);
+                    strcpy(missionStatus.missionOwner,this->agentName);
+                    missionStatus.status = enum_MissionStatus::chargingRequested;
+                    this->monitor->printMissionStatus(missionStatus);
+                    
                     auto t0 = std::chrono::high_resolution_clock::now();
                     conditional_batteryCheck.wait_until(lock1, t0 + std::chrono::seconds(5));
                     this->batteryStatus = enum_ChargingRequest::notfyingWinner;
@@ -225,6 +231,13 @@ void BatteryManager::batteryCheckLoop()
                     *((int*) (vTaskMessage.attributesBuffer)) = sizeof(chargingStationWinner.spotPosition) + 8;
                     
                     this->monitor->addTaskMessage(vTaskMessage);
+                    
+                    s_MissionStatus missionStatus;
+                    strcpy(missionStatus.missionCode, this->requestID);
+                    strcpy(missionStatus.missionOwner,this->agentName);
+                    strcpy(missionStatus.missionExecutioner, chargingStationWinner.chargingID);
+                    missionStatus.status = enum_MissionStatus::waitingArrival;
+                    this->monitor->printMissionStatus(missionStatus);
                 }
                 
                 if (goingToStation == true && this->arrivedAtStationStatus == false)
@@ -251,6 +264,13 @@ void BatteryManager::batteryCheckLoop()
                     sendUDPMessage(message, *chargingStationWinner.chargingIP, *chargingStationWinner.chargingID);
                     
                     this->batteryStatus = enum_ChargingRequest::charging;
+                    
+                    s_MissionStatus missionStatus;
+                    strcpy(missionStatus.missionCode, this->requestID);
+                    strcpy(missionStatus.missionOwner,this->agentName);
+                    strcpy(missionStatus.missionExecutioner, chargingStationWinner.chargingID);
+                    missionStatus.status = enum_MissionStatus::charging;
+                    this->monitor->printMissionStatus(missionStatus);
                 }
                 lock1.unlock();
                 break;
@@ -283,6 +303,13 @@ void BatteryManager::batteryCheckLoop()
             {
                 this->batteryStatus = enum_ChargingRequest::ok;
                 this->countID ++;
+                
+                s_MissionStatus missionStatus;
+                strcpy(missionStatus.missionCode, this->requestID);
+                strcpy(missionStatus.missionOwner,this->agentName);
+                strcpy(missionStatus.missionExecutioner, chargingStationWinner.chargingID);
+                missionStatus.status = enum_MissionStatus::chargingCompleted;
+                this->monitor->printMissionStatus(missionStatus);
                 lock1.unlock();
                 break;
             }

@@ -165,21 +165,14 @@ int main(int argc, char **argv){
     Operation operation = Operation::missionMessage;
     v_Blackboard.at(1)->getRobotsName(*message.name);
     
-    for(int times = 1 ; times < 10; times++ )
+    for(int times = 0 ; times < 10; times++ )
     {
         {
-        std::string m = "Task1"+ std::to_string(times);
+        std::string m = "Task1" + std::to_string(times);
         strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
         mission.robotCat = enum_RobotCategory::ugv;
-        //mission.goal.x = 10.5;
-        //mission.goal.y = 5.5;
-        //mission.goal.z = 0.0;
-        //mission.goal.yaw = 0.3;
-
-        //mission.goal.pop();
-        //mission.goal = sala_A03;
         mission.numberOfAttributes = 1;
         *((int*) (mission.attributesBuffer + 4)) = sizeof(sala_A01);
         memcpy(mission.attributesBuffer + 8, &sala_A03, sizeof(sala_A01));
@@ -204,11 +197,6 @@ int main(int argc, char **argv){
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::deliverPicture;
         mission.robotCat = enum_RobotCategory::ugv;
-        //mission.goal.x = 10.5;
-        //mission.goal.y = 5.5;
-        //mission.goal.z = 0.0;
-        //mission.goal.yaw = 0.3;
-        //mission.goal = recepcao;
         mission.numberOfAttributes = 2;
         int total = 4;
         *((int*) (mission.attributesBuffer + total)) = sizeof(s_pose);
@@ -238,11 +226,6 @@ int main(int argc, char **argv){
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
         mission.robotCat = enum_RobotCategory::ugv;
-        //mission.goal.x = 0;
-        //mission.goal.y = 14.0;
-        //mission.goal.z = 0.0;
-        //mission.goal.yaw = 0.3;
-        //mission.goal = deposito_01;
         mission.numberOfAttributes = 1;
         *((int*) (mission.attributesBuffer + 4)) = sizeof(s_pose);
         memcpy(mission.attributesBuffer + 8, &deposito_01, sizeof(s_pose));
@@ -265,12 +248,6 @@ int main(int argc, char **argv){
         mission.operation = enum_MissionOperation::createMission;
         mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
         mission.robotCat = enum_RobotCategory::ugv;
-        //mission.goal.x = -8.0;
-        //mission.goal.y = 14;
-        //mission.goal.z = 0.0;
-        //mission.goal.yaw = 0.3;
-
-        //mission.goal = escada_02;
         mission.numberOfAttributes = 1;
         *((int*) (mission.attributesBuffer + 4)) = sizeof(s_pose);
         memcpy(mission.attributesBuffer + 8, &escada_02, sizeof(s_pose));

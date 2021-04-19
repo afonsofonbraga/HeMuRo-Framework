@@ -36,6 +36,8 @@
 
 #include <Wt/WMenuItem.h>
 #include <Wt/WTabWidget.h>
+#include <Wt/WPushButton.h>
+
 
 
 

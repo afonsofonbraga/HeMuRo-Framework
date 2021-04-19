@@ -173,6 +173,21 @@ void Logger::missionStatus(s_LoggerMessage &vMessage)
             case enum_MissionStatus::lowBattery:
                 status = "LowBattery";
                 break;
+            case enum_MissionStatus::chargingRequested:
+                status = "ChargingRequested";
+                break;
+            case enum_MissionStatus::waitingArrival:
+                status = "WaitingArrival";
+                break;
+            case enum_MissionStatus::charging:
+                status = "Charging";
+                break;
+            case enum_MissionStatus::chargingCompleted:
+                status = "ChargingCompleted";
+                break;
+            case enum_MissionStatus::chargingCancelled:
+                status = "ChargingCancelled";
+                break;
             default:
                 status = "null";
                 break;
