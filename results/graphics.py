@@ -147,36 +147,25 @@ axs[0,0].axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circ
 axs[0,0].set(title= "Mission Owners")
 axs[0,0].set_ylabel('Missions')
 
+axs[0,1].pie(size_executioner, explode=explode_executioner, labels=label_executioner, autopct='%1.1f%%', shadow=True, startangle=90)
+axs[0,1].axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+axs[0,1].set(title= "Mission Executed")
+
+
 x = np.arange(len(label_redirected))  # the label locations
 width = 0.05  # the width of the bars
 
-rects1 = axs[0,1].bar(x - width/2, size_executioner, width, label='Completed')
-rects2 = axs[0,1].bar(x + width/2, ordered_redirected, width, label='Redirected')
+rects1 = axs[1,0].bar(x - width/2, size_executioner, width, label='Completed')
+rects2 = axs[1,0].bar(x + width/2, ordered_redirected, width, label='Redirected')
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
-axs[0,1].set_ylabel('Missions')
-axs[0,1].set_title('Missions Completed and Redirected')
-axs[0,1].set_xticks(x)
-axs[0,1].set_xticklabels(label_executioner)
-axs[0,1].legend()
+axs[1,0].set_ylabel('Missions')
+axs[1,0].set_title('Missions Completed and Redirected')
+axs[1,0].set_xticks(x)
+axs[1,0].set_xticklabels(label_executioner)
+axs[1,0].legend()
 
-
-autolabel(rects0, axs[0,0])
-autolabel(rects1, axs[0,1])
-autolabel(rects2, axs[0,1])
-
-fig.tight_layout()
-
-axs[1,0].pie(size_executioner, explode=explode_executioner, labels=label_executioner, autopct='%1.1f%%', shadow=True, startangle=90)
-axs[1,0].axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-axs[1,0].set(title= "Mission Executed")
-
-#axs[2].pie(size_redirected, explode=explode_redirected, labels=label_redirected, autopct='%1.1f%%', shadow=True, startangle=90)
-#axs[2].axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-#axs[2].set(title= "Mission Redirected")
-
-
-rects3 = axs[1,1].bar(x - width/2, ordered_redirected, width, label='Redirected')
+#rects3 = axs[1,1].bar(x - width/2, ordered_redirected, width, label='Redirected')
 rects4 = axs[1,1].bar(x + width/2, ordered_lowbattery, width, label='LowBattery')
 rects5 = axs[1,1].bar(x + width/2, ordered_failure, width, label='Failure')
 rects6 = axs[1,1].bar(x + width/2, ordered_timeout, width, label='Timeout')
@@ -189,9 +178,13 @@ axs[1,1].set_xticklabels(label_executioner)
 axs[1,1].legend()
 
 
-autolabel(rects3, axs[1,1])
+autolabel(rects0, axs[0,0])
+autolabel(rects1, axs[0,1])
+autolabel(rects2, axs[0,1])
+#autolabel(rects3, axs[1,1])
 autolabel(rects4, axs[1,1])
 autolabel(rects5, axs[1,1])
 autolabel(rects6, axs[1,1])
 
+fig.tight_layout()
 plt.show()
