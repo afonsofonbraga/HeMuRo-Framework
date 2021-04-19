@@ -12,8 +12,8 @@ def autolabel(rects, axss):
                     textcoords="offset points",
                     ha='center', va='bottom')
                     
-#hand = open('/home/robot/github/HeMuRo-Framework/logs/Logger109/Missions.txt')
-hand = open('/Users/afonsofonbraga/github/HeMuRo-Framework/logs/Logger49/Missions.txt')
+hand = open('/home/robot/github/HeMuRo-Framework/logs/Logger131/Missions.txt')
+#hand = open('/Users/afonsofonbraga/github/HeMuRo-Framework/logs/Logger49/Missions.txt')
 mission_owner = dict()
 mission_executioner = dict()
 mission_redirected = dict()
@@ -166,9 +166,9 @@ axs[1,0].set_xticklabels(label_executioner)
 axs[1,0].legend()
 
 #rects3 = axs[1,1].bar(x - width/2, ordered_redirected, width, label='Redirected')
-rects4 = axs[1,1].bar(x + width/2, ordered_lowbattery, width, label='LowBattery')
-rects5 = axs[1,1].bar(x + width/2, ordered_failure, width, label='Failure')
-rects6 = axs[1,1].bar(x + width/2, ordered_timeout, width, label='Timeout')
+rects4 = axs[1,1].bar(x - width, ordered_lowbattery, width, label='LowBattery')
+rects5 = axs[1,1].bar(x, ordered_failure, width, label='Failure')
+rects6 = axs[1,1].bar(x + width, ordered_timeout, width, label='Timeout')
  
 # Add some text for labels, title and custom x-axis tick labels, etc.
 axs[1,1].set_ylabel('Missions')
@@ -179,8 +179,8 @@ axs[1,1].legend()
 
 
 autolabel(rects0, axs[0,0])
-autolabel(rects1, axs[0,1])
-autolabel(rects2, axs[0,1])
+autolabel(rects1, axs[1,0])
+autolabel(rects2, axs[1,0])
 #autolabel(rects3, axs[1,1])
 autolabel(rects4, axs[1,1])
 autolabel(rects5, axs[1,1])
