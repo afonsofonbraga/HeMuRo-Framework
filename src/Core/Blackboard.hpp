@@ -63,6 +63,7 @@ protected:
     long                            duration;                                       /*!< Deprecated Duration. */
     
     // Robot's Position Variables
+    s_pose                          basisPosition;                                 /*!< Basis Global position where the agent can rest*/
     s_pose                          position;                                       /*!< Global Position of the Agent*/
     std::mutex                      mutex_position;                                 /*!< Mutex from position */
     std::unordered_map<std::string, s_BroadcastMessage> mapAgentsPosition;          /*!< All agents' position will be stored here*/
@@ -167,6 +168,12 @@ public:
                                                                                      *\param p a s_pose will receive the agent's position.
                                                                                      */
     void                            setPosition(s_pose& p);                         /*!< Set the robot's current position
+                                                                                     *\param p a s_pose with the actual pose of the agent.
+                                                                                     */
+    void                            getBasisPosition(s_pose& p);                    /*!< Get the basis agent's position
+                                                                                     *\param p a s_pose will receive the agent's position.
+                                                                                     */
+    void                            setBasisPosition(s_pose& p);                    /*!< Set the agent's basis position
                                                                                      *\param p a s_pose with the actual pose of the agent.
                                                                                      */
     

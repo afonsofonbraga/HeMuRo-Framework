@@ -403,12 +403,11 @@ void TaskModule::emergencyCall(std::unique_ptr<s_TaskMessage> vTaskMessage)
 
 void TaskModule::failure(std::unique_ptr<s_TaskMessage> vTaskMessage)
 {
-    //Configurar Missão, checar se está acontecendo algo, travar robo, cancelar e terceirizar missão, executar missão de emergência.
-    this->monitor->print("EMERGENCY ALLERT!!!!");
     auto vMission = std::make_unique<MissionExecution>();
     
     if(this->monitor->getDecomposableTask(vTaskMessage->taskToBeDecomposed, vMission->atomicTaskEnumerator))
     {
+        this->stop();
         std::unique_lock<std::mutex> lk(mutex_mission);
         if(this->missionToExecute.enum_execution == enum_MissionExecution::waitingStart || this->missionToExecute.enum_execution == enum_MissionExecution::executing)
         {
@@ -427,7 +426,18 @@ void TaskModule::failure(std::unique_ptr<s_TaskMessage> vTaskMessage)
         lk.unlock();
         
         std::unique_lock<std::mutex> lk2(mutex_emergency);
-        
+        if(this->missionEmergency.enum_execution == enum_MissionExecution::executing)
+        {
+            this->missionEmergency.stop();
+            this->missionEmergency.enum_execution = enum_MissionExecution::null;
+            
+            s_MissionStatus missionStatus;
+            strcpy(missionStatus.missionCode, this->missionEmergency.missionCode);
+            strcpy(missionStatus.missionOwner, this->missionEmergency.senderName);
+            strcpy(missionStatus.missionExecutioner, robotName);
+            missionStatus.status = enum_MissionStatus::chargingCancelled;
+            this->monitor->printMissionStatus(missionStatus);
+        }
         lk2.unlock();
     }
 }

@@ -172,6 +172,20 @@ void Blackboard::setPosition(s_pose& p)
     lk.unlock();
 }
 
+void Blackboard::getBasisPosition(s_pose& p)
+{
+    std::unique_lock<std::mutex> lk(mutex_position);
+    memcpy(&p, &basisPosition, sizeof(s_pose));
+    lk.unlock();
+}
+
+void Blackboard::setBasisPosition(s_pose& p)
+{
+    std::unique_lock<std::mutex> lk(mutex_position);
+    memcpy(&this->basisPosition, &p, sizeof(s_pose));
+    lk.unlock();
+}
+
 void Blackboard::setAllRobotsPosition(s_BroadcastMessage &p)
 {
     std::unique_lock<std::mutex> lk(mutex_mapAgentsPosition);
