@@ -178,7 +178,7 @@ void ROSModuleMavros::run()
             std::string topic = vName + "mavros/cmd/disarming";
             ros::ServiceClient arming_client_i = node.serviceClient<mavros_msgs::CommandBool>(topic);
             mavros_msgs::CommandBool srv_arm_i;
-            srv_arm_i.request.value = true;
+            srv_arm_i.request.value = false;
             if (arming_client_i.call(srv_arm_i) && srv_arm_i.response.success)
                 ROS_INFO("Disarm sent %d", srv_arm_i.response.success);
             else
