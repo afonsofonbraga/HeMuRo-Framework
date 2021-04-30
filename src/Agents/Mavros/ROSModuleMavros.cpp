@@ -163,6 +163,27 @@ void ROSModuleMavros::run()
             else
                 ROS_ERROR("Failed arming");
         }
+        if (strcmp(vROSModuleMessage->topicName, "Disarm" )== 0)
+        {
+            /*GYM_OFFSET = 0;
+            for (int i = 1; i <= 1; ++i)
+            {
+                GYM_OFFSET += current_heading.data;
+                ROS_INFO("current heading%d: %f", i, GYM_OFFSET/i);
+            }
+            GYM_OFFSET /= 30;
+            ROS_INFO("the N' axis is facing: %f", GYM_OFFSET);
+            std::cout << GYM_OFFSET << "\n" << std::endl;
+            */
+            std::string topic = vName + "mavros/cmd/disarming";
+            ros::ServiceClient arming_client_i = node.serviceClient<mavros_msgs::CommandBool>(topic);
+            mavros_msgs::CommandBool srv_arm_i;
+            srv_arm_i.request.value = true;
+            if (arming_client_i.call(srv_arm_i) && srv_arm_i.response.success)
+                ROS_INFO("Disarm sent %d", srv_arm_i.response.success);
+            else
+                ROS_ERROR("Failed disarming");
+        }
         else if(strcmp(vROSModuleMessage->topicName, "TakeOff") == 0)
         {
             s_pose vPose = ((s_pose*) vROSModuleMessage->buffer)[0];

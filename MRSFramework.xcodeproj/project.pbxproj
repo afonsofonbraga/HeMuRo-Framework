@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B9BC2FC263C5152001AECFA /* DisarmMavROS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B9BC2FA263C5152001AECFA /* DisarmMavROS.cpp */; };
 		1BA2D4F7262DD29800CBCBE3 /* libwt.4.5.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF025BD260E587C00251774 /* libwt.4.5.0.dylib */; };
 		1BA2D4FB262DD2E200CBCBE3 /* libwthttp.4.5.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF025C1260E589D00251774 /* libwthttp.4.5.0.dylib */; };
 		23103C752552356D0075C543 /* WebApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23103C732552356D0075C543 /* WebApp.cpp */; };
@@ -71,6 +72,8 @@
 		1B7FD526260EC79300668C11 /* uav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uav.png; sourceTree = "<group>"; };
 		1B7FD527260EC79300668C11 /* usv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usv.png; sourceTree = "<group>"; };
 		1B7FD528260EC79300668C11 /* ugv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ugv.png; sourceTree = "<group>"; };
+		1B9BC2FA263C5152001AECFA /* DisarmMavROS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DisarmMavROS.cpp; sourceTree = "<group>"; };
+		1B9BC2FB263C5152001AECFA /* DisarmMavROS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DisarmMavROS.hpp; sourceTree = "<group>"; };
 		1B9D087A260EBBAC008AC122 /* configure_osx.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure_osx.sh; sourceTree = "<group>"; };
 		1BA2D4F8262DD29800CBCBE3 /* libwttest.4.5.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwttest.4.5.0.dylib; path = ../wt/build/src/libwttest.4.5.0.dylib; sourceTree = "<group>"; };
 		1BF025BD260E587C00251774 /* libwt.4.5.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwt.4.5.0.dylib; path = ../wt/build/src/libwt.4.5.0.dylib; sourceTree = "<group>"; };
@@ -638,6 +641,8 @@
 				23494C9024CF130200697ABA /* TakePictureSim.hpp */,
 				23C6E54F246EF4F100D99185 /* TurnOnSim.cpp */,
 				23C6E550246EF4F100D99185 /* TurnOnSim.hpp */,
+				1B9BC2FA263C5152001AECFA /* DisarmMavROS.cpp */,
+				1B9BC2FB263C5152001AECFA /* DisarmMavROS.hpp */,
 			);
 			path = AtomicTasks;
 			sourceTree = "<group>";
@@ -1451,6 +1456,7 @@
 				2386344024FEBD0800049ED1 /* UDPReceiverSim.cpp in Sources */,
 				23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */,
 				235CC3EB2493F0200012376D /* Mission.cpp in Sources */,
+				1B9BC2FC263C5152001AECFA /* DisarmMavROS.cpp in Sources */,
 				23C6E54A246EE01A00D99185 /* GoToSim.cpp in Sources */,
 				23444C4625AF5B8500768AC2 /* Agent.cpp in Sources */,
 				23789A9524AB9694001372E5 /* MissionExecution.cpp in Sources */,

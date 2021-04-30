@@ -57,35 +57,56 @@ MavrosRobot::~MavrosRobot()
     delete this->rosModule;
 }
 
-void RosbotRobot::decomposableTaskList()
+void MavrosRobot::decomposableTaskList()
 {
-    std::vector<enum_AtomicTask> teste;
-    teste.push_back(enum_AtomicTask::goTo);
-    enum_DecomposableTask lala = enum_DecomposableTask::checkPosition;
-    monitor->addDecomposableTaskList(lala, teste);
+    std::vector<enum_AtomicTask> atomicTaskVector;
     
-    teste.clear();
-    teste.push_back(enum_AtomicTask::goTo);
-    teste.push_back(enum_AtomicTask::takePicture);
-    lala = enum_DecomposableTask::takePicture;
-    monitor->addDecomposableTaskList(lala, teste);
+    enum_DecomposableTask dTask = enum_DecomposableTask::checkPosition;
+    atomicTaskVector.push_back(enum_AtomicTask::arm);
+    atomicTaskVector.push_back(enum_AtomicTask::takeOff);
+    atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::goToBasis);
+    atomicTaskVector.push_back(enum_AtomicTask::land);
+    atomicTaskVector.push_back(enum_AtomicTask::disarm);
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
     
-    teste.clear();
-    teste.push_back(enum_AtomicTask::chargeBattery);
-    lala = enum_DecomposableTask::lowBattery;
+    atomicTaskVector.clear();
+    dTask = enum_DecomposableTask::takePicture;
+    atomicTaskVector.push_back(enum_AtomicTask::arm);
+    atomicTaskVector.push_back(enum_AtomicTask::takeOff);
+    atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
+    atomicTaskVector.push_back(enum_AtomicTask::goToBasis);
+    atomicTaskVector.push_back(enum_AtomicTask::land);
+    atomicTaskVector.push_back(enum_AtomicTask::disarm);
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
     
-    monitor->addDecomposableTaskList(lala, teste);
+    atomicTaskVector.clear();
+    dTask = enum_DecomposableTask::lowBattery;
+    atomicTaskVector.push_back(enum_AtomicTask::arm);
+    atomicTaskVector.push_back(enum_AtomicTask::takeOff);
+    atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::land);
+    atomicTaskVector.push_back(enum_AtomicTask::disarm);
+    atomicTaskVector.push_back(enum_AtomicTask::chargeBattery);
+    atomicTaskVector.push_back(enum_AtomicTask::arm);
+    atomicTaskVector.push_back(enum_AtomicTask::takeOff);
+    atomicTaskVector.push_back(enum_AtomicTask::goToBasis);
+    atomicTaskVector.push_back(enum_AtomicTask::land);
+    atomicTaskVector.push_back(enum_AtomicTask::disarm);
     
-    teste.clear();
-    teste.push_back(enum_AtomicTask::arm);
-    teste.push_back(enum_AtomicTask::takeOff);
-    teste.push_back(enum_AtomicTask::goTo);
-    teste.push_back(enum_AtomicTask::land);
-    lala = enum_DecomposableTask::flightTest;
-    monitor->addDecomposableTaskList(lala, teste);
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+    
+    atomicTaskVector.clear();
+    dTask = enum_DecomposableTask::flightTest;
+    atomicTaskVector.push_back(enum_AtomicTask::arm);
+    atomicTaskVector.push_back(enum_AtomicTask::takeOff);
+    atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::land);
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
 }
 
-bool RosbotRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
+bool MavrosRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
 {
     vMissionDecomposable.atomicTaskSequence.clear();
         std::shared_ptr<AtomicTask> vAtomicTaskitem = nullptr;
@@ -97,27 +118,50 @@ bool RosbotRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
                 case enum_AtomicTask::null :
                     break;
                 case enum_AtomicTask::goTo :
+                {
                     vAtomicTaskitem = std::make_shared<GoToROS>(monitor, currentPosition,vMissionDecomposable.goal);
                     currentPosition = vMissionDecomposable.goal;
                     break;
+                }
+                case enum_AtomicTask::goToBasis :
+                {
+                    s_pose p;
+                    this->monitor->getBasisPosition(p);
+                    vAtomicTaskitem = std::make_shared<GoToROS>(monitor,currentPosition,p);
+                    currentPosition = p;
+                    break;
+                }
+                    
                 case enum_AtomicTask::turnOn :
+                {
                     vAtomicTaskitem = std::make_shared<TurnOnSim>(monitor, currentPosition,currentPosition);
                     break;
+                }
+                    
                 case enum_AtomicTask::chargeBattery :
+                {
                     vAtomicTaskitem = std::make_shared<ChargeBatteryROS>(monitor, currentPosition,currentPosition);
                     break;
+                }
+                    
                 case enum_AtomicTask::takePicture :
+                {
                     vAtomicTaskitem = std::make_shared<TakePictureSim>(monitor, currentPosition,currentPosition);
                     break;
-                    
+                }
                     
                 case enum_AtomicTask::arm :
                 {
                     vAtomicTaskitem = std::make_shared<ArmMavROS>(monitor, currentPosition,currentPosition);
-                }
-                    
                     break;
-                    
+                }
+
+                case enum_AtomicTask::disarm :
+                {
+                    vAtomicTaskitem = std::make_shared<DisarmMavROS>(monitor, currentPosition,currentPosition);
+                    break;
+                }
+    
                 case enum_AtomicTask::takeOff :
                 {
                     s_pose vPose;
@@ -125,17 +169,15 @@ bool RosbotRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
                     vPose.z = vMissionDecomposable.goal.z;
                     vAtomicTaskitem = std::make_shared<TakeOffMavROS>(monitor, currentPosition,vPose);
                     currentPosition = vPose;
-                }
-                    
                     break;
+                }
                     
                 case enum_AtomicTask::land :
                 {
                     vAtomicTaskitem = std::make_shared<LandMavROS>(monitor, currentPosition,currentPosition);
+                    break;
                 }
                     
-                    break;
-                
                 default:
                     break;
                     

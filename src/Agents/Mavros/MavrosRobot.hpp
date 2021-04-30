@@ -35,10 +35,11 @@
 #include "ChargeBatteryROS.hpp"
 #include "TakePictureSim.hpp"
 #include "ArmMavROS.hpp"
+#include "DisarmMavROS.hpp"
 #include "TakeOffMavROS.hpp"
 #include "LandMavROS.hpp"
 
-class MavrosRobot
+class MavrosRobot: public Agent
 {
 protected:
     bool decentralized;

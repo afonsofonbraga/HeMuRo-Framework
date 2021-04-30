@@ -70,6 +70,7 @@ add_library(atomicTasks
     AtomicTasks/ArmMavROS.cpp
     AtomicTasks/ChargeBatteryROS.cpp
     AtomicTasks/ChargeBatterySim.cpp
+    AtomicTasks/DisarmMavROS.cpp
     AtomicTasks/DropOffSim.cpp
     AtomicTasks/GoToROS.cpp
     AtomicTasks/GoToSim.cpp
