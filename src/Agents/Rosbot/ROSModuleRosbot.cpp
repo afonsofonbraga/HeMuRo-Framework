@@ -9,10 +9,6 @@
 #include "ROSModuleRosbot.hpp"
 #include <map>
 
-
-
-
-
 ROSModuleRosbot::ROSModuleRosbot(Blackboard *monitor,ros::NodeHandle& vNode): Module(monitor), node(vNode)
 {
     this->monitor->getRobotsName(vName);

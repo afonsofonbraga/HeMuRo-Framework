@@ -55,14 +55,12 @@ void TakeOffMavROS::run()
                     
                     auto t0 = std::chrono::system_clock::now();
                     std::this_thread::sleep_until(t0 + this->tick);
-                    
-                    std::cout << "subiu" << std::endl;
                 }
                 
             }
             break;
         case enum_AtomicTaskStatus::completed:
-            std::cout << "Arrived at the destination!"<< std::endl;
+            std::cout << "Took off!"<< std::endl;
             break;
         default:
             break;

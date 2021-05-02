@@ -17,22 +17,7 @@ include_directories(${framework_SOURCE_DIR}/src/Agents/Logger)
 include_directories(${framework_SOURCE_DIR}/src/Agents/Default)
 include_directories(${framework_SOURCE_DIR}/src/Agents/Rosbot)
 include_directories(${framework_SOURCE_DIR}/src/Agents/P3DX)
-
-#if(DEFAULT)
-#    include_directories(${framework_SOURCE_DIR}/src/Agents/Default)
-#endif()
-
-if(MAVROS)
-    include_directories(${framework_SOURCE_DIR}/src/Agents/Mavros)
-endif()
-
-if(TURTLEBOT)
-    include_directories(${framework_SOURCE_DIR}/src/Agents/Turtlebot)
-endif()
-
-if(ROSBOT)
-    include_directories(${framework_SOURCE_DIR}/src/Agents/Rosbot)
-endif()
+include_directories(${framework_SOURCE_DIR}/src/Agents/Mavros)
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
@@ -77,6 +62,7 @@ add_library(atomicTasks
     AtomicTasks/LandMavROS.cpp
     AtomicTasks/MeasureTemperatureSim.cpp
     AtomicTasks/MoveBaseGoal.cpp
+    AtomicTasks/NavigateMavROS.cpp
     AtomicTasks/PickUpSim.cpp
     AtomicTasks/TakeOffMavROS.cpp
     AtomicTasks/TakePictureSim.cpp
@@ -100,27 +86,15 @@ add_library(p3dx
     Agents/P3DX/ROSModuleP3DX.cpp
     )
 
+add_library(coexclover
+    Agents/Agent.cpp
+    Agents/Mavros/MavrosRobot.cpp
+    Agents/Mavros/ROSModuleMavros.cpp
+    )
+
 add_library(logger
     Agents/Agent.cpp  
     Agents/Logger/LoggerAgent.cpp
     Web/WebModule.cpp
     Web/WebApp.cpp
     )
-
-
-if(DEFAULT)
-add_library(task Agents/Agent.cpp Agents/Default/DefaultRobot.cpp Core/Blackboard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Mission/Auction.cpp Mission/TaskModule.cpp Mission/Mission.cpp Mission/MissionRequest.cpp Mission/MissionExecution.cpp AtomicTasks/AtomicTask.cpp AtomicTasks/GoToSim.cpp AtomicTasks/ChargeBatterySim.cpp AtomicTasks/TurnOnSim.cpp AtomicTasks/TakePictureSim.cpp)
-# add_library(alive ${catkin_LIBRARIES} Core/Blackboard.cpp Task/Alive/Alive.cpp)
-endif()
-
-if(MAVROS)
-add_library(task Agents/Agent.cpp Agents/Mavros/MavrosRobot.cpp  Agents/Turtlebot/ROSModuleTurtlebot.cpp Core/Blackboard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Mission/Auction.cpp Mission/TaskModule.cpp Mission/Mission.cpp Mission/MissionRequest.cpp Mission/MissionExecution.cpp  AtomicTasks/AtomicTask.cpp AtomicTasks/ArmMavROS.cpp AtomicTasks/GoToROS.cpp AtomicTasks/LandMavROS.cpp AtomicTasks/TakeOffMavROS.cpp AtomicTasks/ChargeBatteryROS.cpp AtomicTasks/TurnOnSim.cpp AtomicTasks/TakePictureSim.cpp)
-endif()
-
-if(TURTLEBOT)
-add_library(task Agents/Agent.cpp Agents/Turtlebot/TurtlebotRobot.cpp Agents/Turtlebot/ROSModuleTurtlebot.cpp Core/Blackboard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Mission/Auction.cpp Mission/TaskModule.cpp Mission/Mission.cpp Mission/MissionRequest.cpp Mission/MissionExecution.cpp AtomicTasks/AtomicTask.cpp AtomicTasks/GoToROS.cpp AtomicTasks/ChargeBatteryROS.cpp AtomicTasks/TurnOnSim.cpp AtomicTasks/TakePictureSim.cpp)
-endif()
-
-if(ROSBOT)
-add_library(task Agents/Agent.cpp Agents/Rosbot/RosbotRobot.cpp Agents/Rosbot/ROSModuleRosbot.cpp Core/Blackboard.cpp Core/Module.cpp Core/ModulePeriodic.cpp Mission/Auction.cpp Mission/TaskModule.cpp Mission/Mission.cpp Mission/MissionRequest.cpp Mission/MissionExecution.cpp AtomicTasks/AtomicTask.cpp AtomicTasks/GoToROS.cpp AtomicTasks/MoveBaseGoal.cpp AtomicTasks/ChargeBatteryROS.cpp AtomicTasks/TurnOnSim.cpp AtomicTasks/TakePictureSim.cpp)
-endif()

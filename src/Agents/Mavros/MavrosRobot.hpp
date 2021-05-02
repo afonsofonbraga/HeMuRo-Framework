@@ -38,6 +38,7 @@
 #include "DisarmMavROS.hpp"
 #include "TakeOffMavROS.hpp"
 #include "LandMavROS.hpp"
+#include "NavigateMavROS.hpp"
 
 class MavrosRobot: public Agent
 {

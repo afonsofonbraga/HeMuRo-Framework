@@ -23,6 +23,7 @@
 #include "DefaultRobot.hpp"
 #include "RosbotRobot.hpp"
 #include "P3DXRobot.hpp"
+#include "MavrosRobot.hpp"
 
 
 
@@ -33,85 +34,85 @@ int main( int argc, char *argv[ ] )
     {
         sala_A01.x = 10.5;
         sala_A01.y = 5.5;
-        sala_A01.z = 0.0;
+        sala_A01.z = 2.0;
     }
     s_pose sala_A02;
     {
         sala_A02.x = 10.5;
         sala_A02.y = 10.5;
-        sala_A02.z = 0.0;
+        sala_A02.z = 2.0;
     }
     s_pose sala_A03;
     {
         sala_A03.x = -10.5;
         sala_A03.y = 5.5;
-        sala_A03.z = 0.0;
+        sala_A03.z = 2.0;
     }
     s_pose sala_A04;
     {
         sala_A04.x = -10.5;
         sala_A04.y = 10.5;
-        sala_A04.z = 0.0;
+        sala_A04.z = 2.0;
     }
     s_pose deposito_01;
     {
         deposito_01.x = 8.0;
         deposito_01.y = 14.0;
-        deposito_01.z = 0.0;
+        deposito_01.z = 2.0;
     }
     s_pose deposito_02;
     {
         deposito_02.x = -8.0;
         deposito_02.y = 14.0;
-        deposito_02.z = 0.0;
+        deposito_02.z = 2.0;
     }
     s_pose chargingStation_01;
     {
         chargingStation_01.x = 9.0;
         chargingStation_01.y = 14.0;
-        chargingStation_01.z = 0.0;
+        chargingStation_01.z = 2.0;
     }
     s_pose chargingStation_02;
     {
         chargingStation_02.x = -9.0;
         chargingStation_02.y = 14.0;
-        chargingStation_02.z = 0.0;
+        chargingStation_02.z = 2.0;
     }
     s_pose escada_01;
     {
         escada_01.x = 5.0;
         escada_01.y = 18.0;
-        escada_01.z = 0.0;
+        escada_01.z = 2.0;
     }
     s_pose escada_02;
     {
         escada_02.x = -5.0;
         escada_02.y = 18.0;
-        escada_02.z = 0.0;
+        escada_02.z = 2.0;
     }
     s_pose salao_01;
     {
         salao_01.x = 3.0;
         salao_01.y = 12.0;
-        salao_01.z = 0.0;
+        salao_01.z = 2.0;
     }
     s_pose salao_02;
     {
         salao_02.x = 0.0;
         salao_02.y = 14.0;
-        salao_02.z = 0.0;
+        salao_02.z = 2.0;
     }
     s_pose salao_03;
     {
         salao_03.x = -3.0;
         salao_03.y = 12.0;
-        salao_03.z = 0.0;
+        salao_03.z = 2.0;
     }
     s_pose recepcao;
     {
         recepcao.x = 0.0;
         recepcao.y = 2.0;
-        recepcao.z = 0.0;
+        recepcao.z = 2.0;
     }
     
     if (argc < 2)
@@ -176,11 +177,12 @@ int main( int argc, char *argv[ ] )
     ros::AsyncSpinner spinner(0);
     spinner.start();
 #endif
+
     std::vector<std::string> robots;
-    robots.push_back("thor");
+    robots.push_back("thor");/*
     robots.push_back("afrodite");
     robots.push_back("zeus");
-    robots.push_back("athena");
+    robots.push_back("athena");*/
     for (int i = 0; i < robots.size(); i++)
     {
         robotsName = robots.at(i);
@@ -191,7 +193,8 @@ int main( int argc, char *argv[ ] )
 #ifndef DEFAULT
         if(i%2 == 0)
         {
-            RosbotRobot* robot = new RosbotRobot(v_Blackboard.at(i + defaultAgents), n, decentralizedCommunication);
+            MavrosRobot* robot = new MavrosRobot(v_Blackboard.at(i + defaultAgents), n, decentralizedCommunication);
+            //RosbotRobot* robot = new RosbotRobot(v_Blackboard.at(i + defaultAgents), n, decentralizedCommunication);
             v_Robot.push_back(robot);
         }
         if (i%2 == 1)
@@ -218,7 +221,31 @@ int main( int argc, char *argv[ ] )
     Operation operation = Operation::missionMessage;
     v_Blackboard.at(1)->getRobotsName(*message.name);
     
-    
+
+    {
+		std::string m = "Measure1";
+        strcpy(mission.missionCode, m.c_str());
+        mission.operation = enum_MissionOperation::createMission;
+        mission.taskToBeDecomposed = enum_DecomposableTask::checkPosition;
+        mission.robotCat = enum_RobotCategory::uav;
+        mission.numberOfAttributes = 1;
+        *((int*) (mission.attributesBuffer + 4)) = sizeof(s_pose);
+        memcpy(mission.attributesBuffer + 8, &salao_02, sizeof(s_pose));
+        *((int*) (mission.attributesBuffer)) = sizeof(s_pose) + 8;
+          
+        mission.relativeDeadline = std::chrono::seconds(160);
+        
+        memcpy(message.buffer,"CStation1",10);
+        *((Operation*)(message.buffer + 10)) = operation;
+        *((int*)(message.buffer + 14)) = sizeof(mission);
+        memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
+        message.messageSize = sizeof(message.buffer);
+        
+        v_Blackboard.at(1)->addUDPMessage(message);
+	}
+
+
+    /*
     for(int times = 1 ; times < 5; times++ )
     {
 		{
@@ -431,7 +458,7 @@ int main( int argc, char *argv[ ] )
         
         v_Blackboard.at(1)->addUDPMessage(message);
     }
-	}
+	}*/
     while (std::getchar() != 'c'){}
     
     //delete logger;

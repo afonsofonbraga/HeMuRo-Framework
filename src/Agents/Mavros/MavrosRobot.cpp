@@ -12,7 +12,7 @@ MavrosRobot::MavrosRobot(Blackboard* monitor, ros::NodeHandle& vNode, bool decen
 {
     strcpy(mode,"Robot");
     this->decentralized = decentralized;
-    monitor->setRobotCategory(enum_RobotCategory::ugv);
+    monitor->setRobotCategory(enum_RobotCategory::uav);
     decomposableTaskList();
     
     broadcast = new UDPBroadcast(monitor);
@@ -60,14 +60,16 @@ MavrosRobot::~MavrosRobot()
 void MavrosRobot::decomposableTaskList()
 {
     std::vector<enum_AtomicTask> atomicTaskVector;
-    
-    enum_DecomposableTask dTask = enum_DecomposableTask::checkPosition;
+    enum_DecomposableTask dTask = enum_DecomposableTask::null;
+
+    atomicTaskVector.clear();
+    dTask = enum_DecomposableTask::checkPosition;
     atomicTaskVector.push_back(enum_AtomicTask::arm);
     atomicTaskVector.push_back(enum_AtomicTask::takeOff);
     atomicTaskVector.push_back(enum_AtomicTask::goTo);
-    atomicTaskVector.push_back(enum_AtomicTask::goToBasis);
-    atomicTaskVector.push_back(enum_AtomicTask::land);
-    atomicTaskVector.push_back(enum_AtomicTask::disarm);
+    //atomicTaskVector.push_back(enum_AtomicTask::goToBasis);
+    //atomicTaskVector.push_back(enum_AtomicTask::land);
+    //atomicTaskVector.push_back(enum_AtomicTask::disarm);
     monitor->addDecomposableTaskList(dTask, atomicTaskVector);
     
     atomicTaskVector.clear();
@@ -109,9 +111,16 @@ void MavrosRobot::decomposableTaskList()
 bool MavrosRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
 {
     vMissionDecomposable.atomicTaskSequence.clear();
-        std::shared_ptr<AtomicTask> vAtomicTaskitem = nullptr;
-        s_pose currentPosition;
-        monitor->getPosition(currentPosition);
+    std::shared_ptr<AtomicTask> vAtomicTaskitem = nullptr;
+    s_pose currentPosition;
+    monitor->getPosition(currentPosition);
+    
+    char* temp = vMissionDecomposable.attributesBuffer;
+    int vAttribuites = 0;
+    int partialSize = 0;
+    int totalSize = ((int*) temp)[0];
+    partialSize += 4;
+    temp += 4;
         
         for (auto n : vMissionDecomposable.atomicTaskEnumerator){
             switch(n){
@@ -119,15 +128,23 @@ bool MavrosRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
                     break;
                 case enum_AtomicTask::goTo :
                 {
-                    vAtomicTaskitem = std::make_shared<GoToROS>(monitor, currentPosition,vMissionDecomposable.goal);
-                    currentPosition = vMissionDecomposable.goal;
+                    int vSize = ((int*) temp)[0];
+                    partialSize += 4;
+                    temp += 4;
+                    vAttribuites++;
+                    s_pose goal = ((s_pose*) temp)[0];
+                    vAtomicTaskitem = std::make_shared<NavigateMavROS>(monitor, currentPosition, goal);
+                    //std::cout << "go to x: " <<goal.x << " y " << goal.y<< " z " << goal.z << std::endl;
+                    currentPosition = goal;
+                    partialSize += vSize;
+                    temp += vSize;
                     break;
                 }
                 case enum_AtomicTask::goToBasis :
                 {
                     s_pose p;
                     this->monitor->getBasisPosition(p);
-                    vAtomicTaskitem = std::make_shared<GoToROS>(monitor,currentPosition,p);
+                    vAtomicTaskitem = std::make_shared<NavigateMavROS>(monitor,currentPosition,p);
                     currentPosition = p;
                     break;
                 }
@@ -164,10 +181,14 @@ bool MavrosRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
     
                 case enum_AtomicTask::takeOff :
                 {
+                    temp += 4;
+                    s_pose goal = ((s_pose*) temp)[0];
+                    temp -= 4;
                     s_pose vPose;
                     vPose = currentPosition;
-                    vPose.z = vMissionDecomposable.goal.z;
+                    vPose.z = goal.z;
                     vAtomicTaskitem = std::make_shared<TakeOffMavROS>(monitor, currentPosition,vPose);
+                    //std::cout << "Take off x: " <<vPose.x << " y " << vPose.y<< " z " << vPose.z << std::endl;
                     currentPosition = vPose;
                     break;
                 }
@@ -190,4 +211,5 @@ bool MavrosRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
                 std::cout << "Not found\n";
             }
         }
+    return (totalSize == partialSize && vAttribuites == vMissionDecomposable.numberOfAttributes) ? true : false;
 }

@@ -14,22 +14,21 @@ ROSModuleMavros::ROSModuleMavros(Blackboard *monitor,ros::NodeHandle& vNode): Mo
 {
     this->monitor->getRobotsName(vName);
     
-    vName = "";
     // Subscribers
-    std::string topic = vName + "mavros/state";
+    std::string topic = "/mavros/state";
     subscribersList["mavros/state"] = node.subscribe<mavros_msgs::State>(topic, 10, &ROSModuleMavros::state_cb, this);
     
-    topic = vName + "/mavros/local_position/pose";
+    topic = "/mavros/local_position/pose";
     subscribersList["/mavros/local_position/pose"] = node.subscribe<geometry_msgs::PoseStamped>(topic, 10, &ROSModuleMavros::pose_cb, this);
     
-    topic = vName + "/mavros/global_position/compass_hdg";
+    topic = "/mavros/global_position/compass_hdg";
     subscribersList["/mavros/global_position/compass_hdg"] = node.subscribe<std_msgs::Float64>(topic, 10, &ROSModuleMavros::heading_cb, this);
     
     // Publishers
-    topic = vName + "mavros/setpoint_raw/local";
+    topic = "mavros/setpoint_raw/local";
     publishersList["mavros/setpoint_raw/local"] = node.advertise<mavros_msgs::PositionTarget>(topic, 10);
     
-    topic = vName + "mavros/setpoint_position/local";
+    topic = "mavros/setpoint_position/local";
     publishersList["mavros/setpoint_position/local"] = node.advertise<geometry_msgs::PoseStamped>(topic, 10);
     
 }
@@ -154,7 +153,8 @@ void ROSModuleMavros::run()
             ROS_INFO("the N' axis is facing: %f", GYM_OFFSET);
             std::cout << GYM_OFFSET << "\n" << std::endl;
             
-            std::string topic = vName + "mavros/cmd/arming";
+            //std::string topic =  "mavros/cmd/arming";
+            std::string topic = "mavros/cmd/arming";
             ros::ServiceClient arming_client_i = node.serviceClient<mavros_msgs::CommandBool>(topic);
             mavros_msgs::CommandBool srv_arm_i;
             srv_arm_i.request.value = true;
@@ -175,7 +175,7 @@ void ROSModuleMavros::run()
             ROS_INFO("the N' axis is facing: %f", GYM_OFFSET);
             std::cout << GYM_OFFSET << "\n" << std::endl;
             */
-            std::string topic = vName + "mavros/cmd/disarming";
+            std::string topic = "mavros/cmd/disarming";
             ros::ServiceClient arming_client_i = node.serviceClient<mavros_msgs::CommandBool>(topic);
             mavros_msgs::CommandBool srv_arm_i;
             srv_arm_i.request.value = false;
@@ -188,8 +188,8 @@ void ROSModuleMavros::run()
         {
             s_pose vPose = ((s_pose*) vROSModuleMessage->buffer)[0];
             
-            std::string service = vName + "/navigate";
-            ros::ServiceClient nav_client = n.serviceClient<clover::Navigate>(service);
+            std::string service =  "/navigate";
+            ros::ServiceClient nav_client = node.serviceClient<clover::Navigate>(service);
             clover::Navigate tt;
             tt.request.x = vPose.x;
             tt.request.y = vPose.y;
@@ -200,6 +200,7 @@ void ROSModuleMavros::run()
             
             if (nav_client.call(tt) && tt.response.success){
                 ROS_INFO("VAAAAI DEMOIN %d", tt.response.success);
+                ROS_INFO("Navigate to x %d y %d z %d", vPose.x,vPose.y,vPose.z);
             } else
             {
                 ROS_ERROR("Failed Takeoff");
@@ -207,7 +208,7 @@ void ROSModuleMavros::run()
         }
         else if(strcmp(vROSModuleMessage->topicName, "Land") == 0)
         {
-            std::string service = vName + "/mavros/cmd/land";
+            std::string service =  "/mavros/cmd/land";
             ros::ServiceClient land_client = node.serviceClient<mavros_msgs::CommandTOL>(service);
             mavros_msgs::CommandTOL srv_land;
             if (land_client.call(srv_land) && srv_land.response.success)
@@ -217,12 +218,12 @@ void ROSModuleMavros::run()
                 ROS_ERROR("Landing failed");
             }
         }
-        else if(strcmp(vROSModuleMessage->topicName, "GoTo") == 0)
+        else if(strcmp(vROSModuleMessage->topicName, "Navigate") == 0)
         {
             //move forward
             s_pose vPose = ((s_pose*) vROSModuleMessage->buffer)[0];
             
-            std::string service = vName + "/navigate";
+            std::string service =  "/navigate";
             ros::ServiceClient nav_client = node.serviceClient<clover::Navigate>(service);
             clover::Navigate tt;
             tt.request.x = vPose.x;
