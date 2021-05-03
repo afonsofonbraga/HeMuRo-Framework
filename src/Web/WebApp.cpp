@@ -12,7 +12,7 @@ WebApp::WebApp(Blackboard* monitor): WContainerWidget()
 {
     this->monitor = monitor;
     
-    path = std::string("/Users/afonso/Github/MRSFramework/logs/PathController.txt");
+    path = std::string("$path_to_HeMuRo/logs/PathController.txt");
     int n = 0;
     std::string str;
     std::fstream s(path, s.in);
@@ -20,7 +20,7 @@ WebApp::WebApp(Blackboard* monitor): WContainerWidget()
         s >> str >> n;
         s.close();
     }
-    path = std::string("/Users/afonso/Github/MRSFramework/logs/Logger") + std::to_string(n) + "/Logger.txt";
+    path = std::string("$path_to_HeMuRo/logs/Logger") + std::to_string(n) + "/Logger.txt";
     
     setHeight(720);
     setWidth(1024);
