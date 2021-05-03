@@ -23,6 +23,10 @@
 		23494C9124CF130200697ABA /* TakePictureSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23494C8F24CF130200697ABA /* TakePictureSim.cpp */; };
 		235CC3EB2493F0200012376D /* Mission.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235CC3E92493F0200012376D /* Mission.cpp */; };
 		236244F125211498007B5319 /* LoggerAgent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 236244EF25211498007B5319 /* LoggerAgent.cpp */; };
+		236F9D512640A2D400D90993 /* NavigateMavROS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 236F9D4E2640A2C600D90993 /* NavigateMavROS.cpp */; };
+		236F9D522640A2D400D90993 /* MeasureTemperatureSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 236F9D492640A2C600D90993 /* MeasureTemperatureSim.cpp */; };
+		236F9D532640A2D400D90993 /* PickUpSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 236F9D4D2640A2C600D90993 /* PickUpSim.cpp */; };
+		236F9D542640A2D400D90993 /* DropOffSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 236F9D4F2640A2C700D90993 /* DropOffSim.cpp */; };
 		23789A9224AB95D1001372E5 /* MissionRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23789A9024AB95D1001372E5 /* MissionRequest.cpp */; };
 		23789A9524AB9694001372E5 /* MissionExecution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23789A9324AB9694001372E5 /* MissionExecution.cpp */; };
 		2381ABAC245DC25B00465752 /* UDPBroadcast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2381ABAA245DC25B00465752 /* UDPBroadcast.cpp */; };
@@ -100,6 +104,16 @@
 		235CC3EA2493F0200012376D /* Mission.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mission.hpp; sourceTree = "<group>"; };
 		236244EF25211498007B5319 /* LoggerAgent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LoggerAgent.cpp; sourceTree = "<group>"; };
 		236244F025211498007B5319 /* LoggerAgent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LoggerAgent.hpp; sourceTree = "<group>"; };
+		236F9D492640A2C600D90993 /* MeasureTemperatureSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeasureTemperatureSim.cpp; sourceTree = "<group>"; };
+		236F9D4A2640A2C600D90993 /* PickUpSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PickUpSim.hpp; sourceTree = "<group>"; };
+		236F9D4B2640A2C600D90993 /* DropOffSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DropOffSim.hpp; sourceTree = "<group>"; };
+		236F9D4C2640A2C600D90993 /* MeasureTemperatureSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MeasureTemperatureSim.hpp; sourceTree = "<group>"; };
+		236F9D4D2640A2C600D90993 /* PickUpSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PickUpSim.cpp; sourceTree = "<group>"; };
+		236F9D4E2640A2C600D90993 /* NavigateMavROS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NavigateMavROS.cpp; sourceTree = "<group>"; };
+		236F9D4F2640A2C700D90993 /* DropOffSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DropOffSim.cpp; sourceTree = "<group>"; };
+		236F9D502640A2C700D90993 /* NavigateMavROS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NavigateMavROS.hpp; sourceTree = "<group>"; };
+		236F9D562640A31000D90993 /* mainclean.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mainclean.cpp; sourceTree = "<group>"; };
+		236F9D572640A32700D90993 /* warehouse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = warehouse.cpp; sourceTree = "<group>"; };
 		2376200C24F54B81000C1B23 /* ROSModuleMavros.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ROSModuleMavros.hpp; sourceTree = "<group>"; };
 		2376200D24F54B81000C1B23 /* ROSModuleMavros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ROSModuleMavros.cpp; sourceTree = "<group>"; };
 		2376200E24F54B87000C1B23 /* ROSModuleTurtlebot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ROSModuleTurtlebot.cpp; sourceTree = "<group>"; };
@@ -619,6 +633,14 @@
 		2384745C25AE18E600A4AEB0 /* AtomicTasks */ = {
 			isa = PBXGroup;
 			children = (
+				236F9D4F2640A2C700D90993 /* DropOffSim.cpp */,
+				236F9D4B2640A2C600D90993 /* DropOffSim.hpp */,
+				236F9D492640A2C600D90993 /* MeasureTemperatureSim.cpp */,
+				236F9D4C2640A2C600D90993 /* MeasureTemperatureSim.hpp */,
+				236F9D4E2640A2C600D90993 /* NavigateMavROS.cpp */,
+				236F9D502640A2C700D90993 /* NavigateMavROS.hpp */,
+				236F9D4D2640A2C600D90993 /* PickUpSim.cpp */,
+				236F9D4A2640A2C600D90993 /* PickUpSim.hpp */,
 				2376201A24F56B3B000C1B23 /* ArmMavROS.cpp */,
 				2376201B24F56B3B000C1B23 /* ArmMavROS.hpp */,
 				23F00C8324634A2F00EC7860 /* AtomicTask.cpp */,
@@ -1208,9 +1230,11 @@
 		23D20B3E245C705C0013F98A /* main */ = {
 			isa = PBXGroup;
 			children = (
+				236F9D562640A31000D90993 /* mainclean.cpp */,
 				2382EF7D25D6CFE20083FD32 /* speedTest.cpp */,
 				23D20B3F245C705C0013F98A /* CMakeLists.txt */,
 				23D20B40245C705C0013F98A /* main.cpp */,
+				236F9D572640A32700D90993 /* warehouse.cpp */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -1452,9 +1476,11 @@
 				23EDB520245CBBA9003D13A3 /* ModulePeriodic.cpp in Sources */,
 				23103C752552356D0075C543 /* WebApp.cpp in Sources */,
 				239C81DD248FBED900B58BAD /* AtomicTask.cpp in Sources */,
+				236F9D542640A2D400D90993 /* DropOffSim.cpp in Sources */,
 				23444C5D25B0844A00768AC2 /* ArmMavROS.cpp in Sources */,
 				2386344024FEBD0800049ED1 /* UDPReceiverSim.cpp in Sources */,
 				23EDB51D245CA8B9003D13A3 /* Module.cpp in Sources */,
+				236F9D522640A2D400D90993 /* MeasureTemperatureSim.cpp in Sources */,
 				235CC3EB2493F0200012376D /* Mission.cpp in Sources */,
 				1B9BC2FC263C5152001AECFA /* DisarmMavROS.cpp in Sources */,
 				23C6E54A246EE01A00D99185 /* GoToSim.cpp in Sources */,
@@ -1473,9 +1499,11 @@
 				23F3A21D25006C7E00561375 /* DefaultRobot.cpp in Sources */,
 				236244F125211498007B5319 /* LoggerAgent.cpp in Sources */,
 				23444C4B25AF76CD00768AC2 /* Auction.cpp in Sources */,
+				236F9D512640A2D400D90993 /* NavigateMavROS.cpp in Sources */,
 				23444C5625AF913300768AC2 /* GoToROS.cpp in Sources */,
 				23965EB225013E8300F6E7A5 /* ChargingSpot.cpp in Sources */,
 				2381ABAF245DD23900465752 /* UDPReceiver.cpp in Sources */,
+				236F9D532640A2D400D90993 /* PickUpSim.cpp in Sources */,
 				23789A9224AB95D1001372E5 /* MissionRequest.cpp in Sources */,
 				23C6E54E246EF4C500D99185 /* ChargeBatterySim.cpp in Sources */,
 			);

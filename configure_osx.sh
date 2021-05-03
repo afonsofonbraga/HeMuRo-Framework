@@ -7,5 +7,6 @@
 #  Copyright © 2021 Afonso Braga. All rights reserved.
 
 #path =  std::string("path_to_HeMuRo/logs/Logger")
-grep -rl '$path_to_HeMuRo/' ./src | xargs sed -i ''  's+$path_to_HeMuRo/+/Users/afonsofonbraga/github/HeMuRo-Framework/+g'
+#grep -rl '$path_to_HeMuRo/' ./src | xargs sed -i ''  's+$path_to_HeMuRo/+/Users/afonsofonbraga/github/HeMuRo-Framework/+g'
+grep -rl '$path_to_HeMuRo/' ./src | xargs sed -i ''  's+$path_to_HeMuRo/+/Users/afonso/Github/MRSFramework/+g'
 
