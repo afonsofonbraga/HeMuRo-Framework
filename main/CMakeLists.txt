@@ -33,7 +33,7 @@ link_directories(${framework_SOURCE_DIR}/src/Agents/Rosbot)
 link_directories(${framework_SOURCE_DIR}/src/Agents/P3DX)
 link_directories(${framework_SOURCE_DIR}/src/Agents/Mavros)
 
-add_executable(framework main.cpp)
+add_executable(framework warehouse.cpp)
 target_link_libraries(framework core)
 target_link_libraries(framework communication)
 target_link_libraries(framework mission)

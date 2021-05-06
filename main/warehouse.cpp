@@ -29,59 +29,59 @@
 
 int main( int argc, char *argv[ ] )
 {
-    s_pose chargingStation_01
+    s_pose chargingStation_01;
     {
         chargingStation_01.x = 4.5;
-        chargingStation_01.y = -9.5;
-        chargingStation_01.z = 2;
+        chargingStation_01.y = -9.0;
+        chargingStation_01.z = 4;
     }
-    s_pose corredor_01
+    s_pose corredor_01;
     {
         corredor_01.x = 4.5;
         corredor_01.y = -5.8;
-        corredor_01.z = 2;
+        corredor_01.z = 4;
     }
-    s_pose corredor_02
+    s_pose corredor_02;
     {
         corredor_02.x = 4.5;
         corredor_02.y = -3.8;
-        corredor_02.z = 2;
+        corredor_02.z = 4;
     }
-    s_pose corredor_03
+    s_pose corredor_03;
     {
         corredor_03.x = 4.5;
         corredor_03.y = -1.8;
-        corredor_03.z = 2;
+        corredor_03.z = 4;
     }
-    s_pose area_01
+    s_pose area_01;
     {
-        area_01.x = 2.5;
+        area_01.x = -1;
         area_01.y = -7;
-        area_01.z = 2;
+        area_01.z = 4;
     }
-    s_pose area_02
+    s_pose area_02;
     {
-        area_02.x = 2.5;
+        area_02.x = -1;
         area_02.y = -4;
-        area_02.z = 2;
+        area_02.z = 4;
     }
-    s_pose area_03
+    s_pose area_03;
     {
-        area_03.x = 2.5;
+        area_03.x = -1;
         area_03.y = -1;
-        area_03.z = 2;
+        area_03.z = 4;
     }
-    s_pose area_04
+    s_pose area_04;
     {
-        area_04.x = 2.5;
+        area_04.x = -1;
         area_04.y = 2;
-        area_04.z = 2;
+        area_04.z = 4;
     }
-    s_pose area_05
+    s_pose area_05;
     {
-        area_05.x = 2.5;
+        area_05.x = -1;
         area_05.y = 5;
-        area_05.z = 2;
+        area_05.z = 4;
     }
     
     if (argc < 2)
@@ -138,7 +138,11 @@ int main( int argc, char *argv[ ] )
         if(i%2 == 0)
         {
             MavrosRobot* robot = new MavrosRobot(v_Blackboard.at(i + defaultAgents), n, decentralizedCommunication);
-            v_Blackboard.at(i + defaultAgents)->setBasisPosition(chargingStation_01);
+            s_pose basis;
+            basis.x = chargingStation_01.x +1;
+            basis.y = chargingStation_01.y;
+            basis.z = chargingStation_01.z;
+            v_Blackboard.at(i + defaultAgents)->setBasisPosition(basis);
             v_Robot.push_back(robot);
         }
         if (i%2 == 1)
@@ -166,7 +170,7 @@ int main( int argc, char *argv[ ] )
     v_Blackboard.at(1)->getRobotsName(*message.name);
     
     
-    {
+    /*{
         std::string m = "Measure1";
         strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
@@ -186,14 +190,14 @@ int main( int argc, char *argv[ ] )
         message.messageSize = sizeof(message.buffer);
         
         v_Blackboard.at(1)->addUDPMessage(message);
-    }
-    
+    }*/
+    for(int times = 1 ; times < 5; times++ )
     {
-        std::string m = "Inspect";
+        std::string m = "Inspect"+ std::to_string(times);
         strcpy(mission.missionCode, m.c_str());
         mission.operation = enum_MissionOperation::createMission;
-        mission.taskToBeDecomposed = enum_DecomposableTask::deliverSmallSample;
-        mission.robotCat = enum_RobotCategory::ugv;
+        mission.taskToBeDecomposed = enum_DecomposableTask::inspectArea;
+        mission.robotCat = enum_RobotCategory::uav;
         mission.numberOfAttributes = 5;
         
         int total = 4;
@@ -221,7 +225,7 @@ int main( int argc, char *argv[ ] )
         total += sizeof(s_pose);
         *((int*) (mission.attributesBuffer)) = total;
         
-        mission.relativeDeadline = std::chrono::seconds(180);
+        mission.relativeDeadline = std::chrono::seconds(380);
         
         memcpy(message.buffer,"CStation1",10);
         *((Operation*)(message.buffer + 10)) = operation;
