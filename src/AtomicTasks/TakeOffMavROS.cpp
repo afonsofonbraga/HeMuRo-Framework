@@ -52,7 +52,6 @@ void TakeOffMavROS::run()
                     strcpy(teste.topicName,"TakeOff");
                     memmove(teste.buffer,(char*)&this->endPosition,sizeof(this->endPosition));
                     this->monitor->addROSModuleMessage(teste);
-                    
                     auto t0 = std::chrono::system_clock::now();
                     std::this_thread::sleep_until(t0 + this->tick);
                 }

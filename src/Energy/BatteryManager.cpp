@@ -27,7 +27,7 @@ BatteryManager::BatteryManager(Blackboard* monitor, char vMode[]) : Module(monit
         position.x = position.x + 1;
         position.y = position.y;
         spot.setSpotPosition(position);
-        spot.setChargerCompatibility(enum_RobotCategory::ugv);
+        spot.setChargerCompatibility(enum_RobotCategory::uav);
         this->chargingSpotList["Spot2"] = spot;
         
         position.x = position.x - 2;
@@ -521,6 +521,13 @@ bool BatteryManager::batteryNeedsCharging()
 
     if(batteryLevel == 0)
     {
+        s_TaskMessage vTaskMessage;
+                
+        strcpy(vTaskMessage.missionCode,"Failure");
+        vTaskMessage.operation = enum_TaskMessage::addEmergency;
+        vTaskMessage.taskToBeDecomposed = enum_DecomposableTask::emergencyLanding;
+        this->monitor->addTaskMessage(vTaskMessage);
+     
         this->monitor->print("Battery Failure!");
         this->monitor->lockRobot(enum_RobotStatus::failure);
         this->stop(); //Stop Module

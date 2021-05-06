@@ -11,11 +11,12 @@
 
 NavigateMavROS::NavigateMavROS(Blackboard* vMonitor, s_pose& start, s_pose& end) : AtomicTask(vMonitor, start, end)
 {
-    this->costFactor = factor * (battery_discharge /(robots_max_speed*3600))/battery_capacity;
+    this->costFactor = 100 / battery_capacity;
     this->timeFactor = this->robots_max_speed;
-    
+
+    //calculateTime();
     calculateCost();
-    calculateTime();
+
 }
 
 NavigateMavROS::~NavigateMavROS(){}
@@ -47,8 +48,8 @@ void NavigateMavROS::run()
                 
                 deltaError.x = this->endPosition.x - p.x;
                 deltaError.y = this->endPosition.y - p.y;
-                
-                if(sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2)) <= 0.1)
+                std::cout << "error " << sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2)) << std::endl;
+                if(sqrt(pow(deltaError.x, 2) + pow(deltaError.y, 2)) <= 0.2)
                 {
                     this->status = enum_AtomicTaskStatus::completed;
                 }else
@@ -81,10 +82,9 @@ void NavigateMavROS::stop()
 
 void NavigateMavROS::calculateCost()
 {
-    s_ROSModuleMessage teste;
-    strcpy(teste.topicName,"Move_base/Cost");
-    memmove(teste.buffer,(char*)&this->endPosition,sizeof(s_pose));
-    this->cost = sqrtf(pow(this->endPosition.x - this->startPosition.x, 2) + pow(this->endPosition.y - this->startPosition.y, 2) + pow(this->endPosition.z - this->startPosition.z, 2)) * this->costFactor;
+    // The UAVs cost will be calculated based on how long the battery holds the uav on air. This parameter was set inside the PX4 simulator.
+    this->calculateTime();
+    this->cost = (this->time.count()/1000) * this->costFactor;
 }
 
 void NavigateMavROS::calculateTime()
