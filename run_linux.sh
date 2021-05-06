@@ -10,4 +10,4 @@
 #cmake ..
 #make
 #cd ..
-./build/devel/lib/framework/framework --docroot . --http-address 0.0.0.0 --http-port 8080 --resources-dir=/usr/local/share/Wt/resources
+./build/devel/lib/framework/framework --docroot . --http-address 0.0.0.0 --http-port 8087 --resources-dir=/usr/local/share/Wt/resources
