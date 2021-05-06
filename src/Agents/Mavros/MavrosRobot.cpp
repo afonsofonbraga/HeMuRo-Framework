@@ -69,7 +69,7 @@ void MavrosRobot::decomposableTaskList()
     atomicTaskVector.push_back(enum_AtomicTask::goTo);
     atomicTaskVector.push_back(enum_AtomicTask::goToBasis);
     atomicTaskVector.push_back(enum_AtomicTask::land);
-    atomicTaskVector.push_back(enum_AtomicTask::disarm);
+    //atomicTaskVector.push_back(enum_AtomicTask::disarm);
     monitor->addDecomposableTaskList(dTask, atomicTaskVector);
     
     atomicTaskVector.clear();
@@ -77,13 +77,18 @@ void MavrosRobot::decomposableTaskList()
     atomicTaskVector.push_back(enum_AtomicTask::arm);
     atomicTaskVector.push_back(enum_AtomicTask::takeOff);
     atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
     atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
     atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
     atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
     atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
     atomicTaskVector.push_back(enum_AtomicTask::goToBasis);
     atomicTaskVector.push_back(enum_AtomicTask::land);
-    atomicTaskVector.push_back(enum_AtomicTask::disarm);
+    //atomicTaskVector.push_back(enum_AtomicTask::disarm);
     monitor->addDecomposableTaskList(dTask, atomicTaskVector);
     
     atomicTaskVector.clear();
@@ -94,7 +99,7 @@ void MavrosRobot::decomposableTaskList()
     atomicTaskVector.push_back(enum_AtomicTask::takePicture);
     atomicTaskVector.push_back(enum_AtomicTask::goToBasis);
     atomicTaskVector.push_back(enum_AtomicTask::land);
-    atomicTaskVector.push_back(enum_AtomicTask::disarm);
+    //atomicTaskVector.push_back(enum_AtomicTask::disarm);
     monitor->addDecomposableTaskList(dTask, atomicTaskVector);
     
     atomicTaskVector.clear();
@@ -108,11 +113,16 @@ void MavrosRobot::decomposableTaskList()
     atomicTaskVector.push_back(enum_AtomicTask::arm);
     atomicTaskVector.push_back(enum_AtomicTask::takeOff);
     atomicTaskVector.push_back(enum_AtomicTask::goToBasis);
-    atomicTaskVector.push_back(enum_AtomicTask::land);
+    //atomicTaskVector.push_back(enum_AtomicTask::land);
     atomicTaskVector.push_back(enum_AtomicTask::disarm);
     
     monitor->addDecomposableTaskList(dTask, atomicTaskVector);
     
+    atomicTaskVector.clear();
+    dTask = enum_DecomposableTask::emergencyLanding;
+    atomicTaskVector.push_back(enum_AtomicTask::land);
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+
     atomicTaskVector.clear();
     dTask = enum_DecomposableTask::flightTest;
     atomicTaskVector.push_back(enum_AtomicTask::arm);

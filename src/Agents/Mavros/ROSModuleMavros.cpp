@@ -18,11 +18,17 @@ ROSModuleMavros::ROSModuleMavros(Blackboard *monitor,ros::NodeHandle& vNode): Mo
     std::string topic = "/mavros/state";
     subscribersList["mavros/state"] = node.subscribe<mavros_msgs::State>(topic, 10, &ROSModuleMavros::state_cb, this);
     
-    topic = "/mavros/local_position/pose";
-    subscribersList["/mavros/local_position/pose"] = node.subscribe<geometry_msgs::PoseStamped>(topic, 10, &ROSModuleMavros::pose_cb, this);
+    /*topic = "/mavros/local_position/pose";
+    subscribersList["/mavros/local_position/pose"] = node.subscribe<geometry_msgs::PoseStamped>(topic, 10, &ROSModuleMavros::pose_cb, this);*/
+
+    topic = "/mavros/global_position/local";
+    subscribersList["/mavros/global_position/local"] = node.subscribe<nav_msgs::Odometry>(topic, 10, &ROSModuleMavros::pose_cb2,this);
     
     topic = "/mavros/global_position/compass_hdg";
     subscribersList["/mavros/global_position/compass_hdg"] = node.subscribe<std_msgs::Float64>(topic, 10, &ROSModuleMavros::heading_cb, this);
+
+    topic = "/mavros/battery";
+    subscribersList["/mavros/battery"] = node.subscribe<sensor_msgs::BatteryState>(topic, 10, &ROSModuleMavros::battery, this);
     
     // Publishers
     topic = "mavros/setpoint_raw/local";
@@ -45,6 +51,12 @@ void ROSModuleMavros::state_cb(const mavros_msgs::State::ConstPtr& msg)
     this->current_state = *msg;
     bool connected = current_state.connected;
     bool armed = current_state.armed;
+}
+
+// Battery callback
+void ROSModuleMavros::battery(const sensor_msgs::BatteryState::ConstPtr& msg)
+{
+    this->monitor->setBatteryLevel(msg->percentage*100);
 }
 
 //get current position of drone
@@ -74,11 +86,43 @@ void ROSModuleMavros::pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg)
     pose.yaw = tt.response.yaw;
     this->monitor->setPosition(pose);
 }
-// void pose_cb(const nav_msgs::Odometry::ConstPtr& msg)
-// {
-//  current_pose = *msg;
-//  ROS_INFO("x: %f y: %f z: %f", current_pose.pose.pose.position.x, current_pose.pose.pose.position.y, current_pose.pose.pose.position.z);
-// }
+
+ void ROSModuleMavros::pose_cb2(const nav_msgs::Odometry::ConstPtr& msg)
+ {
+  //current_pose = *msg;
+    //ROS_INFO("x: %f y: %f z: %f", msg->pose.pose.position.x, msg->pose.pose.position.y, msg->pose.pose.position.z);
+  //ROS_INFO("TurtleBot Position: [%f, %f, %f]", msg->x,msg->y,msg->theta);
+    s_pose pose;
+    
+    /*
+     pose.x = msg->twist.twist.linear.x;
+     pose.y = msg->twist.twist.linear.y;
+     pose.z = msg->twist.twist.linear.z;
+     pose.roll = msg->twist.twist.angular.x;
+     pose.pitch = msg->twist.twist.angular.y;
+     pose.yaw = msg->twist.twist.angular.z;
+     */
+    pose.x = msg->pose.pose.position.x;
+    pose.y = msg->pose.pose.position.y;
+    pose.z = msg->pose.pose.position.z;
+    
+    tf::Quaternion q(
+                     msg->pose.pose.orientation.x,
+                     msg->pose.pose.orientation.y,
+                     msg->pose.pose.orientation.z,
+                     msg->pose.pose.orientation.w);
+    
+    tf::Matrix3x3 m(q);
+    
+    double roll, pitch, yaw;
+    m.getRPY(roll, pitch, yaw);
+    
+    pose.roll = roll;
+    pose.pitch = pitch;
+    pose.yaw = yaw;
+    
+    this->monitor->setPosition(pose);
+ }
 
 
 //get compass heading
@@ -91,7 +135,7 @@ void ROSModuleMavros::heading_cb(const std_msgs::Float64::ConstPtr& msg)
     pose.y = this->current_pose.pose.position.x;
     pose.z = this->current_pose.pose.position.z;
     pose.yaw = this->current_heading.data;
-    this->monitor->setPosition(pose);
+    //this->monitor->setPosition(pose);
 }
 
 //set orientation of the drone (drone should always be level)
@@ -197,10 +241,8 @@ void ROSModuleMavros::run()
             tt.request.speed = 1;
             tt.request.frame_id = "map";
             tt.request.auto_arm = true;
-            
             if (nav_client.call(tt) && tt.response.success){
-                ROS_INFO("VAAAAI DEMOIN %d", tt.response.success);
-                ROS_INFO("Navigate to x %d y %d z %d", vPose.x,vPose.y,vPose.z);
+                ROS_INFO("Taking Off %d", tt.response.success);
             } else
             {
                 ROS_ERROR("Failed Takeoff");

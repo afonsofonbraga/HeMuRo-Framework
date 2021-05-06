@@ -23,7 +23,9 @@
 
 #include "ros/ros.h"
 #include <ros/duration.h>
-//#include <nav_msgs/Odometry.h>
+#include <nav_msgs/Odometry.h>
+#include <sensor_msgs/BatteryState.h>
+#include <tf/tf.h>
 #include "std_msgs/Float64.h"
 #include <geometry_msgs/Pose2D.h>
 #include <geometry_msgs/PoseStamped.h>
@@ -54,7 +56,9 @@ protected:
     float GYM_OFFSET;
     void state_cb(const mavros_msgs::State::ConstPtr& msg);
     void pose_cb(const geometry_msgs::PoseStamped::ConstPtr& msg);
+    void pose_cb2(const nav_msgs::Odometry::ConstPtr& msg);
     void heading_cb(const std_msgs::Float64::ConstPtr& msg);
+    void battery(const sensor_msgs::BatteryState::ConstPtr& msg);
     
     void setDestination(float x, float y, float z);
     void setHeading(float heading);
