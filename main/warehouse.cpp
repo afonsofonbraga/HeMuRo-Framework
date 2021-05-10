@@ -125,7 +125,8 @@ int main( int argc, char *argv[ ] )
 #endif
     
     std::vector<std::string> robots;
-    robots.push_back("uav1");
+    robots.push_back("mavros");
+    robots.push_back("afrodite");
     
     for (int i = 0; i < robots.size(); i++)
     {
@@ -135,6 +136,7 @@ int main( int argc, char *argv[ ] )
         receiver->addRobot(v_Blackboard.at(i + defaultAgents));
         decentralizedCommunication = false;
 #ifndef DEFAULT
+
         if(i%2 == 0)
         {
             MavrosRobot* robot = new MavrosRobot(v_Blackboard.at(i + defaultAgents), n, decentralizedCommunication);
@@ -191,7 +193,7 @@ int main( int argc, char *argv[ ] )
         
         v_Blackboard.at(1)->addUDPMessage(message);
     }*/
-    for(int times = 1 ; times < 5; times++ )
+    for(int times = 1 ; times < 2; times++ )
     {
         std::string m = "Inspect"+ std::to_string(times);
         strcpy(mission.missionCode, m.c_str());
@@ -235,6 +237,33 @@ int main( int argc, char *argv[ ] )
         
         v_Blackboard.at(1)->addUDPMessage(message);
     }
+
+    std::string m = "Small2";
+     strcpy(mission.missionCode, m.c_str());
+     mission.operation = enum_MissionOperation::createMission;
+     mission.taskToBeDecomposed = enum_DecomposableTask::deliverSmallSample;
+     mission.robotCat = enum_RobotCategory::ugv;
+     mission.numberOfAttributes = 2;
+     int total = 4;
+     *((int*) (mission.attributesBuffer + total)) = sizeof(s_pose);
+     total += 4;
+     memcpy(mission.attributesBuffer + total, &corredor_01, sizeof(s_pose));
+     total += sizeof(s_pose);
+     *((int*) (mission.attributesBuffer + total)) = sizeof(s_pose);
+     total += 4;
+     memcpy(mission.attributesBuffer + total, &area_02, sizeof(s_pose));
+     total += sizeof(s_pose);
+     *((int*) (mission.attributesBuffer)) = total;
+     
+     mission.relativeDeadline = std::chrono::seconds(180);
+     
+     memcpy(message.buffer,"CStation1",10);
+     *((Operation*)(message.buffer + 10)) = operation;
+     *((int*)(message.buffer + 14)) = sizeof(mission);
+     memmove(message.buffer+18,(const unsigned char*)&mission,sizeof(mission));
+     message.messageSize = sizeof(message.buffer);
+     
+     v_Blackboard.at(1)->addUDPMessage(message);
     
     /*
      for(int times = 1 ; times < 5; times++ )
