@@ -117,28 +117,40 @@ bool DefaultRobot::addAtomicTask(MissionExecution& vMissionDecomposable)
 void DefaultRobot::decomposableTaskList()
 {
     
-    std::vector<enum_AtomicTask> teste;
-    teste.push_back(enum_AtomicTask::goTo);
-    enum_DecomposableTask lala = enum_DecomposableTask::checkPosition;
-    monitor->addDecomposableTaskList(lala, teste);
+    std::vector<enum_AtomicTask> atomicTaskVector;
+    enum_DecomposableTask dTask = enum_DecomposableTask::null;
+
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::chargeBattery);
+    dTask = enum_DecomposableTask::lowBattery;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::pickUpSample);
+    atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::dropOffSample);
+    dTask = enum_DecomposableTask::deliverSmallSample;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::pickUpSample);
+    atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::dropOffSample);
+    dTask = enum_DecomposableTask::deliverBigSample;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
+
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::takePicture);
+    dTask = enum_DecomposableTask::inspectPlace;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
     
-    teste.clear();
-    teste.push_back(enum_AtomicTask::goTo);
-    teste.push_back(enum_AtomicTask::takePicture);
-    teste.push_back(enum_AtomicTask::goTo);
-    lala = enum_DecomposableTask::deliverPicture;
-    monitor->addDecomposableTaskList(lala, teste);
-    
-    teste.clear();
-    teste.push_back(enum_AtomicTask::goTo);
-    teste.push_back(enum_AtomicTask::takePicture);
-    lala = enum_DecomposableTask::takePicture;
-    monitor->addDecomposableTaskList(lala, teste);
-    
-    teste.clear();
-    teste.push_back(enum_AtomicTask::goTo);
-    teste.push_back(enum_AtomicTask::chargeBattery);
-    lala = enum_DecomposableTask::lowBattery;
-    
-    monitor->addDecomposableTaskList(lala, teste);
+    atomicTaskVector.clear();
+    atomicTaskVector.push_back(enum_AtomicTask::goTo);
+    atomicTaskVector.push_back(enum_AtomicTask::measureTemperature);
+    dTask = enum_DecomposableTask::measureTemperature;
+    monitor->addDecomposableTaskList(dTask, atomicTaskVector);
 }

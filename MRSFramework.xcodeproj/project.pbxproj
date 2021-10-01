@@ -66,6 +66,7 @@
 		1B19D824260ECCD300449420 /* configure_linux.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure_linux.sh; sourceTree = "<group>"; };
 		1B19D825260ECDD900449420 /* configure_reverse.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure_reverse.sh; sourceTree = "<group>"; };
 		1B2A1C81262CB05600DE5D0B /* results */ = {isa = PBXFileReference; lastKnownFileType = folder; path = results; sourceTree = "<group>"; };
+		1B41A37F26559FCF00F4F2CB /* hospital.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hospital.cpp; sourceTree = "<group>"; };
 		1B6DC887260FE24000001017 /* build */ = {isa = PBXFileReference; lastKnownFileType = folder; path = build; sourceTree = "<group>"; };
 		1B6DC888260FE24000001017 /* logs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = logs; sourceTree = "<group>"; };
 		1B6DC889260FE24000001017 /* results */ = {isa = PBXFileReference; lastKnownFileType = folder; path = results; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 		1B9BC2FB263C5152001AECFA /* DisarmMavROS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DisarmMavROS.hpp; sourceTree = "<group>"; };
 		1B9D087A260EBBAC008AC122 /* configure_osx.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure_osx.sh; sourceTree = "<group>"; };
 		1BA2D4F8262DD29800CBCBE3 /* libwttest.4.5.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwttest.4.5.0.dylib; path = ../wt/build/src/libwttest.4.5.0.dylib; sourceTree = "<group>"; };
+		1BE6DB562652F27D009808C4 /* P3DX */ = {isa = PBXFileReference; lastKnownFileType = folder; path = P3DX; sourceTree = "<group>"; };
 		1BF025BD260E587C00251774 /* libwt.4.5.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwt.4.5.0.dylib; path = ../wt/build/src/libwt.4.5.0.dylib; sourceTree = "<group>"; };
 		1BF025C1260E589D00251774 /* libwthttp.4.5.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwthttp.4.5.0.dylib; path = ../wt/build/src/http/libwthttp.4.5.0.dylib; sourceTree = "<group>"; };
 		23103C732552356D0075C543 /* WebApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WebApp.cpp; sourceTree = "<group>"; };
@@ -576,6 +578,7 @@
 		23444C5F25B084E800768AC2 /* Agents */ = {
 			isa = PBXGroup;
 			children = (
+				1BE6DB562652F27D009808C4 /* P3DX */,
 				2345667124CF262400B28F87 /* Turtlebot */,
 				23F0BD4524F54A75003194C1 /* Mavros */,
 				23965EA825012CF700F6E7A5 /* ChargingStation */,
@@ -1230,6 +1233,7 @@
 		23D20B3E245C705C0013F98A /* main */ = {
 			isa = PBXGroup;
 			children = (
+				1B41A37F26559FCF00F4F2CB /* hospital.cpp */,
 				236F9D562640A31000D90993 /* mainclean.cpp */,
 				2382EF7D25D6CFE20083FD32 /* speedTest.cpp */,
 				23D20B3F245C705C0013F98A /* CMakeLists.txt */,

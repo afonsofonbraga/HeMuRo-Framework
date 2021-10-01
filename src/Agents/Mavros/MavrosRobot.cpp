@@ -113,7 +113,7 @@ void MavrosRobot::decomposableTaskList()
     atomicTaskVector.push_back(enum_AtomicTask::arm);
     atomicTaskVector.push_back(enum_AtomicTask::takeOff);
     atomicTaskVector.push_back(enum_AtomicTask::goToBasis);
-    //atomicTaskVector.push_back(enum_AtomicTask::land);
+    atomicTaskVector.push_back(enum_AtomicTask::land);
     atomicTaskVector.push_back(enum_AtomicTask::disarm);
     
     monitor->addDecomposableTaskList(dTask, atomicTaskVector);
